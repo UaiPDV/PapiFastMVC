@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\codigo\\PapiFast\\BixWeb\\BixWeb\\BixWeb.csproj": {}
+    "C:\\Users\\Alexs\\source\\repos\\UaiPDV\\PapiFastMVC\\BixWeb.csproj": {}
   },
   "projects": {
-    "D:\\codigo\\PapiFast\\BixWeb\\BixWeb\\BixWeb.csproj": {
+    "C:\\Users\\Alexs\\source\\repos\\UaiPDV\\PapiFastMVC\\BixWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\codigo\\PapiFast\\BixWeb\\BixWeb\\BixWeb.csproj",
+        "projectUniqueName": "C:\\Users\\Alexs\\source\\repos\\UaiPDV\\PapiFastMVC\\BixWeb.csproj",
         "projectName": "BixWeb",
-        "projectPath": "D:\\codigo\\PapiFast\\BixWeb\\BixWeb\\BixWeb.csproj",
-        "packagesPath": "C:\\Users\\pedro\\.nuget\\packages\\",
-        "outputPath": "D:\\codigo\\PapiFast\\BixWeb\\BixWeb\\obj\\",
+        "projectPath": "C:\\Users\\Alexs\\source\\repos\\UaiPDV\\PapiFastMVC\\BixWeb.csproj",
+        "packagesPath": "C:\\Users\\Alexs\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Alexs\\source\\repos\\UaiPDV\\PapiFastMVC\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\pedro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Alexs\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -146,7 +146,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
