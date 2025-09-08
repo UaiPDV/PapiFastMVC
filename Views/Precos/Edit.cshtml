@@ -1,0 +1,109 @@
+﻿@model BixWeb.Models.Preco
+
+@{
+    ViewData["Title"] = "Editar Produto";
+}
+
+<!-- Cabeçalho da Página de Formulário -->
+<div class="form-page-header">
+    <a asp-action="Index" asp-route-id="@Model.codFilial" class="form-back-link">
+        <i class="bi bi-arrow-left-circle fs-2"></i>
+    </a>
+    <h1 class="form-page-title">@ViewData["Title"]</h1>
+</div>
+
+<!-- Card Principal do Formulário -->
+<div class="form-main-card">
+    <form asp-action="Edit" enctype="multipart/form-data" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="codPreco" />
+        <input type="hidden" asp-for="codFilial" />
+        <input type="hidden" asp-for="Produto.imagem" />
+
+        <div class="form-grid">
+            <!-- Coluna Principal -->
+            <div class="form-main-column">
+                <h2 class="form-section-title">Informações do Produto</h2>
+                <p class="form-section-subtitle">Atualize os detalhes do produto.</p>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="Produto.nomeProduto" class="form-label required">Nome do Produto</label>
+                        <input asp-for="Produto.nomeProduto" class="form-control" />
+                        <span asp-validation-for="Produto.nomeProduto" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Produto.codCategoria" class="form-label required">Categoria</label>
+                        <select asp-for="Produto.codCategoria" class="form-select" asp-items="ViewBag.codCategoria"></select>
+                        <span asp-validation-for="Produto.codCategoria" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-12">
+                        <label asp-for="Produto.descricaoDetalhada" class="form-label">Descrição Detalhada</label>
+                        <textarea asp-for="Produto.descricaoDetalhada" rows="4" class="form-control"></textarea>
+                        <span asp-validation-for="Produto.descricaoDetalhada" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="valor" class="form-label required">Valor (R$)</label>
+                        <input asp-for="valor" class="form-control" />
+                        <span asp-validation-for="valor" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna Lateral -->
+            <div class="form-side-column">
+                 <h2 class="form-section-title">Imagem do Produto</h2>
+                <div class="image-upload-group">
+                    <div class="image-uploader @(string.IsNullOrEmpty(Model.Produto.imagem) ? "" : "has-image")" 
+                         id="imageUploader" 
+                         style="background-image: url('@Model.Produto.imagem')">
+                        <input type="file" name="imagemProduto" accept=".png, .jpg, .jpeg" class="image-input" />
+                        <div class="uploader-content">
+                             <i class="bi bi-cloud-arrow-up fs-1 text-muted"></i>
+                            <span class="uploader-text">Clique para alterar</span>
+                             <span class="uploader-hint fs-7 text-muted">PNG, JPG ou JPEG</span>
+                        </div>
+                    </div>
+                     <div class="text-muted fs-7 mt-2">
+                        Dimensão recomendada: 280 × 336 (proporção 5:6).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="form-action-buttons">
+            <a asp-action="Index" asp-route-id="@Model.codFilial" class="btn btn-light">Cancelar</a>
+            <button type="submit" class="btn btn-primary d-flex align-items-center">
+                <i class="bi bi-check-circle me-2"></i>
+                Atualizar Produto
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lógica para preview da imagem
+            const uploader = document.getElementById('imageUploader');
+            const input = uploader.querySelector('.image-input');
+            input.addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        uploader.style.backgroundImage = `url('${e.target.result}')`;
+                        uploader.classList.add('has-image');
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Remove validação numérica para permitir vírgula
+            document.querySelectorAll('input[data-val-number]').forEach(input => {
+                input.removeAttribute('data-val-number');
+            });
+        });
+    </script>
+}

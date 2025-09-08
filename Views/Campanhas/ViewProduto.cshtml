@@ -1,0 +1,80 @@
+﻿@model IEnumerable<BixWeb.Models.Preco>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-warning mt-4">
+        <i class="bi bi-info-circle-fill me-2"></i>
+        Não há produtos para exibir para a filial selecionada ou a filial não foi encontrada.
+    </div>
+}
+else
+{
+    <h3 class="h5 mb-4 fw-semibold mt-4 pt-4 border-top">2. Selecione os Produtos</h3>
+    <div class="mb-3">
+        <input type="search" id="product-search" class="form-control" placeholder="&#xF52A; Buscar Produto..." style="font-family: 'Inter', 'Bootstrap-Icons';">
+    </div>
+
+    <!-- Container com a barra de rolagem -->
+    <div class="product-list-scroll">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle" id="products-table">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 5%;">
+                            <input class="form-check-input" type="checkbox" id="selectAllProducts">
+                        </th>
+                        <th scope="col" colspan="2">Produto</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Preço Promocional</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int count = 0;
+                    }
+                    @foreach (var preco in Model)
+                    {
+                        <tr>
+                            <td>
+                                <input class="form-check-input product-checkbox" value="@preco.codProduto" name="ProdutoCampanha[@count].codProduto" type="checkbox">
+                            </td>
+                            <td style="width: 70px;">
+                                <img src="@preco.Produto.imagem" alt="@preco.Produto.nomeProduto" class="product-img" onerror="this.onerror=null;this.src='https://placehold.co/100x100/CCCCCC/FFFFFF?text=Img';">
+                            </td>
+                            <td>
+                                <div class="fw-bold">@preco.Produto.nomeProduto</div>
+                            </td>
+                            <td>@preco.Produto.Categoria.nome</td>
+                            <td style="width: 150px;">
+                               <div class="input-group">
+                                   <span class="input-group-text">R$</span>
+                                   <input type="text" class="form-control" value="@preco.valor.ToString("F2")" name="ProdutoCampanha[@count].valor">
+                               </div>
+                            </td>
+                        </tr>
+                        count++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+<script>
+    // Script para a funcionalidade de "Selecionar Todos" e busca na tabela
+    // Este script será carregado junto com a partial view
+    $(document).ready(function() {
+        // Selecionar/desselecionar todos os checkboxes
+        $("#selectAllProducts").click(function () {
+            $(".product-checkbox").prop('checked', $(this).prop('checked'));
+        });
+
+        // Lógica de busca na tabela
+        $("#product-search").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#products-table tbody tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

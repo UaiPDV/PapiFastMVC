@@ -1,0 +1,15 @@
+@{
+    ViewData["Title"] = "Presentes";
+}
+
+@if (ViewData["presente"] != null)
+{
+    <div class="alert alert-success">
+        @ViewData["presente"]
+    </div>
+    <a asp-action="Create" asp-route-id="@ViewBag.codConvite">Adicionar Presente</a>
+}
+else
+{
+    
+}

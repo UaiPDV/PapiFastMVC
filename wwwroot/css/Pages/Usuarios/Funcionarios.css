@@ -1,0 +1,360 @@
+/* Importação da fonte Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Variáveis de Cor */
+:root {
+    --primary-color: #f98303;
+    --primary-color-dark: #e07503;
+    --background-color: #f8f9fa;
+    --surface-color: #ffffff;
+    --text-color-primary: #1f2937;
+    --text-color-secondary: #6b7280;
+    --border-color: #e5e7eb;
+    --border-color-dark: #d1d5db;
+    --danger-color: #ef4444;
+    --danger-color-hover: #dc2626;
+
+    --status-active-bg: #d1fae5; /* green-100 */
+    --status-active-text: #065f46; /* green-800 */
+    --status-inactive-bg: #fee2e2; /* red-100 */
+    --status-inactive-text: #991b1b; /* red-800 */
+    --status-role-bg: #e0e7ff; /* indigo-100 */
+    --status-role-text: #3730a3; /* indigo-800 */
+}
+
+/* Estilos Globais e Layout */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color-primary);
+}
+
+.content-area {
+    padding: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.page-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+}
+
+/* Botões */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    font-size: 0.875rem;
+}
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+.btn-primary:hover {
+    background-color: var(--primary-color-dark);
+    border-color: var(--primary-color-dark);
+}
+.btn-secondary {
+    background-color: var(--surface-color);
+    color: var(--text-color-primary);
+    border-color: var(--border-color-dark);
+}
+.btn-secondary:hover {
+    background-color: #f9fafb;
+}
+.btn-danger {
+    background-color: var(--danger-color);
+    color: white;
+    border-color: var(--danger-color);
+}
+.btn-danger:hover {
+    background-color: var(--danger-color-hover);
+    border-color: var(--danger-color-hover);
+}
+
+/* Filtros */
+.filters-container {
+    background-color: var(--surface-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+    margin-bottom: 1.5rem;
+}
+.search-wrapper {
+    position: relative;
+}
+.search-input {
+    width: 100%;
+    max-width: 400px;
+    height: 38px;
+    padding-left: 2.5rem; 
+    border: 1px solid var(--border-color-dark);
+    border-radius: 0.5rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.search-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(249, 131, 3, 0.3);
+}
+.search-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-color-secondary);
+}
+
+/* Tabela */
+.table-wrapper {
+    background-color: var(--surface-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    overflow: visible;
+}
+.table {
+    width: 100%;
+    text-align: left;
+    font-size: 0.875rem;
+    color: var(--text-color-secondary);
+}
+.table th {
+    padding: 0.75rem 1.5rem;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    background-color: #f9fafb;
+    color: #374151;
+}
+.table td {
+    padding: 1rem 1.5rem;
+    color: var(--text-color-primary);
+    vertical-align: middle;
+}
+.table-row {
+    background-color: var(--surface-color);
+    border-bottom: 1px solid var(--border-color);
+}
+.table-row:hover {
+    background-color: #f9fafb;
+}
+.text-center { text-align: center; }
+
+/* Célula de Informação do Usuário */
+.user-info-cell {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.avatar-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--danger-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1rem;
+}
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+.user-name {
+    font-weight: 500;
+    color: var(--text-color-primary);
+}
+.user-email {
+    font-size: 0.8rem;
+    color: var(--text-color-secondary);
+}
+
+
+/* Badges de Status */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 9999px;
+}
+.status-active {
+    background-color: var(--status-active-bg);
+    color: var(--status-active-text);
+}
+.status-inactive {
+    background-color: var(--status-inactive-bg);
+    color: var(--status-inactive-text);
+}
+.status-role {
+    background-color: var(--status-role-bg);
+    color: var(--status-role-text);
+}
+
+/* Menu de Ações */
+.action-menu-container {
+    position: relative;
+    display: inline-block;
+}
+.action-menu-button {
+    background-color: #e5e7eb;
+    color: #374151;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.action-menu-button:hover {
+    background-color: var(--border-color-dark);
+}
+.action-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    margin-top: 0.5rem;
+    width: 12rem;
+    background-color: var(--surface-color);
+    border-radius: 0.375rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    z-index: 10;
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 0;
+}
+.action-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    color: var(--text-color-primary);
+    text-decoration: none;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+.action-menu-item:hover {
+    background-color: #f3f4f6;
+}
+.action-menu-item.danger {
+    color: var(--danger-color);
+}
+.action-menu-item.danger:hover {
+    background-color: #fee2e2;
+}
+
+/* Paginação */
+.pagination-container {
+    padding: 1.5rem 0 0;
+    display: flex;
+    justify-content: flex-end;
+}
+.pagination-wrapper, .pagination {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.5rem;
+}
+.page-item .page-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    color: var(--text-color-secondary);
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+.page-item .page-link:hover {
+    background-color: #f3f4f6;
+}
+.page-item.active .page-link {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+.page-item.disabled .page-link {
+    color: var(--border-color-dark);
+    cursor: not-allowed;
+}
+
+/* Modal */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.popup-content {
+    background-color: var(--surface-color);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+.popup-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+.popup-content p {
+    color: var(--text-color-secondary);
+    margin-bottom: 1.5rem;
+}
+.popup-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Utilitários */
+.hidden { display: none; }
+.no-data-container {
+    text-align: center;
+    padding: 4rem 1rem;
+    background-color: var(--surface-color);
+    border-radius: 0.75rem;
+}
+.no-data-container h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color-primary);
+    margin-bottom: 1.5rem;
+}

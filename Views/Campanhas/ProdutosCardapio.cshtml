@@ -1,0 +1,186 @@
+﻿@model IEnumerable<BixWeb.Models.ProdutoCampanha>
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Seleção de Produtos para o Cardápio";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/Campanhas/produtocardapio.css" asp-append-version="true" />
+}
+
+@if (ViewData["produto"] != null)
+{
+    <div class="d-flex flex-column justify-content-center align-items-center vh-100 text-center">
+        <h1>@ViewData["produto"]</h1>
+    </div>
+}
+else
+{
+    <form asp-action="ProdutosCardapio" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="tipo" value="@ViewBag.Tipo" />
+        <input type="hidden" name="id" value="@ViewBag.Id" />
+        <input type="hidden" name="formato" value="@ViewBag.Formato" />
+
+        <!-- Cabeçalho da Página Padronizado -->
+        <div class="page-header">
+            <div class="page-header-content">
+                <h1>@ViewData["Title"]</h1>
+                <p class="page-subtitle">Escolha os produtos que irão compor o cardápio.</p>
+            </div>
+            <div class="d-flex gap-2">
+                 <label for="logoCardapio" class="btn btn-outline-primary d-flex align-items-center">
+                    <i class="bi bi-paperclip me-2"></i>
+                    Anexar Anúncios
+                </label>
+                <input id="logoCardapio" name="Anuncios" type="file" accept="image/*" multiple="multiple" class="d-none">
+                <button type="submit" onclick="showLoading()" class="btn btn-primary-action">
+                    <i class="bi bi-file-earmark-arrow-down-fill me-2"></i>
+                    Gerar Cardápio
+                </button>
+            </div>
+        </div>
+
+        <!-- Filtros e Pesquisa -->
+        <div class="filter-bar">
+            <div class="filter-controls">
+                <div class="search-wrapper">
+                    <label class="filter-label">Pesquisar Produto</label>
+                    <div class="search-container">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="search" id="pesquisar" class="form-control search-input" placeholder="Buscar Produto...">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Produtos -->
+        <div class="table-wrapper">
+            <div class="table-responsive">
+                <table class="table align-middle products-table">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 5%;">
+                                <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#products-table .item-checkbox">
+                            </th>
+                            <th style="width: 50%;">Produto</th>
+                            <th class="text-end" style="width: 25%;">Categoria</th>
+                            <th class="text-end" style="width: 20%;">Preço</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-table">
+                        @{
+                            int count = 0;
+                        }
+                        @foreach (var preco in Model)
+                        {
+                            <tr class="product-row">
+                                <td data-label="Selecionar" class="text-center">
+                                    <input class="form-check-input item-checkbox" value="@preco.codProduto" name="ProdutoCampanha[@count].codProduto" type="checkbox">
+                                </td>
+                                <td data-label="Produto">
+                                    <div class="d-flex align-items-center">
+                                        <div class="symbol symbol-50px me-3">
+                                            <img src="@preco.Produto.imagem" alt="@preco.Produto.nomeProduto" class="product-img" onerror="this.onerror=null;this.src='https://placehold.co/50x50/f9fafb/6c757d?text=Img'" />
+                                        </div>
+                                        <div class="product-details">
+                                            <span class="product-name">@preco.Produto.nomeProduto</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-label="Categoria" class="text-end product-category">
+                                    @preco.Produto.Categoria.nome
+                                </td>
+                                <td data-label="Preço" class="text-end product-price">
+                                    @preco.valor.ToString("C", new CultureInfo("pt-BR"))
+                                    <input type="hidden" value="@preco.valor" name="ProdutoCampanha[@count].valor" class="valor-input" disabled>
+                                </td>
+                            </tr>
+                            count++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+
+    <!-- Overlay de Carregamento -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner-border text-light" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="loading-text">Gerando arquivo, por favor aguarde...</p>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        let downloadInProgress = false;
+        
+        function showLoading() {
+            // Verifica se já existe um download em andamento para evitar múltiplos cliques
+            if (downloadInProgress) {
+                console.warn("A geração do cardápio já está em andamento.");
+                return;
+            };
+            
+            downloadInProgress = true;
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            
+            // Define um tempo máximo para o overlay, garantindo que ele não fique na tela indefinidamente
+            setTimeout(() => {
+                if (downloadInProgress) { // Apenas esconde se o processo ainda estiver "ativo"
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                    downloadInProgress = false;
+                    console.log("Overlay removido por tempo limite.");
+                }
+            }, 8000); // Aumentado para 8 segundos para dar mais margem ao servidor
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('pesquisar');
+            const tableRows = document.querySelectorAll('#products-table tr.product-row');
+            const selectAllCheckbox = document.querySelector('[data-kt-check="true"]');
+            const itemCheckboxes = document.querySelectorAll('#products-table .item-checkbox');
+
+            // --- PONTO DA CORREÇÃO ---
+            // Função para sincronizar o estado do input de valor com o seu checkbox.
+            // Um input desabilitado (`disabled`) não é enviado com o formulário.
+            function syncValorInputState(checkbox) {
+                const row = checkbox.closest('tr'); // Pega a linha da tabela onde o checkbox está
+                const valorInput = row.querySelector('.valor-input'); // Acha o input de valor na mesma linha
+                if (valorInput) {
+                    valorInput.disabled = !checkbox.checked; // Habilita se checado, desabilita se não checado
+                }
+            }
+
+            // Lógica de Busca
+            searchInput.addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+                tableRows.forEach(row => {
+                    const productName = row.querySelector('.product-name')?.textContent.toLowerCase() || '';
+                    row.style.display = productName.includes(searchTerm) ? '' : 'none';
+                });
+            });
+
+            // Lógica para cada checkbox individual
+            itemCheckboxes.forEach(checkbox => {
+                // Sincroniza o estado inicial (garante que todos comecem desabilitados)
+                syncValorInputState(checkbox);
+                // Adiciona o evento para futuras mudanças
+                checkbox.addEventListener('change', () => syncValorInputState(checkbox));
+            });
+
+            // Lógica para "Selecionar Todos"
+            selectAllCheckbox.addEventListener('change', function () {
+                itemCheckboxes.forEach(checkbox => {
+                    checkbox.checked = this.checked;
+                    // Aplica a mesma lógica de habilitar/desabilitar para todos
+                    syncValorInputState(checkbox);
+                });
+            });
+        });
+    </script>
+}

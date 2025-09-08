@@ -1,0 +1,290 @@
+﻿@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<BixWeb.Models.Evento>
+
+@{
+    ViewData["Title"] = "Gestão de Eventos";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/Eventos/Lista.css" asp-append-version="true" />
+}
+
+<div id="events-page">
+    @if (ViewData["Error"] != null)
+    {
+        <div class="text-center d-flex flex-column justify-content-center" style="height: 70vh;">
+            <h2 class="display-6 fw-bold mb-4">@ViewData["Error"]</h2>
+            <a asp-action="Create" class="btn btn-primary-action btn-lg px-4 gap-3">
+                <i class="bi bi-plus-circle me-2"></i>
+                Adicionar Evento
+            </a>
+        </div>
+    }
+    else
+    {
+        <!-- Cabeçalho da Página Padronizado -->
+        <div class="page-header">
+            <div class="page-header-content">
+                <h1>@ViewData["Title"]</h1>
+                <p class="page-subtitle">Crie e gerencie os eventos da sua filial.</p>
+            </div>
+            <a asp-action="Create" class="btn btn-primary-action">
+                <i class="bi bi-plus-lg me-2"></i>
+                Adicionar Evento
+            </a>
+        </div>
+
+        <!-- Estatísticas dos Eventos -->
+        <div class="events-stats mb-4">
+            <div class="row g-3">
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-primary">
+                            <i class="bi bi-calendar-event"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.TotalItemCount</div>
+                            <div class="stat-label">Total de Eventos</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-success">
+                            <i class="bi bi-calendar-check"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Count(e => e.dataInicioEvento > DateTime.Now)</div>
+                            <div class="stat-label">Próximos Eventos</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-warning">
+                            <i class="bi bi-calendar-x"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Count(e => e.dataTerminoEvento < DateTime.Now)</div>
+                            <div class="stat-label">Eventos Passados</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-info">
+                            <i class="bi bi-ticket-detailed"></i>
+                        </div>
+                        <div class="stat-content">
+                            @* <div class="stat-number">@Model.Sum(e => e.Ingressos?.Count ?? 0)</div> *@
+                            <div class="stat-label">Ingressos Vendidos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros e Alternador de Visualização -->
+        <div class="filter-bar">
+            <div class="filter-bar-header">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-funnel text-muted"></i>
+                    <span class="filter-title">Filtros e Visualização</span>
+                </div>
+                <div class="view-toggle btn-group" role="group">
+                    <button type="button" id="cardViewBtn" class="btn btn-outline-secondary active" title="Visualização em Grade">
+                        <i class="bi bi-grid-3x3-gap-fill"></i>
+                    </button>
+                    <button type="button" id="listViewBtn" class="btn btn-outline-secondary" title="Visualização em Lista">
+                        <i class="bi bi-list-ul"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="filter-controls">
+                <form method="post" class="search-wrapper">
+                    <label class="filter-label">Pesquisar Evento</label>
+                    <div class="search-container">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" name="SearchString" placeholder="Buscar por nome, categoria ou tipo..." class="form-control search-input" value="@ViewBag.CurrentFilter" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Visualização em Cards -->
+        <div id="cardView">
+            <div class="card-grid">
+                @foreach (var evento in Model)
+                {
+                    <div class="event-card">
+                        <a asp-action="Details" asp-route-id="@evento.codEvento" class="card-main-link">
+                            <img src="@evento.bannerEvento" onerror="this.onerror=null; this.src='https://placehold.co/600x400/f98303/FFFFFF?text=Evento';" alt="Banner do Evento" class="card-img">
+                            <div class="card-content">
+                                <h3 class="card-title">@evento.nomeEvento</h3>
+                                <div class="card-info">
+                                    <i class="bi bi-calendar-range"></i>
+                                    <span>@evento.dataInicioEvento.ToString("dd/MM/yy") - @evento.dataTerminoEvento.ToString("dd/MM/yy")</span>
+                                </div>
+                                <p class="card-description">
+                                    @(evento.descricaoEvento != null && evento.descricaoEvento.Length > 90 ? evento.descricaoEvento.Substring(0, 90) + "..." : evento.descricaoEvento)
+                                </p>
+                            </div>
+                        </a>
+                        <div class="card-actions">
+                            <a asp-controller="Ingressos" asp-action="Index" asp-route-id="@evento.codEvento" class="btn btn-action-icon" title="Ingressos"><i class="bi bi-ticket-perforated"></i></a>
+                            <a asp-action="Edit" asp-route-id="@evento.codEvento" class="btn btn-action-icon" title="Editar Evento"><i class="bi bi-pencil-square"></i></a>
+                            <button class="btn btn-action-icon btn-action-danger" title="Excluir Evento" data-id="@evento.codEvento" id="deleteBtnCard-@evento.codEvento"><i class="bi bi-trash3"></i></button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Visualização em Lista -->
+        <div id="listView" class="hidden">
+            <div class="table-wrapper">
+                <table class="table events-table align-middle">
+                    <thead>
+                        <tr>
+                            <th class="event-col">Evento</th>
+                            <th class="date-col">Data</th>
+                            <th class="category-col">Categoria</th>
+                            <th class="type-col">Tipo</th>
+                            <th class="actions-col text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var evento in Model)
+                        {
+                            <tr class="clickable-row" data-href="@Url.Action("Details", new { id = evento.codEvento })">
+                                <td data-label="Evento">
+                                    <div class="event-info-cell">
+                                        <img src="@evento.bannerEvento" onerror="this.onerror=null; this.src='https://placehold.co/100x60/f98303/FFFFFF?text=Evento';" alt="Banner do Evento" class="event-list-img">
+                                        <span class="event-name">@evento.nomeEvento</span>
+                                    </div>
+                                </td>
+                                <td data-label="Data">@evento.dataInicioEvento.ToString("dd/MM/yyyy")</td>
+                                <td data-label="Categoria">@evento.categoriaEvento</td>
+                                <td data-label="Tipo">@evento.tipoEvento</td>
+                                <td data-label="Ações">
+                                    <div class="action-buttons">
+                                        <a asp-controller="Ingressos" asp-action="Index" asp-route-id="@evento.codEvento" class="btn btn-action-icon" title="Ingressos" onclick="event.stopPropagation();"><i class="bi bi-ticket-perforated"></i></a>
+                                        <a asp-action="Edit" asp-route-id="@evento.codEvento" class="btn btn-action-icon" title="Editar Evento" onclick="event.stopPropagation();"><i class="bi bi-pencil-square"></i></a>
+                                        <button class="btn btn-action-icon btn-action-danger" title="Excluir Evento" onclick="event.stopPropagation();" data-id="@evento.codEvento" id="deleteBtnList-@evento.codEvento"><i class="bi bi-trash3"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Paginação -->
+        @if (Model != null && Model.PageCount > 1)
+        {
+            <div class="pagination-wrapper">
+                 <div class="pagination-info">
+                    <span class="pagination-text">
+                        Mostrando @((Model.PageNumber - 1) * Model.PageSize + 1) até @(Math.Min(Model.PageNumber * Model.PageSize, Model.TotalItemCount)) de @Model.TotalItemCount eventos
+                    </span>
+                </div>
+                <div class="pagination-controls">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+                    {
+                        UlElementClasses = new[] { "pagination", "custom-pagination" },
+                        LiElementClasses = new[] { "page-item" },
+                        PageClasses = new[] { "page-link" },
+                        ActiveLiElementClass = "active"
+                    })
+                </div>
+            </div>
+        }
+    }
+</div>
+
+<!-- Modal de Exclusão Padronizado -->
+<div id="delete-popup" class="popup-confirm">
+    <div class="popup-confirm-content">
+        <div class="popup-icon">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+        </div>
+        <h4 class="popup-title">Confirmar Exclusão</h4>
+        <p class="popup-message">Tem certeza que deseja excluir este evento?</p>
+        <p class="popup-warning">Esta ação não pode ser desfeita.</p>
+        <div class="popup-actions">
+            <button class="btn btn-outline-secondary popup-btn-cancel" id="cancelBtn">
+                <i class="bi bi-x-lg me-2"></i>Cancelar
+            </button>
+            <button class="btn btn-danger popup-btn-confirm" id="confirmDeleteBtn">
+                <i class="bi bi-trash3-fill me-2"></i>Sim, excluir
+            </button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Toggle de Visualização ---
+            const cardViewBtn = document.getElementById('cardViewBtn');
+            const listViewBtn = document.getElementById('listViewBtn');
+            const cardView = document.getElementById('cardView');
+            const listView = document.getElementById('listView');
+            const hiddenClass = 'hidden';
+
+            cardViewBtn.addEventListener('click', () => {
+                cardView.classList.remove(hiddenClass);
+                listView.classList.add(hiddenClass);
+                cardViewBtn.classList.add('active');
+                listViewBtn.classList.remove('active');
+            });
+
+            listViewBtn.addEventListener('click', () => {
+                listView.classList.remove(hiddenClass);
+                cardView.classList.add(hiddenClass);
+                listViewBtn.classList.add('active');
+                cardViewBtn.classList.remove('active');
+            });
+
+            // --- Navegação da Tabela ---
+            document.querySelectorAll('.clickable-row').forEach(row => {
+                row.addEventListener('click', function() {
+                    window.location.href = this.dataset.href;
+                });
+            });
+
+            // --- Modal de Exclusão ---
+            const deletePopup = document.getElementById('delete-popup');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+            let eventIdToDelete = null;
+
+            function openDeletePopup(id) {
+                eventIdToDelete = id;
+                deletePopup.style.display = 'flex';
+            }
+
+            function closeDeletePopup() {
+                eventIdToDelete = null;
+                deletePopup.style.display = 'none';
+            }
+
+            function deletarEvento() {
+                if (eventIdToDelete) {
+                    console.log("Deletando evento com ID:", eventIdToDelete);
+                    // Adicionar lógica de exclusão aqui (ex: fetch para a API)
+                    closeDeletePopup();
+                }
+            }
+            
+            // Adiciona listeners para todos os botões de exclusão
+            document.querySelectorAll('[id^="deleteBtn"]').forEach(btn => {
+                btn.addEventListener('click', () => openDeletePopup(btn.dataset.id));
+            });
+
+            cancelBtn.addEventListener('click', closeDeletePopup);
+            confirmDeleteBtn.addEventListener('click', deletarEvento);
+        });
+    </script>
+}

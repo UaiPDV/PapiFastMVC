@@ -1,0 +1,192 @@
+﻿@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<BixWeb.Models.Ingresso>
+@using System.Globalization
+@inject BixWeb.Models.DbPrint _context // Adicionado: Injeta o acesso ao banco de dados
+
+@{
+    // --- PONTO DA CORREÇÃO ---
+    // Como o Controller não está carregando os dados completos do Evento,
+    // estamos buscando as informações diretamente aqui na View usando o ID do evento.
+    // A forma arquiteturalmente mais correta seria ajustar o Controller para incluir
+    // esses dados, mas esta abordagem resolve o problema sem modificar outros arquivos.
+    var eventoId = ViewBag.codEvento;
+    var evento = _context.Eventos.Find(Convert.ToInt32(eventoId));
+
+    var categoriaEvento = evento?.categoriaEvento ?? "";
+    var tipoEvento = evento?.tipoEvento ?? ""; // Corresponde ao tipo de local
+    var eventoGratuito = (evento?.eventoGratuito ?? false).ToString().ToLower();
+
+    // O título inicial é genérico e será sempre alterado pelo JavaScript.
+    ViewData["Title"] = "Ingressos";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/ingressos/index.css" asp-append-version="true" />
+}
+
+@* Elemento de Contexto Principal:
+    Este <div> agora receberá os dados corretos do evento,
+    permitindo que o script 'nomenclaturaInfo.js' funcione como esperado.
+*@
+<div id="tickets-page" data-categoria-evento="@categoriaEvento" data-tipo-evento="@tipoEvento" data-evento-gratuito="@eventoGratuito">
+    @if (ViewData["ingre"] != null)
+    {
+        <div class="text-center d-flex flex-column justify-content-center" style="height: 70vh;">
+            <h2 class="display-6 fw-bold mb-4">@ViewData["ingre"]</h2>
+        </div>
+    }
+    else
+    {
+        <!-- Cabeçalho da Página (Dinâmico) -->
+        <div class="page-header">
+            <div class="page-header-content">
+                @* Os spans com 'data-nomenclatura' são os alvos que o JS irá modificar. *@
+                <h1><span data-nomenclatura="ingressos">Ingressos</span> do Evento: <span class="text-primary">@ViewBag.Evento</span></h1>
+                <p class="page-subtitle">Gerencie os <span data-nomenclatura="ingressos">ingressos</span> disponíveis para este evento.</p>
+            </div>
+            @if (ViewBag.Venda > 0)
+            {
+                <a asp-action="Venda" asp-route-id="@ViewBag.codEvento" class="btn btn-primary-action">
+                    <i class="bi bi-cart-plus-fill me-2"></i>
+                    @* Os spans permitem que o JS altere cada parte do texto independentemente. *@
+                    <span data-nomenclatura="vendaAcao" style="margin-right: 0.25rem;">Vender</span><span data-nomenclatura="ingresso">Ingresso</span>
+                </a>
+            }
+        </div>
+
+        <!-- Filtros -->
+        <div class="filter-bar">
+            <div class="filter-controls">
+                <form method="post" class="search-wrapper">
+                    <label class="filter-label">Pesquisar</label>
+                    <div class="search-container">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" name="SearchString" placeholder="Pesquisar..." class="form-control search-input" value="@ViewBag.CurrentFilter" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tabela de Ingressos -->
+        <div class="table-wrapper">
+            <table class="table tickets-table align-middle">
+                <thead>
+                    <tr>
+                        <th><span data-nomenclatura="ingresso">Ticket</span></th>
+                        <th>Status</th>
+                        <th><span data-nomenclatura="tipoVendaHeader">Tipo de Venda</span></th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th class="text-center">Info</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="table-row">
+                            <td data-label="Ticket" class="font-mono">@item.ticketIngresso</td>
+                            <td data-label="Status">
+                                @if (item.tipoVendaIngresso == "Não vendido!")
+                                {
+                                    <span class="status-badge status-awaiting">Aguardando Venda</span>
+                                }
+                                else if (item.ativoIngresso)
+                                {
+                                    <span class="status-badge status-unused">Não Usado</span>
+                                }
+                                else
+                                {
+                                    <span class="status-badge status-used">Usado</span>
+                                }
+                            </td>
+                            <td data-label="Venda">
+                                <span class="status-badge status-sale-type">@item.tipoVendaIngresso</span>
+                            </td>
+                            <td data-label="Nome">@(string.IsNullOrEmpty(item.NomeIngresso) ? "----------" : item.NomeIngresso)</td>
+                            <td data-label="Email">@(string.IsNullOrEmpty(item.EmailIngresso) ? "----------" : item.EmailIngresso)</td>
+                            <td data-label="Info">
+                                <div class="action-buttons">
+                                    <div class="dropdown">
+                                        <button class="btn btn-action-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Mais opções">
+                                            <i class="bi bi-info-circle"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <div class="px-3 py-2 border-bottom">
+                                                <div class="fw-bold"><span data-nomenclatura="lote">Lote</span>: @item.Lote.numLote</div>
+                                                <div class="text-muted">Valor: @item.Lote.valorLote.ToString("C", new CultureInfo("pt-BR"))</div>
+                                            </div>
+                                            @if (item.tipoVendaIngresso != "Não vendido!")
+                                            {
+                                                @if (item.ReciboIngresso != null)
+                                                {
+                                                    <a asp-action="ReciboIngresso" asp-route-id="@item.ReciboIngresso.codReciboIngresso" class="dropdown-item">
+                                                        <i class="bi bi-receipt me-2"></i>Recibo
+                                                    </a>
+                                                }
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_email_@item.codIngresso" class="dropdown-item">
+                                                    <i class="bi bi-envelope me-2"></i>Enviar Email
+                                                </a>
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_whats_@item.codIngresso" class="dropdown-item">
+                                                    <i class="bi bi-whatsapp me-2"></i>Enviar WhatsApp
+                                                </a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Paginação -->
+        @if (Model != null && Model.PageCount > 1)
+        {
+            <div class="pagination-wrapper">
+                 <div class="pagination-info">
+                    <span class="pagination-text">
+                        Mostrando @((Model.PageNumber - 1) * Model.PageSize + 1) até @(Math.Min(Model.PageNumber * Model.PageSize, Model.TotalItemCount)) de @Model.TotalItemCount <span data-nomenclatura="ingressos">ingressos</span>
+                    </span>
+                </div>
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+                {
+                    UlElementClasses = new[] { "pagination", "custom-pagination" },
+                    LiElementClasses = new[] { "page-item" },
+                    PageClasses = new[] { "page-link" },
+                    ActiveLiElementClass = "active"
+                })
+            </div>
+        }
+    }
+
+    <!-- Modals -->
+    @foreach (var item in Model)
+    {
+        <div class="modal fade" id="kt_modal_email_@item.codIngresso" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title">Enviar <span data-nomenclatura="ingresso">Ingresso</span> por Email</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="kt_modal_whats_@item.codIngresso" tabindex="-1">
+             <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title">Enviar <span data-nomenclatura="ingresso">Ingresso</span> por WhatsApp</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @* O nome do script foi corrigido para corresponder ao arquivo que você enviou. *@
+    <script src="~/js/nomenclaturaInfo.js" asp-append-version="true"></script>
+}

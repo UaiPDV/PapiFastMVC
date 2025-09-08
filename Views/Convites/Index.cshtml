@@ -1,0 +1,521 @@
+﻿@using X.PagedList.Mvc.Core
+@using X.PagedList
+@model X.PagedList.IPagedList<BixWeb.Models.Convite>
+
+@{
+    ViewData["Title"] = "Gestão de Convites";
+    // Mantemos as variáveis para popular os filtros no carregamento inicial
+    var currentSearch = ViewBag.CurrentSearch as string;
+    var currentStatus = ViewBag.CurrentStatus as string;
+    var currentEvento = ViewBag.CurrentEvento as string;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Convites/index.css" asp-append-version="true" />
+}
+
+@if (ViewData["Convites"] != null)
+{
+    <div class="text-center d-flex flex-column justify-content-center" style="height: 70vh;">
+        <h2 class="display-6 fw-bold mb-4">@ViewData["Convites"]</h2>
+        <div class="col-lg-6 mx-auto">
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a asp-action="Create" class="btn btn-primary-custom btn-lg px-4 gap-3">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Cadastrar Convites
+                </a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div id="invites-page">
+        <!-- Cabeçalho da Página Padronizado -->
+        <div class="page-header">
+            <div class="page-header-content">
+                <h1>@ViewData["Title"]</h1>
+                <p class="page-subtitle">Gerencie e acompanhe todos os convites dos seus eventos</p>
+            </div>
+            <a asp-action="Create" class="btn btn-primary-custom btn-create-invite">
+                <i class="bi bi-plus-lg me-2"></i>
+                Criar Novo Convite
+            </a>
+        </div>
+
+        <!-- Estatísticas dos Convites (sem alterações) -->
+        <div class="invites-stats mb-4">
+            <div class="row g-3">
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-primary">
+                            <i class="bi bi-envelope-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.TotalItemCount</div>
+                            <div class="stat-label">Total de Convites</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-success">
+                            <i class="bi bi-check-circle-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Count(c => c.ativo)</div>
+                            <div class="stat-label">Convites Ativos</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-warning">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Sum(c => c.Convidados?.Count() ?? 0)</div>
+                            <div class="stat-label">Total de Convidados</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-info">
+                            <i class="bi bi-calendar-event-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.GroupBy(c => c.codEvento).Count()</div>
+                            <div class="stat-label">Eventos com Convites</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros & Pesquisa -->
+        <div class="filter-bar">
+            <div class="filter-bar-header">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-funnel text-muted"></i>
+                    <span class="filter-title">Filtros e Pesquisa</span>
+                </div>
+            </div>
+            
+            <div class="filter-controls">
+                <!-- Search (flexível) -->
+                <div class="search-wrapper">
+                    <label class="filter-label">Pesquisar</label>
+                    <div class="position-relative search-container">
+                        <i class="bi bi-search position-absolute search-icon"></i>
+                        <input type="text" id="searchInput" class="form-control search-input" placeholder="Buscar por cliente, email ou evento..." value="@currentSearch">
+                    </div>
+                </div>
+
+                <!-- Filtros para Desktop -->
+                <div class="desktop-filters d-none d-md-flex gap-3">
+                    <!-- Status Filter -->
+                    <div class="filter-group">
+                        <label class="filter-label">Status</label>
+                        <select id="statusFilter" class="form-select filter-select">
+                            <option value="">Todos os Status</option>
+                            <option value="ativo" selected="@(currentStatus == "ativo")">Ativo</option>
+                            <option value="desativado" selected="@(currentStatus == "desativado")">Desativado</option>
+                        </select>
+                    </div>
+                    <!-- Event Filter -->
+                    <div class="filter-group">
+                        <label class="filter-label">Evento</label>
+                        <select id="eventoFilter" class="form-select filter-select">
+                            <option value="">Todos os Eventos</option>
+                            <!-- Opções de evento serão populadas dinamicamente via JS -->
+                        </select>
+                    </div>
+                    <div class="filter-actions">
+                        <button type="button" id="clearFiltersBtn" class="btn btn-outline-secondary btn-clear-filters">
+                            <i class="bi bi-arrow-clockwise me-1"></i>
+                        Limpar Filtros
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Botão de Filtro para Mobile -->
+                <button type="button" id="mobileFilterBtn" class="btn btn-outline-primary d-md-none mobile-filter-btn">
+                    <i class="bi bi-funnel-fill me-1"></i>
+                    Filtros
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal de Filtros para Mobile -->
+        <div class="filter-modal-overlay" id="filterModalOverlay">
+            <div class="filter-modal-content">
+                <div class="filter-modal-header">
+                    <h5 class="modal-title">Filtros</h5>
+                    <button type="button" class="btn-close" id="closeFilterModal"></button>
+                </div>
+                <div class="filter-modal-body">
+                    <!-- Status Filter -->
+                    <div class="mb-3">
+                        <label for="statusFilterModal" class="form-label">Status</label>
+                        <select id="statusFilterModal" class="form-select">
+                            <option value="">Todos os Status</option>
+                            <option value="ativo">Ativo</option>
+                            <option value="desativado">Desativado</option>
+                        </select>
+                    </div>
+                    <!-- Event Filter -->
+                    <div class="mb-3">
+                        <label for="eventoFilterModal" class="form-label">Evento</label>
+                        <select id="eventoFilterModal" class="form-select">
+                             <option value="">Todos os Eventos</option>
+                             <!-- Opções de evento serão populadas dinamicamente via JS -->
+                        </select>
+                    </div>
+                    <button type="button" id="clearFiltersModalBtn" class="btn btn-outline-secondary w-100">Limpar Tudo</button>
+                    <button type="button" id="applyFiltersModalBtn" class="btn btn-primary-custom w-100 mt-2">Aplicar Filtros</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Convites Aprimorada -->
+        <div class="table-wrapper">
+            <div class="table-responsive">
+                <table class="table invites-table align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="client-col"><i class="bi bi-person-fill me-2"></i>Cliente</th>
+                            <th scope="col" class="email-col"><i class="bi bi-envelope-fill me-2"></i>E-mail</th>
+                            <th scope="col" class="text-center count-col"><i class="bi bi-people-fill me-2"></i>Convites</th>
+                            <th scope="col" class="event-col"><i class="bi bi-calendar-event-fill me-2"></i>Evento</th>
+                            <th scope="col" class="status-col"><i class="bi bi-toggles-fill me-2"></i>Status</th>
+                            <th scope="col" class="date-col"><i class="bi bi-clock-fill me-2"></i>Criado em</th>
+                            <th scope="col" class="text-center actions-col"><i class="bi bi-gear-fill me-2"></i>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invitesTableBody">
+                        @foreach (var item in Model)
+                        {
+                            <!-- Adicionamos atributos data-* para facilitar a filtragem com JS -->
+                            <tr class="invite-row" 
+                                data-nome="@(item.Usuario?.nome?.ToLower() ?? "")"
+                                data-email="@(item.Usuario?.email?.ToLower() ?? "")"
+                                data-evento="@(item.Evento?.nomeEvento ?? "N/A")"
+                                data-status="@(item.ativo ? "ativo" : "desativado")">
+                                <td data-label="Cliente" class="client-name-content">
+                                    <div class="client-info">
+                                        <div class="client-name">@(item.Usuario?.nome ?? "N/A")</div>
+                                    </div>
+                                </td>
+                                <td data-label="E-mail" class="client-email">@(item.Usuario?.email ?? "N/A")</td>
+                                <td data-label="Convites" class="text-center">
+                                    <span class="invite-count-badge">@(item.Convidados?.Count() ?? 0)</span>
+                                </td>
+                                <td data-label="Evento">
+                                    <div class="event-badge-table">@(item.Evento?.nomeEvento ?? "N/A")</div>
+                                </td>
+                                <td data-label="Status">
+                                    @if (item.ativo)
+                                    {
+                                        <span class="badge status-badge status-badge-active">Ativo</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge status-badge status-badge-inactive">Desativado</span>
+                                    }
+                                </td>
+                                <td data-label="Criado em">
+                                    <div class="date-display">@item.dataCriacao.ToString("dd/MM/yyyy")</div>
+                                    <div class="time-display">@item.dataCriacao.ToString("HH:mm")</div>
+                                </td>
+                                <td data-label="Ações" class="invite-actions-cell">
+                                    <div class="action-buttons">
+                                        <a asp-action="Details" asp-route-id="@item.codConvite" class="btn btn-action-icon" title="Visualizar Detalhes">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </a>
+                                        <div class="dropdown">
+                                            <button class="btn btn-action-icon dropdown-toggle" type="button" data-bs-toggle="dropdown" title="Mais opções">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.codConvite">
+                                                        <i class="bi bi-pencil-fill"></i>
+                                                        Editar
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <button class="dropdown-item" id="deleteBtn-@item.codConvite" data-id="@item.codConvite" style="color: @(item.ativo ? "#dc3545" : "#198754");">
+                                                        <i class="bi bi-@(item.ativo ? "trash3-fill" : "check-circle-fill")"></i>
+                                                        @(item.ativo ? "Desativar" : "Ativar")
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Paginação Aprimorada -->
+        @if (Model.PageCount > 1)
+        {
+            <div class="pagination-wrapper">
+                <div class="pagination-info">
+                    <span class="pagination-text">
+                        Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @(Model.PageCount) 
+                        (@Model.TotalItemCount total de convites)
+                    </span>
+                </div>
+                <div class="pagination-controls">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = currentSearch, statusFilter = currentStatus, eventoFilter = currentEvento }), new PagedListRenderOptions
+                    {
+                        UlElementClasses = new[] { "pagination", "custom-pagination" },
+                        LiElementClasses = new[] { "page-item" },
+                        PageClasses = new[] { "page-link" },
+                        ActiveLiElementClass = "active"
+                    })
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Pop-ups de confirmação (sem alterações) -->
+    @foreach (var item in Model)
+    {
+        <div id="popup-@item.codConvite" class="popup-confirm">
+            <div class="popup-confirm-content">
+                <div class="popup-icon">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                </div>
+                <h4 class="popup-title">Confirmar Ação</h4>
+                <p class="popup-message">Tem certeza que deseja @(item.ativo ? "desativar" : "ativar") este convite?</p>
+                <p class="popup-warning">Esta ação pode ser revertida posteriormente.</p>
+                <div class="popup-actions">
+                    <button class="btn btn-outline-secondary popup-btn-cancel" id="cancelBtn-@item.codConvite" data-id="@item.codConvite">
+                        <i class="bi bi-x-lg me-1"></i>
+                        Cancelar
+                    </button>
+                    <button class="btn @(item.ativo ? "btn-warning" : "btn-success") popup-btn-confirm" id="confirmDeleteBtn-@item.codConvite" data-id="@item.codConvite">
+                        <i class="bi bi-@(item.ativo ? "pause" : "play")-fill me-1"></i>
+                        @(item.ativo ? "Desativar" : "Ativar")
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- INÍCIO DA NOVA LÓGICA DE FILTRAGEM FRONTEND ---
+
+            // Seletores para os elementos de filtro e tabela
+            const searchInput = document.getElementById('searchInput');
+            const statusFilter = document.getElementById('statusFilter');
+            const eventoFilter = document.getElementById('eventoFilter');
+            const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+            const tableBody = document.getElementById('invitesTableBody');
+            const tableRows = tableBody.querySelectorAll('.invite-row');
+            
+            // Seletores para o modal de filtros mobile
+            const mobileFilterBtn = document.getElementById('mobileFilterBtn');
+            const filterModalOverlay = document.getElementById('filterModalOverlay');
+            const closeFilterModal = document.getElementById('closeFilterModal');
+            const statusFilterModal = document.getElementById('statusFilterModal');
+            const eventoFilterModal = document.getElementById('eventoFilterModal');
+            const applyFiltersModalBtn = document.getElementById('applyFiltersModalBtn');
+            const clearFiltersModalBtn = document.getElementById('clearFiltersModalBtn');
+            
+            // Variável para armazenar o valor do filtro de evento selecionado no backend
+            const initialEvento = "@currentEvento";
+
+            // 1. Função para popular o filtro de eventos dinamicamente
+            // Isso garante que o filtro contenha apenas eventos que estão na lista atual.
+            function populateEventFilter() {
+                const events = new Set();
+                tableRows.forEach(row => {
+                    const eventName = row.dataset.evento;
+                    if (eventName && eventName !== "N/A") {
+                        events.add(eventName);
+                    }
+                });
+
+                // Limpa os filtros existentes (mantendo a primeira opção)
+                eventoFilter.innerHTML = '<option value="">Todos os Eventos</option>';
+                eventoFilterModal.innerHTML = '<option value="">Todos os Eventos</option>';
+
+                const sortedEvents = Array.from(events).sort();
+
+                sortedEvents.forEach(event => {
+                    // Adiciona ao filtro de desktop
+                    const option = document.createElement('option');
+                    option.value = event;
+                    option.textContent = event;
+                    if(event === initialEvento){
+                        option.selected = true;
+                    }
+                    eventoFilter.appendChild(option);
+
+                    // Adiciona ao filtro de mobile
+                    const optionModal = document.createElement('option');
+                    optionModal.value = event;
+                    optionModal.textContent = event;
+                     if(event === initialEvento){
+                        optionModal.selected = true;
+                    }
+                    eventoFilterModal.appendChild(optionModal.cloneNode(true));
+                });
+            }
+
+            // 2. Função principal para aplicar os filtros na tabela
+            function applyClientSideFilters() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const statusValue = statusFilter.value;
+                const eventoValue = eventoFilter.value;
+
+                tableRows.forEach(row => {
+                    const nome = row.dataset.nome;
+                    const email = row.dataset.email;
+                    const evento = row.dataset.evento;
+                    const status = row.dataset.status;
+
+                    const searchMatch = nome.includes(searchTerm) || email.includes(searchTerm) || evento.toLowerCase().includes(searchTerm);
+                    const statusMatch = statusValue === '' || status === statusValue;
+                    const eventMatch = eventoValue === '' || evento === eventoValue;
+
+                    if (searchMatch && statusMatch && eventMatch) {
+                        row.style.display = ''; // Mostra a linha
+                    } else {
+                        row.style.display = 'none'; // Esconde a linha
+                    }
+                });
+
+                updatePaginationLinks();
+            }
+
+            // 3. Função para atualizar os links da paginação com os filtros atuais
+            // Isso garante que ao mudar de página, os filtros sejam mantidos.
+            function updatePaginationLinks() {
+                const searchTerm = searchInput.value;
+                const statusValue = statusFilter.value;
+                const eventoValue = eventoFilter.value;
+                
+                const paginationLinks = document.querySelectorAll('.pagination-wrapper .page-link');
+                
+                paginationLinks.forEach(link => {
+                    const url = new URL(link.href);
+                    url.searchParams.set('searchString', searchTerm);
+                    url.searchParams.set('statusFilter', statusValue);
+                    url.searchParams.set('eventoFilter', eventoValue);
+                    link.href = url.toString();
+                });
+            }
+
+
+            // 4. Adiciona os event listeners para os filtros
+            searchInput.addEventListener('input', applyClientSideFilters);
+            statusFilter.addEventListener('change', applyClientSideFilters);
+            eventoFilter.addEventListener('change', applyClientSideFilters);
+
+            clearFiltersBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                statusFilter.value = '';
+                eventoFilter.value = '';
+                applyClientSideFilters();
+            });
+
+            // 5. Lógica para o modal de filtros mobile
+            mobileFilterBtn.addEventListener('click', () => {
+                // Sincroniza os valores do filtro desktop para o modal antes de abrir
+                statusFilterModal.value = statusFilter.value;
+                eventoFilterModal.value = eventoFilter.value;
+                filterModalOverlay.classList.add('show');
+            });
+
+            const closeModal = () => filterModalOverlay.classList.remove('show');
+            closeFilterModal.addEventListener('click', closeModal);
+            filterModalOverlay.addEventListener('click', (e) => {
+                if (e.target === filterModalOverlay) closeModal();
+            });
+
+            applyFiltersModalBtn.addEventListener('click', () => {
+                // Sincroniza os valores do modal para o filtro desktop e aplica
+                statusFilter.value = statusFilterModal.value;
+                eventoFilter.value = eventoFilterModal.value;
+                applyClientSideFilters();
+                closeModal();
+            });
+
+            clearFiltersModalBtn.addEventListener('click', () => {
+                statusFilterModal.value = '';
+                eventoFilterModal.value = '';
+                 statusFilter.value = '';
+                eventoFilter.value = '';
+                applyClientSideFilters();
+                closeModal();
+            });
+
+
+            // --- LÓGICA EXISTENTE (Popups e Dropdowns) ---
+            
+            // Lógica dos Popups de Exclusão/Desativação
+            document.querySelectorAll('[id^="deleteBtn-"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const popup = document.getElementById('popup-' + id);
+                    if (popup) {
+                        popup.style.display = 'flex';
+                        setTimeout(() => popup.classList.add('show'), 10);
+                    }
+                });
+            });
+
+            document.querySelectorAll('[id^="confirmDeleteBtn-"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    fetch(`/Convites/ToggleStatus/${id}`, { method: 'POST' })
+                        .then(response => {
+                            if (response.ok) {
+                                location.reload(); // Recarrega a página após a ação
+                            }
+                        });
+                });
+            });
+
+            document.querySelectorAll('[id^="cancelBtn-"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const popup = document.getElementById('popup-' + id);
+                    if (popup) {
+                        popup.classList.remove('show');
+                        setTimeout(() => popup.style.display = 'none', 300);
+                    }
+                });
+            });
+
+            // Lógica para correção de dropdowns em tabelas
+            document.querySelectorAll('.table-responsive').forEach(wrapper => {
+                wrapper.querySelectorAll('.dropdown-toggle').forEach(dd => {
+                    dd.addEventListener('show.bs.dropdown', (event) => {
+                        event.target.closest('tr')?.classList.add('dropdown-open');
+                        wrapper.classList.add('dropdown-visible');
+                    });
+                    dd.addEventListener('hide.bs.dropdown', (event) => {
+                        event.target.closest('tr')?.classList.remove('dropdown-open');
+                        wrapper.classList.remove('dropdown-visible');
+                    });
+                });
+            });
+
+            // --- INICIALIZAÇÃO ---
+            populateEventFilter(); // Popula o filtro de eventos ao carregar a página
+            applyClientSideFilters(); // Aplica os filtros iniciais (caso venham do backend)
+        });
+    </script>
+}

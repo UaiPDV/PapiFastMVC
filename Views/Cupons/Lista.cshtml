@@ -1,0 +1,229 @@
+﻿@using X.PagedList.Mvc.Core
+@using X.PagedList
+@model X.PagedList.IPagedList<BixWeb.Models.Cupom>
+
+@{
+    ViewData["Title"] = "Gestão de Cupons";
+    var currentSearch = ViewBag.CurrentSearch as string;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Cupons/listaCupons.css" asp-append-version="true" />
+}
+
+@if (ViewData["cupom"] != null)
+{
+    <div class="text-center d-flex flex-column justify-content-center" style="height: 70vh;">
+        <h2 class="display-6 fw-bold mb-4">@ViewData["cupom"]</h2>
+        <div class="col-lg-6 mx-auto">
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a asp-action="Create" class="btn btn-primary-action btn-lg px-4 gap-3">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Cadastrar Cupom
+                </a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div id="coupons-page">
+        <!-- Cabeçalho da Página Padronizado -->
+        <div class="page-header">
+            <div class="page-header-content">
+                <h1>@ViewData["Title"]</h1>
+                <p class="page-subtitle">Gerencie e acompanhe todos os cupons de desconto.</p>
+            </div>
+            <a asp-action="Create" class="btn btn-primary-action">
+                <i class="bi bi-plus-lg me-2"></i>
+                Criar Novo Cupom
+            </a>
+        </div>
+
+        <!-- Estatísticas dos Cupons -->
+        <div class="coupons-stats mb-4">
+            <div class="row g-3">
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-primary">
+                            <i class="bi bi-ticket-percent-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.TotalItemCount</div>
+                            <div class="stat-label">Total de Cupons</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-success">
+                            <i class="bi bi-check-circle-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Count(c => c.statusCupom && !c.usadoCupom && c.codcliente == null)</div>
+                            <div class="stat-label">Disponíveis</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-info">
+                            <i class="bi bi-hand-thumbs-up-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Count(c => c.usadoCupom)</div>
+                            <div class="stat-label">Utilizados</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-danger">
+                            <i class="bi bi-calendar-x-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Count(c => !c.statusCupom)</div>
+                            <div class="stat-label">Expirados</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros & Pesquisa -->
+        <div class="filter-bar">
+            <div class="filter-bar-header">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-funnel text-muted"></i>
+                    <span class="filter-title">Filtros e Pesquisa</span>
+                </div>
+            </div>
+            <div class="filter-controls">
+                <!-- Search -->
+                <div class="search-wrapper">
+                    <label class="filter-label">Pesquisar</label>
+                    <div class="position-relative search-container">
+                        <i class="bi bi-search position-absolute search-icon"></i>
+                        <input type="text" id="searchInput" class="form-control search-input" placeholder="Buscar por token ou cliente..." value="@currentSearch">
+                    </div>
+                </div>
+                <!-- Actions -->
+                <div class="filter-actions">
+                    <button type="button" id="clearFiltersBtn" class="btn btn-outline-secondary btn-clear-filters">
+                        Limpar Filtros
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Cupons Aprimorada -->
+        <div class="table-wrapper">
+            <div class="table-responsive">
+                <table class="table coupons-table align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="client-col">Cliente</th>
+                            <th scope="col" class="token-col">Token</th>
+                            <th scope="col" class="products-col text-center">Produtos</th>
+                            <th scope="col" class="discount-col text-center">Desconto</th>
+                            <th scope="col" class="validity-col">Validade</th>
+                            <th scope="col" class="status-col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="coupon-row">
+                                <td data-label="Cliente">
+                                    <div class="client-info">
+                                        <span class="client-name">@(item.usuario?.nome ?? "N/A")</span>
+                                        <span class="client-email">@(item.usuario?.email)</span>
+                                    </div>
+                                </td>
+                                <td data-label="Token">
+                                    <span class="font-mono">#@item.tokenCupom</span>
+                                </td>
+                                <td data-label="Produtos" class="text-center">
+                                    <span class="product-count-badge">@item.produtos</span>
+                                </td>
+                                <td data-label="Desconto" class="text-center">
+                                    <span class="discount-badge">@item.descontoCupom%</span>
+                                </td>
+                                <td data-label="Validade">
+                                    <div class="date-display">@item.validadeCupom.ToString("dd/MM/yyyy HH:mm")</div>
+                                </td>
+                                <td data-label="Status">
+                                    @if (!item.statusCupom)
+                                    {
+                                        <span class="status-badge status-expired">Expirado</span>
+                                    }
+                                    else if (item.usadoCupom)
+                                    {
+                                        <span class="status-badge status-used">Utilizado</span>
+                                    }
+                                    else if (item.codcliente != null && item.codcliente > 0)
+                                    {
+                                        <span class="status-badge status-in-use">Em uso</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-badge status-available">Disponível</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Paginação Aprimorada -->
+        @if (Model.PageCount > 1)
+        {
+            <div class="pagination-wrapper">
+                <div class="pagination-info">
+                    <span class="pagination-text">
+                        Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @(Model.PageCount)
+                        (@Model.TotalItemCount total de cupons)
+                    </span>
+                </div>
+                <div class="pagination-controls">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = currentSearch }), new PagedListRenderOptions
+                    {
+                        UlElementClasses = new[] { "pagination", "custom-pagination" },
+                        LiElementClasses = new[] { "page-item" },
+                        PageClasses = new[] { "page-link" },
+                        ActiveLiElementClass = "active"
+                    })
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('searchInput');
+            const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+
+            function applyFilters() {
+                const search = searchInput.value;
+                window.location.href = `@Url.Action("Index")?searchString=${encodeURIComponent(search)}`;
+            }
+            
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    applyFilters();
+                }
+            });
+
+            clearFiltersBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                applyFilters();
+            });
+        });
+    </script>
+}
+

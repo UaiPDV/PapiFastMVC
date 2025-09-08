@@ -1,0 +1,223 @@
+/* --- Estilos Específicos para a página de Campanhas --- */
+
+/* =================================================================== */
+/* ================ CABEÇALHO DA PÁGINA E ESTATÍSTICAS ============== */
+/* =================================================================== */
+
+.btn-create-campaign {
+	background: linear-gradient(135deg, var(--papi-orange), #e07503);
+	border: none;
+	padding: 0.75rem 1.5rem;
+	font-weight: 600;
+	border-radius: 10px;
+	box-shadow: 0 4px 12px rgba(249, 131, 3, 0.3);
+	transition: all 0.3s ease;
+}
+
+.btn-create-campaign:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(249, 131, 3, 0.4);
+	background: linear-gradient(135deg, #e07503, #d16a03);
+}
+
+/* =================================================================== */
+/* ================ CARDS DE CAMPANHAS APRIMORADOS ================== */
+/* =================================================================== */
+
+.campaign-card {
+	transition: all 0.3s ease;
+	border: 1px solid #f1f3f4;
+	border-radius: 16px;
+	overflow: hidden;
+}
+
+.campaign-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+.campaign-card-header {
+	background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+	padding: 1rem 1.5rem;
+	border-bottom: 1px solid #f1f3f4;
+}
+
+.campaign-meta .filial-badge {
+	background-color: rgba(13, 110, 253, 0.1);
+	color: #0d6efd;
+	padding: 0.375rem 0.75rem;
+	border-radius: 20px;
+	font-size: 0.8rem;
+	font-weight: 500;
+}
+
+.campaign-title {
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: #2c3e50;
+	margin-bottom: 1rem;
+	line-height: 1.3;
+}
+
+.campaign-info {
+	margin-bottom: 1rem;
+}
+
+.info-item {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.9rem;
+}
+
+.info-label {
+	font-weight: 500;
+	color: #6c757d;
+}
+
+.info-value {
+	color: #495057;
+}
+
+.campaign-actions {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+}
+
+.quick-actions {
+	display: flex;
+	gap: 0.5rem;
+	flex: 1;
+}
+
+.main-actions {
+	display: flex;
+	gap: 0.5rem;
+}
+
+/* =================================================================== */
+/* ================ TABELA DE CAMPANHAS APRIMORADA ================== */
+/* =================================================================== */
+
+.campaigns-table {
+	margin-bottom: 0;
+	width: 100%;
+	table-layout: fixed; /* Força larguras fixas das colunas */
+}
+
+.campaigns-table thead th {
+	background: #f8f9fa;
+	color: #495057;
+	font-weight: 700;
+	font-size: 0.8rem;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	border: none;
+	padding: 1.25rem 1.5rem;
+}
+
+.campaigns-table thead th i {
+	color: var(--papi-orange);
+	opacity: 0.8;
+}
+
+.campaign-name-col {
+	width: 30%;
+}
+.filial-col {
+	width: 20%;
+}
+.status-col {
+	width: 15%;
+}
+.date-col {
+	width: 20%;
+}
+.actions-col {
+	width: 15%;
+}
+
+.campaign-row {
+	transition: all 0.2s ease;
+	border-bottom: 1px solid #f1f3f4;
+}
+
+.campaign-row:hover {
+	background-color: #fafbfc;
+}
+
+.campaign-row:last-child {
+	border-bottom: none;
+}
+
+.campaigns-table tbody td {
+	padding: 1.25rem 1.5rem;
+	vertical-align: middle;
+	border: none;
+}
+
+.campaign-name-content {
+	display: flex;
+	flex-direction: column;
+}
+
+.campaign-title-table {
+	color: #2c3e50;
+	font-size: 1rem;
+	line-height: 1.3;
+}
+
+.filial-badge-table {
+	background: rgba(13, 110, 253, 0.08);
+	color: #0d6efd;
+	padding: 0.375rem 0.75rem;
+	border-radius: 20px;
+	font-size: 0.875rem;
+	font-weight: 500;
+	display: inline-flex;
+	align-items: center;
+}
+
+.date-display {
+	font-weight: 600;
+	color: #495057;
+}
+
+/* =================================================================== */
+/* ================ RESPONSIVIDADE ================================== */
+/* =================================================================== */
+
+@media (max-width: 767.98px) {
+	/* Tabela responsiva em mobile */
+	.campaigns-table {
+		font-size: 0.9rem;
+	}
+
+	.campaign-row {
+		display: block;
+		background: #fff;
+		border: 1px solid #f1f3f4;
+		border-radius: 12px;
+		margin-bottom: 1rem;
+		padding: 1rem;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	}
+
+	.campaigns-table tbody td {
+		display: block;
+		padding: 0.5rem 0;
+		border: none;
+		text-align: left !important;
+	}
+
+	.campaign-actions-cell:before {
+		display: none;
+	}
+
+	.action-buttons {
+		justify-content: flex-start;
+		margin-top: 0.5rem;
+	}
+}

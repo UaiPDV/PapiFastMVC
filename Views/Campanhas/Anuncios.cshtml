@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Anúncios";
+}
+<form asp-action="Produtos" class="py-img">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" value="@ViewBag.id" name="id" />
+    <h2 class="text-center">Anúncios de Produtos</h2>
+    <div>
+        <h4 class="cad-marg text-center">Escolha o modelo desejado deseja:</h4>
+        <div class="p-5 bg-body-tertiary rounded-3 row text-center">
+            <div class="col-xl-5 hover-scale" style="margin:auto">
+                <!--begin::Media-->
+                <div class="h-100 d-flex flex-column justify-content-between pe-xl-5 mb-xl-0 mb-10">
+                    <!--begin::Wrapper-->
+                    <div class="overlay mt-2">
+                        <!--begin::Image-->
+                        <div class="bgi-no-repeat bgi-position-center card-rounded img-anuncio" style="background-image:url('/imagens/Anuncio.png');"></div>
+                        <!--end::Image-->
+                        <!--begin::Links-->
+                        <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
+                            <button type="submit" value="1" name="tipo" class="btn btn-success">Este</button>
+                        </div>
+                        <!--end::Links-->
+                    </div>
+                    <!--end::Wrapper-->
+                </div>
+                <!--end::Media-->
+            </div>
+            <div class="col-xl-5 hover-scale" style="margin:auto">
+                <!--begin::Media-->
+                <div class="h-100 d-flex flex-column justify-content-between pe-xl-5 mb-xl-0 mb-10">
+                    <!--begin::Wrapper-->
+                    <div class="overlay mt-2">
+                        <!--begin::Image-->
+                        <div class="bgi-no-repeat bgi-position-center card-rounded img-anuncio" style="background-image:url('/imagens/Anuncio2.png');"></div>
+                        <!--end::Image-->
+                        <!--begin::Links-->
+                        <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
+                            <button type="submit" value="2" name="tipo" class="btn btn-success">Este</button>
+                        </div>
+                        <!--end::Links-->
+                    </div>
+                    <!--end::Wrapper-->
+                </div>
+                <!--end::Media-->
+            </div>
+            <div class="col-xl-5 py-5 hover-scale" style="margin:auto">
+                <!--begin::Media-->
+                <div class="h-100 d-flex flex-column justify-content-between pe-xl-5 mb-xl-0 mb-10">
+                    <!--begin::Wrapper-->
+                    <div class="overlay mt-2">
+                        <!--begin::Image-->
+                        <div class="bgi-no-repeat bgi-position-center card-rounded img-anuncio" style="background-image:url('/imagens/Anuncio3.png')"></div>
+                        <!--end::Image-->
+                        <!--begin::Links-->
+                        <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
+                            <button type="submit" value="3" name="tipo" class="btn btn-success">Este</button>
+                        </div>
+                        <!--end::Links-->
+                    </div>
+                    <!--end::Wrapper-->
+                </div>
+                <!--end::Media-->
+            </div>
+            <div class="col-xl-5 py-5 hover-scale" style="margin:auto">
+                <!--begin::Media-->
+                <div class="h-100 d-flex flex-column justify-content-between pe-xl-5 mb-xl-0 mb-10">
+                    <!--begin::Wrapper-->
+                    <div class="overlay mt-2">
+                        <!--begin::Image-->
+                        <div class="bgi-no-repeat bgi-position-center card-rounded img-anuncio" style="background-image:url('/imagens/Anuncio4.png')"></div>
+                        <!--end::Image-->
+                        <!--begin::Links-->
+                        <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
+                            <button type="submit" value="4" name="tipo" class="btn btn-success">Este</button>
+                        </div>
+                        <!--end::Links-->
+                    </div>
+                    <!--end::Wrapper-->
+                </div>
+                <!--end::Media-->
+            </div>
+        </div>
+    </div>
+</form>

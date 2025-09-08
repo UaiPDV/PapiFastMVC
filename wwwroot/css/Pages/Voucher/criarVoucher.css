@@ -1,0 +1,26 @@
+/* =================================================================== */
+/* ================ ESTILOS ESPECÍFICOS PARA VOUCHERS =============== */
+/* =================================================================== */
+
+/* 
+ * Estilos específicos apenas para a página de Criar Voucher
+ * Todos os estilos comuns foram movidos para GlobalStyles.css
+ */
+
+/* Layout específico de 2 colunas para vouchers */
+.form-fields {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+	.form-fields {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+/* Switch ocupa a largura total no grid */
+.form-fields .form-switch-container {
+	grid-column: 1 / -1;
+}

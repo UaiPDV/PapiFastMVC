@@ -1,0 +1,198 @@
+/* --- Estilos Específicos para a página de Vouchers --- */
+
+/* =================================================================== */
+/* ================ TABELA DE VOUCHERS =============================== */
+/* =================================================================== */
+
+.vouchers-table {
+	table-layout: fixed;
+	width: 100%;
+}
+
+.vouchers-table thead th {
+	background: #f8f9fa;
+	color: #495057;
+	font-weight: 700;
+	font-size: 0.8rem;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	border: none;
+	padding: 1.25rem 1.5rem;
+	position: relative;
+	z-index: 1; /* Menor que o dropdown */
+}
+
+.vouchers-table thead th i {
+	color: var(--papi-orange);
+	opacity: 0.8;
+}
+
+/* Larguras das colunas */
+.client-col {
+	width: 25%;
+}
+.status-col {
+	width: 12%;
+}
+.validity-col {
+	width: 15%;
+}
+.voucher-col {
+	width: 15%;
+}
+.value-col {
+	width: 13%;
+}
+.total-value-col {
+	width: 13%;
+}
+.actions-col {
+	width: 7%;
+}
+
+/* =================================================================== */
+/* ================ BADGES DE STATUS ================================ */
+/* =================================================================== */
+
+.status-badge.status-not-used {
+	background-color: #d1fae5; /* green-100 */
+	color: #065f46; /* green-800 */
+}
+.status-badge.status-in-use {
+	background-color: #fef3c7; /* yellow-100 */
+	color: #92400e; /* yellow-800 */
+}
+.status-badge.status-disabled {
+	background-color: #fee2e2; /* red-100 */
+	color: #991b1b; /* red-800 */
+}
+
+/* =================================================================== */
+/* ================ AÇÕES DA TABELA ================================== */
+/* =================================================================== */
+
+.action-buttons {
+	display: flex;
+	justify-content: center;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.btn-action-icon {
+	width: 36px;
+	height: 36px;
+	font-size: 1rem;
+	border-radius: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #f8f9fa;
+	color: #495057;
+	border: 1px solid #dee2e6;
+	transition: all 0.2s ease-in-out;
+}
+
+.btn-action-icon:hover {
+	color: var(--papi-orange);
+	background-color: #fef7ed;
+	border-color: var(--papi-orange);
+}
+
+.btn-action-icon:focus {
+	box-shadow: 0 0 0 0.2rem rgba(249, 131, 3, 0.25);
+}
+
+/* Dropdown específico para vouchers */
+.vouchers-table .dropdown {
+	position: relative;
+}
+
+.vouchers-table .dropdown-menu {
+	border: none;
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+	border-radius: 12px;
+	padding: 0.5rem 0;
+	min-width: 200px;
+	z-index: 1060; /* Maior que todos os outros elementos */
+	position: absolute;
+}
+
+.vouchers-table .dropdown-item {
+	padding: 0.75rem 1rem;
+	font-size: 0.9rem;
+	transition: all 0.2s ease;
+	display: flex;
+	align-items: center;
+}
+
+.vouchers-table .dropdown-item:hover {
+	background-color: #f8f9fa;
+	color: var(--papi-orange);
+}
+
+.vouchers-table .dropdown-item i {
+	color: #6c757d;
+	transition: color 0.2s ease;
+}
+
+.vouchers-table .dropdown-item:hover i {
+	color: var(--papi-orange);
+}
+
+/* Correções para dropdowns em tabelas responsivas */
+.table-responsive.dropdown-visible {
+	overflow: visible !important;
+}
+
+.table-wrapper.dropdown-visible {
+	overflow: visible !important;
+}
+
+.vouchers-table tbody tr.dropdown-open {
+	position: relative;
+	z-index: 1055; /* Sobrepõe todos os outros elementos da tabela */
+}
+
+.vouchers-table tbody tr:hover {
+	position: relative;
+	z-index: 5;
+}
+
+/* Garantir que o dropdown sobreponha a thead e outras linhas */
+.vouchers-table .dropdown {
+	position: relative;
+	z-index: 1055; /* Maior que thead */
+}
+
+.vouchers-table .dropdown-menu {
+	z-index: 1070; /* Ainda maior para garantir sobreposição total */
+}
+
+.vouchers-table tbody tr {
+	position: relative;
+	z-index: 1; /* Posição básica */
+}
+
+/* =================================================================== */
+/* ================ RESPONSIVIDADE ESPECÍFICA ======================= */
+/* =================================================================== */
+
+@media (max-width: 767.98px) {
+	.action-buttons {
+		justify-content: flex-start;
+		margin-top: 0.5rem;
+	}
+
+	.vouchers-table tbody td::before {
+		content: attr(data-label) ': ';
+		font-weight: 600;
+		color: #495057;
+		display: inline-block;
+		width: 100px;
+		margin-right: 10px;
+	}
+
+	.vouchers-table tbody td[data-label='Ações']::before {
+		content: '';
+	}
+}

@@ -1,0 +1,201 @@
+/* =================================================================== */
+/* =================== ESTILOS GLOBAIS E DE LAYOUT =================== */
+/* =================================================================== */
+
+/* --- Configuração Global de Fontes e Responsividade --- */
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+/* Tamanho de fonte padrão para mobile */
+html {
+	font-size: 14px;
+}
+
+/* Tablets */
+@media (min-width: 768px) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* Desktops Padrão */
+@media (min-width: 992px) {
+	html {
+		font-size: 16px;
+	}
+}
+
+/* Desktops Grandes e Smart TVs */
+@media (min-width: 1400px) {
+	html {
+		font-size: 18px;
+	}
+}
+
+/* Telas 4K e Ultra-Wide */
+@media (min-width: 2560px) {
+	html {
+		font-size: 22px;
+	}
+}
+
+body {
+	font-family: 'Inter', sans-serif;
+	background-color: #f9fafb;
+	display: flex;
+	flex-direction: column;
+    min-height: 100vh;
+}
+
+.font-pacifico {
+	font-family: 'Pacifico', cursive;
+}
+
+/* --- Variáveis de Cor --- */
+:root {
+	--papi-yellow: #f8bc1f;
+	--papi-yellow-dark: #f5b014;
+	--papi-orange: #f98303;
+	--papi-orange-dark: #e07503;
+	--papi-dark: #212529;
+	--papi-success: #1e7e34;
+	--papi-success-bg: rgba(40, 167, 69, 0.1);
+	--papi-danger: #dc3545;
+	--papi-danger-bg: rgba(220, 53, 69, 0.1);
+	--papi-light-gray: #f9fafb;
+	--papi-border-color: #eff2f5;
+	--papi-text-dark: #3f4254;
+	--papi-text-muted: #5e6278;
+}
+
+/* --- Estrutura Principal do Layout --- */
+
+/* Mini Sidebar Fixa (Desktop) */
+.mini-sidebar {
+	width: 80px;
+	height: 100vh;
+	background-color: var(--papi-yellow);
+	z-index: 1045;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+.sidebar-toggler:focus {
+	box-shadow: none !important;
+}
+
+/* Sidebar Principal (Offcanvas) */
+.offcanvas {
+	background-color: var(--papi-yellow);
+	z-index: 1050;
+}
+
+#main-sidebar {
+	width: 280px;
+}
+
+.offcanvas-body {
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+.offcanvas-body::-webkit-scrollbar {
+	display: none;
+}
+
+.logo-sidebar {
+	width: 40px;
+	height: 40px;
+	object-fit: cover;
+	border: 2px solid #6c757d;
+}
+
+.offcanvas .nav-link {
+	color: var(--papi-dark);
+	border-radius: 0.375rem;
+}
+
+.offcanvas .nav-link:hover {
+	background-color: var(--papi-yellow-dark);
+	color: #000;
+}
+
+.offcanvas .nav-link.active {
+	background-color: var(--papi-dark);
+	color: white;
+}
+
+.offcanvas .nav-link.active i {
+	color: white;
+}
+
+.offcanvas .collapse .nav-link:hover,
+.offcanvas .collapse .nav-link.active {
+	background-color: transparent;
+	color: var(--papi-dark);
+	font-weight: bold;
+}
+
+/* Conteúdo Principal e Rodapé */
+.main-content {
+	display: flex;
+	flex-direction: column;
+    flex: 1;
+    margin-left: 80px;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+.footer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 -4px 16px -4px rgba(0, 0, 0, 0.12);
+	height: 70px;
+	min-height: 45px;
+}
+
+/* Cabeçalho Superior */
+.main-content > header {
+	height: 70px;
+	flex-shrink: 0;
+}
+
+.logo-header {
+	width: 40px;
+	height: 40px;
+	object-fit: cover;
+}
+
+/* Botão Primário Padrão */
+.btn-primary-custom {
+	--bs-btn-bg: var(--papi-orange);
+	--bs-btn-border-color: var(--papi-orange);
+	--bs-btn-hover-bg: var(--papi-orange-dark);
+	--bs-btn-hover-border-color: var(--papi-orange-dark);
+	color: #fff;
+	transition: all 0.3s ease;
+}
+
+.btn-primary-custom:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Layout Responsivo --- */
+@media (max-width: 767.98px) {
+    .main-content {
+        margin-left: 0;
+    }
+
+    main.p-4 {
+        padding: 1.5rem 1rem !important;
+    }
+}

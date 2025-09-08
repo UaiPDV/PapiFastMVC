@@ -1,0 +1,81 @@
+/* =================================================================== */
+/* =========== ESTILOS ESPECÍFICOS - VENDA DE INGRESSO =============== */
+/* =================================================================== */
+
+.sale-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 992px) {
+    .sale-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+        align-items: start;
+    }
+}
+
+.product-summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.product-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 0.5rem;
+}
+
+.product-name {
+    font-weight: 600;
+}
+
+.product-event-date {
+    font-size: 0.875rem;
+    color: var(--papi-text-muted);
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #f8f9fa;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+}
+
+.quantity-selector span {
+    font-weight: 600;
+    min-width: 25px;
+    text-align: center;
+}
+
+.price-info {
+    text-align: right;
+}
+
+.total-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--papi-success);
+}
+
+.unit-price {
+    font-size: 0.875rem;
+    color: var(--papi-text-muted);
+}
+
+#submitBtn .indicator-progress {
+    display: none;
+}
+

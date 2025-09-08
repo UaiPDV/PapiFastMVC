@@ -1,0 +1,165 @@
+﻿@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<BixWeb.Models.Preco>
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Produtos";
+    var currentSearch = ViewBag.CurrentSearch as string;
+    var codFilial = ViewBag.codFilial;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Produtos/index.css" asp-append-version="true" />
+}
+
+<!-- Cabeçalho da Página Padronizado -->
+<div class="page-header">
+    <div class="page-header-content">
+        <h1>@ViewData["Title"]</h1>
+        <p class="page-subtitle">Gerencie os produtos cadastrados na filial.</p>
+    </div>
+    <a asp-action="Create" asp-route-id="@codFilial" class="btn btn-primary-action">
+        <i class="bi bi-plus-lg me-2"></i>
+        Adicionar Produto
+    </a>
+</div>
+
+<!-- Barra de Filtros e Pesquisa -->
+<div class="filter-bar">
+    <div class="filter-bar-header">
+        <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-funnel text-muted"></i>
+            <span class="filter-title">Filtros e Pesquisa</span>
+        </div>
+    </div>
+    <div class="filter-controls">
+        <form method="get" asp-action="Index" class="search-wrapper">
+             <input type="hidden" name="id" value="@codFilial" />
+            <label class="filter-label">Pesquisar Produto</label>
+            <div class="search-container">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text" name="SearchString" value="@currentSearch" class="form-control search-input" placeholder="Buscar por nome ou categoria..." />
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Tabela de Produtos -->
+<div class="table-wrapper">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th class="text-end">Categoria</th>
+                    <th class="text-end">Preço</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Ações</th>
+                </tr>
+            </thead>
+            <tbody class="fw-semibold text-gray-600">
+                @foreach (var preco in Model)
+                {
+                    <tr>
+                        <td data-label="Produto">
+                            <div class="product-info-cell">
+                                <div class="product-image-wrapper">
+                                    <img src="@preco.Produto.imagem" class="product-image" alt="@preco.Produto.nomeProduto" onerror="this.onerror=null;this.src='https://placehold.co/50x50/EFEFEF/A8A8A8?text=Img';" />
+                                </div>
+                                <div class="product-details">
+                                    <span class="product-name">@preco.Produto.nomeProduto</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-label="Categoria" class="text-end product-category">
+                            @preco.Produto.Categoria.nome
+                        </td>
+                        <td data-label="Preço" class="text-end product-price">
+                            @string.Format(CultureInfo.GetCultureInfo("pt-BR"), "{0:C}", preco.valor)
+                        </td>
+                        <td data-label="Status" class="text-center">
+                            <span class="status-badge status-badge-active">Ativo</span>
+                        </td>
+                        <td data-label="Ações" class="text-center">
+                            <div class="action-buttons">
+                                <a asp-action="Edit" asp-route-id="@preco.codPreco" class="btn-action-icon" title="Editar">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <button class="btn-action-icon btn-action-danger delete-btn" data-id="@preco.codPreco" title="Excluir">
+                                    <i class="bi bi-trash3"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Paginação -->
+@if (Model.PageCount > 1)
+{
+    <div class="pagination-wrapper">
+        <div class="pagination-info">
+            Mostrando @((Model.PageNumber - 1) * Model.PageSize + 1) até @(Math.Min(Model.PageNumber * Model.PageSize, Model.TotalItemCount)) de @Model.TotalItemCount produtos
+        </div>
+        <div class="pagination-controls">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { id = codFilial, page, SearchString = currentSearch }),
+                new PagedListRenderOptions
+                {
+                    UlElementClasses = new[] { "pagination", "custom-pagination" },
+                    LiElementClasses = new[] { "page-item" },
+                    PageClasses = new[] { "page-link" },
+                    ActiveLiElementClass = "active"
+                })
+        </div>
+    </div>
+}
+
+<!-- Modal de Exclusão -->
+<div id="delete-popup" class="popup-confirm">
+    <div class="popup-confirm-content">
+        <div class="popup-icon">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+        </div>
+        <h4 class="popup-title">Confirmar Exclusão</h4>
+        <p class="popup-message">Tem certeza que deseja excluir este produto?</p>
+        <p class="popup-warning">Esta ação não pode ser desfeita.</p>
+        <div class="popup-actions">
+            <button class="btn btn-outline-secondary popup-btn-cancel" id="cancelBtn">
+                <i class="bi bi-x-lg me-2"></i>Cancelar
+            </button>
+            <form id="deleteForm" asp-action="Delete" method="post">
+                <input type="hidden" id="deleteId" name="id" />
+                <button type="submit" class="btn btn-danger popup-btn-confirm">
+                    <i class="bi bi-trash3-fill me-2"></i>Sim, excluir
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const deletePopup = document.getElementById('delete-popup');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const deleteForm = document.getElementById('deleteForm');
+            const deleteIdInput = document.getElementById('deleteId');
+
+            document.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const id = this.getAttribute('data-id');
+                    deleteIdInput.value = id;
+                    deletePopup.style.display = 'flex';
+                });
+            });
+
+            cancelBtn.addEventListener('click', () => {
+                deletePopup.style.display = 'none';
+            });
+        });
+    </script>
+}

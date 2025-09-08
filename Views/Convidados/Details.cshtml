@@ -1,0 +1,54 @@
+﻿@model BixWeb.Models.Convidado
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Convidado</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.emailConvidado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.emailConvidado)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.telefoneConvidado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.telefoneConvidado)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.vistoConvite)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.vistoConvite)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.confirmacaoConvite)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.confirmacaoConvite)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ingresso)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ingresso.ticketIngresso)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Convite)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Convite.codConvite)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.codConvidado">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

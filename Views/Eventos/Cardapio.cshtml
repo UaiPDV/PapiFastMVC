@@ -1,0 +1,286 @@
+﻿@model IEnumerable<BixWeb.Models.Preco>
+@using System.Globalization;
+
+<div class="container my-5 text-center " style="max-width:1200px">
+    <div class="p-5 bg-body-tertiary rounded-3">
+        <h1 style="margin:1% 0 4% 0;">Caso deseja um Cardápio Online escolha o Modelo: </h1>
+        <form class="row g-3" asp-action="Cardapio" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="id" value="@ViewBag.codEvento"/>
+            <div class="col-md-10" style="margin:auto">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <h4 class="mb-0">
+                            @if (ViewBag.tipoCardapio == 0)
+                            {
+                                <input class="checar form-check-input" type="checkbox" id="tipoCardapio0" value="0" checked="" name="tipoCardapio" aria-label="...">
+
+                            }
+                            else
+                            {
+                                <input class="checar form-check-input" type="checkbox" id="tipoCardapio0" value="0" name="tipoCardapio" aria-label="...">
+                            }
+                            Nenhum Cardápio
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10" style="margin:auto">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <h3 class="py-5" style="margin:auto">
+                            Cardápio Modelo 1
+                        </h3>
+                        <p class="card-text">Cardápio com tema simplificado separado por categorias e com barra de busca, disposição dos itens na horizontal.</p>
+
+                        <a href="/ExemploCardapio/Cardapio/Index.html" target="_blank" style="margin:auto" class="icon-link gap-1 icon-link-hover">
+                            Ver Exemplo
+                        </a>
+                        <h5 class="py-5">
+                            @if (ViewBag.tipoCardapio == 1)
+                            {
+                                <input class="checar form-check-input" type="checkbox" checked id="tipoCardapio1" value="1" name="tipoCardapio" aria-label="...">
+
+                            }
+                            else
+                            {
+                                <input class="checar form-check-input" type="checkbox" id="tipoCardapio1" value="1" name="tipoCardapio" aria-label="...">
+
+                            }
+                            Selecionar Este
+                        </h5>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <img src="/imagens/layout.jpg" style="border-radius:0.95rem" width="500" alt="Cardápio 4">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-10" style="margin:auto">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <h3 class="py-5" style="margin:auto">
+                            Cardápio Modelo 2
+                        </h3>
+                        <p class="card-text">Cardápio com tema simplificado separado por categorias e com barra de busca, disposição dos itens na em blocos dispostos em forma de grade.</p>
+
+                        <a href="/ExemploCardapio/Cardapio2/Index.html" target="_blank" style="margin:auto" class="icon-link gap-1 icon-link-hover">
+                            Ver Exemplo
+                        </a>
+                        <h5 class="py-5">
+                            @if (ViewBag.tipoCardapio == 2)
+                            {
+                                <input class="checar form-check-input" type="checkbox" checked id="tipoCardapio2" value="2" name="tipoCardapio" aria-label="...">
+
+                            }
+                            else
+                            {
+                                <input class="checar form-check-input" type="checkbox" id="tipoCardapio2" value="2" name="tipoCardapio" aria-label="...">
+                            }
+                            Selecionar Este
+                        </h5>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <img src="/imagens/layout2.jpg" style="border-radius:0.95rem" width="500" alt="Cardápio 4">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-10" style="margin:auto">
+                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <h3 class="py-5" style="margin:auto">
+                                Cardápio Modelo 6
+                            </h3>
+                            <p class="card-text">Cardápio com tema mais harmônico, utiliza cores entre branco e verde-claro, disposição dos itens em blocos na horizontal, possue botões destinados às categorias e uma barra de pesquisa.</p>
+
+                            <a href="/ExemploCardapio/Cardapio6/index.html" target="_blank" style="margin:auto" class="icon-link gap-1 icon-link-hover">
+                                Ver Exemplo
+                            </a>
+                            <h5 class="py-5">
+                                @if (ViewBag.tipoCardapio == 6)
+                                {
+                                    <input class="checar form-check-input" type="checkbox" checked id="tipoCardapio6" value="6" name="tipoCardapio" aria-label="...">
+
+                                }
+                                else
+                                {
+                                    <input class="checar form-check-input" type="checkbox" id="tipoCardapio6" value="6" name="tipoCardapio" aria-label="...">
+
+                                }
+                                Selecionar Este
+                            </h5>
+                        </div>
+                        <div class="col-auto d-none d-lg-block">
+                            <img src="/imagens/layout6.jpg" style="border:0.95rem" width="500" alt="Cardápio 6">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row invisivel" id="ProdutosEvento" style="margin-bottom:15px;">
+                @if (ViewData["produto"] != null)
+                {
+                    <h1 class="text-center">@ViewData["produto"]</h1>
+                }
+                else
+                {
+                    <h1 class="text-center">Escolha os produtos que deseja para o evento:</h1>
+                    <div id="kt_scrolltop" onclick="scrollfim()" data-kt-scrolldown="true" class="scrolldown">
+                        <i class="ki-duotone ki-arrow-down" style="font-size:1.5rem;color:white">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                    <!--begin::Content wrapper-->
+                    <div class="d-flex flex-column flex-column-fluid">
+                        <!--begin::Content-->
+                        <div id="kt_app_content" class="app-content  flex-column-fluid ">
+                            <!--begin::Content container-->
+                            <div id="kt_app_content_container" class="app-container  container-fluid ">
+                                <!--begin::Products-->
+                                <div class="card card-flush">
+                                    <!--begin::Card header-->
+                                    <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                                        <!--begin::Card title-->
+                                        <div class="card-title">
+                                            <!--begin::Search-->
+                                            <div class="d-flex align-items-center position-relative my-1">
+                                                <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i>
+                                                <input type="search" name="SearchString" id="pesquisar" data-kt-ecommerce-product-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="Buscar Produto...">
+                                            </div>
+                                            <!--end::Search-->
+                                        </div>
+                                        <!--end::Card title-->
+                                    </div>
+                                    <!--end::Card header-->
+                                    <!--begin::Card body-->
+                                    <div class="card-body pt-0">
+
+                                        <!--begin::Table-->
+                                        <div id="kt_ecommerce_products_table_wrapper" class="dt-container dt-bootstrap5 dt-empty-footer">
+                                            <div id="" class="table-responsive">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable" id="kt_ecommerce_products_table" style="width: 100%;">
+                                                    <colgroup><col data-dt-column="0" style="width: 5.512px;"><col data-dt-column="1" style="width: 36.4px;"><col data-dt-column="2" style="width: 261.038px;"><col data-dt-column="3" style="width: 70.512px;"><col data-dt-column="4" style="width: 50.512px;"><col data-dt-column="5" style="width: 30.512px;"></colgroup>
+                                                    <thead>
+                                                        <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0" role="row">
+                                                            <th class="w-10px pe-2 dt-orderable-none" data-dt-column="0" rowspan="1" colspan="1" aria-label="">
+
+                                                            </th>
+                                                            <th class="w-10px pe-2 dt-orderable-none toolip" data-dt-column="1" rowspan="1" colspan="1" aria-label="">
+                                                                <span class="dt-column-title ">
+                                                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="1">
+                                                                    </div>
+                                                                </span><span class="dt-column-order "></span><span class="tooliptext">Selecionar todos os produtos</span>
+                                                            </th>
+                                                            <th class="min-w-200px dt-orderable-asc dt-orderable-desc" data-dt-column="2" rowspan="1" colspan="1" aria-label="Product: Activate to sort" tabindex="0"><span class="dt-column-title" role="button">Produto</span><span class="dt-column-order"></span></th>
+                                                            <th class="text-start min-w-100px dt-type-numeric dt-orderable-asc dt-orderable-desc" data-dt-column="3" rowspan="1" colspan="1" aria-label="SKU: Activate to sort" tabindex="0"><span class="dt-column-title" role="button">Categoria</span><span class="dt-column-order"></span></th>
+                                                            <th class="text-start min-w-100px dt-type-numeric dt-orderable-asc dt-orderable-desc" data-dt-column="4" rowspan="1" colspan="1" aria-label="Price: Activate to sort" tabindex="0"><span class="dt-column-title" role="button">Preço</span><span class="dt-column-order"></span></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="fw-semibold text-gray-600">
+                                                        @{
+                                                            int count = 0;
+                                                        }
+                                                        @foreach (var preco in Model)
+                                                        {
+                                                            <tr id="table">
+                                                                <td></td>
+                                                                <td>
+                                                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                        <input class="form-check-input" value="@preco.codProduto" name="ProdutoCampanha[@count].codProduto" type="checkbox">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <!--begin::Thumbnail-->
+                                                                        <div class="symbol symbol-50px">
+                                                                            <span class="symbol-label" style="background-image:url(@preco.Produto.imagem);"></span>
+                                                                        </div>
+                                                                        <!--end::Thumbnail-->
+
+                                                                        <div class="ms-5">
+                                                                            <!--begin::Title-->
+                                                                            <div class="text-gray-800 text-hover-primary fs-5 fw-bold" data-kt-ecommerce-product-filter="product_name">@preco.Produto.nomeProduto</div>
+                                                                            <!--end::Title-->
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-start pe-0 dt-type-numeric">
+                                                                    <span class="fw-bold">@preco.Produto.Categoria.nome</span>
+                                                                </td>
+
+                                                                <td class="text-start pe-0 dt-type-numeric" style="display:inline-flex;align-items:center">R$<input type="text" class="form-control mb-2" placeholder="Product price" value="@preco.valor.ToString("F2")" name="ProdutoCampanha[@count].valor"></td>
+                                                            </tr>
+                                                            count++;
+                                                        }
+                                                    </tbody>
+                                                    <tfoot></tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!--end::Table-->
+                                    </div>
+                                    <!--end::Card body-->
+                                </div>
+                                <!--end::Products-->
+                            </div>
+                            <!--end::Content container-->
+                        </div>
+                        <!--end::Content-->
+                    </div>
+                    <!--end::Content wrapper-->
+                }
+            </div>
+
+            @if (ViewData["Sucesso"] != null)
+            {
+                <div class="form-group">
+                    <h3 class="text-success">@ViewData["Sucesso"]</h3>
+                    <a href="@ViewData["Link"]" target="_blank" class="btn btn-success btn-lg" style="margin-right:3px">Ver Cardápio</a>
+                    <a asp-action="Lista" class="btn btn-success btn-lg">Finalizar</a>
+                </div>
+            }
+            else if (ViewData["Erro"] != null)
+            {
+                <h3 class="text-danger">@ViewData["Erro"]</h3>
+                <a asp-action="Lista" class="btn btn-success btn-lg">Finalizar</a>
+            }
+            else
+
+            {
+                <div class="form-group">
+                    <input type="submit" value="Finalizar" class="btn btn-success btn-lg" />
+                </div>
+            }
+         </form>
+    </div>
+</div>
+<script>
+    document.querySelectorAll('input[name="tipoCardapio"]').forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            var produtosDiv = document.getElementById('ProdutosEvento');
+            var algumSelecionado = false;
+
+            document.querySelectorAll('input[name="tipoCardapio"]').forEach(function (box) {
+                if (box.checked && box.value !== "0") {
+                    algumSelecionado = true;
+                }
+            });
+
+            if (algumSelecionado) {
+                // Mostra a div de produtos do cardápio com animação suave
+                produtosDiv.classList.add('visivel');
+                produtosDiv.classList.remove('invisivel');
+            } else {
+                // Esconde a div de produtos do cardápio com animação suave
+                produtosDiv.classList.add('invisivel');
+                produtosDiv.classList.remove('visivel');
+            }
+        });
+    });
+</script>

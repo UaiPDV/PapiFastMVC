@@ -1,0 +1,121 @@
+﻿@model BixWeb.Models.Usuario
+
+@{
+    ViewData["Title"] = "Cadastrar Cliente";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Usuarios/criarCliente.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+}
+
+<!-- Cabeçalho da Página -->
+<div class="form-page-header">
+    <a asp-action="Index" class="form-back-link">
+        <i class="bi bi-arrow-left-circle fs-2"></i>
+    </a>
+    <h1 class="form-page-title">Cadastrar Novo Cliente</h1>
+</div>
+
+<!-- Formulário Principal -->
+<div class="form-main-card">
+    <form asp-action="NewCliente" enctype="multipart/form-data" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="password" type="hidden" value="123" />
+
+        <div class="form-grid">
+            <!-- Coluna Principal -->
+            <div class="form-main-column">
+                <h2 class="form-section-title">Dados Pessoais</h2>
+                <p class="form-section-subtitle">Insira as informações de identificação e contato do cliente.</p>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-12">
+                        <label asp-for="nome" class="form-label required">Nome Completo</label>
+                        <input asp-for="nome" class="form-control" />
+                        <span asp-validation-for="nome" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="cpf" class="form-label required">CPF</label>
+                        <input asp-for="cpf" maxlength="14" placeholder="000.000.000-00" class="form-control cpf" />
+                        <span asp-validation-for="cpf" class="text-danger">@ViewBag.cpf</span>
+                        <span class="text-danger cpfInvalid"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="telefone" class="form-label required">Contato</label>
+                        <input asp-for="telefone" class="form-control telefone" />
+                        <span asp-validation-for="telefone" class="text-danger"></span>
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="email" class="form-label required">Email</label>
+                        <input asp-for="email" class="form-control email" />
+                        <span asp-validation-for="email" class="text-danger">@ViewBag.email</span>
+                    </div>
+                    <div class="col-12">
+                        <label for="codFilial" class="form-label required">Filial</label>
+                        <select name="codFilial" class="form-select" asp-items="ViewBag.codFilial">
+                            <option value="">--- Selecione a Filial ---</option>
+                        </select>
+                        <span for="codFilial" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna Lateral -->
+            <div class="form-side-column">
+                <h2 class="form-section-title">Avatar</h2>
+                <p class="form-section-subtitle">Selecione uma imagem de perfil para o cliente.</p>
+                <div class="image-upload-group">
+                    <div class="image-uploader user-avatar" id="avatarUploader">
+                        <input type="file" name="banner" accept=".png, .jpg, .jpeg" class="image-input" />
+                        <div class="uploader-content">
+                            <i class="bi bi-person-circle fs-1"></i>
+                            <span>Clique para enviar</span>
+                            <span class="uploader-hint">PNG, JPG ou JPEG</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="form-action-buttons">
+            <a asp-action="Clientes" class="btn btn-light">Cancelar</a>
+            <button type="submit" class="btn btn-primary d-flex align-items-center">
+                <i class="bi bi-check-circle me-2"></i>
+                Cadastrar Cliente
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Força atualização responsiva específica para esta página
+            if (window.forceResponsiveUpdate) {
+                window.forceResponsiveUpdate();
+            }
+            
+            function setupImageUploader(uploaderId) {
+                const uploader = document.getElementById(uploaderId);
+                const input = uploader.querySelector('.image-input');
+
+                input.addEventListener('change', function(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            uploader.style.backgroundImage = `url('${e.target.result}')`;
+                            uploader.classList.add('has-image');
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+
+            setupImageUploader('avatarUploader');
+        });
+    </script>
+}

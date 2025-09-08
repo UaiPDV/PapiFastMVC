@@ -1,0 +1,446 @@
+﻿@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<BixWeb.Models.Cupom>
+
+@{
+    ViewData["Title"] = "Gestão de Cupons";
+    var currentSearch = ViewBag.CurrentSearch as string;
+    var currentStatus = ViewBag.CurrentStatus as string;
+    var currentToken = ViewBag.CurrentToken as string;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/cupons/index.css" asp-append-version="true" />
+}
+
+@if (ViewData["cupom"] != null)
+{
+    <div class="text-center d-flex flex-column justify-content-center" style="height: 70vh;">
+        <h2 class="display-6 fw-bold mb-4">@ViewData["cupom"]</h2>
+        <div class="col-lg-6 mx-auto">
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a asp-action="Create" class="btn btn-primary-action btn-lg px-4 gap-3">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Cadastrar Cupons
+                </a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div id="coupons-page">
+        <!-- Cabeçalho da Página Padronizado -->
+        <div class="page-header">
+            <div class="page-header-content">
+                <h1>@ViewData["Title"]</h1>
+                <p class="page-subtitle">Gerencie e monitore seus cupons de desconto</p>
+            </div>
+            <a asp-action="Create" class="btn btn-primary-action">
+                <i class="bi bi-plus-lg me-2"></i>
+                Criar Novo Cupom
+            </a>
+        </div>
+
+        <!-- Estatísticas dos Cupons -->
+        <div class="coupons-stats mb-4">
+            <div class="row g-3">
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-primary">
+                            <i class="bi bi-ticket-perforated"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.TotalItemCount</div>
+                            <div class="stat-label">Total de Cupons</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-success">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Count(c => c.statusCupom && !c.usadoCupom && (c.codcliente == null || c.codcliente <= 0))</div>
+                            <div class="stat-label">Disponíveis</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-warning">
+                            <i class="bi bi-hourglass-split"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Count(c => c.statusCupom && !c.usadoCupom && c.codcliente != null && c.codcliente > 0)</div>
+                            <div class="stat-label">Em Uso</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-info">
+                            <i class="bi bi-check2-all"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Count(c => c.usadoCupom)</div>
+                            <div class="stat-label">Utilizados</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros & Pesquisa -->
+        <div class="filter-bar">
+            <div class="filter-bar-header">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-funnel text-muted"></i>
+                    <span class="filter-title">Filtros e Pesquisa</span>
+                </div>
+            </div>
+            
+            <div class="filter-controls">
+                <!-- Search (flexível) -->
+                <div class="search-wrapper">
+                    <label class="filter-label">Pesquisar</label>
+                    <div class="search-container">
+                        <i class="bi bi-search position-absolute search-icon"></i>
+                        <input type="text" id="searchInput" class="form-control search-input" placeholder="Buscar por cliente, token..." value="@currentSearch">
+                    </div>
+                </div>
+
+                <!-- Filtros para Desktop (escondidos em mobile) -->
+                <div class="desktop-filters d-none d-md-flex gap-3">
+                    <!-- Status Filter -->
+                    <div class="filter-group">
+                        <label class="filter-label">Status</label>
+                        <select name="statusFilter" class="form-select filter-select">
+                            <option value="">Todos os Status</option>
+                            <option value="disponivel" selected="@(currentStatus == "disponivel")">Disponível</option>
+                            <option value="emuso" selected="@(currentStatus == "emuso")">Em uso</option>
+                            <option value="utilizado" selected="@(currentStatus == "utilizado")">Utilizado</option>
+                            <option value="expirado" selected="@(currentStatus == "expirado")">Expirado</option>
+                        </select>
+                    </div>
+                    <!-- Token Filter -->
+                    <div class="filter-group">
+                        <label class="filter-label">Token</label>
+                        <select name="tokenFilter" class="form-select filter-select" id="tokenFilter">
+                            <option value="">Todos os Tokens</option>
+                            @{
+                                var tokens = Model.Where(c => !string.IsNullOrEmpty(c.tokenCupom))
+                                                 .Select(c => c.tokenCupom)
+                                                 .Distinct()
+                                                 .OrderBy(t => t);
+                            }
+                            @foreach (var token in tokens)
+                            {
+                                <option value="@token" selected="@(currentToken == token)">#@token</option>
+                            }
+                        </select>
+                    </div>
+                    
+                    <div class="filter-actions">
+                        <button type="button" id="clearFiltersBtn" class="btn btn-outline-secondary btn-clear-filters"> <i class="bi bi-arrow-clockwise me-1"></i>
+                        Limpar Filtros</button>
+                    </div>
+                </div>
+
+                <!-- Botão de Filtro para Mobile (visível apenas em mobile) -->
+                <button type="button" id="mobileFilterBtn" class="btn btn-outline-primary d-md-none mobile-filter-btn">
+                    <i class="bi bi-funnel me-2"></i>
+                    Filtros
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal de Filtros para Mobile -->
+        <div class="filter-modal-overlay" id="filterModalOverlay">
+            <div class="filter-modal-content">
+                <div class="filter-modal-header">
+                    <h5 class="modal-title">Filtros</h5>
+                    <button type="button" class="btn-close" id="closeFilterModal"></button>
+                </div>
+                <div class="filter-modal-body">
+                    <!-- Status Filter -->
+                    <div class="mb-3">
+                        <label for="statusFilterModal" class="form-label">Status</label>
+                        <select id="statusFilterModal" class="form-select">
+                            <option value="">Todos os Status</option>
+                            <option value="disponivel">Disponível</option>
+                            <option value="emuso">Em uso</option>
+                            <option value="utilizado">Utilizado</option>
+                            <option value="expirado">Expirado</option>
+                        </select>
+                    </div>
+                    <!-- Token Filter -->
+                    <div class="mb-3">
+                        <label for="tokenFilterModal" class="form-label">Token</label>
+                        <select id="tokenFilterModal" class="form-select">
+                            <option value="">Todos os Tokens</option>
+                            @foreach (var token in tokens)
+                            {
+                                <option value="@token">#@token</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="button" id="clearFiltersModalBtn" class="btn btn-clear-filters w-100 mb-2">Limpar Filtros</button>
+                    <button type="button" id="applyFiltersModalBtn" class="btn btn-primary w-100">Aplicar Filtros</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Filter Tags -->
+        @if (!String.IsNullOrEmpty(currentSearch) || !String.IsNullOrEmpty(currentStatus) || !String.IsNullOrEmpty(currentToken))
+        {
+            <div class="filter-tags-container mb-4 d-flex align-items-center gap-2">
+                <span class="fw-bold small">Filtros Ativos:</span>
+                @if (!String.IsNullOrEmpty(currentSearch))
+                {
+                    <a asp-action="Index" asp-route-statusFilter="@currentStatus" asp-route-tokenFilter="@currentToken" class="filter-tag">
+                        Busca: @currentSearch <span class="close-tag">&times;</span>
+                    </a>
+                }
+                @if (!String.IsNullOrEmpty(currentStatus))
+                {
+                    <a asp-action="Index" asp-route-searchString="@currentSearch" asp-route-tokenFilter="@currentToken" class="filter-tag">
+                        Status: @(currentStatus == "disponivel" ? "Disponível" : currentStatus == "emuso" ? "Em uso" : currentStatus == "utilizado" ? "Utilizado" : "Expirado") <span class="close-tag">&times;</span>
+                    </a>
+                }
+                @if (!String.IsNullOrEmpty(currentToken))
+                {
+                    <a asp-action="Index" asp-route-searchString="@currentSearch" asp-route-statusFilter="@currentStatus" class="filter-tag">
+                        Token: #@currentToken <span class="close-tag">&times;</span>
+                    </a>
+                }
+            </div>
+        }
+
+        <!-- Tabela de Cupons Aprimorada -->
+        <div class="table-wrapper">
+            <div class="table-responsive">
+                <table class="table coupons-table align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="validity-col"><i class="bi bi-calendar-event me-2"></i>Validade</th>
+                            <th scope="col" class="client-col"><i class="bi bi-person me-2"></i>Cliente</th>
+                            <th scope="col" class="token-col"><i class="bi bi-ticket-perforated me-2"></i>Token</th>
+                            <th scope="col" class="status-col"><i class="bi bi-flag me-2"></i>Status</th>
+                            <th scope="col" class="products-col text-center"><i class="bi bi-box me-2"></i>Produtos</th>
+                            <th scope="col" class="discount-col"><i class="bi bi-percent me-2"></i>Desconto</th>
+                            <th scope="col" class="actions-col text-center"><i class="bi bi-gear me-2"></i>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="coupon-row">
+                                <td data-label="Validade">
+                                    <div class="date-display">@item.validadeCupom.ToString("dd/MM/yyyy")</div>
+                                    <div class="time-display text-muted">@item.validadeCupom.ToString("HH:mm")</div>
+                                </td>
+                                <td data-label="Cliente">
+                                    @if (!string.IsNullOrEmpty(item.usuario?.nome))
+                                    {
+                                        <div class="client-info">
+                                            <div class="client-name">@item.usuario.nome</div>
+                                            @if (!string.IsNullOrEmpty(item.usuario.email))
+                                            {
+                                                <div class="client-email">@item.usuario.email</div>
+                                            }
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Não atribuído</span>
+                                    }
+                                </td>
+                                <td data-label="Token">
+                                    <span class="token-badge">#@item.tokenCupom</span>
+                                </td>
+                                <td data-label="Status">
+                                    @if (item.validadeCupom < DateTime.Now && !item.usadoCupom)
+                                    {
+                                        <span class="status-badge status-expired">Expirado</span>
+                                    }
+                                    else if (item.usadoCupom)
+                                    {
+                                        <span class="status-badge status-used">Utilizado</span>
+                                    }
+                                    else if (item.codcliente != null && item.codcliente > 0)
+                                    {
+                                        <span class="status-badge status-in-use">Em uso</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-badge status-available">Disponível</span>
+                                    }
+                                </td>
+                                <td data-label="Produtos" class="text-center">
+                                    <span class="products-count">@item.produtos</span>
+                                </td>
+                                <td data-label="Desconto">
+                                    <span class="discount-value">@item.descontoCupom%</span>
+                                </td>
+                                <td data-label="Ações">
+                                    <div class="action-buttons">
+                                        <div class="dropdown">
+                                            <button class="btn btn-action-icon dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Enviar cupom" @((item.usadoCupom || item.validadeCupom < DateTime.Now) ? "disabled" : "")>
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_email_@item.codCupom"><i class="bi bi-envelope"></i>E-mail</a></li>
+                                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_whats_@item.codCupom"><i class="bi bi-whatsapp"></i>WhatsApp</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Modal de E-mail -->
+                            <div class="modal fade" id="kt_modal_email_@item.codCupom" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered mw-650px">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h2>Enviar Cupom por Email</h2>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form asp-action="EnviarCupom" class="form">
+                                            <div class="modal-body">
+                                                <input name="id" value="@item.codCupom" type="hidden" />
+                                                <div class="mb-3">
+                                                    <label class="form-label required">Nome do cliente:</label>
+                                                    <input type="text" class="form-control" placeholder="Digite o nome" name="nome">
+                                                </div>
+                                                <div>
+                                                    <label class="form-label required">Email do Cliente</label>
+                                                    <input type="email" class="form-control" name="email" placeholder="Digite o Email" />
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer flex-center">
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary-action">Enviar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal de WhatsApp -->
+                            <div class="modal fade" id="kt_modal_whats_@item.codCupom" tabindex="-1" aria-hidden="true">
+                                 <div class="modal-dialog modal-dialog-centered mw-650px">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h2>Enviar Cupom por WhatsApp</h2>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form asp-action="EnviarCupomWhats" class="form">
+                                            <div class="modal-body">
+                                                <input name="id" value="@item.codCupom" type="hidden" />
+                                                <div class="mb-3">
+                                                    <label class="form-label required">Nome do cliente:</label>
+                                                    <input type="text" class="form-control" placeholder="Digite o nome" name="nome">
+                                                </div>
+                                                <div>
+                                                    <label class="form-label required">WhatsApp do Cliente</label>
+                                                    <input type="text" class="form-control" name="telefone" placeholder="(00)00000-0000" />
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer flex-center">
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary-action">Enviar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Paginação Aprimorada -->
+        @if (Model.PageCount > 1)
+        {
+            <div class="pagination-wrapper">
+                <div class="pagination-info">
+                    <span class="pagination-text">
+                        Mostrando @((Model.PageNumber - 1) * Model.PageSize + 1) até @(Math.Min(Model.PageNumber * Model.PageSize, Model.TotalItemCount)) de @Model.TotalItemCount cupons
+                    </span>
+                </div>
+                <div class="pagination-controls">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = currentSearch, statusFilter = currentStatus, tokenFilter = currentToken }), new PagedListRenderOptions
+                    {
+                        UlElementClasses = new[] { "pagination", "custom-pagination" },
+                        LiElementClasses = new[] { "page-item" },
+                        PageClasses = new[] { "page-link" },
+                        ActiveLiElementClass = "active"
+                    })
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@section Scripts {
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- LÓGICA PADRÃO DA PÁGINA (filtros, etc.) ---
+        const searchInput = document.getElementById('searchInput');
+        const mobileFilterBtn = document.getElementById('mobileFilterBtn');
+        const filterModalOverlay = document.getElementById('filterModalOverlay');
+        const closeFilterModal = document.getElementById('closeFilterModal');
+        const applyFiltersModalBtn = document.getElementById('applyFiltersModalBtn');
+        const clearFiltersModalBtn = document.getElementById('clearFiltersModalBtn');
+
+        // --- Filtros (Desktop) ---
+        const statusFilterDesktop = document.querySelector('.desktop-filters select[name="statusFilter"]');
+        const tokenFilterDesktop = document.getElementById('tokenFilter');
+        const clearFiltersBtnDesktop = document.getElementById('clearFiltersBtn');
+
+        function applyFilters() {
+            const search = searchInput.value;
+            const status = statusFilterDesktop.value;
+            const token = tokenFilterDesktop.value;
+            window.location.href = `@Url.Action("Index")?searchString=${encodeURIComponent(search)}&statusFilter=${encodeURIComponent(status)}&tokenFilter=${encodeURIComponent(token)}`;
+        }
+
+        if(searchInput) searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') applyFilters();
+        });
+        
+        if(statusFilterDesktop) statusFilterDesktop.addEventListener('change', applyFilters);
+        if(tokenFilterDesktop) tokenFilterDesktop.addEventListener('change', applyFilters);
+
+        if(clearFiltersBtnDesktop) clearFiltersBtnDesktop.addEventListener('click', () => {
+            searchInput.value = '';
+            statusFilterDesktop.value = '';
+            tokenFilterDesktop.value = '';
+            applyFilters();
+        });
+
+
+        // --- LÓGICA PARA CORREÇÃO DE DROPDOWNS EM TABELAS (PADRONIZADA) ---
+        document.querySelectorAll('.table-responsive').forEach(wrapper => {
+            const dropdowns = wrapper.querySelectorAll('.dropdown-toggle');
+            dropdowns.forEach(dd => {
+                dd.addEventListener('show.bs.dropdown', function (event) {
+                    // Adiciona classe ao 'tr' para controle de z-index
+                    event.target.closest('tr')?.classList.add('dropdown-open');
+                    
+                    // Adiciona a classe ao wrapper para permitir overflow
+                    wrapper.classList.add('dropdown-visible');
+                });
+
+                dd.addEventListener('hide.bs.dropdown', function (event) {
+                    // Remove as classes ao fechar o dropdown
+                    event.target.closest('tr')?.classList.remove('dropdown-open');
+                    wrapper.classList.remove('dropdown-visible');
+                });
+            });
+        });
+    });
+</script>
+}

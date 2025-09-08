@@ -1,0 +1,115 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@if (User.IsInRole("Gerente") || User.IsInRole("Funcionario") || User.IsInRole("Administrador"))
+{
+    <li>
+        <a asp-controller="Campanhas" asp-action="Index" class="nav-link d-flex align-items-center my-1">
+            <i class="bi bi-graph-up me-3 fs-5"></i> Campanhas
+        </a>
+    </li>
+    <li>
+        <a asp-controller="Convites" asp-action="Index" class="nav-link d-flex align-items-center my-1">
+            <i class="bi bi-envelope-fill me-3 fs-5"></i> Convites
+        </a>
+    </li>
+    <li>
+        <a asp-controller="Cupons" asp-action="Index" class="nav-link d-flex align-items-center my-1">
+            <i class="bi bi-ticket-perforated-fill me-3 fs-5"></i> Cupons
+        </a>
+    </li>
+    <li>
+        <a asp-controller="Voucher" asp-action="Index" class="nav-link d-flex align-items-center my-1">
+            <i class="bi bi-clock-fill me-3 fs-5"></i> Voucher
+        </a>
+    </li>
+    <li>
+        <a asp-controller="Eventos" asp-action="Lista" class="nav-link d-flex align-items-center my-1">
+            <i class="bi bi-calendar-event-fill me-3 fs-5"></i> Eventos
+        </a>
+    </li>
+    <li>
+        <a asp-controller="Filiais" asp-action="Index" class="nav-link d-flex align-items-center my-1">
+            <i class="bi bi-shop me-3 fs-5"></i> Filiais
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link d-flex align-items-center my-1" data-bs-toggle="collapse" href="#recibos-submenu" role="button" aria-expanded="false" aria-controls="recibos-submenu">
+            <i class="bi bi-file-earmark-text-fill me-3 fs-5"></i> Recibos <i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <div class="collapse" id="recibos-submenu">
+            <ul class="nav flex-column ps-4">
+                <li><a asp-controller="Ingressos" asp-action="RecibosIngresso" class="nav-link">De Ingressos</a></li>
+            </ul>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link d-flex align-items-center my-1" data-bs-toggle="collapse" href="#usuarios-submenu" role="button" aria-expanded="false" aria-controls="usuarios-submenu">
+            <i class="bi bi-people-fill me-3 fs-5"></i> Usuários <i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <div class="collapse" id="usuarios-submenu">
+            <ul class="nav flex-column ps-4">
+                <li><a asp-controller="Usuarios" asp-action="Clientes" class="nav-link">Clientes</a></li>
+                @if (User.IsInRole("Gerente"))
+                {
+                    <li><a asp-controller="Usuarios" asp-action="Funcionarios" class="nav-link">Funcionários</a></li>
+                }
+            </ul>
+        </div>
+    </li>
+    <li>
+        <a asp-controller="Sincronizar" asp-action="Sincronizar" class="nav-link d-flex align-items-center my-1">
+            <i class="bi bi-arrow-repeat me-3 fs-5"></i> Sincronizar/UAIPDV
+        </a>
+    </li>
+}
+else if (User.IsInRole("Cliente"))
+{
+    <li>
+        <a asp-controller="Convites" asp-action="Lista" class="nav-link d-flex align-items-center my-1">
+            <i class="bi bi-envelope-fill me-3 fs-5"></i> Convites
+        </a>
+    </li>
+    
+    <li class="nav-item">
+        <a asp-controller="Eventos" asp-action="Lista" class="nav-link d-flex align-items-center my-1">
+            <i class="bi bi-calendar-event-fill me-3 fs-5"></i> Eventos
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link d-flex align-items-center my-1" data-bs-toggle="collapse" href="#cupons-submenu" role="button" aria-expanded="false" aria-controls="cupons-submenu">
+            <i class="bi bi-ticket-perforated-fill me-3 fs-5"></i> Cupons <i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <div class="collapse" id="cupons-submenu">
+            <ul class="nav flex-column ps-4">
+                <li><a asp-controller="Cupons" asp-action="CuponsPublicos" class="nav-link d-flex align-items-center my-1">Cupons</a></li>
+                <li><a asp-controller="Cupons" asp-action="Lista" class="nav-link d-flex align-items-center my-1">Meus Cupons</a></li>
+            </ul>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link d-flex align-items-center my-1" data-bs-toggle="collapse" href="#recibos-submenu" role="button" aria-expanded="false" aria-controls="recibos-submenu">
+            <i class="bi bi-file-earmark-text-fill me-3 fs-5"></i> Recibos <i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <div class="collapse" id="recibos-submenu">
+            <ul class="nav flex-column ps-4">
+                <li><a asp-controller="ReciboPresentes" asp-action="Index" class="nav-link">De Presente</a></li>
+                <li><a asp-controller="Ingressos" asp-action="RecibosIngresso" class="nav-link">De Ingressos</a></li>
+            </ul>
+        </div>
+    </li>
+    <li>
+        <a asp-controller="Voucher" asp-action="Lista" class="nav-link d-flex align-items-center my-1">
+            <i class="bi bi-clock-fill me-3 fs-5"></i> Voucher
+        </a>
+    </li>
+}
+else
+{
+    <li>
+        <a asp-controller="Eventos" class="nav-link d-flex align-items-center my-1">
+            <i class="bi bi-calendar-event-fill me-3 fs-5"></i> Eventos
+        </a>
+    </li>
+}

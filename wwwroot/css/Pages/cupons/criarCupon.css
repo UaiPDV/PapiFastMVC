@@ -1,0 +1,159 @@
+/* =================================================================== */
+/* ================ ESTILOS ESPECÍFICOS PARA CUPONS ================= */
+/* =================================================================== */
+
+/* 
+ * Estilos específicos apenas para a página de Criar Cupom
+ * Todos os estilos comuns foram movidos para GlobalStyles.css
+ */
+
+/* Estilização para o campo de seleção de produtos */
+.products-selection-wrapper {
+	display: flex;
+	gap: 0.75rem;
+	align-items: flex-start;
+}
+
+.products-display-field {
+	flex: 1;
+}
+
+.products-btn {
+	white-space: nowrap;
+	min-height: 38px;
+	padding: 0.375rem 1rem;
+	display: flex;
+	align-items: center;
+	font-weight: 500;
+}
+
+.products-btn:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 4px 8px rgba(13, 110, 253, 0.3);
+}
+
+/* Container de produtos selecionados */
+.selected-products-container {
+	border: 1px solid #dee2e6;
+	border-radius: 0.5rem;
+	background-color: #f8f9fa;
+}
+
+.selected-products-header {
+	padding: 1rem 1rem 0.5rem;
+	border-bottom: 1px solid #dee2e6;
+	background-color: #ffffff;
+	border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.selected-products-header h6 {
+	margin: 0;
+	color: #495057;
+	font-weight: 600;
+}
+
+.selected-products-list {
+	padding: 1rem;
+	max-height: 200px;
+	overflow-y: auto;
+}
+
+.selected-product-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.75rem;
+	margin-bottom: 0.5rem;
+	background-color: #ffffff;
+	border: 1px solid #e9ecef;
+	border-radius: 0.375rem;
+	transition: all 0.2s ease;
+}
+
+.selected-product-item:last-child {
+	margin-bottom: 0;
+}
+
+.selected-product-item:hover {
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.selected-product-info {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+}
+
+.selected-product-image {
+	width: 45px;
+	height: 45px;
+	border-radius: 0.375rem;
+	object-fit: cover;
+	border: 1px solid #dee2e6;
+}
+
+.selected-product-details {
+	display: flex;
+	flex-direction: column;
+}
+
+.selected-product-name {
+	font-weight: 600;
+	color: #212529;
+	margin: 0;
+	font-size: 0.9rem;
+}
+
+.selected-product-category {
+	color: #6c757d;
+	font-size: 0.8rem;
+	margin: 0;
+}
+
+.remove-product-btn {
+	background: #dc3545;
+	border: none;
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 0.875rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.remove-product-btn:hover {
+	background: #c82333;
+	transform: scale(1.1);
+}
+
+/* Estado vazio */
+.empty-products-state {
+	text-align: center;
+	padding: 2rem;
+	color: #6c757d;
+	font-style: italic;
+}
+
+/* Responsividade */
+@media (max-width: 576px) {
+	.products-selection-wrapper {
+		flex-direction: column;
+	}
+
+	.products-btn {
+		justify-content: center;
+	}
+
+	.selected-product-info {
+		gap: 0.5rem;
+	}
+
+	.selected-product-image {
+		width: 35px;
+		height: 35px;
+	}
+}

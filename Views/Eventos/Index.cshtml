@@ -1,0 +1,77 @@
+﻿@using X.PagedList.Mvc.Core
+@using X.PagedList
+@model X.PagedList.IPagedList<BixWeb.Models.Evento>
+
+@{
+    ViewData["Title"] = "Eventos";
+    var currentSearch = ViewBag.CurrentSearch as string;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Eventos/index.css" asp-append-version="true" />
+}
+
+<div class="events-section-container">
+    <!-- Cabeçalho da Seção -->
+    <div class="section-header">
+        <div class="section-header-content">
+            <h1>Eventos em Andamento</h1>
+            <p class="section-subtitle">Confira os últimos eventos cadastrados na plataforma.</p>
+        </div>
+        <div class="search-form-wrapper">
+            <form method="get" asp-action="Index" class="d-flex">
+                <div class="input-group">
+                    <input type="text" name="SearchString" class="form-control" placeholder="Buscar evento..." value="@currentSearch">
+                    <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Grid de Eventos -->
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-light text-center" role="alert">
+            Nenhum evento encontrado.
+        </div>
+    }
+    else
+    {
+        <div class="events-grid">
+            @foreach (var evento in Model)
+            {
+                <div class="event-card">
+                    <a asp-action="Details" asp-route-id="@evento.codEvento" target="_blank" class="card-link">
+                        <div class="card-image-wrapper">
+                            <img src="@evento.bannerEvento" onerror="this.src='https://placehold.co/600x400/cccccc/FFFFFF?text=Imagem'" alt="Banner do evento @evento.nomeEvento" />
+                        </div>
+                        <div class="card-body">
+                            <span class="card-category">@evento.categoriaEvento</span>
+                            <h3 class="card-title">@evento.nomeEvento</h3>
+                            <p class="card-date">
+                                <i class="bi bi-calendar3"></i>
+                                @evento.dataInicioEvento.ToString("dd MMM yyyy 'às' HH:mm")
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+
+        <!-- Paginação -->
+        @if (Model.PageCount > 1)
+        {
+            <div class="pagination-wrapper">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, SearchString = currentSearch }),
+                    new PagedListRenderOptions
+                    {
+                        UlElementClasses = new[] { "pagination", "custom-pagination" },
+                        LiElementClasses = new[] { "page-item" },
+                        PageClasses = new[] { "page-link" },
+                        ActiveLiElementClass = "active"
+                    })
+            </div>
+        }
+    }
+</div>
+

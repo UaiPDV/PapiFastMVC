@@ -1,0 +1,195 @@
+﻿@using X.PagedList.Mvc.Core
+@using X.PagedList
+@model X.PagedList.IPagedList<BixWeb.Models.Voucher>
+
+@{
+    ViewData["Title"] = "Gestão de Vouchers";
+    var currentSearch = ViewBag.CurrentSearch as string;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Voucher/voucherLista.css" asp-append-version="true" />
+}
+
+@if (ViewData["Voucher"] != null)
+{
+    <div class="text-center d-flex flex-column justify-content-center" style="height: 70vh;">
+        <h2 class="display-6 fw-bold mb-4">@ViewData["Voucher"]</h2>
+        <div class="col-lg-6 mx-auto">
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a asp-action="Create" class="btn btn-primary-action btn-lg px-4 gap-3">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Adicionar Voucher
+                </a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div id="vouchers-page">
+        <!-- Cabeçalho da Página Padronizado -->
+        <div class="page-header">
+            <div class="page-header-content">
+                <h1>@ViewData["Title"]</h1>
+                <p class="page-subtitle">Gerencie e monitore seus vouchers de crédito</p>
+            </div>
+            <a asp-action="Create" class="btn btn-primary-action">
+                <i class="bi bi-plus-lg me-2"></i>
+                Adicionar Voucher
+            </a>
+        </div>
+
+        <!-- Estatísticas dos Vouchers -->
+        <div class="vouchers-stats mb-4">
+            <div class="row g-3">
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-primary">
+                            <i class="bi bi-ticket-detailed"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.TotalItemCount</div>
+                            <div class="stat-label">Total de Vouchers</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-success">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Count(v => !v.utilizado)</div>
+                            <div class="stat-label">Vouchers Ativos</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-info">
+                            <i class="bi bi-cash-stack"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Where(v => !v.utilizado).Sum(v => v.valorDisponivel).ToString("C")</div>
+                            <div class="stat-label">Valor Disponível</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-warning">
+                            <i class="bi bi-cart-check"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Sum(v => v.valorOriginal - v.valorDisponivel).ToString("C")</div>
+                            <div class="stat-label">Valor Utilizado</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros & Pesquisa -->
+        <div class="filter-bar">
+            <div class="filter-bar-header">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-funnel text-muted"></i>
+                    <span class="filter-title">Filtros e Pesquisa</span>
+                </div>
+            </div>
+            
+            <div class="filter-controls">
+                <div class="search-wrapper">
+                    <label class="filter-label">Pesquisar</label>
+                    <div class="search-container">
+                        <i class="bi bi-search position-absolute search-icon"></i>
+                        <input type="text" class="form-control search-input" placeholder="Buscar por cliente ou voucher..." value="@currentSearch">
+                    </div>
+                </div>
+                <div class="filter-actions">
+                    <button type="button" class="btn btn-outline-secondary btn-clear-filters">Limpar Filtros</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Vouchers Padronizada -->
+        <div class="table-wrapper">
+            <div class="table-responsive">
+                <table class="table vouchers-table align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="client-col"><i class="bi bi-person me-2"></i>Cliente</th>
+                            <th scope="col" class="status-col"><i class="bi bi-flag me-2"></i>Status</th>
+                            <th scope="col" class="validity-col"><i class="bi bi-calendar-event me-2"></i>Validade</th>
+                            <th scope="col" class="voucher-col text-center"><i class="bi bi-ticket-perforated me-2"></i>Voucher</th>
+                            <th scope="col" class="value-col text-end"><i class="bi bi-cash-stack me-2"></i>Disponível</th>
+                            <th scope="col" class="total-value-col text-end"><i class="bi bi-cash me-2"></i>Valor Total</th>
+                            <th scope="col" class="actions-col text-center"><i class="bi bi-gear me-2"></i>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td data-label="Cliente">
+                                    <div class="client-info">
+                                        <span class="client-name">@(item.Cliente?.nome ?? "Não atribuído")</span>
+                                        <span class="client-email">@(item.Cliente?.email ?? "")</span>
+                                    </div>
+                                </td>
+                                <td data-label="Status">
+                                    @if (item.utilizado)
+                                    {
+                                        <span class="status-badge status-disabled">Desativado</span>
+                                    }
+                                    else if (item.valorOriginal != item.valorDisponivel)
+                                    {
+                                        <span class="status-badge status-in-use">Em Uso</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-badge status-not-used">Não Usado</span>
+                                    }
+                                </td>
+                                <td data-label="Validade">@item.validadeVoucher.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td data-label="Voucher" class="text-center font-mono">@item.tokenVoucher</td>
+                                <td data-label="Valor Disponível" class="text-end fw-medium">@item.valorDisponivel.ToString("C")</td>
+                                <td data-label="Valor Total" class="text-end text-muted">@item.valorOriginal.ToString("C")</td>
+                                <td data-label="Ações">
+                                    <div class="action-buttons">
+                                        <button class="btn btn-action-icon" title="Enviar voucher" @(item.utilizado ? "disabled" : "")>
+                                            <i class="bi bi-send"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+         <!-- Paginação Aprimorada -->
+        @if (Model.PageCount > 1)
+        {
+            <div class="pagination-wrapper">
+                <div class="pagination-info">
+                     <span class="pagination-text">
+                        Mostrando @((Model.PageNumber - 1) * Model.PageSize + 1) até @(Math.Min(Model.PageNumber * Model.PageSize, Model.TotalItemCount)) de @Model.TotalItemCount vouchers
+                    </span>
+                </div>
+                <div class="pagination-controls">
+                     @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = currentSearch }), new PagedListRenderOptions
+                     {
+                         UlElementClasses = new[] { "pagination", "custom-pagination" },
+                         LiElementClasses = new[] { "page-item" },
+                         PageClasses = new[] { "page-link" },
+                         ActiveLiElementClass = "active"
+                     })
+                </div>
+            </div>
+        }
+    </div>
+}
+

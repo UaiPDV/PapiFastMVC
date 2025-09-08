@@ -1,0 +1,33 @@
+/* Estilos para a página de listagem de produtos */
+
+.product-info-cell {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.product-image-wrapper .product-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px; /* Bordas arredondadas */
+    border: 1px solid #dee2e6; /* Borda cinza clara */
+    padding: 2px; /* Pequeno espaçamento interno */
+    background-color: #fff;
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-name {
+    font-weight: 600;
+    color: var(--papi-text-dark);
+}
+
+.product-category,
+.product-price {
+    font-weight: 500;
+    color: var(--papi-text-muted);
+}

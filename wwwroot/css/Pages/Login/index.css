@@ -1,0 +1,184 @@
+/* Importando uma fonte para se aproximar do design */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Container principal para centralizar o card */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+/* O card de login branco */
+.login-card {
+    background-color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 420px; /* Largura aumentada */
+    text-align: center;
+}
+
+/* Estilo do logo */
+.login-card .logo {
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+/* Título principal "Acesse sua conta" */
+.login-card h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+/* Subtítulo "Novo aqui? Crie sua Conta" */
+.login-card .subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.login-card .subtitle a {
+    color: #f7941d; /* Laranja do botão */
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-card .subtitle a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para os grupos de formulário (label + input) */
+.login-form .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.login-form .form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* Grupo de input que contém o ícone e o campo */
+.login-form .input-group {
+    display: flex;
+    align-items: center;
+    background-color: #f0f2f5;
+    border: 1px solid #e0e6ed;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.login-form .input-group i {
+    padding-left: 15px;
+    padding-right: 10px;
+    color: #aaa;
+    transition: color 0.3s ease;
+}
+
+/* Estilo dos campos de input (Email, Senha) */
+.login-form .form-control {
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    height: 46px; /* 48px - 2px da borda do pai */
+    padding-left: 0; 
+    font-size: 14px;
+    width: 100%;
+    flex: 1;
+}
+
+/* Remove o foco do input e passa para o grupo */
+.login-form .form-control:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+/* Muda a cor do grupo e do ícone quando o input está focado */
+.login-form .input-group:focus-within {
+    background-color: #ffffff;
+    border-color: #f7941d;
+}
+
+.login-form .input-group:focus-within i {
+    color: #f7941d;
+}
+
+/* --- Correção para Autocomplete do Navegador --- */
+/* Força o fundo do input no estado normal (cinza) */
+.login-form input:-webkit-autofill,
+.login-form input:-webkit-autofill:hover,
+.login-form input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #f0f2f5 inset !important;
+    -webkit-text-fill-color: #333 !important;
+}
+
+/* Força o fundo do input no estado focado (branco) */
+.login-form .input-group:focus-within input:-webkit-autofill,
+.login-form .input-group:focus-within input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+    -webkit-text-fill-color: #333 !important;
+}
+
+
+/* Estilo do checkbox "Lembrar de mim" */
+.form-check {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.form-check-label {
+    font-size: 14px;
+    color: #555;
+}
+
+.form-check-input {
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.form-check-input:checked {
+    background-color: #f7941d;
+    border-color: #f7941d;
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(247, 148, 29, 0.25);
+    border-color: #f7941d;
+}
+
+
+/* Botão de Acessar */
+.btn-login {
+    background-color: #f7941d; /* Laranja */
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: #e68a1b; /* Laranja um pouco mais escuro */
+    color: #ffffff;
+}
+
+/* Mensagens de validação */
+.text-danger {
+    font-size: 12px;
+    text-align: left;
+    display: block;
+    margin-top: 4px;
+}
+

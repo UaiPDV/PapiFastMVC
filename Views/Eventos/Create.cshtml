@@ -1,0 +1,501 @@
+﻿@model BixWeb.Models.Evento
+
+@{
+    ViewData["Title"] = "Cadastrar Evento";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Eventos/criarEvento.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+}
+
+<!-- O restante do seu HTML/Razor permanece o mesmo... -->
+<!-- Cabeçalho, Formulário, Cards, etc. -->
+<div class="form-page-header">
+    <a asp-action="Lista" class="form-back-link">
+        <i class="bi bi-arrow-left-circle fs-2"></i>
+    </a>
+    <h1 class="form-page-title">Cadastrar Evento</h1>
+</div>
+
+<div class="form-main-card">
+    <form asp-action="Create" enctype="multipart/form-data" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-grid">
+            <div class="form-main-column">
+                <div class="form-card">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h2 class="form-section-title">Informações Básicas</h2>
+                            <p class="form-section-subtitle">Defina o nome, categoria e outros detalhes do seu evento.</p>
+                        </div>
+                        <span id="scriptStatus" class="script-status-indicator" title="Status do Script"></span>
+                    </div>
+                    <div class="form-fields">
+                        <div class="form-group full-width">
+                            <label asp-for="nomeEvento" class="form-label required">Nome do Evento</label>
+                            <input asp-for="nomeEvento" class="form-control" />
+                            <span asp-validation-for="nomeEvento" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="categoriaEvento" class="form-label required">Categoria</label>
+                            <select asp-for="categoriaEvento" id="categoriaEvento" class="form-control">
+                                <option value="">--- Selecione a Categoria ---</option>
+                                <option value="Aniversário">Aniversário</option>
+                                <option value="Artes">Artes</option>
+                                <option value="Bodas">Bodas</option>
+                                <option value="Caridade e Causas Sociais">Caridade e Causas Sociais</option>
+                                <option value="Casamento">Casamento</option>
+                                <option value="Casa, Estilo e Vida">Casa, Estilo e Vida</option>
+                                <option value="Chá de Bebê">Chá de Bebê</option>
+                                <option value="Chá de Panela">Chá de Panela</option>
+                                <option value="Ciência e Tecnologia">Ciência e Tecnologia</option>
+                                
+                                <option value="Congresso, Conferência, Seminário">Congresso, Conferência, Seminário</option>
+                                <option value="Curso, Workshop">Curso, Workshop</option>
+                                <option value="Day Use">Day Use</option>
+                                <option value="Educação">Educação</option>
+                                <option value="Encontro, Networking">Encontro, Networking</option>
+                                <option value="Esportivo">Esportivo</option>
+                                <option value="E-Sports">E-Sports</option>
+                                <option value="Família e Educação">Família</option>
+                                <option value="Feira, Exposição">Feira, Exposição</option>
+                                
+                                <option value="Filme, Cinema e Teatro">Filme, Cinema e Teatro</option>
+                                <option value="Gastronomia">Gastronomia</option>
+                                <option value="Governamental">Governamental</option>
+                                
+                                <option value="Moda">Moda</option>
+                                <option value="Música">Música</option>
+                                <option value="Negócios">Negócios</option>
+                                <option value="Outros">Outros</option>
+                                <option value="Religioso, Espiritual">Religioso, Espiritual</option>
+                                <option value="Saúde e Bem-estar">Saúde e Bem-estar</option>
+                                <option value="Show, Música, Festas">Show, Música, Festas</option>
+                                
+                            </select>
+                            <span asp-validation-for="categoriaEvento" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="tipoEvento" class="form-label required">Tipo de Local</label>
+                            <select asp-for="tipoEvento" id="tipoEvento" class="form-control">
+                                <option value="">--- Selecione o Tipo ---</option>
+                                <option value="Anfiteatro">Anfiteatro</option>
+                                <option value="Auditório/Sala de Conferência">Auditório/Sala de Conferência</option>
+                                <option value="Bar/Pub">Bar/Pub</option>
+                                <option value="Biblioteca">Biblioteca</option>
+                                <option value="Cafeteria">Cafeteria</option>
+                                <option value="Casa de Show/Casa Noturna">Casa de Show/Casa Noturna</option>
+                                <option value="Casa/Condomínio">Casa/Condomínio</option>
+                                <option value="Cinema">Cinema</option>
+                                <option value="Clube">Clube</option>
+                                <option value="Escola/Universidade">Escola/Universidade</option>
+                                <option value="Espaço cultural">Espaço cultural</option>
+                                <option value="Espaço Publico">Espaço Publico</option>
+                                <option value="Estádio/Ginásio">Estádio/Ginásio</option>
+                                <option value="Estúdio ">Estúdio </option>
+                                <option value="Feira">Feira</option>
+                                <option value="Hotel">Hotel</option>
+                                <option value="Hotel Fazenda">Hotel Fazenda</option>
+                                <option value="Jardim/ Jardim Botânico ">Jardim/ Jardim Botânico </option>
+                                <option value="Lanchonete">Lanchonete</option>
+                                <option value="Museu">Museu</option>
+                                <option value="Networking/Plataforma Virtual">Networking/Plataforma Virtual</option>
+                                <option value="Parque">Parque</option>
+                                <option value="Parque Aquático">Parque Aquático</option>
+                                <option value="Pesque Pague">Pesque Pague</option>
+                                <option value="Pousada">Pousada</option>
+                                <option value="Praia">Praia</option>
+                                <option value="Restaurante">Restaurante</option>
+                                <option value="Salão de festas">Salão de festas</option>
+                                <option value="Sítio">Sítio</option>
+                                <option value="Templo/Igreja">Templo/Igreja</option>
+                                <option value="Vinícola/Cervejaria">Vinícola/Cervejaria</option>
+                                <option value="Zoológico">Zoológico</option>
+                            </select>
+                            <span asp-validation-for="tipoEvento" class="text-danger"></span>
+                        </div>
+                        
+                        @if (User.IsInRole("Gerente") || User.IsInRole("Funcionario") || User.IsInRole("Administrador"))
+                        {
+                            <div class="form-group">
+                                <label asp-for="codFilial" class="form-label required">Filial</label>
+                                <select asp-for="codFilial" class="form-control" asp-items="ViewBag.codFilial">
+                                    <option value="">--- Selecione a Filial ---</option>
+                                </select>
+                                <span asp-validation-for="codFilial" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="linkEvento" class="form-label required">Link do evento</label>
+                                <input asp-for="linkEvento" class="form-control" />
+                                <span asp-validation-for="linkEvento" class="text-danger"></span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group full-width">
+                                <label asp-for="linkEvento" class="form-label required">Link do evento</label>
+                                <input asp-for="linkEvento" class="form-control" />
+                                <span asp-validation-for="linkEvento" class="text-danger"></span>
+                            </div>
+                        }
+
+                        <div class="form-fields">
+                            <div class="form-group">
+                                <label asp-for="eventoPrivado" class="form-label">Visibilidade do Evento</label>
+                                <select asp-for="eventoPrivado" class="form-control">
+                                    <option value="false">Público</option>
+                                    <option value="true">Privado</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="classificacaoEtaria" class="form-label">Faixa Etária Mínima</label>
+                                <input asp-for="classificacaoEtaria" class="form-control" min="0" placeholder="Ex: 18" />
+                                <span asp-validation-for="classificacaoEtaria" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label asp-for="descricaoEvento" class="form-label">Descrição do evento</label>
+                            <textarea asp-for="descricaoEvento" rows="4" class="form-control"></textarea>
+                            <span asp-validation-for="descricaoEvento" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h2 class="form-section-title">Quando vai acontecer?</h2>
+                    <p class="form-section-subtitle">Informe ao público a data de início e término.</p>
+                    <div class="form-fields">
+                        <div class="form-group">
+                            <label asp-for="dataInicioEvento" class="form-label required">Início do Evento</label>
+                            <input asp-for="dataInicioEvento" class="form-control" type="datetime-local" />
+                            <span asp-validation-for="dataInicioEvento" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="dataTerminoEvento" class="form-label required">Término do Evento</label>
+                            <input asp-for="dataTerminoEvento" class="form-control" type="datetime-local" />
+                            <span asp-validation-for="dataTerminoEvento" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h2 class="form-section-title">Onde o seu evento vai acontecer?</h2>
+                    <p class="form-section-subtitle">Informe o endereço completo de onde o evento irá acontecer.</p>
+                    
+                    @if (User.IsInRole("Gerente") || User.IsInRole("Funcionario") || User.IsInRole("Administrador"))
+                    {
+                        <div class="form-switch-container">
+                            <label for="EnderecoFilial" class="form-switch-wrapper">
+                                <div class="form-switch-info">
+                                    <span class="form-switch-title">Usar Endereço da Filial</span>
+                                    <p class="form-switch-description">Marque esta opção para preencher automaticamente com o endereço da filial selecionada.</p>
+                                </div>
+                                <div class="form-toggle-switch">
+                                    <input type="checkbox" role="switch" id="EnderecoFilial" name="EnderecoFilial" value="true">
+                                    <span class="form-toggle-slider"></span>
+                                </div>
+                            </label>
+                        </div>
+                    }
+
+                    <div class="form-fields endereco-fields" id="enderecoContainer">
+                        <div class="form-group">
+                            <label asp-for="Endereco.cep" class="form-label required">CEP</label>
+                            <input asp-for="Endereco.cep" class="form-control" placeholder="00000-000" />
+                            <span asp-validation-for="Endereco.cep" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Endereco.estado" class="form-label required">Estado</label>
+                            <input asp-for="Endereco.estado" class="form-control" placeholder="SP" />
+                            <span asp-validation-for="Endereco.estado" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Endereco.cidade" class="form-label required">Cidade</label>
+                            <input asp-for="Endereco.cidade" class="form-control" placeholder="São Paulo" />
+                            <span asp-validation-for="Endereco.cidade" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Endereco.bairro" class="form-label required">Bairro</label>
+                            <input asp-for="Endereco.bairro" class="form-control" placeholder="Centro" />
+                            <span asp-validation-for="Endereco.bairro" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Endereco.logradouro" class="form-label required">Rua/Avenida</label>
+                            <input asp-for="Endereco.logradouro" class="form-control" placeholder="Avenida Brasil" />
+                            <span asp-validation-for="Endereco.logradouro" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Endereco.numeroendereco" class="form-label required">Número</label>
+                            <input asp-for="Endereco.numeroendereco" class="form-control" placeholder="123" />
+                            <span asp-validation-for="Endereco.numeroendereco" class="text-danger"></span>
+                        </div>
+                        <div class="form-group full-width">
+                            <label asp-for="Endereco.refenciaEndereco" class="form-label">Ponto de Referência</label>
+                            <input asp-for="Endereco.refenciaEndereco" class="form-control" placeholder="Próximo ao shopping (opcional)" />
+                            <span asp-validation-for="Endereco.refenciaEndereco" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="ticketConfigSection" class="form-card ticket-config-section hidden">
+                    <h2 class="form-section-title">Configuração de Ingressos</h2>
+                    <p class="form-section-subtitle">Configure se o evento é gratuito ou pago e defina os lotes.</p>
+
+                    <div class="form-fields">
+                        <div class="form-group">
+                            <label asp-for="eventoGratuito" class="form-label">Tipo de Ingresso</label>
+                             <select asp-for="eventoGratuito" class="form-control" id="eventoGratuitoSelect">
+                                <option value="false">Evento Pago</option>
+                                <option value="true">Evento Gratuito</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="qtdlotesEvento" class="form-label required">Quantidade de Lotes</label>
+                            <input asp-for="qtdlotesEvento" class="form-control" type="number" min="1" value="1" />
+                            <span asp-validation-for="qtdlotesEvento" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div id="Lotes" class="lotes-section">
+                        <!-- Lotes serão adicionados dinamicamente aqui -->
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-side-column">
+                <div class="form-card">
+                    <h2 class="form-section-title">Imagens de Divulgação</h2>
+                    <div class="image-upload-group">
+                        <label class="form-label">Thumbnail</label>
+                        <div class="image-uploader" id="thumbnailUploader">
+                            <input type="file" name="thumbnail" accept=".png, .jpg, .jpeg" class="image-input" />
+                            <div class="uploader-content">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload-cloud"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" /><path d="M12 12v9" /><path d="m16 16-4-4-4 4" /></svg>
+                                <span>Clique para enviar</span>
+                            </div>
+                        </div>
+                        <div class="text-muted fs-7 mt-2">
+                            Dimensão recomendada: 280 × 336 (proporção 5:6).
+                        </div>
+                    </div>
+                    <div class="image-upload-group">
+                        <label class="form-label">Banner</label>
+                        <div class="image-uploader" id="bannerUploader">
+                            <input type="file" name="banner" accept=".png, .jpg, .jpeg" class="image-input" />
+                            <div class="uploader-content">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload-cloud"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" /><path d="M12 12v9" /><path d="m16 16-4-4-4 4" /></svg>
+                                <span>Clique para enviar</span>
+                            </div>
+                        </div>
+                         <div class="text-muted fs-7 mt-2">
+                            Dimensão recomendada: 1280 x 720px (proporção 16:9).
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-action-buttons">
+            <a asp-action="Lista" class="btn btn-light">Cancelar</a>
+            <button type="submit" class="btn btn-primary d-flex align-items-center">
+                <i class="bi bi-check-circle me-2"></i>
+                Cadastrar Evento
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    
+    <script src="~/js/endereço.js" asp-append-version="true"></script>
+    <script src="~/js/nomenclaturaEventos.js" asp-append-version="true"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // ======================================================================
+            // INICIALIZAÇÃO CENTRALIZADA
+            // ======================================================================
+            // 1. Instanciamos a classe do script externo. Agora temos controle total.
+            const nomenclaturaManager = new NomenclaturaEventos();
+            
+            // 2. Inicializamos o script. Isso vai ligar o indicador de status para verde
+            //    e configurar os listeners internos para as nomenclaturas.
+            nomenclaturaManager.init();
+            // ======================================================================
+
+            // --- Seletores de Elementos da Página ---
+            const categoriaSelect = document.getElementById('categoriaEvento');
+            const tipoSelect = document.getElementById('tipoEvento');
+            const ticketConfigSection = document.getElementById('ticketConfigSection');
+            const filialSelect = document.getElementById('codFilial');
+            const enderecoSwitch = document.getElementById('EnderecoFilial');
+            const enderecoContainer = document.getElementById('enderecoContainer');
+            const eventoGratuitoSelect = document.getElementById('eventoGratuitoSelect');
+            const qtdLotesInput = document.getElementById('qtdlotesEvento');
+            const lotesContainer = document.getElementById('Lotes');
+
+            // --- Funções da Página ---
+
+            function checkTicketSectionVisibility() {
+                const categoriaVal = categoriaSelect.value;
+                const tipoVal = tipoSelect.value;
+
+                if (categoriaVal && tipoVal) {
+                    ticketConfigSection.classList.remove('hidden');
+                    // IMPORTANTE: Atualiza a nomenclatura usando a instância que criamos
+                    nomenclaturaManager.atualizarNomenclatura();
+                } else {
+                    ticketConfigSection.classList.add('hidden');
+                }
+            }
+
+            function setEnderecoFieldsReadOnly(isReadOnly) {
+                enderecoContainer.querySelectorAll('input').forEach(input => {
+                    input.readOnly = isReadOnly;
+                    input.classList.toggle('readonly-field', isReadOnly);
+                });
+            }
+
+            async function buscarEnderecoFilial() {
+                if (!enderecoSwitch || !filialSelect) return;
+                if (enderecoSwitch.checked) {
+                    const codFilial = filialSelect.value;
+                    if (codFilial) {
+                         try {
+                            const response = await fetch(`/Eventos/Endereco/${codFilial}`);
+                            if (response.ok) {
+                                const partialViewHtml = await response.text();
+                                const tempDiv = document.createElement('div');
+                                tempDiv.innerHTML = partialViewHtml;
+
+                                document.querySelector('[name="Endereco.cep"]').value = tempDiv.querySelector('[name="Endereco.cep"]')?.value || '';
+                                document.querySelector('[name="Endereco.estado"]').value = tempDiv.querySelector('[name="Endereco.estado"]')?.value || '';
+                                document.querySelector('[name="Endereco.cidade"]').value = tempDiv.querySelector('[name="Endereco.cidade"]')?.value || '';
+                                document.querySelector('[name="Endereco.bairro"]').value = tempDiv.querySelector('[name="Endereco.bairro"]')?.value || '';
+                                document.querySelector('[name="Endereco.logradouro"]').value = tempDiv.querySelector('[name="Endereco.logradouro"]')?.value || '';
+                                document.querySelector('[name="Endereco.numeroendereco"]').value = tempDiv.querySelector('[name="Endereco.numeroendereco"]')?.value || '';
+                                document.querySelector('[name="Endereco.refenciaEndereco"]').value = tempDiv.querySelector('[name="Endereco.refenciaEndereco"]')?.value || '';
+                                
+                                setEnderecoFieldsReadOnly(true);
+                            }
+                        } catch (error) {
+                            console.error('Falha na requisição do endereço:', error);
+                            setEnderecoFieldsReadOnly(false);
+                        }
+                    } else {
+                        enderecoSwitch.checked = false;
+                        setEnderecoFieldsReadOnly(false);
+                    }
+                } else {
+                    enderecoContainer.querySelectorAll('input').forEach(input => input.value = '');
+                    setEnderecoFieldsReadOnly(false);
+                }
+            }
+            
+            function gerarLotes() {
+                const isGratuito = eventoGratuitoSelect.value === 'true';
+                lotesContainer.innerHTML = '';
+
+                if (isGratuito) {
+                    qtdLotesInput.value = 1;
+                    qtdLotesInput.readOnly = true;
+                    const loteHTML = `
+                        <div class="lote-item">
+                            <div class="lote-header"><h4>Lote Único (Gratuito)</h4></div>
+                            <div class="form-fields">
+                                <input name="Lotes[0].valorLote" type="hidden" value="0" />
+                                <input name="Lotes[0].numLote" type="hidden" value="1" />
+                                <div class="form-group">
+                                    <label class="form-label required">Quantidade de Ingressos</label>
+                                    <input name="Lotes[0].qtdIngLote" class="form-control" type="number" min="1" required />
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required">Início das Inscrições</label>
+                                    <input name="Lotes[0].dataVendaLote" class="form-control" type="datetime-local" required />
+                                </div>
+                            </div>
+                        </div>`;
+                    lotesContainer.innerHTML = loteHTML;
+                } else {
+                    qtdLotesInput.readOnly = false;
+                    const qtd = parseInt(qtdLotesInput.value, 10) || 0;
+                    
+                    for (let i = 0; i < qtd; i++) {
+                        const loteHTML = `
+                            <div class="lote-item">
+                                <div class="lote-header"><h4>Lote ${i + 1}</h4></div>
+                                <div class="form-fields">
+                                    <input name="Lotes[${i}].numLote" type="hidden" value="${i + 1}" />
+                                    <div class="form-group">
+                                        <label class="form-label required">Preço do Ingresso (R$)</label>
+                                        <input name="Lotes[${i}].valorLote" class="form-control" type="number" step="0.01" min="0" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label required">Quantidade de Ingressos</label>
+                                        <input name="Lotes[${i}].qtdIngLote" class="form-control" type="number" min="1" required />
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label class="form-label required">Início das Vendas</label>
+                                        <input name="Lotes[${i}].dataVendaLote" class="form-control" type="datetime-local" required />
+                                    </div>
+                                </div>
+                            </div>`;
+                        lotesContainer.insertAdjacentHTML('beforeend', loteHTML);
+                    }
+                }
+                
+                // Usa a instância 'nomenclaturaManager' para atualizar os lotes gerados
+                nomenclaturaManager.onLotesGerados();
+                
+                // Adiciona classe para indicar muitos itens (mais de 3)
+                const totalLotes = isGratuito ? 1 : (parseInt(qtdLotesInput.value, 10) || 0);
+                if (totalLotes > 3) {
+                    lotesContainer.classList.add('many-items');
+                } else {
+                    lotesContainer.classList.remove('many-items');
+                }
+            }
+
+            function setupImageUploader(uploaderId) {
+                const uploader = document.getElementById(uploaderId);
+                if (!uploader) return;
+                const input = uploader.querySelector('.image-input');
+
+                input.addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            uploader.style.backgroundImage = `url('${e.target.result}')`;
+                            uploader.classList.add('has-image');
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+
+            // --- EVENT LISTENERS DA PÁGINA ---
+            categoriaSelect.addEventListener('change', checkTicketSectionVisibility);
+            tipoSelect.addEventListener('change', checkTicketSectionVisibility);
+            
+            if(enderecoSwitch && filialSelect) {
+                enderecoSwitch.addEventListener('change', buscarEnderecoFilial);
+                filialSelect.addEventListener('change', buscarEnderecoFilial);
+            }
+            
+            eventoGratuitoSelect.addEventListener('change', gerarLotes);
+            qtdLotesInput.addEventListener('input', gerarLotes);
+            
+            // --- INICIALIZAÇÃO DA PÁGINA ---
+            checkTicketSectionVisibility();
+            gerarLotes();
+            setupImageUploader('thumbnailUploader');
+            setupImageUploader('bannerUploader');
+        });
+    </script>
+}

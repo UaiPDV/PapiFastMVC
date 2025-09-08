@@ -1,0 +1,59 @@
+﻿@model BixWeb.Models.Convidado
+
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<h1>Editar</h1>
+
+<h4>Convidado</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="codConvidado" />
+            <div class="form-group">
+                <label asp-for="emailConvidado" class="control-label"></label>
+                <input asp-for="emailConvidado" class="form-control" />
+                <span asp-validation-for="emailConvidado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="telefoneConvidado" class="control-label"></label>
+                <input asp-for="telefoneConvidado" class="form-control" />
+                <span asp-validation-for="telefoneConvidado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="vistoConvite" class="control-label"></label>
+                <input asp-for="vistoConvite" class="form-control" />
+                <span asp-validation-for="vistoConvite" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="confirmacaoConvite" class="control-label"></label>
+                <input asp-for="confirmacaoConvite" class="form-control" />
+                <span asp-validation-for="confirmacaoConvite" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="codIngresso" class="control-label"></label>
+                <select asp-for="codIngresso" class="form-control" asp-items="ViewBag.codIngresso"></select>
+                <span asp-validation-for="codIngresso" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="codConvite" class="control-label"></label>
+                <select asp-for="codConvite" class="form-control" asp-items="ViewBag.codConvite"></select>
+                <span asp-validation-for="codConvite" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

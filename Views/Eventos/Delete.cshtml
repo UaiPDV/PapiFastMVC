@@ -1,0 +1,117 @@
+﻿@model BixWeb.Models.Evento
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Evento</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.eventoGratuito)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.eventoGratuito)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.qtdlotesEvento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.qtdlotesEvento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.nomeEvento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.nomeEvento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.categoriaEvento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.categoriaEvento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.tipoEvento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.tipoEvento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.linkEvento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.linkEvento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.dataInicioEvento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.dataInicioEvento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.dataTerminoEvento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.dataTerminoEvento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.dataCriacaoEvento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.dataCriacaoEvento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.qtdTotalIngEvento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.qtdTotalIngEvento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.descricaoEvento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.descricaoEvento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.statusEvento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.statusEvento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.bannerEvento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.bannerEvento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.thumbnailEvento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.thumbnailEvento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UsuarioFilial)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UsuarioFilial.codUsuario)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Endereco)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Endereco.codEndereco)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="codEvento" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

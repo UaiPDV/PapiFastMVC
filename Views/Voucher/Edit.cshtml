@@ -1,0 +1,79 @@
+﻿@model BixWeb.Models.Voucher
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Voucher</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="codVoucher" />
+            <div class="form-group">
+                <label asp-for="tokenVoucher" class="control-label"></label>
+                <input asp-for="tokenVoucher" class="form-control" />
+                <span asp-validation-for="tokenVoucher" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="valorOriginal" class="control-label"></label>
+                <input asp-for="valorOriginal" class="form-control" />
+                <span asp-validation-for="valorOriginal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="valorDisponivel" class="control-label"></label>
+                <input asp-for="valorDisponivel" class="form-control" />
+                <span asp-validation-for="valorDisponivel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="validadeVoucher" class="control-label"></label>
+                <input asp-for="validadeVoucher" class="form-control" />
+                <span asp-validation-for="validadeVoucher" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="criacaoVoucher" class="control-label"></label>
+                <input asp-for="criacaoVoucher" class="form-control" />
+                <span asp-validation-for="criacaoVoucher" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="utilizado" /> @Html.DisplayNameFor(model => model.utilizado)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="codCampanha" class="control-label"></label>
+                <select asp-for="codCampanha" class="form-control" asp-items="ViewBag.codCampanha"></select>
+                <span asp-validation-for="codCampanha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="codCriador" class="control-label"></label>
+                <select asp-for="codCriador" class="form-control" asp-items="ViewBag.codCriador"></select>
+                <span asp-validation-for="codCriador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="codFilial" class="control-label"></label>
+                <select asp-for="codFilial" class="form-control" asp-items="ViewBag.codFilial"></select>
+                <span asp-validation-for="codFilial" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="codCliente" class="control-label"></label>
+                <select asp-for="codCliente" class="form-control" asp-items="ViewBag.codCliente"></select>
+                <span asp-validation-for="codCliente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

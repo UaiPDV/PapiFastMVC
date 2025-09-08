@@ -1,0 +1,162 @@
+﻿@model BixWeb.Models.Convite
+@{
+    ViewData["Title"] = "Adicionar Convite";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/Convites/adicionarConvite.css" asp-append-version="true" />
+}
+
+<!-- Cabeçalho da Página -->
+<div class="form-page-header">
+    <a asp-action="Index" class="form-back-link">
+        <i class="bi bi-arrow-left-circle fs-2"></i>
+    </a>
+    <h1 class="form-page-title">@ViewData["Title"]</h1>
+</div>
+
+<!-- Formulário Principal -->
+<div class="form-main-card">
+    <form asp-action="Adicionar" enctype="multipart/form-data" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-grid">
+            <!-- Coluna Principal do Formulário -->
+            <div class="form-main-column">
+                <div class="form-section">
+                    <h2 class="form-section-title">Informações do Convite</h2>
+                    <p class="form-section-subtitle">Preencha os detalhes e a mensagem do seu novo convite.</p>
+                    
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label asp-for="codEvento" class="form-label required">Evento</label>
+                            <select asp-for="codEvento" class="form-select" asp-items="ViewBag.Eventos">
+                                <option value="">--- Selecione o Evento ---</option>
+                            </select>
+                            <span asp-validation-for="codEvento" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="facebook" class="form-label">Link do Facebook</label>
+                            <input asp-for="facebook" class="form-control" placeholder="https://facebook.com/seu-perfil" />
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="instagram" class="form-label">Link do Instagram</label>
+                            <input asp-for="instagram" class="form-control" placeholder="https://instagram.com/seu-usuario" />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="qtdIngressos" class="form-label required">Quantidade de Convites</label>
+                            <input name="qtdIngressos" type="number" min="1"  id="qtdIngressos" class="form-control" />
+                             <span id="qIngressos" class="text-danger"></span>
+                        </div>
+                         <div class="col-md-6">
+                            <label class="form-label">Tipo de Notificação</label>
+                            <select name="tipoNotificacao" class="form-select">
+                                <option value="0">Não notificar</option>
+                                <option value="1">Notificar por Email</option>
+                                <option value="2">Notificar por WhatsApp</option>
+                                <option value="3">Notificar por Email e WhatsApp</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="msgConvite" class="form-label">Mensagem para os convidados</label>
+                            <textarea asp-for="msgConvite" rows="5" class="form-control" placeholder="Deixe uma mensagem especial..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna Lateral (Upload de Imagem) -->
+            <div class="form-side-column">
+                <div class="form-section">
+                    <h2 class="form-section-title">Imagem de Divulgação</h2>
+                    <p class="form-section-subtitle">Selecione uma imagem para o convite.</p>
+                    
+                    <div class="image-upload-group">
+                        <div class="image-uploader" id="imageUploader">
+                            <input type="file" name="banner" accept=".png, .jpg, .jpeg" class="image-input" id="imageInput">
+                            <div class="uploader-content">
+                                 <i class="bi bi-upload fs-1"></i>
+                                <span class="uploader-text">Clique para enviar</span>
+                                <small class="uploader-hint">PNG, JPG ou JPEG</small>
+                            </div>
+                        </div>
+                        <small class="d-block text-muted text-center mt-2">Dimensão recomendada: 280 × 336 pixels.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="form-action-buttons">
+            <a asp-action="Index" class="btn btn-light">Cancelar</a>
+            <button type="submit" class="btn btn-primary d-flex align-items-center">
+                <i class="bi bi-check-circle me-2"></i>
+                Salvar Convite
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Script para preview da imagem
+            const imageUploader = document.getElementById('imageUploader');
+            const imageInput = document.getElementById('imageInput');
+
+            imageInput.addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        imageUploader.style.backgroundImage = `url('${e.target.result}')`;
+                        imageUploader.classList.add('has-image');
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Script para verificar quantidade de ingressos
+            document.getElementById('codEvento').addEventListener('change', function () {
+                var selectedValue = this.value;
+                var inputNumber = document.getElementById('qtdIngressos');
+                var msg = document.getElementById('qIngressos');
+
+                if (!selectedValue) {
+                    msg.innerHTML = "";
+                    inputNumber.value = '';
+                    inputNumber.removeAttribute('max');
+                    return;
+                }
+
+                fetch('/Convites/QtdIngressos/' + selectedValue)
+                    .then(response => response.json())
+                    .then(data => {
+                        var maximo = data.ingressos;
+                        if (maximo > 0) {
+                            inputNumber.max = maximo;
+                            inputNumber.value = '';
+                            msg.innerHTML = "Quantidade máxima permitida: " + maximo;
+                        } else {
+                            inputNumber.removeAttribute('max');
+                            msg.innerHTML = "Não foi possível verificar a quantidade.";
+                        }
+                    })
+                    .catch(error => console.error('Erro ao consultar o valor máximo:', error));
+            });
+
+            document.getElementById('qtdIngressos').addEventListener('input', function () {
+                var maxValue = this.max;
+                if (maxValue) {
+                    var currentValue = parseInt(this.value, 10);
+                    if (currentValue > parseInt(maxValue, 10)) {
+                        this.value = maxValue;
+                    }
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,163 @@
+﻿@model BixWeb.Models.WhatsApp
+
+@{
+	ViewData["Title"] = "WhatsApp";
+}
+<div class="py-img col-xxl-8" style="margin:auto">
+	<!--begin::Card widget 15-->
+	<div class="card card-flush h-xl-100">
+		<!--begin::Body-->
+		<div class="card-body py-9">
+			<!--begin::Row-->
+			<div class="row gx-9 h-100">
+				<!--begin::Col-->
+				<div class="col-sm-6 mb-10 mb-sm-0">
+					<!--begin::Overlay-->
+					<div class="d-block overlay h-100">
+						<!--begin::Image-->
+						<div id="qrcode" class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-200px h-100" style="background-image:url('imagens/whatsapp-fundo.png')"></div>
+						<!--end::Image-->
+						<!--begin::Action-->
+						<div class="overlay-layer card-rounded bg-dark bg-opacity-25">
+							<i class="ki-duotone ki-eye fs-3x text-white">
+								<span class="path1"></span>
+								<span class="path2"></span>
+								<span class="path3"></span>
+							</i>
+						</div>
+						<!--end::Action-->
+					</div>
+					<!--end::Overlay-->
+				</div>
+				<!--end::Col-->
+				@{var Imagem = User.FindFirst(System.Security.Claims.ClaimTypes.Thumbprint)?.Value;}
+				<!--begin::Col-->
+				<div class="col-sm-6">
+					<!--begin::Wrapper-->
+					<div class="d-flex flex-column h-100">
+						<!--begin::Header-->
+						<div class="mb-7">
+							<!--begin::Title-->
+							<div class="mb-6">
+								<label class="text-gray-800 text-hover-primary fs-1 fw-bold">Conecte seu Whats para fazer envio de ingressos, cupons, convites e demais funcionalidades!</label>
+							</div>
+							<!--end::Title-->
+							<!--begin::Items-->
+							<div class="d-flex align-items-center flex-wrap d-grid gap-2">
+								<!--begin::Item-->
+								<div class="d-flex align-items-center me-5 me-xl-13">
+									<!--begin::Symbol-->
+									<div class="symbol symbol-30px symbol-circle me-3">
+										<img src="@Imagem" class="" alt="" onerror="this.onerror=null; this.src='/imagens/Usuario.png';">
+									</div>
+									<!--end::Symbol-->
+									<!--begin::Info-->
+									<div class="m-0">
+										<span class="fw-semibold text-gray-500 d-block fs-8">Perfil</span>
+										<label class="fw-bold text-gray-800 text-hover-primary fs-7">
+											@if (User.Identity.Name.Count() > 18)
+											{
+												<strong>@User.Identity.Name.Remove(19)...</strong>
+											}
+											else
+											{
+												<strong>@User.Identity.Name</strong>
+											}
+										</label>
+									</div>
+									<!--end::Info-->
+								</div>
+								<!--end::Item-->
+								@if (ViewBag.status == "CONNECTED")
+								{
+									<!--begin::Item-->
+									<div class="d-flex align-items-center">
+										<!--begin::Symbol-->
+										<div class="symbol symbol-30px symbol-circle me-3">
+											<span id="iconConect" class="symbol-label bg-success">
+												<i class="ki-duotone ki-shield-tick fs-2x text-white ">
+													<span class="path1"></span>
+													<span class="path2"></span>
+												</i>
+											</span>
+										</div>
+										<!--end::Symbol-->
+										<!--begin::Info-->
+										<div class="m-0">
+											<span class="fw-semibold text-gray-500 d-block fs-8">Status:</span>
+											<label id="isConect" class="fw-bold text-gray-800 text-hover-primary fs-7">Conectado</label>
+										</div>
+										<!--end::Info-->
+									</div>
+									<!--end::Item-->
+								}else{
+									<!--begin::Item-->
+									<div class="d-flex align-items-center">
+										<!--begin::Symbol-->
+										<div class="symbol symbol-30px symbol-circle me-3">
+											<span id="iconConect" class="symbol-label bg-danger">
+												<i class="ki-duotone ki-shield-cross fs-2x text-white">
+													<span class="path1"></span>
+													<span class="path2"></span>
+													<span class="path3"></span>
+												</i>
+											</span>
+										</div>
+										<!--end::Symbol-->
+										<!--begin::Info-->
+										<div class="m-0">
+											<span class="fw-semibold text-gray-500 d-block fs-8">Status</span>
+											<label id="isConect" class="fw-bold text-gray-800 text-hover-primary fs-7">Não Conectado</label>
+										</div>
+										<!--end::Info-->
+									</div>
+									<!--end::Item-->
+								}
+							</div>
+							<!--end::Items-->
+						</div>
+						<input type="hidden" name="sessao" id="sessao" value="@ViewBag.Sessao" />
+						<!--end::Header-->
+						@if (User.IsInRole("Gerente"))
+						{
+							<!--begin::Body-->
+							<div class="d-flex flex-column text-center pb-7 card-rounded">
+								<span class="fw-semibold text-gray-600 fs-7 pb-1">Selecione uma filial:</span>
+								<select asp-for="codFilial" class="form-control" id="sessao-codfilial" asp-items="ViewBag.codFilial">
+									<option value="">Selecione uma Filial</option>
+								</select>
+							</div>
+						}
+						<!--begin::Footer-->
+						<div id="buttonAdd" class="d-flex flex-stack mt-auto justify-content-center bd-highlight">
+							@if (User.IsInRole("Gerente"))
+							{
+								<!--begin::Actions-->
+								<button id="btConect" onclick="gerarQRCode()" class="btn btn-success btn-sm flex-shrink-0 me-3" disabled>Conectar</button>
+								<!--end::Actions-->
+							}else{
+								<!--begin::Actions-->
+								@if (ViewBag.status == "CONNECTED")
+								{
+									<button id="btConect" onclick="desconectarSessao()" class="btn btn-danger btn-sm flex-shrink-0 me-3">Desconectar</button>
+								}
+								else
+								{
+									<button id="btConect" onclick="gerarQRCode()" class="btn btn-success btn-sm flex-shrink-0 me-3">Conectar</button>
+								}
+								<!--end::Actions-->
+							}
+							
+						</div>
+						<!--end::Footer-->
+					</div>
+					<!--end::Wrapper-->
+				</div>
+				<!--end::Col-->
+			</div>
+			<!--end::Row-->
+		</div>
+		<!--end::Body-->
+	</div>
+	<!--end::Card widget 15-->
+</div>

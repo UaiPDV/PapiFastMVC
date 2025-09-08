@@ -1,0 +1,39 @@
+/* Estilos específicos para a página Lista.cshtml */
+
+/* Ajustes para o menu dropdown de ações na tabela */
+.table-wrapper .btn-light {
+	--bs-btn-bg: #f9f9f9;
+	--bs-btn-border-color: #f9f9f9;
+	--bs-btn-active-bg: #e9ecef;
+	--bs-btn-active-border-color: #e9ecef;
+	--bs-btn-hover-bg: #e9ecef;
+	--bs-btn-hover-border-color: #e9ecef;
+	color: #5e6278;
+}
+
+/* Correções para o menu dropdown não ser cortado pela tabela */
+.table-wrapper {
+	overflow: visible !important;
+}
+
+.table-responsive {
+	overflow: visible !important;
+}
+
+/* Garante que a célula com dropdown tenha posição relativa */
+.dropdown-cell {
+	position: relative !important;
+}
+
+/* Garante que o dropdown menu apareça por cima de outros elementos */
+.table-wrapper .dropdown-menu {
+	position: absolute !important;
+	z-index: 1060 !important;
+	max-height: none !important;
+	overflow: visible !important;
+}
+
+/* Remove bordas que podem interferir */
+.table-wrapper .table {
+	overflow: visible !important;
+}

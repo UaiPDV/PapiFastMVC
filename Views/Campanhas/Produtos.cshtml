@@ -1,0 +1,176 @@
+﻿@model IEnumerable<BixWeb.Models.ProdutoCampanha>
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Anúncio de Produtos";
+}
+
+@if (ViewData["produto"] != null)
+{
+    <div class="d-flex flex-column justify-content-center align-items-center vh-100 text-center">
+        <h1>@ViewData["produto"]</h1>
+    </div>
+}
+else
+{
+    <!-- CORREÇÃO: O asp-action foi alterado para "GerarAnuncios" -->
+    <form asp-action="GerarAnuncios">
+        <input type="hidden" name="id" value="@ViewBag.Id" />
+
+        <!-- Cabeçalho da Página Padronizado -->
+        <div class="page-header">
+            <div class="page-header-content">
+                <h1>@ViewData["Title"]</h1>
+                <p class="page-subtitle">Escolha os produtos e as opções para gerar os anúncios</p>
+            </div>
+            <!-- CORREÇÃO: O atributo 'name' foi removido do botão -->
+            <button type="submit" onclick="showLoading()" class="btn btn-primary-action">
+                <i class="bi bi-stars me-2"></i>
+                Gerar Anúncios
+            </button>
+        </div>
+        
+        @if(ViewData["Error"] != null)
+        {
+            <div class="alert alert-danger text-center">@ViewData["Error"]</div>
+        }
+
+        <!-- Filtros e Pesquisa -->
+        <div class="filter-bar">
+             <div class="filter-controls">
+                <div class="search-wrapper">
+                    <label class="filter-label">Pesquisar Produto</label>
+                    <div class="search-container">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="search" id="pesquisar" class="form-control search-input" placeholder="Buscar Produto...">
+                    </div>
+                </div>
+
+                <!-- ADICIONADO: Seletor para o Tipo de Anúncio -->
+                <div class="filter-group">
+                    <label for="tipo" class="filter-label">Tipo de Anúncio</label>
+                    <select name="tipo" id="tipo" class="form-select filter-select">
+                        <option value="1">Layout 1</option>
+                        <option value="2">Layout 2 (com QR Code)</option>
+                        <option value="3">Layout 3</option>
+                        <option value="4">Layout 4</option>
+                    </select>
+                </div>
+
+                <!-- ADICIONADO: Seletor para a Resolução -->
+                <div class="filter-group">
+                    <label for="Resolucao" class="filter-label">Resolução</label>
+                    <select name="Resolucao" id="Resolucao" class="form-select filter-select">
+                        <option value="720">720p (HD)</option>
+                        <option value="1080">1080p (Full HD)</option>
+                        <option value="2040">1440p (2K)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Produtos -->
+        <div class="table-wrapper">
+            <div class="table-responsive">
+                <table class="table align-middle products-table">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 5%;">
+                                <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#products-table .form-check-input" value="1">
+                            </th>
+                            <th style="width: 50%;">Produto</th>
+                            <th class="text-end" style="width: 25%;">Categoria</th>
+                            <th class="text-end" style="width: 20%;">Preço</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-table">
+                        @{
+                            int count = 0;
+                        }
+                        @foreach (var preco in Model)
+                        {
+                            <tr>
+                                <td data-label="Selecionar" class="text-center">
+                                    <input class="form-check-input" value="@preco.codProduto" name="ProdutoCampanha[@count].codProduto" type="checkbox">
+                                </td>
+                                <td data-label="Produto">
+                                    <div class="d-flex align-items-center">
+                                        <div class="symbol symbol-50px me-3">
+                                            <img src="@preco.Produto.imagem" alt="@preco.Produto.nomeProduto" class="product-img" onerror="this.onerror=null;this.src='https://placehold.co/50x50/f9fafb/6c757d?text=Img'"/>
+                                        </div>
+                                        <div class="product-details">
+                                            <span class="product-name">@preco.Produto.nomeProduto</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-label="Categoria" class="text-end product-category">
+                                     @preco.Produto.Categoria.nome
+                                </td>
+                                <td data-label="Preço" class="text-end product-price">
+                                    @preco.valor.ToString("C", new CultureInfo("pt-BR"))
+                                    <input type="hidden" value="@preco.valor" name="ProdutoCampanha[@count].valor">
+                                </td>
+                            </tr>
+                            count++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+
+    <!-- Overlay de Carregamento -->
+    <div id="loadingOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 9999; justify-content: center; align-items: center; flex-direction: column;">
+        <div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="text-light mt-3">Gerando arquivo, por favor aguarde...</p>
+    </div>
+}
+
+
+@section Scripts {
+    <script>
+        // Mostra o loading
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            // Para downloads, o foco da janela é perdido, então podemos usar isso para detectar o início do download.
+            window.addEventListener('focus', hideLoadingAfterDownload, { once: true });
+        }
+
+        // Esconde o loading quando o navegador recebe foco novamente
+        function hideLoadingAfterDownload() {
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').style.display = 'none';
+            }, 1000); // Um delay para garantir que o prompt de download apareceu.
+        }
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('pesquisar');
+            const tableRows = document.querySelectorAll('#products-table tr');
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+
+                tableRows.forEach(row => {
+                    const productName = row.querySelector('.product-name')?.textContent.toLowerCase();
+                    if (productName && productName.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+
+             // Lógica para o checkbox "selecionar todos"
+            const selectAllCheckbox = document.querySelector('[data-kt-check="true"]');
+            const itemCheckboxes = document.querySelectorAll('#products-table .form-check-input');
+
+            selectAllCheckbox.addEventListener('change', function() {
+                itemCheckboxes.forEach(checkbox => {
+                    checkbox.checked = this.checked;
+                });
+            });
+        });
+    </script>
+}

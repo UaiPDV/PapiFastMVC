@@ -1,0 +1,57 @@
+﻿@model BixWeb.Models.Convite
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Convite</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.msgConvite)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.msgConvite)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.facebook)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.facebook)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.instagram)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.instagram)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.imagemConvite)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.imagemConvite)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.dataCriacao)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.dataCriacao)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Evento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Evento.categoriaEvento)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="codConvite" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

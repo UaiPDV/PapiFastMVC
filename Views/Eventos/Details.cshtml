@@ -1,0 +1,129 @@
+﻿@model BixWeb.Models.Evento
+
+@{
+    ViewData["Title"] = "Detalhes do Evento";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/eventos/details.css" asp-append-version="true" />
+}
+
+<div id="event-details-page">
+    <!-- Cabeçalho da Página -->
+    <div class="form-page-header">
+        <a asp-action="Lista" class="form-back-link">
+            <i class="bi bi-arrow-left-circle fs-2"></i>
+        </a>
+        <h1 class="form-page-title">Detalhes do Evento</h1>
+    </div>
+
+    <div class="details-grid">
+        <!-- Coluna Principal -->
+        <div class="main-column">
+            <div class="banner-image" style="background-image: url('@Model.bannerEvento');">
+                <img src="@Model.bannerEvento" style="display:none;" onerror="this.parentElement.style.backgroundImage = 'url(https://placehold.co/1200x400/f9fafb/6c757d?text=Evento)';">
+            </div>
+            <div class="event-content form-main-card">
+                <h2 class="event-title">@Model.nomeEvento</h2>
+                
+                <div class="info-pills">
+                    <span class="pill">@Model.categoriaEvento</span>
+                    <span class="pill">@Model.tipoEvento</span>
+                </div>
+
+                <h3 class="section-title">Descrição</h3>
+                <p class="event-description">
+                    @Model.descricaoEvento
+                </p>
+            </div>
+        </div>
+
+        <!-- Coluna Lateral -->
+        <div class="side-column">
+            <div class="details-card form-main-card">
+                <div class="card-section">
+                    <h4>Data e Hora</h4>
+                    <div class="info-item">
+                        <i class="bi bi-calendar-event"></i>
+                        <span>@Model.dataInicioEvento.ToString("dd/MM/yyyy, HH:mm") - @Model.dataTerminoEvento.ToString("HH:mm")</span>
+                    </div>
+                </div>
+
+                <div class="card-section">
+                    <h4>Localização</h4>
+                    <div class="info-item">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span>@Model.Endereco.logradouro, @Model.Endereco.numeroendereco - @Model.Endereco.cidade, @Model.Endereco.estado</span>
+                    </div>
+                </div>
+
+                <div class="card-section">
+                    <h4>Ingressos</h4>
+                    <div class="info-item">
+                        <i class="bi bi-ticket-perforated"></i>
+                        <span><b>Disponíveis:</b> @ViewBag.IngressoDisponivel | <b>Lote:</b> @ViewBag.loteAtual</span>
+                    </div>
+                     @if (ViewBag.IngressoDisponivel > 0)
+                    {
+                        <a asp-action="Venda" asp-controller="Ingressos" asp-route-id="@Model.codEvento" class="btn btn-primary-action w-100 mt-3">
+                            Comprar Ingressos
+                        </a>
+                    }
+                </div>
+
+                @if (Model.tipoCardapio > 0)
+                {
+                    <div class="card-section">
+                        <a href="@Model.linkCardapio" class="btn btn-light w-100" target="_blank">
+                            <i class="bi bi-cup-straw me-2"></i>
+                            Ver Cardápio
+                        </a>
+                    </div>
+                }
+            </div>
+             <div class="details-card form-main-card">
+                 <div class="card-section no-border">
+                    <h4>Eventos Recentes</h4>
+                    <ul id="ListEvento" class="recent-events-list">
+                        <!-- Conteúdo será carregado via JavaScript -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/Eventos/ListaRecentes')
+                .then(response => response.json())
+                .then(data => {
+                    const listElement = document.getElementById('ListEvento');
+                    if (data && data.length > 0) {
+                        data.forEach(evento => {
+                            const listItem = document.createElement('li');
+                            listItem.innerHTML = `
+                                <a href="/Eventos/Details/${evento.codEvento}" class="recent-event-item">
+                                    <img src="${evento.thumbnailEvento}" class="recent-event-img" onerror="this.onerror=null; this.src='https://placehold.co/80x80/f98303/FFFFFF?text=P';">
+                                    <div class="recent-event-info">
+                                        <span class="recent-event-title">${evento.nomeEvento}</span>
+                                        <span class="recent-event-date">${new Date(evento.dataInicioEvento).toLocaleDateString('pt-BR')}</span>
+                                    </div>
+                                </a>
+                            `;
+                            listElement.appendChild(listItem);
+                        });
+                    } else {
+                        listElement.innerHTML = '<li>Nenhum evento recente encontrado.</li>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar eventos recentes:', error);
+                    const listElement = document.getElementById('ListEvento');
+                    listElement.innerHTML = '<li>Erro ao carregar eventos.</li>';
+                });
+        });
+    </script>
+}
+

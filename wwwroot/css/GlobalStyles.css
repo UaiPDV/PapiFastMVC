@@ -1,0 +1,2515 @@
+/* =================================================================== */
+/* =================== ESTILOS GLOBAIS DE COMPONENTES ================ */
+/* =================================================================== */
+
+/* --- Correções de Responsividade Global --- */
+/* Garante transições suaves entre breakpoints */
+* {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 16px; /* Base para cálculos rem */
+}
+
+body {
+	overflow-x: hidden; /* Previne scroll horizontal indesejado */
+	position: relative;
+}
+
+/* Força reavaliação de elementos responsivos */
+.d-none,
+.d-md-none,
+.d-lg-none,
+.d-xl-none,
+.d-xxl-none {
+	display: none !important;
+}
+
+.d-block,
+.d-md-block,
+.d-lg-block,
+.d-xl-block,
+.d-xxl-block {
+	display: block !important;
+}
+
+.d-flex,
+.d-md-flex,
+.d-lg-flex,
+.d-xl-flex,
+.d-xxl-flex {
+	display: flex !important;
+}
+
+/* --- Cabeçalho Padrão da Página --- */
+.page-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1.5rem; /* mb-4 */
+	gap: 1rem; /* Espaçamento entre título e botão */
+	flex-wrap: wrap;
+}
+
+.page-header h1 {
+	font-size: 1.75rem; /* Similar a h3 */
+	margin-bottom: 0;
+	color: #3f4254; /* Cor de texto escuro */
+}
+
+/* Cabeçalho aprimorado */
+.page-header .page-header-content h1 {
+	margin-bottom: 0.25rem;
+}
+
+.page-subtitle {
+	color: #6c757d;
+	font-size: 0.9rem;
+	margin-bottom: 0;
+}
+
+/* =================================================================== */
+/* ================ CARDS DE ESTATÍSTICAS PADRÃO ==================== */
+/* =================================================================== */
+
+/* Cards de Estatísticas */
+.stats-container {
+	margin-bottom: 2rem;
+}
+
+.stat-card {
+	background: #fff;
+	border-radius: 12px;
+	padding: 1.5rem;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	border: 1px solid #f1f3f4;
+	transition: all 0.3s ease;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.stat-card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+	width: 50px;
+	height: 50px;
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.5rem;
+	color: white;
+	flex-shrink: 0;
+}
+
+.stat-icon.bg-primary {
+	background: linear-gradient(135deg, #007bff, #0056b3);
+}
+
+.stat-icon.bg-success {
+	background: linear-gradient(135deg, #28a745, #1e7e34);
+}
+
+.stat-icon.bg-warning {
+	background: linear-gradient(135deg, #ffc107, #d39e00);
+}
+
+.stat-icon.bg-info {
+	background: linear-gradient(135deg, #17a2b8, #117a8b);
+}
+
+.stat-content {
+	flex: 1;
+}
+
+.stat-number {
+	font-size: 2rem;
+	font-weight: 700;
+	margin-bottom: 0.25rem;
+	color: #2c3e50;
+}
+
+.stat-label {
+	font-size: 0.875rem;
+	color: #6c757d;
+	margin-bottom: 0;
+	font-weight: 500;
+}
+
+/* =================================================================== */
+/* ================ BOTÕES DE AÇÃO PRINCIPAIS ======================= */
+/* =================================================================== */
+
+/* Botão padrão de criação/ação principal */
+.btn-primary-action {
+	background: linear-gradient(135deg, var(--papi-orange), #e07503);
+	border: none;
+	padding: 0.75rem 1.5rem;
+	font-weight: 600;
+	border-radius: 10px;
+	box-shadow: 0 4px 12px rgba(249, 131, 3, 0.3);
+	transition: all 0.3s ease;
+	color: white;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+}
+
+.btn-primary-action:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(249, 131, 3, 0.4);
+	background: linear-gradient(135deg, #e07503, #d16a03);
+	color: white;
+}
+
+/* --- Barra de Filtros --- */
+.filter-bar {
+	border: none;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	border-radius: 0.75rem;
+	border: 1px solid var(--papi-border-color);
+	background-color: #fff;
+	padding: 1.5rem;
+	margin-bottom: 1.5rem; /* mb-4 */
+}
+
+/* =================================================================== */
+/* ================ BARRA DE FILTROS APRIMORADA ===================== */
+/* =================================================================== */
+
+.filter-bar {
+	background: #fff;
+	border-radius: 16px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	border: 1px solid #f1f3f4;
+	padding: 0;
+	margin-bottom: 2rem;
+	overflow: hidden;
+}
+
+.filter-bar-header {
+	background: #fff;
+	padding: 1rem 1.5rem;
+	border-bottom: 1px solid #f1f3f4;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
+
+.filter-title {
+	font-weight: 600;
+	color: #495057;
+	font-size: 0.95rem;
+}
+
+.filter-controls {
+	padding: 1.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5rem;
+	align-items: end;
+}
+
+.search-wrapper {
+	flex: 1;
+	min-width: 250px;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.search-container {
+	position: relative;
+}
+
+.search-icon {
+	left: 12px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #6c757d;
+	z-index: 5;
+	position: absolute;
+}
+
+.search-input {
+	padding-left: 3rem;
+	border-radius: 10px;
+	border: 2px solid #e9ecef;
+	transition: all 0.3s ease;
+}
+
+.search-input:focus {
+	border-color: var(--papi-orange);
+	box-shadow: 0 0 0 0.2rem rgba(249, 131, 3, 0.15);
+}
+
+.filter-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	min-width: 150px;
+}
+
+.filter-label {
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: #495057;
+	margin-bottom: 0;
+}
+
+.filter-select {
+	border-radius: 8px;
+	border: 2px solid #e9ecef;
+	transition: all 0.3s ease;
+}
+
+.filter-select:focus {
+	border-color: var(--papi-orange);
+	box-shadow: 0 0 0 0.2rem rgba(249, 131, 3, 0.15);
+}
+
+.filter-actions {
+	display: flex;
+	align-items: end;
+}
+
+.btn-clear-filters {
+	border-radius: 8px;
+	padding: 0.5rem 1rem;
+	font-weight: 500;
+}
+
+.mobile-filter-btn {
+	border-radius: 8px;
+	padding: 0.5rem 1rem;
+	font-weight: 500;
+}
+
+/* --- Seletor de Visualização (Lista/Grade) --- */
+.view-toggle .btn {
+	border-radius: 8px;
+	padding: 0.5rem 0.75rem;
+	transition: all 0.3s ease;
+}
+.view-toggle .btn.active {
+	background-color: var(--papi-orange);
+	color: white;
+	border-color: var(--papi-orange);
+	box-shadow: 0 2px 8px rgba(249, 131, 3, 0.3);
+}
+.view-toggle .btn:not(.active) {
+	background: #fff;
+	color: #6c757d;
+	border-color: #dee2e6;
+}
+.view-toggle .btn:not(.active):hover {
+	background: #f8f9fa;
+	color: #495057;
+}
+
+/* =================================================================== */
+/* ===================== PAGINAÇÃO CUSTOMIZADA ====================== */
+/* =================================================================== */
+
+.pagination-wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 2rem;
+	padding: 1.5rem;
+	background: #fff;
+	border-radius: 16px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	border: 1px solid #f1f3f4;
+}
+
+.items-info {
+	color: #6c757d;
+	font-size: 0.9rem;
+	font-weight: 500;
+}
+
+.custom-pagination {
+	display: flex;
+	gap: 0.25rem;
+	align-items: center;
+}
+
+.custom-pagination .page-link {
+	border: 2px solid #e9ecef;
+	border-radius: 8px;
+	padding: 0.5rem 0.75rem;
+	color: #495057;
+	text-decoration: none;
+	transition: all 0.3s ease;
+	font-weight: 500;
+	min-width: 40px;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.custom-pagination .page-link:hover {
+	border-color: var(--papi-orange);
+	background-color: rgba(249, 131, 3, 0.1);
+	color: var(--papi-orange);
+}
+
+.custom-pagination .page-item.active .page-link {
+	background-color: var(--papi-orange);
+	border-color: var(--papi-orange);
+	color: white;
+}
+
+.custom-pagination .page-item.disabled .page-link {
+	color: #adb5bd;
+	background-color: #f8f9fa;
+	border-color: #e9ecef;
+	cursor: not-allowed;
+}
+
+/* =================================================================== */
+/* ==================== TABELA CUSTOMIZADA ========================= */
+/* =================================================================== */
+
+.custom-table {
+	background: #fff;
+	border-radius: 16px;
+	overflow: hidden;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	border: 1px solid #f1f3f4;
+}
+
+.table-header {
+	background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+	padding: 1rem 1.5rem;
+	border-bottom: 1px solid #e9ecef;
+}
+
+.table-title {
+	font-weight: 600;
+	color: #495057;
+	margin: 0;
+	font-size: 1.1rem;
+}
+
+.table {
+	margin-bottom: 0;
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
+.table th {
+	background-color: #f8f9fa;
+	color: #495057;
+	font-weight: 600;
+	font-size: 0.875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	padding: 1rem;
+	border: none;
+	border-bottom: 2px solid #e9ecef;
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+
+.table td {
+	padding: 1rem;
+	border: none;
+	border-bottom: 1px solid #f1f3f4;
+	vertical-align: middle;
+}
+
+.table tbody tr {
+	transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+	background-color: rgba(249, 131, 3, 0.05);
+}
+
+.table tbody tr:last-child td {
+	border-bottom: none;
+}
+
+/* =================================================================== */
+/* ==================== AÇÕES DA TABELA ============================ */
+/* =================================================================== */
+
+.actions-cell {
+	width: 120px;
+	text-align: center;
+}
+
+.btn-action {
+	border-radius: 8px;
+	padding: 0.4rem 0.8rem;
+	font-size: 0.875rem;
+	font-weight: 500;
+	border: 2px solid;
+	transition: all 0.3s ease;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+	min-width: 80px;
+	justify-content: center;
+}
+
+.btn-edit {
+	color: #0d6efd;
+	border-color: #0d6efd;
+	background-color: transparent;
+}
+
+.btn-edit:hover {
+	background-color: #0d6efd;
+	color: white;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 8px rgba(13, 110, 253, 0.3);
+}
+
+.btn-view {
+	color: #198754;
+	border-color: #198754;
+	background-color: transparent;
+}
+
+.btn-view:hover {
+	background-color: #198754;
+	color: white;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 8px rgba(25, 135, 84, 0.3);
+}
+
+.btn-delete {
+	color: #dc3545;
+	border-color: #dc3545;
+	background-color: transparent;
+}
+
+.btn-delete:hover {
+	background-color: #dc3545;
+	color: white;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* =================================================================== */
+/* ==================== BREAKPOINTS RESPONSIVOS ==================== */
+/* =================================================================== */
+
+/* Tablet */
+@media (max-width: 991.98px) {
+	.stats-container {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+	}
+
+	.filter-controls {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 1rem;
+	}
+
+	.search-wrapper {
+		min-width: auto;
+	}
+
+	.filter-group {
+		min-width: auto;
+	}
+
+	.pagination-wrapper {
+		flex-direction: column;
+		gap: 1rem;
+		text-align: center;
+	}
+}
+
+/* Mobile */
+@media (max-width: 767.98px) {
+	.page-header-content {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1rem;
+	}
+
+	.stats-container {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.75rem;
+	}
+
+	.stat-card {
+		padding: 1rem;
+	}
+
+	.stat-number {
+		font-size: 1.5rem;
+	}
+
+	.filter-bar-header {
+		padding: 0.75rem 1rem;
+	}
+
+	.filter-controls {
+		padding: 1rem;
+	}
+
+	.btn-primary-action {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.table-responsive {
+		border-radius: 16px;
+		border: 1px solid #f1f3f4;
+	}
+
+	.custom-pagination .page-link {
+		padding: 0.4rem 0.6rem;
+		font-size: 0.875rem;
+		min-width: 35px;
+	}
+}
+
+/* Extra Small Mobile */
+@media (max-width: 575.98px) {
+	.stats-container {
+		grid-template-columns: 1fr;
+		gap: 0.5rem;
+	}
+
+	.stat-card {
+		padding: 0.75rem;
+	}
+
+	.filter-controls {
+		padding: 0.75rem;
+		gap: 0.75rem;
+	}
+
+	.pagination-wrapper {
+		padding: 1rem;
+	}
+
+	.custom-pagination {
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+}
+
+/* --- Tags de Filtros Ativos --- */
+.filter-tags-container {
+	margin-bottom: 1rem;
+}
+.filter-tag {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.375rem 0.75rem;
+	background-color: var(--papi-orange);
+	color: white;
+	border-radius: 20px;
+	text-decoration: none;
+	font-size: 0.875rem;
+	font-weight: 500;
+	transition: all 0.2s ease-in-out;
+}
+.filter-tag:hover {
+	background-color: var(--papi-orange-dark);
+	color: white;
+	text-decoration: none;
+}
+.filter-tag .close-tag {
+	margin-left: 0.25rem;
+	font-size: 1.1rem;
+	font-weight: bold;
+	opacity: 0.8;
+	cursor: pointer;
+}
+.filter-tag .close-tag:hover {
+	opacity: 1;
+}
+
+/* --- Tabela Padrão (Desktop) --- */
+.table-wrapper {
+	background-color: #fff;
+	border-radius: 0.75rem;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	overflow: hidden;
+	border: 1px solid var(--papi-border-color);
+}
+
+.table-wrapper .table {
+	margin-bottom: 0;
+}
+
+.table-wrapper .table thead th {
+	text-transform: uppercase;
+	background-color: #f9fafb;
+	color: var(--papi-text-muted);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	border: none;
+	padding: 1rem 1.5rem;
+}
+
+.table-wrapper .table tbody td {
+	border-top: 1px solid var(--papi-border-color);
+	padding: 1rem 1.5rem;
+	vertical-align: middle;
+	color: var(--papi-text-dark);
+}
+
+.table-wrapper .table tbody tr:first-child td {
+	border-top: none;
+}
+
+/* --- Card de Dados Padrão --- */
+.data-card {
+	background-color: #fff;
+	border: 1px solid var(--papi-border-color);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+	border-radius: 1rem;
+	transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+	height: 100%;
+}
+.data-card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+}
+.data-card .card-body {
+	padding: 1.5rem;
+}
+.data-card .card-title {
+	color: #181c32;
+}
+.data-card .card-footer {
+	background-color: #fcfcfc;
+	border-bottom-left-radius: 1rem;
+	border-bottom-right-radius: 1rem;
+	border-top: 1px solid #f1f1f1;
+	padding: 0.75rem 1.5rem;
+}
+
+/* --- Badges de Status --- */
+.status-badge {
+	padding: 0.4em 0.8em;
+	font-size: 0.75rem;
+	border-radius: 20px;
+	font-weight: 600;
+}
+.status-badge-active {
+	background-color: var(--papi-success-bg);
+	color: var(--papi-success);
+}
+.status-badge-paused {
+	background-color: rgba(248, 188, 31, 0.2);
+	color: #b08000;
+}
+.status-badge-inactive {
+	background-color: var(--papi-danger-bg);
+	color: var(--papi-danger);
+}
+
+/* --- Botões de Ação (Ícones) --- */
+.btn-action-icon {
+	width: 38px;
+	height: 38px;
+	font-size: 1rem;
+	border-radius: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #e3f4ff;
+	color: #091454;
+	border: none;
+	transition: all 0.2s ease-in-out;
+}
+.btn-action-icon:hover {
+	color: #ffffff;
+	background-color: #0059c5;
+}
+.btn-action-icon.btn-action-edit {
+	background-color: #fff8dd;
+	color: #f5b014;
+}
+.btn-action-icon.btn-action-edit:hover {
+	background-color: #f5b014;
+	color: #fff;
+}
+.btn-action-icon.btn-action-danger {
+	background-color: #fff5f8;
+	color: #f1416c;
+}
+.btn-action-icon.btn-action-danger:hover {
+	background-color: #f1416c;
+	color: #fff;
+}
+
+/* Botões de ação para cards */
+.btn-action-icon-card {
+	width: 32px;
+	height: 32px;
+	font-size: 0.875rem;
+	border-radius: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #e3f4ff;
+	color: #091454;
+	border: none;
+	transition: all 0.2s ease-in-out;
+}
+.btn-action-icon-card:hover {
+	color: #ffffff;
+	background-color: #0059c5;
+}
+.btn-action-icon-card.btn-action-edit {
+	background-color: #fff8dd;
+	color: #f5b014;
+}
+.btn-action-icon-card.btn-action-edit:hover {
+	background-color: #f5b014;
+	color: #fff;
+}
+.btn-action-icon-card.btn-action-danger {
+	background-color: #fff5f8;
+	color: #f1416c;
+}
+.btn-action-icon-card.btn-action-danger:hover {
+	background-color: #f1416c;
+	color: #fff;
+}
+
+/* --- Popup de Confirmação --- */
+.popup-confirm {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	backdrop-filter: blur(3px);
+	z-index: 1055;
+	justify-content: center;
+	align-items: center;
+}
+
+.popup-confirm-content {
+	background: #fff;
+	padding: 2rem;
+	border-radius: 1rem;
+	text-align: center;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+	max-width: 450px;
+	width: 90%;
+}
+.popup-icon {
+	font-size: 3rem;
+	color: var(--papi-danger);
+	margin-bottom: 1rem;
+}
+.popup-title {
+	font-weight: 700;
+	font-size: 1.5rem;
+	margin-bottom: 0.5rem;
+}
+.popup-message {
+	color: var(--papi-text-muted);
+	margin-bottom: 0.5rem;
+}
+.popup-warning {
+	color: var(--papi-text-muted);
+	font-size: 0.9rem;
+	margin-bottom: 1.5rem;
+}
+.popup-actions {
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+}
+.popup-btn-cancel,
+.popup-btn-confirm {
+	flex: 1;
+	padding: 0.75rem;
+	font-weight: 600;
+	border-radius: 0.5rem;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes popupShow {
+	from {
+		transform: scale(0.8) translateY(-20px);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1) translateY(0);
+		opacity: 1;
+	}
+}
+
+/* Responsividade para o popup */
+@media (max-width: 576px) {
+	.popup-confirm-content {
+		width: 95%;
+		max-width: none;
+		margin: 1rem;
+	}
+
+	.popup-actions {
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.popup-btn-cancel,
+	.popup-btn-confirm {
+		flex: none;
+	}
+
+	.popup-icon {
+		padding: 2rem 0 1.5rem 0;
+	}
+
+	.popup-icon i {
+		font-size: 3rem;
+	}
+
+	.popup-title {
+		font-size: 1.3rem;
+		margin: 1rem 0 0.75rem 0;
+	}
+}
+
+/* --- Modal de Filtros (Mobile) --- */
+.filter-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1050;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.filter-modal-overlay.active {
+	display: flex;
+	opacity: 1;
+	visibility: visible;
+}
+.filter-modal-content {
+	background-color: #fff;
+	border-radius: 0.75rem;
+	padding: 1.5rem;
+	width: 90%;
+	max-width: 400px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+	transform: scale(0.95);
+	transition: transform 0.3s ease;
+}
+.filter-modal-overlay.active .filter-modal-content {
+	transform: scale(1);
+}
+.filter-modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid #dee2e6;
+}
+.filter-modal-header h5 {
+	margin: 0;
+	font-size: 1.25rem;
+}
+
+/* --- Paginação Padrão --- */
+.pagination {
+	--bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(249, 131, 3, 0.25);
+	--bs-pagination-active-bg: var(--papi-orange);
+	--bs-pagination-active-border-color: var(--papi-orange);
+}
+
+/* --- Modais --- */
+.modal-header {
+	border-bottom: 1px solid var(--papi-border-color);
+}
+.modal-footer {
+	border-top: 1px solid var(--papi-border-color);
+}
+.form-control:focus {
+	border-color: var(--papi-orange);
+	box-shadow: 0 0 0 0.25rem rgba(249, 131, 3, 0.25);
+}
+.form-label.required::after {
+	content: ' *';
+	color: var(--papi-danger);
+}
+
+/* =================================================================== */
+/* ================ ESTILOS ESPECÍFICOS PARA CUPONS ================= */
+/* =================================================================== */
+
+/* Badges de Status Específicos para Cupons */
+.status-badge.status-available {
+	background-color: #d1fae5; /* green-100 */
+	color: #065f46; /* green-800 */
+}
+.status-badge.status-in-use {
+	background-color: #fef3c7; /* yellow-100 */
+	color: #92400e; /* yellow-800 */
+}
+.status-badge.status-used {
+	background-color: #e5e7eb; /* gray-200 */
+	color: #374151; /* gray-700 */
+}
+.status-badge.status-expired {
+	background-color: #fee2e2; /* red-100 */
+	color: #991b1b; /* red-800 */
+}
+
+/* =================================================================== */
+/* ================ ESTILOS ESPECÍFICOS PARA VOUCHERS ================ */
+/* =================================================================== */
+
+/* Client Info Styles */
+.client-info {
+	display: flex;
+	flex-direction: column;
+}
+.client-name {
+	font-weight: 600;
+	color: var(--papi-text-dark);
+}
+.client-email {
+	font-size: 0.8rem;
+	color: var(--papi-text-muted);
+}
+
+/* Badges de Status Específicos para Vouchers */
+.status-badge.status-not-used {
+	background-color: #d1fae5; /* green-100 */
+	color: #065f46; /* green-800 */
+}
+.status-badge.status-disabled {
+	background-color: #fee2e2; /* red-100 */
+	color: #991b1b; /* red-800 */
+}
+
+/* Estilo para o Token na tabela */
+.font-mono {
+	font-family: ui-monospace, SFMono-Regular, 'SF Mono', Monaco, Consolas,
+		'Liberation Mono', 'Courier New', monospace;
+}
+
+/* =================================================================== */
+/* ================ ESTILOS ESPECÍFICOS PARA CAMPANHAS =============== */
+/* =================================================================== */
+
+/* Ajustes de cores para combinar com a identidade visual */
+.btn-primary {
+	--bs-btn-bg: #f98303;
+	--bs-btn-border-color: #f98303;
+	--bs-btn-hover-bg: #e07503;
+	--bs-btn-hover-border-color: #e07503;
+}
+
+.form-control:focus,
+.form-select:focus {
+	border-color: #fbc27d;
+	box-shadow: 0 0 0 0.25rem rgba(249, 131, 3, 0.25);
+}
+
+.form-check-input:checked {
+	background-color: #f98303;
+	border-color: #f98303;
+}
+
+/* Estilo para a imagem do produto na tabela */
+.product-img {
+	width: 50px;
+	height: 50px;
+	object-fit: cover;
+	border-radius: 0.5rem;
+}
+
+/* =================================================================== */
+/* ================ ESTILOS GLOBAIS PARA FORMULÁRIOS ================= */
+/* =================================================================== */
+
+/* Cabeçalho Padrão de Formulários */
+.form-page-header {
+	display: flex;
+	align-items: center;
+	margin-bottom: 1.5rem;
+	gap: 0.5rem;
+}
+
+.form-back-link {
+	color: #6c757d;
+	text-decoration: none;
+	transition: color 0.2s;
+	padding: 0.25rem;
+}
+
+.form-back-link:hover {
+	color: var(--papi-orange);
+}
+
+.form-page-title {
+	font-size: 1.5rem;
+	margin-bottom: 0;
+	color: #3f4254;
+}
+
+/* Card Principal do Formulário */
+.form-main-card {
+	background-color: #fff;
+	border-radius: 0.75rem;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	border: 1px solid var(--papi-border-color);
+	padding: 2rem 1.5rem;
+}
+
+@media (min-width: 992px) {
+	.form-main-card {
+		padding: 2.5rem 3rem;
+	}
+}
+
+/* Seções do Formulário */
+.form-section-title {
+	font-size: 1.125rem;
+	font-weight: 600;
+	color: #3f4254;
+	margin-bottom: 1rem;
+}
+
+.form-section-subtitle {
+	font-size: 0.875rem;
+	color: #6c757d;
+	margin-bottom: 1.5rem;
+}
+
+/* Switch Toggle Padrão */
+.form-switch-container {
+	grid-column: 1 / -1;
+	margin-top: 1rem;
+}
+
+.form-switch-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1rem;
+	border: 1px solid var(--papi-border-color);
+	border-radius: 0.5rem;
+	background-color: #fff;
+	transition: border-color 0.2s, background-color 0.2s;
+	cursor: pointer;
+}
+
+.form-switch-wrapper:hover {
+	border-color: var(--papi-orange);
+	background-color: #fef7ed;
+}
+
+.form-switch-info {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.form-switch-title {
+	font-weight: 600;
+	color: #3f4254;
+	font-size: 0.875rem;
+	margin-bottom: 0;
+}
+
+.form-switch-description {
+	font-size: 0.75rem;
+	color: #6c757d;
+	margin-bottom: 0;
+}
+
+.form-toggle-switch {
+	position: relative;
+	display: inline-block;
+	width: 48px;
+	height: 24px;
+}
+
+.form-toggle-switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.form-toggle-slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #d1d5db;
+	transition: 0.3s;
+	border-radius: 24px;
+}
+
+.form-toggle-slider:before {
+	position: absolute;
+	content: '';
+	height: 18px;
+	width: 18px;
+	left: 3px;
+	bottom: 3px;
+	background-color: white;
+	transition: 0.3s;
+	border-radius: 50%;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input:checked + .form-toggle-slider {
+	background-color: var(--papi-orange);
+}
+
+input:focus + .form-toggle-slider {
+	box-shadow: 0 0 0 3px rgba(249, 131, 3, 0.25);
+}
+
+input:checked + .form-toggle-slider:before {
+	transform: translateX(24px);
+}
+
+/* Botões de Ação do Formulário */
+.form-action-buttons {
+	margin-top: 2.5rem;
+	padding-top: 1.5rem;
+	border-top: 1px solid var(--papi-border-color);
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.75rem;
+}
+
+/* =================================================================== */
+/* ================ ESTILOS ESPECÍFICOS PARA CUPONS ================= */
+/* =================================================================== */
+
+/* Layout específico de 2 colunas para cupons */
+.coupon-form-wrapper {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+	.coupon-form-wrapper {
+		grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+	}
+}
+
+.coupon-preview-column {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 250px;
+}
+
+/* Preview do Cupom */
+.coupon-preview {
+	width: 100%;
+	max-width: 400px;
+	aspect-ratio: 16 / 9;
+	background-image: linear-gradient(135deg, #2d3748, #1a202c);
+	border-radius: 1rem;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+		0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	padding: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	color: #ffffff;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.coupon-preview:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15),
+		0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.coupon-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	opacity: 0.8;
+}
+
+.coupon-logo {
+	height: 2.5rem;
+	width: 2.5rem;
+	border-radius: 9999px;
+	border: 2px solid var(--papi-orange);
+	object-fit: cover;
+}
+
+.coupon-brand {
+	font-weight: 600;
+	font-size: 1.125rem;
+}
+
+.coupon-body {
+	text-align: center;
+}
+
+.coupon-value {
+	font-size: clamp(2.5rem, 10vw, 3.75rem);
+	font-weight: 800;
+	color: var(--papi-orange);
+	line-height: 1;
+	margin: 0;
+}
+
+.coupon-tag {
+	font-size: 1.125rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	color: #a0aec0;
+	margin: 0.25rem 0 0 0;
+}
+
+.coupon-footer {
+	text-align: center;
+	opacity: 0.8;
+}
+
+.coupon-validity {
+	font-weight: 500;
+	font-size: 0.875rem;
+	color: #a0aec0;
+	margin: 0;
+}
+
+/* =================================================================== */
+/* ================ ESTILOS RESPONSIVOS PARA FORMULÁRIOS ============= */
+/* =================================================================== */
+
+/* Responsividade para telas médias e pequenas */
+@media (max-width: 991.98px) {
+	.form-main-card {
+		padding: 1.5rem 1rem;
+	}
+
+	.form-page-title {
+		font-size: 1.25rem;
+	}
+}
+
+@media (max-width: 767.98px) {
+	.content-area {
+		padding: 1rem;
+	}
+
+	.form-main-card {
+		padding: 1rem;
+		margin: 0 -0.5rem;
+		border-radius: 0.5rem;
+	}
+
+	.form-page-header {
+		margin-bottom: 1rem;
+	}
+
+	.form-page-title {
+		font-size: 1.125rem;
+	}
+
+	.form-section-title {
+		font-size: 1rem;
+	}
+
+	/* Layout dos campos em 1 coluna em telas pequenas */
+	.form-fields {
+		grid-template-columns: 1fr !important;
+		gap: 1rem;
+	}
+
+	/* Ajustes específicos para switch toggle */
+	.form-switch-wrapper {
+		padding: 0.75rem;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.75rem;
+	}
+
+	.form-toggle-switch {
+		align-self: flex-end;
+	}
+
+	/* Botões em telas pequenas */
+	.form-action-buttons {
+		flex-direction: column;
+		gap: 0.5rem;
+		margin-top: 1.5rem;
+		padding-top: 1rem;
+	}
+
+	.form-action-buttons .btn {
+		width: 100%;
+		justify-content: center;
+	}
+}
+
+/* Ajustes específicos para selects em telas pequenas */
+@media (max-width: 575.98px) {
+	.form-control,
+	.form-select {
+		font-size: 16px; /* Previne zoom no iOS */
+		padding: 0.75rem;
+	}
+
+	.form-label {
+		font-size: 0.875rem;
+		font-weight: 600;
+	}
+}
+
+/* =================================================================== */
+/* =================== ESTILOS RESPONSIVOS GLOBAIS =================== */
+/* =================================================================== */
+
+@media (max-width: 767.98px) {
+	/* Ajusta o cabeçalho da página para telas pequenas */
+	.page-header {
+		flex-direction: column;
+		align-items: stretch;
+	}
+	.page-header h1 {
+		text-align: center;
+		margin-bottom: 1rem;
+	}
+	.page-header .btn {
+		width: 100%;
+	}
+
+	/* Esconde os filtros de desktop e mostra o botão de filtro mobile */
+	.desktop-filters {
+		display: none !important;
+	}
+	#mobileFilterBtn {
+		display: inline-flex !important;
+	}
+	.filter-bar .search-container {
+		flex-grow: 1;
+	}
+	.filter-bar .d-flex.flex-wrap.justify-content-between > .d-flex {
+		width: 100%;
+		justify-content: space-between;
+	}
+	.filter-bar .view-toggle {
+		margin-top: 0;
+	}
+
+	/* Remove a sombra da tabela em telas pequenas */
+	.table-wrapper {
+		box-shadow: none !important;
+		border: none !important;
+		background-color: transparent !important;
+	}
+
+	/* Transforma a tabela em "cards" em telas pequenas */
+	.table-wrapper .table thead {
+		display: none;
+	}
+	.table-wrapper .table,
+	.table-wrapper .table tbody,
+	.table-wrapper .table tr,
+	.table-wrapper .table td {
+		display: block;
+		width: 100%;
+	}
+	.table-wrapper .table tr {
+		margin-bottom: 1.5rem;
+		border: 1px solid #dee2e6;
+		border-radius: 0.75rem;
+		overflow: hidden;
+		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		background-color: #fff;
+	}
+	.table-wrapper .table td {
+		display: flex;
+		justify-content: space-between;
+		padding: 0.75rem 1rem;
+		border: none;
+		border-bottom: 1px solid var(--papi-border-color);
+		text-align: right;
+		border-top: none;
+	}
+	.table-wrapper .table tr td:last-child {
+		border-bottom: none;
+	}
+	.table-wrapper .table td::before {
+		content: attr(data-label);
+		font-weight: bold;
+		text-align: left;
+		margin-right: auto;
+		padding-right: 1rem;
+		color: var(--papi-text-muted);
+	}
+	.table-wrapper .table td:first-child {
+		background-color: #f9fafb;
+		font-weight: bold;
+	}
+	.table-wrapper .table .d-flex.justify-content-center {
+		justify-content: flex-end !important;
+	}
+}
+
+/* =================================================================== */
+/* ================ CORREÇÕES ESPECÍFICAS DE RESPONSIVIDADE ========== */
+/* =================================================================== */
+
+/* Força atualização de elementos ao navegar */
+.responsive-update {
+	transition: all 0.3s ease-in-out;
+}
+
+/* Previne problemas de viewport em dispositivos móveis */
+@media screen and (max-width: 767px) {
+	.mini-sidebar {
+		display: none !important;
+	}
+
+	.sidebar-toggler.d-md-none {
+		display: block !important;
+	}
+
+	.sidebar-toggler:not(.d-md-none) {
+		display: none !important;
+	}
+
+	/* Força recálculo de grid em formulários */
+	.form-fields {
+		grid-template-columns: 1fr !important;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.mini-sidebar {
+		display: flex !important;
+	}
+
+	.sidebar-toggler.d-md-none {
+		display: none !important;
+	}
+
+	.sidebar-toggler:not(.d-md-none) {
+		display: flex !important;
+	}
+
+	/* Força recálculo de grid em formulários */
+	.form-fields {
+		grid-template-columns: 1fr 1fr !important;
+	}
+}
+
+/* Correções para offcanvas em diferentes resoluções */
+.offcanvas {
+	transition: transform 0.3s ease-in-out;
+}
+
+/* Força elementos a se recalcularem */
+.force-responsive-recalc {
+	transform: translateZ(0); /* Força compositing layer */
+}
+
+/* =================================================================== */
+/* ================ UTILITÁRIOS RESPONSIVOS PERSONALIZADOS =========== */
+/* =================================================================== */
+
+/* CORREÇÃO: 
+  Classes personalizadas para garantir responsividade consistente.
+  Estas regras têm prioridade sobre as classes do Bootstrap.
+*/
+
+/* Esconde elementos em mobile */
+@media (max-width: 767.98px) {
+	.hide-on-mobile,
+	.d-none.d-md-flex,
+	.d-none.d-md-block,
+	.d-none.d-md-inline,
+	.d-none.d-md-inline-block {
+		display: none !important;
+	}
+}
+
+/* Força elementos responsivos a serem reavaliados baseado na classe do body */
+html.mobile-view .hide-on-mobile,
+body.mobile-view .hide-on-mobile {
+	display: none !important;
+}
+
+html.desktop-view .hide-on-mobile,
+body.desktop-view .hide-on-mobile {
+	display: flex !important;
+	align-items: center !important;
+}
+
+/* Correções adicionais para classes Bootstrap */
+html.mobile-view .d-none.d-md-flex,
+body.mobile-view .d-none.d-md-flex {
+	display: none !important;
+}
+
+html.mobile-view .d-none.d-md-block,
+body.mobile-view .d-none.d-md-block {
+	display: none !important;
+}
+
+html.mobile-view .d-none.d-md-inline,
+body.mobile-view .d-none.d-md-inline {
+	display: none !important;
+}
+
+html.mobile-view .d-none.d-md-inline-block,
+body.mobile-view .d-none.d-md-inline-block {
+	display: none !important;
+}
+
+html.desktop-view .d-none.d-md-flex,
+body.desktop-view .d-none.d-md-flex {
+	display: flex !important;
+}
+
+html.desktop-view .d-none.d-md-block,
+body.desktop-view .d-none.d-md-block {
+	display: block !important;
+}
+
+html.desktop-view .d-none.d-md-inline,
+body.desktop-view .d-none.d-md-inline {
+	display: inline !important;
+}
+
+html.desktop-view .d-none.d-md-inline-block,
+body.desktop-view .d-none.d-md-inline-block {
+	display: inline-block !important;
+}
+
+/* Força elementos md- a se comportarem corretamente */
+@media (min-width: 768px) {
+	html.mobile-view .d-md-none,
+	body.mobile-view .d-md-none {
+		display: none !important;
+	}
+
+	html.desktop-view .d-md-flex,
+	body.desktop-view .d-md-flex {
+		display: flex !important;
+	}
+
+	html.desktop-view .d-md-block,
+	body.desktop-view .d-md-block {
+		display: block !important;
+	}
+}
+
+/* Garante que elementos com d-md-none sumam em mobile */
+@media (max-width: 767.98px) {
+	.d-md-none {
+		display: none !important;
+	}
+}
+
+/* Classes auxiliares para debugging (remover em produção) */
+.mobile-view::before {
+	content: '';
+	/* content: "MOBILE MODE"; */
+	/* position: fixed; */
+	/* top: 0; */
+	/* left: 0; */
+	/* background: red; */
+	/* color: white; */
+	/* padding: 2px 5px; */
+	/* font-size: 10px; */
+	/* z-index: 9999; */
+}
+
+.desktop-view::before {
+	content: '';
+	/* content: "DESKTOP MODE"; */
+	/* position: fixed; */
+	/* top: 0; */
+	/* left: 0; */
+	/* background: blue; */
+	/* color: white; */
+	/* padding: 2px 5px; */
+	/* font-size: 10px; */
+	/* z-index: 9999; */
+}
+
+/* =================================================================== */
+/* ================ ESTILOS GLOBAIS PARA LAYOUTS DE 2 COLUNAS ======= */
+/* =================================================================== */
+
+/* Layout de 2 colunas usado em múltiplas páginas (Eventos, Usuários, Filiais) */
+.form-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+	.form-grid {
+		grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+	}
+}
+
+.form-main-column,
+.form-side-column {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+/* =================================================================== */
+/* ================ ESTILOS GLOBAIS PARA UPLOAD DE IMAGEM =========== */
+/* =================================================================== */
+
+/* Upload de imagem usado em múltiplas páginas (Eventos, Usuários, Filiais) */
+.image-upload-group {
+	margin-bottom: 1.5rem;
+}
+
+.image-uploader {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	border: 2px dashed #dee2e6;
+	border-radius: 0.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	position: relative;
+	background-size: cover;
+	background-position: center;
+	transition: border-color 0.2s;
+}
+
+/* Avatar circular para usuários */
+.image-uploader.user-avatar {
+	aspect-ratio: 1 / 1;
+	border-radius: 50%;
+	max-width: 250px;
+	margin: 0 auto;
+}
+
+.image-uploader:hover {
+	border-color: #f98303;
+}
+
+.image-input {
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	position: absolute;
+	cursor: pointer;
+}
+
+.uploader-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	color: #6b7280;
+	text-align: center;
+	padding: 1rem;
+}
+
+.uploader-text {
+	font-weight: 500;
+}
+
+.uploader-hint {
+	font-size: 0.75rem;
+	opacity: 0.7;
+}
+
+.image-uploader.has-image .uploader-content {
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+
+.image-uploader.has-image:hover .uploader-content {
+	opacity: 1;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.image-uploader.user-avatar.has-image:hover .uploader-content {
+	border-radius: 50%;
+}
+
+/* =================================================================== */
+/* ================ CLASSES UTILITÁRIAS GLOBAIS ===================== */
+/* =================================================================== */
+
+/* Campos readonly */
+.readonly-field {
+	background-color: #f8f9fa !important;
+	color: #6c757d !important;
+	cursor: not-allowed;
+}
+
+.readonly-field:focus {
+	border-color: #e5e7eb !important;
+	box-shadow: none !important;
+}
+
+/* Classes utilitárias de tamanho e espaçamento */
+.fs-7 {
+	font-size: 0.875rem !important;
+}
+
+.mt-2 {
+	margin-top: 0.5rem !important;
+}
+
+/* =================================================================== */
+/* ================ ESTILOS ESPECÍFICOS PARA FILIAIS ================= */
+/* =================================================================== */
+
+/* Nenhum estilo específico adicional necessário - todos os estilos foram padronizados */
+
+/* =================================================================== */
+/* =================== ESTILOS GLOBAIS DE COMPONENTES ================ */
+/* =================================================================== */
+
+/* --- Variáveis de Cor (Exemplo) --- */
+:root {
+	--papi-orange: #f98303;
+	--papi-orange-dark: #e07503;
+	--papi-border-color: #f1f3f4;
+	--papi-text-dark: #2c3e50;
+	--papi-text-muted: #6c757d;
+	--papi-success: #198754;
+	--papi-success-bg: #d1e7dd;
+	--papi-danger: #dc3545;
+	--papi-danger-bg: #f8d7da;
+}
+
+/* --- Reset Básico e Layout --- */
+body {
+	overflow-x: hidden;
+	position: relative;
+	background-color: #f9fafb;
+}
+
+/* --- Cabeçalho Padrão da Página --- */
+.page-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 2rem;
+	gap: 1rem;
+	flex-wrap: wrap;
+}
+
+.page-header-content h1 {
+	font-size: 1.75rem;
+	margin-bottom: 0.25rem;
+	color: #3f4254;
+}
+
+.page-subtitle {
+	color: #6c757d;
+	font-size: 0.95rem;
+	margin-bottom: 0;
+	font-weight: 400;
+}
+
+/* =================================================================== */
+/* ================ BOTÕES DE AÇÃO PRINCIPAIS ======================= */
+/* =================================================================== */
+.btn-primary-action {
+	background: linear-gradient(135deg, var(--papi-orange), #e07503);
+	border: none;
+	padding: 0.75rem 1.5rem;
+	font-weight: 600;
+	border-radius: 10px;
+	box-shadow: 0 4px 12px rgba(249, 131, 3, 0.3);
+	transition: all 0.3s ease;
+	color: white;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.btn-primary-action:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(249, 131, 3, 0.4);
+	background: linear-gradient(135deg, #e07503, #d16a03);
+	color: white;
+}
+
+/* =================================================================== */
+/* ================ CARDS DE ESTATÍSTICAS PADRÃO ==================== */
+/* =================================================================== */
+.stat-card {
+	background: #fff;
+	border-radius: 12px;
+	padding: 1.5rem;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	border: 1px solid #f1f3f4;
+	transition: all 0.3s ease;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.stat-card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+	width: 50px;
+	height: 50px;
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.5rem;
+	color: white;
+	flex-shrink: 0;
+}
+
+.stat-icon.bg-primary {
+	background: linear-gradient(135deg, #0d6efd, #0a58ca);
+}
+.stat-icon.bg-success {
+	background: linear-gradient(135deg, #198754, #146c43);
+}
+.stat-icon.bg-warning {
+	background: linear-gradient(135deg, #ffc107, #d39e00);
+}
+.stat-icon.bg-info {
+	background: linear-gradient(135deg, #0dcaf0, #0aa3c2);
+}
+.stat-icon.bg-danger {
+	background: linear-gradient(135deg, #dc3545, #b02a37);
+}
+
+.stat-content {
+	flex: 1;
+}
+.stat-number {
+	font-size: 2rem;
+	font-weight: 700;
+	margin-bottom: 0.25rem;
+	color: var(--papi-text-dark);
+}
+.stat-label {
+	font-size: 0.875rem;
+	color: var(--papi-text-muted);
+	margin-bottom: 0;
+	font-weight: 500;
+}
+
+/* =================================================================== */
+/* ================ BARRA DE FILTROS PADRÃO ======================== */
+/* =================================================================== */
+.filter-bar {
+	background: #fff;
+	border-radius: 16px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	border: 1px solid var(--papi-border-color);
+	padding: 0;
+	margin-bottom: 2rem;
+	overflow: hidden;
+}
+
+.filter-bar-header {
+	padding: 1rem 1.5rem;
+	border-bottom: 1px solid var(--papi-border-color);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.filter-title {
+	font-weight: 600;
+	color: #495057;
+	font-size: 0.95rem;
+}
+
+.filter-controls {
+	padding: 1.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5rem;
+	align-items: flex-end;
+}
+
+.search-wrapper {
+	flex: 1;
+	min-width: 250px;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.search-container {
+	position: relative;
+}
+.search-icon {
+	position: absolute;
+	left: 12px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #6c757d;
+}
+.search-input {
+	padding-left: 2.5rem;
+	border-radius: 8px;
+	border: 2px solid #e9ecef;
+	transition: all 0.3s ease;
+}
+.search-input:focus {
+	border-color: var(--papi-orange);
+	box-shadow: 0 0 0 0.2rem rgba(249, 131, 3, 0.15);
+}
+
+.filter-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	min-width: 150px;
+}
+.filter-label {
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: #495057;
+	margin-bottom: 0;
+}
+.filter-select {
+	border-radius: 8px;
+	border: 2px solid #e9ecef;
+	transition: all 0.3s ease;
+}
+.filter-select:focus {
+	border-color: var(--papi-orange);
+	box-shadow: 0 0 0 0.2rem rgba(249, 131, 3, 0.15);
+}
+
+.filter-actions {
+	display: flex;
+	align-items: flex-end;
+}
+.btn-clear-filters {
+	border-radius: 8px;
+	padding: 0.5rem 1rem;
+	font-weight: 500;
+}
+.mobile-filter-btn {
+	border-radius: 8px;
+	padding: 0.5rem 1rem;
+	font-weight: 500;
+}
+
+/* --- Tags de Filtros Ativos --- */
+.filter-tag {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.375rem 0.75rem;
+	background-color: var(--papi-orange);
+	color: white;
+	border-radius: 20px;
+	text-decoration: none;
+	font-size: 0.875rem;
+	font-weight: 500;
+	transition: all 0.2s ease-in-out;
+}
+.filter-tag:hover {
+	background-color: var(--papi-orange-dark);
+	color: white;
+}
+.filter-tag .close-tag {
+	font-size: 1.1rem;
+	font-weight: bold;
+	opacity: 0.8;
+	cursor: pointer;
+}
+
+/* =================================================================== */
+/* ==================== TABELA PADRÃO ============================== */
+/* =================================================================== */
+.table-wrapper {
+	background-color: #fff;
+	border-radius: 16px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	overflow: hidden;
+	border: 1px solid var(--papi-border-color);
+}
+
+.client-info {
+	display: flex;
+	flex-direction: column;
+}
+.client-name {
+	font-weight: 500;
+	color: var(--papi-text-dark);
+}
+.client-email {
+	font-size: 0.85rem;
+	color: var(--papi-text-muted);
+}
+
+/* --- Badges de Status Genéricos --- */
+.status-badge {
+	padding: 0.4em 0.8em;
+	font-size: 0.8rem;
+	border-radius: 20px;
+	font-weight: 600;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+}
+.status-badge-active {
+	background-color: var(--papi-success-bg);
+	color: var(--papi-success);
+}
+.status-badge-paused,
+.status-badge-inactive {
+	background-color: var(--papi-danger-bg);
+	color: var(--papi-danger);
+}
+
+/* =================================================================== */
+/* ===================== PAGINAÇÃO PADRÃO =========================== */
+/* =================================================================== */
+.pagination-wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 2rem;
+	padding: 1.5rem;
+	background: #fff;
+	border-radius: 16px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	border: 1px solid var(--papi-border-color);
+}
+.pagination-info {
+	color: #6c757d;
+	font-size: 0.9rem;
+	font-weight: 500;
+}
+.custom-pagination {
+	margin-bottom: 0;
+}
+.custom-pagination .page-link {
+	border: 2px solid var(--papi-border-color);
+	color: #6c757d;
+	font-weight: 500;
+	padding: 0.5rem 0.75rem;
+	margin: 0 0.125rem;
+	border-radius: 8px;
+	transition: all 0.3s ease;
+}
+.custom-pagination .page-link:hover {
+	background-color: var(--papi-orange);
+	border-color: var(--papi-orange);
+	color: white;
+	transform: translateY(-1px);
+}
+.custom-pagination .page-item.active .page-link {
+	background-color: var(--papi-orange);
+	border-color: var(--papi-orange);
+	color: white;
+}
+
+/* =================================================================== */
+/* ==================== MODAIS E POPUPS ============================ */
+/* =================================================================== */
+/* --- Modal de Filtros (Mobile) --- */
+.filter-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1050;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.filter-modal-overlay.active {
+	opacity: 1;
+	visibility: visible;
+}
+.filter-modal-content {
+	background-color: #fff;
+	border-radius: 0.75rem;
+	padding: 1.5rem;
+	width: 90%;
+	max-width: 400px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+	transform: scale(0.95);
+	transition: transform 0.3s ease;
+}
+.filter-modal-overlay.active .filter-modal-content {
+	transform: scale(1);
+}
+.filter-modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid #dee2e6;
+}
+.filter-modal-header h5 {
+	margin: 0;
+	font-size: 1.25rem;
+}
+
+/* =================================================================== */
+/* =================== ESTILOS RESPONSIVOS GLOBAIS =================== */
+/* =================================================================== */
+@media (max-width: 991.98px) {
+	.filter-controls {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 1rem;
+	}
+	.desktop-filters {
+		display: none !important;
+	}
+}
+
+@media (max-width: 767.98px) {
+	.page-header {
+		flex-direction: column;
+		align-items: stretch;
+		text-align: center;
+	}
+	.page-header-content {
+		text-align: center;
+	}
+	.btn-primary-action {
+		width: 100%;
+	}
+
+	.stat-card {
+		padding: 1rem;
+	}
+	.stat-number {
+		font-size: 1.5rem;
+	}
+	.stat-icon {
+		width: 40px;
+		height: 40px;
+		font-size: 1.25rem;
+	}
+	.events-stats .col-6,
+	.vouchers-stats .col-6,
+	.stats-container .col-6,
+	.invites-stats .col-6,
+	.coupons-stats .col-6,
+	.campaigns-stats .col-6,
+	.branches-stats .col-6,
+	.clients-stats .col-6,
+	.employees-stats .col-6,
+	.product-stats .col-6 {
+		flex: 0 0 50% !important;
+		max-width: 50% !important;
+	}
+
+	.pagination-wrapper {
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	/* Transforma a tabela em "cards" em telas pequenas */
+	.table-wrapper .table thead {
+		display: none;
+	}
+	.table-wrapper .table,
+	.table-wrapper .table tbody,
+	.table-wrapper .table tr,
+	.table-wrapper .table td {
+		display: block;
+		width: 100%;
+	}
+	.table-wrapper .table tr {
+		margin-bottom: 1rem;
+		border: 1px solid var(--papi-border-color);
+		border-radius: 12px;
+		overflow: hidden;
+		background-color: #fff;
+	}
+	.table-wrapper .table td {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.75rem 1rem;
+		border-bottom: 1px solid var(--papi-border-color);
+		text-align: right;
+	}
+	.table-wrapper .table tr td:last-child {
+		border-bottom: none;
+	}
+	.table-wrapper .table td::before {
+		content: attr(data-label);
+		font-weight: 600;
+		text-align: left;
+		margin-right: auto;
+		padding-right: 1rem;
+		color: var(--papi-text-muted);
+		font-size: 0.85rem;
+	}
+}
+
+@media (max-width: 575.98px) {
+	.stat-card {
+		flex-direction: row;
+		align-items: center;
+		padding: 0.75rem;
+	}
+	.stat-icon {
+		width: 35px;
+		height: 35px;
+		font-size: 1.1rem;
+	}
+	.stat-number {
+		font-size: 1.25rem;
+	}
+	.stat-label {
+		font-size: 0.75rem;
+	}
+}
+
+/* =================================================================== */
+/* =================== CLASSES UTILITÁRIAS =========================== */
+/* =================================================================== */
+.font-mono {
+	font-family: ui-monospace, SFMono-Regular, 'SF Mono', Monaco, Consolas,
+		'Liberation Mono', 'Courier New', monospace;
+}
+
+/* =================================================================== */
+/* ================ CORREÇÕES E ESTILOS GLOBAIS PARA DROPDOWNS ======= */
+/* =================================================================== */
+
+/* Garante que o thead não interfira no z-index */
+.table thead th {
+	position: relative;
+	z-index: 1;
+}
+
+/* SOLUÇÃO (1/3): 
+   Aplica 'position: static' ao dropdown para que o menu seja posicionado
+   em relação ao elemento '.table-responsive' ou 'body', e não à célula da tabela.
+   Isso é crucial para evitar que o menu seja cortado.
+*/
+.table .dropdown {
+	position: static;
+}
+
+/*
+  SOLUÇÃO (2/3):
+  Adicionada via JS ao '.table-responsive' quando um dropdown é aberto.
+  Muda o 'overflow' para 'visible', permitindo que o menu "vaze" para
+  fora dos limites do contêiner da tabela.
+*/
+.table-responsive.dropdown-visible {
+	overflow: visible !important;
+}
+
+/*
+  SOLUÇÃO (3/3):
+  Adicionada via JS à linha (tr) quando seu dropdown está aberto.
+  Eleva o z-index da linha para garantir que ela e seu dropdown
+  fiquem por cima de outras linhas e conteúdos da tabela.
+*/
+.table tbody tr.dropdown-open {
+	z-index: 1055; 
+}
+
+
+/* Estilização aprimorada e global para itens de dropdown em tabelas */
+.table .dropdown-menu {
+	border: none;
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+	border-radius: 12px;
+	padding: 0.5rem 0;
+	min-width: 200px;
+	z-index: 1060; /* Garante que fique acima de tudo */
+}
+
+.table .dropdown-item {
+	padding: 0.75rem 1.25rem;
+	font-size: 0.9rem;
+	font-weight: 500;
+	transition: all 0.2s ease;
+	display: flex;
+	align-items: center;
+	gap: 0.75rem; /* Espaçamento entre ícone e texto */
+}
+
+.table .dropdown-item:hover {
+	background-color: #fef7ed; /* Laranja bem claro */
+	color: var(--papi-orange);
+	transform: translateX(4px);
+}
+
+.table .dropdown-item i {
+	color: #6c757d;
+	transition: color 0.2s ease;
+	width: 16px; /* Largura fixa para alinhamento */
+	text-align: center;
+}
+
+.table .dropdown-item:hover i {
+	color: var(--papi-orange);
+}
+
+/* Botão de dropdown (três pontos) */
+.table .btn-action-icon {
+	width: 36px;
+	height: 36px;
+	font-size: 1rem;
+	border-radius: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #f8f9fa;
+	color: #495057;
+	border: 1px solid #dee2e6;
+	transition: all 0.2s ease-in-out;
+}
+.table .btn-action-icon:hover {
+	color: var(--papi-orange);
+	background-color: #fef7ed;
+	border-color: var(--papi-orange);
+}
+
+.table .btn-action-icon.dropdown-toggle::after {
+	display: none;
+}
+
+.table .btn-action-icon[disabled] {
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+
+/* =================================================================== */
+/* =================== ESTILOS PARA MODAIS COM TABELAS =============== */
+/* =================================================================== */
+
+.modal-table-container {
+	max-height: 60vh; /* Define uma altura máxima para a tabela dentro do modal */
+	overflow-y: auto;
+}
+
+.product-selection-table thead {
+	position: sticky; /* Cabeçalho fixo */
+	top: 0;
+	z-index: 10;
+	background-color: #f8f9fa; /* Fundo para o cabeçalho fixo */
+}
+
+.product-info-cell {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	padding: 0.5rem 0;
+}
+
+.product-image-wrapper {
+	flex-shrink: 0;
+}
+
+.product-image {
+	width: 50px;
+	height: 50px;
+	object-fit: cover;
+	border-radius: 0.5rem;
+	border: 1px solid #dee2e6;
+}
+
+.product-details {
+	display: flex;
+	flex-direction: column;
+}
+
+.product-name {
+	font-weight: 600;
+	color: var(--papi-text-dark);
+}
+
+.product-price,
+.product-category {
+	font-weight: 500;
+}
+
+/* =================================================================== */
+/* ================ CORREÇÃO PARA BOTÕES DE AÇÃO NA TABELA =========== */
+/* =================================================================== */
+/* As regras abaixo corrigem o alinhamento dos botões de ação,
+   garantindo que fiquem lado a lado em todas as tabelas.
+/* =================================================================== */
+
+/* Garante que o container dos botões seja um flexbox que não quebra a linha. */
+.table .action-buttons {
+	display: flex;
+
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+}
+
+/* Restaura o posicionamento padrão do dropdown para corrigir o layout quebrado,
+   enquanto a lógica JS/CSS já implementada cuida da visibilidade do menu. */

@@ -1,0 +1,36 @@
+/* Estilos específicos para a página de Lista de Cupons */
+
+.discount-badge {
+    background-color: var(--papi-orange-bg);
+    color: var(--papi-orange);
+    padding: 0.25rem 0.6rem;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Badges de Status Específicos para Cupons */
+.status-badge.status-available {
+	background-color: #d1fae5; /* green-100 */
+	color: #065f46; /* green-800 */
+}
+.status-badge.status-in-use {
+	background-color: #fef3c7; /* yellow-100 */
+	color: #92400e; /* yellow-800 */
+}
+.status-badge.status-used {
+	background-color: #e5e7eb; /* gray-200 */
+	color: #374151; /* gray-700 */
+}
+.status-badge.status-expired {
+	background-color: #fee2e2; /* red-100 */
+	color: #991b1b; /* red-800 */
+}
+
+/* Ajustes de coluna da tabela */
+.token-col { width: 20%; }
+.client-col { width: 25%; }
+.discount-col { width: 15%; }
+.validity-col { width: 20%; }
+.status-col { width: 10%; }
+.actions-col { width: 10%; }

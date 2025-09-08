@@ -1,0 +1,51 @@
+/* Estilos para os cards de seleção de cardápio */
+.cardapio-card {
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+	border: 1px solid #e9ecef; /* Margem cinza clara */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Sombra sutil adicionada */
+	position: relative; /* Importante para z-index */
+	z-index: 1;
+
+	/* Impede a seleção de texto/imagem com o mouse */
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10+ */
+	user-select: none; /* Padrão */
+}
+
+.cardapio-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+	border-color: #dee2e6; /* Escurece a borda no hover */
+	z-index: 2; /* Aumenta o z-index no hover */
+}
+
+/* Estilo para o card selecionado */
+.cardapio-card.selected {
+	border-color: #f98303; /* Cor primária da marca */
+	box-shadow: 0 0 0 4px rgba(249, 131, 3, 0.25);
+	z-index: 3; /* Prioridade máxima para o selecionado */
+}
+
+.cardapio-card.selected .select-btn {
+	background-color: #f98303;
+	color: white;
+	border-color: #f98303;
+}
+
+.cardapio-card .card-img-top {
+	height: 150px;
+	object-fit: cover;
+	pointer-events: none; /* Adicionado para impedir que a imagem seja arrastada */
+}
+
+/* Botões de ação no card */
+.select-btn,
+.view-btn {
+	position: relative;
+	z-index: 10; /* Garantir que os botões fiquem acima do card */
+}
+
+.view-btn {
+	pointer-events: auto !important; /* Importante para o botão de visualização */
+}

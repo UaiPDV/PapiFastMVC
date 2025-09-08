@@ -1,0 +1,66 @@
+﻿@model BixWeb.Models.Campanha
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Campanha</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.nomeCampanha)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.nomeCampanha)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.dataPostCampanha)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.dataPostCampanha)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.campanhaAtiva)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.campanhaAtiva)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.matriculaFuncionario)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.matriculaFuncionario)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.linkCardapio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.linkCardapio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.tipoCardapio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.tipoCardapio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.typeServise)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.typeServise)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Usuariofilial)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Usuariofilial.codUsuario)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.codCampanha">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

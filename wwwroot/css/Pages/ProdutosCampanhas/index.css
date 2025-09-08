@@ -1,0 +1,158 @@
+/* =================================================================== */
+/* =========== ESTILOS ESPECÍFICOS - PRODUTOS DA CAMPANHA ============ */
+/* =================================================================== */
+
+/* --- Célula de Informação do Produto --- */
+.product-info-cell {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.product-image-wrapper {
+	width: 50px;
+	height: 50px;
+	flex-shrink: 0;
+}
+
+.product-image {
+	width: 100%;
+	height: 100%;
+	border-radius: 8px;
+	object-fit: cover;
+	border: 1px solid var(--papi-border-color);
+}
+
+.product-details {
+	display: flex;
+	flex-direction: column;
+}
+
+.product-name {
+	font-weight: 600;
+	color: var(--papi-text-dark);
+	margin-bottom: 0.125rem;
+}
+
+/* --- Estilização de Células Específicas da Tabela --- */
+.product-category {
+	font-weight: 500;
+}
+
+.product-price {
+	font-weight: 600;
+	color: var(--papi-success);
+}
+
+/* --- Larguras das colunas da tabela --- */
+.products-table .product-col { width: 50%; }
+.products-table .category-col { width: 20%; }
+.products-table .price-col { width: 20%; }
+.products-table .actions-col { width: 10%; }
+
+
+/* =================================================================== */
+/* ============ RESPONSIVIDADE PARA A TABELA DE PRODUTOS ============= */
+/* =================================================================== */
+@media (max-width: 767.98px) {
+    /* Transforma a linha da tabela em um card moderno */
+	.table-wrapper .products-table tr {
+		padding: 1rem;
+		display: grid;
+		grid-template-areas:
+			"info actions"
+			"details details";
+		grid-template-columns: 1fr auto;
+		gap: 0.5rem 1rem;
+	}
+
+    /* Remove a borda inferior padrão dos TDs */
+	.table-wrapper .products-table td {
+		border-bottom: none;
+        padding: 0;
+        display: flex; /* Garante alinhamento interno */
+        align-items: center;
+	}
+
+    /* Remove o pseudo-elemento "data-label" */
+    .table-wrapper .products-table td::before {
+        display: none;
+    }
+    
+    /* Área de Informações Principais (Imagem e Nome) */
+    .table-wrapper .products-table td[data-label='Produto'] {
+        grid-area: info;
+        background-color: transparent; /* Remove o fundo cinza */
+    }
+
+    /* Área de Ações */
+    .table-wrapper .products-table td[data-label='Ações'] {
+        grid-area: actions;
+        justify-content: flex-end; /* Alinha o botão à direita */
+    }
+
+    /* Área de Detalhes (Categoria e Preço) */
+    .details-wrapper {
+        grid-area: details;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f8f9fa;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        margin-top: 0.5rem;
+    }
+
+    .details-wrapper .product-category,
+    .details-wrapper .product-price {
+        font-size: 0.9rem;
+    }
+
+    .details-wrapper .product-category::before,
+    .details-wrapper .product-price::before {
+        content: attr(data-label);
+        font-weight: 500;
+        color: var(--papi-text-muted);
+        margin-right: 0.5rem;
+    }
+    
+    /* Esconde os TDs originais que agora estão no wrapper */
+    .table-wrapper .products-table td[data-label='Categoria'],
+    .table-wrapper .products-table td[data-label='Preço'] {
+        display: none;
+    }
+}
+
+/* Estilos para a página de listagem de produtos */
+
+.product-info-cell {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.product-image-wrapper .product-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px; /* Bordas arredondadas */
+    border: 1px solid #dee2e6; /* Borda cinza clara */
+    padding: 2px; /* Pequeno espaçamento interno */
+    background-color: #fff;
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-name {
+    font-weight: 600;
+    color: var(--papi-text-dark);
+}
+
+.product-category,
+.product-price {
+    font-weight: 500;
+    color: var(--papi-text-muted);
+}

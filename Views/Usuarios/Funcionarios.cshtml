@@ -1,0 +1,219 @@
+﻿@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<BixWeb.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Gestão de Funcionários";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/Usuarios/usuarios.css" asp-append-version="true" />
+}
+
+<div id="clients-page">
+    @if (ViewData["funcionario"] != null)
+    {
+        <div class="text-center d-flex flex-column justify-content-center" style="height: 70vh;">
+            <h2 class="display-6 fw-bold mb-4">@ViewData["funcionario"]</h2>
+            <a asp-action="NewFuncionario" class="btn btn-primary-action btn-lg px-4 gap-3">
+                <i class="bi bi-plus-circle me-2"></i>
+                Cadastrar Funcionário
+            </a>
+        </div>
+    }
+    else
+    {
+        <!-- Cabeçalho da Página Padronizado -->
+        <div class="page-header">
+            <div class="page-header-content">
+                <h1>@ViewData["Title"]</h1>
+                <p class="page-subtitle">Gerencie e visualize os funcionários da sua filial.</p>
+            </div>
+            <a asp-action="NewFuncionario" class="btn btn-primary-action">
+                <i class="bi bi-plus-lg me-2"></i>
+                Cadastrar Funcionário
+            </a>
+        </div>
+
+        <!-- Estatísticas dos Funcionários -->
+        <div class="clients-stats mb-4">
+            <div class="row g-3">
+                <div class="col-md-4 col-12">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-primary">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.TotalItemCount</div>
+                            <div class="stat-label">Total de Funcionários</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-success">
+                            <i class="bi bi-person-check-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Count(u => u.filiais.Any(f => f.ativo))</div>
+                            <div class="stat-label">Funcionários Ativos</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-danger">
+                            <i class="bi bi-person-x-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                             <div class="stat-number">@Model.Count(u => !u.filiais.Any(f => f.ativo))</div>
+                            <div class="stat-label">Funcionários Inativos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="filter-bar">
+            <div class="filter-bar-header">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-funnel text-muted"></i>
+                    <span class="filter-title">Filtros e Pesquisa</span>
+                </div>
+            </div>
+            <div class="filter-controls">
+                <form method="post" class="search-wrapper">
+                    <label class="filter-label">Pesquisar Funcionário</label>
+                    <div class="search-container">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" name="SearchString" placeholder="Buscar por nome, email ou contato..." class="form-control search-input" value="@ViewBag.CurrentFilter" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tabela de Funcionários -->
+        <div class="table-wrapper">
+            <table class="table users-table align-middle">
+                <thead>
+                    <tr>
+                        <th class="user-col">Nome</th>
+                        <th class="email-col">Email</th>
+                        <th class="status-col">Status</th>
+                        <th class="contact-col">Contato</th>
+                        <th class="date-col">Data do Cadastro</th>
+                        <th class="actions-col text-center">Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="table-row">
+                            <td data-label="Nome">@item.nome</td>
+                            <td data-label="Email">@item.email</td>
+                            <td data-label="Status">
+                                @if (item.filiais.LastOrDefault()?.ativo == true)
+                                {
+                                    <span class="status-badge status-badge-active">Ativo</span>
+                                }
+                                else
+                                {
+                                    <span class="status-badge status-badge-inactive">Desativado</span>
+                                }
+                            </td>
+                            <td data-label="Contato">@item.telefone</td>
+                            <td data-label="Cadastro">@item.filiais.LastOrDefault()?.dataCadastro.ToString("dd/MM/yyyy")</td>
+                            <td data-label="Opções">
+                                <div class="action-buttons">
+                                    <a asp-action="Edit" asp-route-id="@item.codUsuario" class="btn btn-action-icon" title="Editar">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <button class="btn btn-action-icon btn-action-danger" data-id="@item.codUsuario" id="deleteBtn-@item.codUsuario" title="Desativar">
+                                        <i class="bi bi-person-x"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Paginação -->
+        @if (Model != null && Model.PageCount > 1)
+        {
+            <div class="pagination-wrapper">
+                <div class="pagination-info">
+                    <span class="pagination-text">
+                        Mostrando @((Model.PageNumber - 1) * Model.PageSize + 1) até @(Math.Min(Model.PageNumber * Model.PageSize, Model.TotalItemCount)) de @Model.TotalItemCount funcionários
+                    </span>
+                </div>
+                <div class="pagination-controls">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+                    {
+                        UlElementClasses = new[] { "pagination", "custom-pagination" },
+                        LiElementClasses = new[] { "page-item" },
+                        PageClasses = new[] { "page-link" },
+                        ActiveLiElementClass = "active"
+                    })
+                </div>
+            </div>
+        }
+    }
+</div>
+
+<!-- Modal de Exclusão -->
+<div id="delete-popup" class="popup-confirm">
+    <div class="popup-confirm-content">
+        <div class="popup-icon">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+        </div>
+        <h4 class="popup-title">Confirmar Desativação</h4>
+        <p class="popup-message">Tem certeza que deseja desativar este Funcionário?</p>
+        <div class="popup-actions">
+            <button class="btn btn-outline-secondary popup-btn-cancel" id="cancelBtn">
+                <i class="bi bi-x-lg me-2"></i>Cancelar
+            </button>
+            <button class="btn btn-danger popup-btn-confirm" id="confirmDeleteBtn">
+                <i class="bi bi-trash3-fill me-2"></i>Sim, desativar
+            </button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Funções do Modal de Exclusão
+            const deletePopup = document.getElementById('delete-popup');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+            let clienteIdToDeactivate = null;
+
+            function openDeletePopup(id) {
+                clienteIdToDeactivate = id;
+                deletePopup.style.display = 'flex';
+            }
+
+            function closeDeletePopup() {
+                clienteIdToDeactivate = null;
+                deletePopup.style.display = 'none';
+            }
+
+            function desativarCliente() {
+                if (clienteIdToDeactivate) {
+                    console.log("Desativando cliente com ID:", clienteIdToDeactivate);
+                    // Adicionar lógica de desativação aqui
+                    closeDeletePopup();
+                }
+            }
+
+            document.querySelectorAll('[id^="deleteBtn-"]').forEach(btn => {
+                btn.addEventListener('click', () => openDeletePopup(btn.dataset.id));
+            });
+
+            cancelBtn.addEventListener('click', closeDeletePopup);
+            confirmDeleteBtn.addEventListener('click', desativarCliente);
+        });
+    </script>
+}

@@ -1,0 +1,67 @@
+﻿@{
+	ViewData["Title"] = "Validar Email";
+}
+<h1 class="text-center py-img"></h1>
+
+<div class="app-main flex-column flex-row-fluid">
+	<!--begin::Content wrapper-->
+	<div class="d-flex flex-column flex-column-fluid">
+		<!--begin::Content-->
+		<div class="app-content flex-column-fluid">
+			<!--begin::Content container-->
+			<div class="app-container container-fluid  col-lg-6">
+				<!--begin::Card-->
+				<div class="card">
+					<!--begin::Card body-->
+					<div class="card-body">
+						<div class="w-lg-500px p-10 p-lg-15 mx-auto">
+							<!--begin::Form-->
+							<form asp-action="Validation" class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework">
+								<input type="hidden" name="email" value="@ViewBag.Email" />
+								<!--begin::Heading-->
+								<div class="text-center mb-10">
+									<!--begin::Title-->
+									<h1 class="text-gray-900 mb-3">Validar Token</h1>
+									<!--end::Title-->
+									<!--begin::Link-->
+									<div class="text-gray-500 fw-semibold fs-4">
+										Enviamos um token para confirmar o email.
+										<br />
+										Caso não tenha recebido
+										<a href="authentication/sign-up/basic.html" class="link-primary fw-bold">Clique aqui!</a>
+									</div>
+									<!--end::Link-->
+								</div>
+								<!--begin::Heading-->
+								<!--begin::Input group-->
+								<div class="fv-row mb-10 fv-plugins-icon-container">
+									<!--begin::Input-->
+									<input class="form-control form-control-lg form-control-solid" type="text" placeholder="Digite o Token" name="token" autocomplete="off">
+									<!--end::Input-->
+									<div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">@ViewBag.ErrorMessage</div>
+								</div>
+								<!--end::Input group-->
+								<!--begin::Actions-->
+								<div class="text-center">
+									<!--begin::Submit button-->
+									<button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
+										Validar
+									</button>
+									<!--end::Submit button-->
+									<!--begin::Separator-->
+								</div>
+								<!--end::Actions-->
+							</form>
+							<!--end::Form-->
+						</div>
+					</div>
+					<!--end::Card body-->
+				</div>
+				<!--end::Card-->
+			</div>
+			<!--end::Content container-->
+		</div>
+		<!--end::Content-->
+	</div>
+	<!--end::Content wrapper-->
+</div>

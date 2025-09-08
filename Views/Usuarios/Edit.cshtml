@@ -1,0 +1,125 @@
+﻿@model BixWeb.Models.Usuario
+
+@{
+    ViewData["Title"] = "Editar Perfil";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Usuarios/editarUsuario.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+}
+
+<!-- Cabeçalho da Página -->
+<div class="form-page-header">
+    <a asp-action="Index" class="form-back-link">
+        <i class="bi bi-arrow-left-circle fs-2"></i>
+    </a>
+    <h1 class="form-page-title">Configurações do Perfil</h1>
+</div>
+
+<!-- Formulário Principal -->
+<div class="form-main-card">
+    <form asp-action="Edit" enctype="multipart/form-data" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="codUsuario" />
+        <input type="hidden" asp-for="password" />
+        <input type="hidden" asp-for="imagem" />
+
+        <div class="form-grid">
+            <!-- Coluna Principal -->
+            <div class="form-main-column">
+                <h2 class="form-section-title">Dados Pessoais</h2>
+                <p class="form-section-subtitle">Preencha os dados que deseja alterar.</p>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-12">
+                        <label asp-for="nome" class="form-label">Nome Completo</label>
+                        <input asp-for="nome" class="form-control" />
+                        <span asp-validation-for="nome" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="email" class="form-label">Email</label>
+                        <input asp-for="email" class="form-control" />
+                        <span asp-validation-for="email" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="telefone" class="form-label">Telefone</label>
+                        <input asp-for="telefone" class="form-control" />
+                        <span asp-validation-for="telefone" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="cpf" class="form-label">CPF</label>
+                        <input asp-for="cpf" class="form-control" />
+                        <span asp-validation-for="cpf" class="text-danger"></span>
+                        <span class="text-danger cpfInvalid"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Senha</label>
+                        <input type="password" value="***********" disabled class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna Lateral -->
+            <div class="form-side-column">
+                <h2 class="form-section-title">Avatar</h2>
+                <p class="form-section-subtitle">Altere sua imagem de perfil.</p>
+                <div class="image-upload-group">
+                    <div class="image-uploader user-avatar" id="avatarUploader" style="background-image: url('@Model.imagem')">
+                         <img src="@Model.imagem" style="display:none;" onerror="this.parentElement.style.backgroundImage = 'url(/imagens/Usuario.png)';">
+                        <input type="file" name="ImgUsu" accept=".png, .jpg, .jpeg" class="image-input" />
+                        <div class="uploader-content">
+                            <i class="bi bi-cloud-upload" style="font-size: 3rem; color: #6b7280;"></i>
+                            <span class="uploader-text">Clique para enviar</span>
+                            <span class="uploader-hint">PNG, JPG ou JPEG</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="form-action-buttons">
+            <a asp-action="Index" asp-controller="Home" class="btn btn-light">Cancelar</a>
+            <button type="submit" class="btn btn-primary d-flex align-items-center">
+                <i class="bi bi-check-circle me-2"></i>
+                Atualizar Perfil
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Força atualização responsiva específica para esta página
+            if (window.forceResponsiveUpdate) {
+                window.forceResponsiveUpdate();
+            }
+            
+            function setupImageUploader(uploaderId) {
+                const uploader = document.getElementById(uploaderId);
+                const input = uploader.querySelector('.image-input');
+
+                input.addEventListener('change', function(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            uploader.style.backgroundImage = `url('${e.target.result}')`;
+                            uploader.classList.add('has-image');
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                });
+
+                if (uploader.style.backgroundImage && uploader.style.backgroundImage !== 'none' && uploader.style.backgroundImage !== '') {
+                    uploader.classList.add('has-image');
+                }
+            }
+
+            setupImageUploader('avatarUploader');
+        });
+    </script>
+}

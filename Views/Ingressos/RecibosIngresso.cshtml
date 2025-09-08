@@ -1,0 +1,118 @@
+﻿@using System.Globalization
+@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<BixWeb.Models.ReciboIngresso>
+
+@{
+    ViewData["Title"] = "Recibos de Ingressos";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Recibos/recibos.css" asp-append-version="true" />
+}
+
+<div class="receipts-page">
+
+    <!-- Cabeçalho da Página -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <h1>@ViewData["Title"]</h1>
+            <p class="page-subtitle">Gerencie e visualize todos os recibos de ingressos vendidos.</p>
+        </div>
+    </div>
+
+    <!-- Barra de Filtros -->
+    <div class="filter-bar">
+        <div class="filter-controls">
+            <div class="search-wrapper">
+                <label class="filter-label">Pesquisar</label>
+                <div class="search-container">
+                    <i class="bi bi-search search-icon"></i>
+                    <input type="text" data-kt-ecommerce-order-filter="search" class="form-control search-input" placeholder="Buscar por nome, e-mail, código...">
+                </div>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Status</label>
+                <select class="form-select filter-select" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
+                    <option value="">Todos</option>
+                    <option value="Aprovado">Aprovado</option>
+                    <option value="Pendente">Pendente</option>
+                    <option value="Recusado">Recusado</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabela de Recibos -->
+    <div class="table-wrapper">
+        <div class="table-responsive">
+            <table class="table receipts-table align-middle">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Status</th>
+                        <th>Data do Pedido</th>
+                        <th class="text-center">Código</th>
+                        <th class="text-center">Nº Ingressos</th>
+                        <th class="text-end">Total</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td data-label="Cliente">
+                                <div class="client-info">
+                                    <span class="client-name">@item.nomeCliente</span>
+                                    <span class="client-email">@item.emailCliente</span>
+                                </div>
+                            </td>
+                            <td data-label="Status">
+                                @if (item.status == "Aprovado") {
+                                    <span class="badge-status badge-approved">@item.status</span>
+                                } else if (item.status == "Pendente") {
+                                    <span class="badge-status badge-pending">@item.status</span>
+                                } else {
+                                    <span class="badge-status badge-rejected">@item.status</span>
+                                }
+                            </td>
+                            <td data-label="Data do Pedido">@item.dataCriacao.ToString("dd/MM/yyyy")</td>
+                            <td data-label="Código" class="text-center">@item.codReciboIngresso</td>
+                            <td data-label="Nº Ingressos" class="text-center">@item.ingressos.Count()</td>
+                             @{
+                                var valor = item.ingressos.Sum(i => i.Lote.valorLote);
+                                var valorFormatado = string.Format(CultureInfo.GetCultureInfo("pt-BR"), "{0:C}", valor);
+                            }
+                            <td data-label="Total" class="text-end total-value">@valorFormatado</td>
+                            <td data-label="Ações" class="text-center">
+                                <a asp-action="Details" asp-route-id="@item.codReciboIngresso" class="btn btn-sm btn-details">
+                                     <i class="bi bi-eye"></i> Detalhes
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Paginação -->
+    @if (Model.PageCount > 1)
+    {
+        <div class="pagination-wrapper">
+             <div class="pagination-info">
+                Página @(Model.PageNumber) de @Model.PageCount
+            </div>
+            <div class="pagination-controls">
+                @Html.PagedListPager(Model, page => Url.Action("RecibosIngresso", new { page }),
+                    new PagedListRenderOptions
+                    {
+                        UlElementClasses = new[] { "pagination", "custom-pagination" },
+                        LiElementClasses = new[] { "page-item" },
+                        PageClasses = new[] { "page-link" },
+                        ActiveLiElementClass = "active"
+                    })
+            </div>
+        </div>
+    }
+</div>

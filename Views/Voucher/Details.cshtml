@@ -1,0 +1,72 @@
+﻿@model BixWeb.Models.Voucher
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Voucher</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.tokenVoucher)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.tokenVoucher)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.valorOriginal)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.valorOriginal)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.valorDisponivel)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.valorDisponivel)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.validadeVoucher)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.validadeVoucher)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.criacaoVoucher)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.criacaoVoucher)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.utilizado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.utilizado)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Campanha)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Campanha.nomeCampanha)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UsuarioFilial)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UsuarioFilial.codUsuario)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Cliente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Cliente.email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.codVoucher">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

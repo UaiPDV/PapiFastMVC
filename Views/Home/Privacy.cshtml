@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h1>@ViewData["Title"]</h1>
+<h1>Enviar Arquivo pelo WhatsApp</h1>
+<label for="numero">Número do WhatsApp (com DDI):</label>
+<input type="text" id="numero" placeholder="Exemplo: 5599999999999">
+<br>
+<br>
+
+<label for="mensagem">Mensagem:</label>
+<input type="text" id="mensagem" placeholder="Mensagem opcional">
+<br>
+<br>
+
+<label for="arquivoUrl">URL do Arquivo:</label>
+<input type="text" id="arquivoUrl" placeholder="Link do arquivo">
+<br>
+<br>
+
+<button onclick="enviarArquivo()">Enviar Arquivo</button>
+<p>Use this page to detail your site's privacy policy.</p>

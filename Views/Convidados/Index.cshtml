@@ -1,0 +1,65 @@
+﻿@model IEnumerable<BixWeb.Models.Convidado>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.emailConvidado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telefoneConvidado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.vistoConvite)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.confirmacaoConvite)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ingresso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Convite)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.emailConvidado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.telefoneConvidado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.vistoConvite)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.confirmacaoConvite)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ingresso.ticketIngresso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Convite.codConvite)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.codConvidado">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.codConvidado">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.codConvidado">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

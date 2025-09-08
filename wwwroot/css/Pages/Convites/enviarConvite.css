@@ -1,0 +1,107 @@
+/* Estilos específicos para a página EnviarConvite */
+
+#enviar-convite-page .form-page-header {
+    align-items: center;
+}
+
+.guest-list-form {
+    margin-top: 2rem;
+}
+
+.guest-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.guest-card {
+    background-color: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--papi-border-color);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.guest-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.guest-card-body {
+    padding: 1.5rem;
+}
+
+.guest-card .form-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+.guest-card-footer {
+    background-color: #f8f9fa;
+    padding: 0.75rem 1.5rem;
+    border-top: 1px solid var(--papi-border-color);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+}
+
+.guest-status-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.status-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--papi-text-muted);
+}
+
+.form-action-buttons-external {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+/* Badges de Status Personalizados */
+.status-badge {
+	padding: 0.4em 0.8em;
+	font-size: 0.8rem;
+	border-radius: 20px;
+	font-weight: 600;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+}
+.status-badge-confirmed {
+	background-color: var(--papi-success-bg);
+	color: var(--papi-success);
+}
+.status-badge-pending {
+	background-color: #fff8dd;
+    color: #f5b014;
+}
+.status-badge-declined {
+	background-color: var(--papi-danger-bg);
+	color: var(--papi-danger);
+}
+
+/* Responsividade */
+@media (max-width: 767.98px) {
+    #enviar-convite-page .page-subtitle {
+        display: none;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .guest-card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+}
+

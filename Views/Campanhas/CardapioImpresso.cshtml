@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Cardápio de Impressão";
+    var formato = ViewBag.Formato == 1 ? "PDF" : "JPEG";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/Campanhas/cardapioimpresso.css" asp-append-version="true" />
+}
+
+<div class="cardapio-impresso-page">
+    <!-- Cabeçalho da Página Padronizado -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <h1>@ViewData["Title"]</h1>
+            <p class="page-subtitle">Escolha o modelo desejado para gerar um cardápio em @formato.</p>
+        </div>
+        <a asp-action="Index" asp-controller="Campanhas" class="btn btn-light d-flex align-items-center">
+             <i class="bi bi-arrow-left me-2"></i>
+            Voltar para Campanhas
+        </a>
+    </div>
+
+    <!-- Grade de Seleção de Modelos -->
+    <div class="model-selection-grid">
+        <div class="row g-4">
+            @for (int i = 0; i <= 4; i++)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                    <a asp-action="ProdutosCardapio" asp-route-id="@ViewBag.Id" asp-route-formato="@ViewBag.Formato" asp-route-tipo="@i" class="model-card-link">
+                        <div class="model-card">
+                            <img src="/imagens/Cardapio@(i == 0 ? "" : i.ToString()).jpg"
+                                 class="model-card-img"
+                                 alt="Modelo de Cardápio @(i+1)"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/400x560/f9fafb/6c757d?text=Modelo+@(i+1)';">
+
+                            <div class="model-card-overlay">
+                                <div class="overlay-content">
+                                    <i class="bi bi-eye-fill"></i>
+                                    <span>Visualizar Modelo @(i + 1)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

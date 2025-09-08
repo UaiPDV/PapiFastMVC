@@ -1,0 +1,195 @@
+﻿@model BixWeb.Models.Convite
+
+@{
+    ViewData["Title"] = "Cadastrar Novo Convite";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Convites/criarConvite.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+}
+
+<!-- Cabeçalho da Página -->
+<div class="form-page-header">
+    <a asp-action="Index" class="form-back-link">
+        <i class="bi bi-arrow-left-circle fs-2"></i>
+    </a>
+    <h1 class="form-page-title">Cadastrar Novo Convite</h1>
+</div>
+
+<!-- Formulário Principal -->
+<div class="form-main-card">
+    <form asp-action="Create" novalidate>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        
+        <!-- Dados do Cliente -->
+        <h2 class="form-section-title">1. Dados do Cliente</h2>
+        <p class="form-section-subtitle">Busque por um CPF existente ou cadastre um novo cliente.</p>
+        
+        <div class="row g-3 mb-4">
+            <div class="col-md-6">
+                <label asp-for="Usuario.cpf" class="form-label">CPF do cliente</label>
+                <input asp-for="Usuario.cpf" maxlength="14" class="form-control" placeholder="000.000.000-00" />
+                <span asp-validation-for="Usuario.cpf" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Usuario.telefone" class="form-label">Contato</label>
+                <input asp-for="Usuario.telefone" class="form-control" placeholder="(00) 90000-0000" />
+                <span asp-validation-for="Usuario.telefone" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Usuario.nome" class="form-label">Nome Completo</label>
+                <input asp-for="Usuario.nome" class="form-control" placeholder="Nome do Cliente" />
+                <span asp-validation-for="Usuario.nome" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Usuario.email" class="form-label">Email</label>
+                <input asp-for="Usuario.email" class="form-control" placeholder="email@exemplo.com" />
+                <span asp-validation-for="Usuario.email" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Detalhes do Convite -->
+        <div class="pt-4 border-top">
+            <h2 class="form-section-title">2. Detalhes do Convite</h2>
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label asp-for="codFilial" class="form-label">Filial</label>
+                    <select asp-for="codFilial" class="form-select" asp-items="ViewBag.codFilial">
+                        <option value="" selected disabled>Selecione uma Filial</option>
+                    </select>
+                    <span asp-validation-for="codFilial" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="codEvento" class="form-label">Evento</label>
+                    <select asp-for="codEvento" class="form-select" asp-items="ViewBag.codCampanha">
+                        <option value="" selected disabled>Selecione um Evento</option>
+                    </select>
+                    <span asp-validation-for="codEvento" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label for="qtdIngressos" class="form-label">Quantidade de Ingressos</label>
+                    <input name="qtdIngressos" type="number" min="1" id="qtdIngressos" class="form-control" placeholder="1" />
+                    <span id="qIngressos" class="form-text text-muted"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inputs Ocultos -->
+        <input asp-for="codCliente" value="0" type="hidden" />
+        <input asp-for="Usuario.password" value="0" type="hidden" />
+
+        <!-- Botões de Ação -->
+        <div class="form-action-buttons">
+            <a asp-action="Index" class="btn btn-light">Cancelar</a>
+            <button type="submit" class="btn btn-primary d-flex align-items-center">
+                <i class="bi bi-check-circle me-2"></i>
+                Salvar Convite
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Força atualização responsiva específica para esta página
+            if (window.forceResponsiveUpdate) {
+                window.forceResponsiveUpdate();
+            }
+        });
+        
+        // Função para buscar dados do cliente pelo CPF
+        function verificarCpf(cpf) {
+            if (cpf && cpf.length === 14) { // Verifica se o CPF tem o formato completo
+                fetch(`/Convites/VeryCPF/?cpf=` + cpf)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.querySelector('[name="Usuario.nome"]').value = data.nome;
+                            document.querySelector('[name="Usuario.email"]').value = data.email;
+                            document.querySelector('[name="Usuario.telefone"]').value = data.telefone;
+                            document.querySelector('[name="codCliente"]').value = data.codCliente;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro na verificação do CPF:', error);
+                    });
+            }
+        }
+
+        // Event listener para o campo CPF
+        document.querySelector('[name="Usuario.cpf"]').addEventListener('blur', function() {
+            verificarCpf(this.value);
+        });
+
+        // Event listener para carregar eventos ao selecionar uma filial
+        document.getElementById('codFilial').addEventListener('change', function () {
+            var id = this.value;
+            var eventoDropdown = document.getElementById('codEvento');
+            var erroSpan = document.querySelector('[data-valmsg-for="codEvento"]');
+            erroSpan.innerHTML = "";
+            
+            eventoDropdown.options.length = 1; // Mantém apenas a primeira opção ("Selecione...")
+
+            if (!id) return;
+
+            fetch('/Convites/ListaEventos/' + id)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        data.forEach(item => {
+                            var option = new Option(item.nomeCampanha, item.codCampanha);
+                            eventoDropdown.options.add(option);
+                        });
+                        eventoDropdown.removeAttribute("disabled");
+                    } else {
+                        erroSpan.innerHTML = "Nenhum evento cadastrado para esta filial.";
+                        eventoDropdown.setAttribute("disabled", "disabled");
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar eventos:', error);
+                    erroSpan.innerHTML = 'Erro ao carregar eventos.';
+                });
+        });
+
+        // Event listener para verificar quantidade de ingressos
+        document.getElementById('codEvento').addEventListener('change', function () {
+            var selectedValue = this.value;
+            var inputNumber = document.getElementById('qtdIngressos');
+            var msgSpan = document.getElementById('qIngressos');
+
+            if (!selectedValue) {
+                 msgSpan.innerHTML = "";
+                 inputNumber.removeAttribute('max');
+                 return;
+            }
+
+            fetch('/Convites/QtdIngressos/' + selectedValue)
+                .then(response => response.json())
+                .then(data => {
+                    var maximo = data.ingressos;
+                    if (maximo > 0) {
+                        inputNumber.max = maximo;
+                        inputNumber.value = '';
+                        msgSpan.innerHTML = "Quantidade máxima de ingressos permitida: " + maximo;
+                    } else {
+                        inputNumber.removeAttribute('max');
+                        msgSpan.innerHTML = "Não foi possível verificar a quantidade de ingressos.";
+                    }
+                })
+                .catch(error => console.error('Erro ao consultar o valor máximo:', error));
+        });
+
+        // Event listener para não ultrapassar o máximo de ingressos
+        document.getElementById('qtdIngressos').addEventListener('input', function () {
+            var maxValue = parseInt(this.max, 10);
+            var currentValue = parseInt(this.value, 10);
+            if (!isNaN(maxValue) && !isNaN(currentValue) && currentValue > maxValue) {
+                this.value = maxValue;
+            }
+        });
+    </script>
+}

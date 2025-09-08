@@ -1,0 +1,51 @@
+/* Estilos específicos para a página de Seleção de Cardápio */
+
+/* Estilos para os cards de seleção de cardápio */
+.cardapio-card {
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+	border: 1px solid #e9ecef;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+	position: relative;
+	z-index: 1;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.cardapio-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+	border-color: #dee2e6;
+	z-index: 2;
+}
+
+/* Estilo para o card selecionado */
+.cardapio-card.selected {
+	border-color: #f98303;
+	box-shadow: 0 0 0 4px rgba(249, 131, 3, 0.25);
+	z-index: 3;
+}
+
+.cardapio-card.selected .select-btn {
+	background-color: #f98303;
+	color: white;
+	border-color: #f98303;
+}
+
+.cardapio-card .card-img-top {
+	height: 150px;
+	object-fit: cover;
+	pointer-events: none;
+}
+
+/* Botões de ação no card */
+.select-btn,
+.view-btn {
+	position: relative;
+	z-index: 10;
+}
+
+.view-btn {
+	pointer-events: auto !important;
+}

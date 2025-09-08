@@ -1,0 +1,109 @@
+﻿@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<BixWeb.Models.Convidado>
+
+@{
+    ViewData["Title"] = "Enviar Convites";
+    var codConvite = ViewBag.CodConvite;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Convites/enviarConvite.css" asp-append-version="true" />
+}
+
+<div id="enviar-convite-page">
+    <!-- Cabeçalho da Página -->
+    <div class="form-page-header">
+        <a asp-action="Lista" class="form-back-link">
+            <i class="bi bi-arrow-left-circle fs-2"></i>
+        </a>
+        <div class="page-header-content">
+            <h1 class="form-page-title">@ViewData["Title"]</h1>
+            <p class="page-subtitle">Cadastre, envie e verifique o status dos seus convites.</p>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(ViewBag.msg))
+    {
+        <div class="alert alert-success text-center">@ViewBag.msg</div>
+    }
+
+    <!-- Formulário Principal -->
+    <form asp-action="EnviarConvite" method="post" class="guest-list-form">
+        <input type="hidden" name="codConvite" value="@codConvite" />
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <div class="guest-list-container">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var item = Model[i];
+                <div class="guest-card">
+                    <input type="hidden" name="Convidados[@i].codConvidado" value="@item.codConvidado" />
+                    <input type="hidden" name="Convidados[@i].vistoConvite" value="@item.vistoConvite.ToString()" />
+                    <input type="hidden" name="Convidados[@i].confirmacaoConvite" value="@item.confirmacaoConvite" />
+                    <input type="hidden" name="Convidados[@i].codConvite" value="@item.codConvite" />
+                    <input type="hidden" name="Convidados[@i].codIngresso" value="@item.codIngresso" />
+                    
+                    <div class="guest-card-body">
+                        <div class="row g-3">
+                            <div class="col-lg-4 col-md-6">
+                                <label class="form-label">Nome do Convidado</label>
+                                <input class="form-control" type="text" name="Convidados[@i].nomeConvidado" value="@item.nomeConvidado" placeholder="Nome completo">
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <label class="form-label">Contato (Telefone)</label>
+                                <input class="form-control telefone" type="text" name="Convidados[@i].telefoneConvidado" value="@item.telefoneConvidado" placeholder="(00) 00000-0000">
+                            </div>
+                            <div class="col-lg-5">
+                                <label class="form-label">Email</label>
+                                <input class="form-control" type="email" name="Convidados[@i].emailConvidado" value="@item.emailConvidado" placeholder="email@exemplo.com">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="guest-card-footer">
+                        <div class="guest-status-item">
+                            <span class="status-label">Visto:</span>
+                            @if (item.vistoConvite == true)
+                            {
+                                <i class="bi bi-eye-fill text-success fs-5" title="Visto"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-eye-slash-fill text-muted fs-5" title="Não Visto"></i>
+                            }
+                        </div>
+                        <div class="guest-status-item">
+                            <span class="status-label">Status:</span>
+                            @if (item.confirmacaoConvite == "Aguardando")
+                            {
+                                <span class="status-badge status-badge-pending">@item.confirmacaoConvite</span>
+                            }
+                            else if (item.confirmacaoConvite == "Confirmado")
+                            {
+                                <span class="status-badge status-badge-confirmed">@item.confirmacaoConvite</span>
+                            }
+                            else
+                            {
+                                <span class="status-badge status-badge-declined">Recusado</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Botão de Ação -->
+        <div class="form-action-buttons-external">
+            <input type="hidden" value="@ViewBag.sessao" name="sessao" />
+            <button type="submit" class="btn btn-primary-action">
+                <i class="bi bi-send-fill me-2"></i>Enviar Convites
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

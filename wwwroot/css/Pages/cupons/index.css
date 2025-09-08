@@ -1,0 +1,136 @@
+/* --- Estilos Específicos para a página de Cupons --- */
+
+/* =================================================================== */
+/* ================ TABELA DE CUPONS APRIMORADA ===================== */
+/* =================================================================== */
+
+.coupons-table {
+	margin-bottom: 0;
+	width: 100%;
+	table-layout: fixed; /* Força larguras fixas das colunas */
+}
+
+.coupons-table thead th {
+	background: #f8f9fa;
+	color: #495057;
+	font-weight: 700;
+	font-size: 0.8rem;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	border: none;
+	padding: 1.25rem 1.5rem;
+}
+
+.coupons-table thead th i {
+	color: var(--papi-orange);
+	opacity: 0.8;
+}
+
+/* Larguras das colunas */
+.validity-col {
+	width: 12%;
+}
+.client-col {
+	width: 25%;
+}
+.token-col {
+	width: 15%;
+}
+.status-col {
+	width: 12%;
+}
+.products-col {
+	width: 10%;
+}
+.discount-col {
+	width: 10%;
+}
+.actions-col {
+	width: 16%;
+}
+
+.coupon-row {
+	transition: background-color 0.2s ease;
+	border-bottom: 1px solid #f1f3f4;
+}
+
+.coupon-row:hover {
+	background-color: #fafbfc;
+}
+
+.coupon-row:last-child {
+	border-bottom: none;
+}
+
+.coupons-table tbody td {
+	padding: 1.25rem 1.5rem;
+	vertical-align: middle;
+	border: none;
+}
+
+/* Conteúdo específico da célula */
+.validity-content .date-display {
+	font-weight: 600;
+	color: #495057;
+}
+.validity-content .time-display {
+	font-size: 0.85rem;
+	color: #6c757d;
+}
+
+.token-badge {
+	background-color: #e9ecef;
+	color: #495057;
+	padding: 0.375rem 0.75rem;
+	border-radius: 6px;
+	font-family: 'SF Mono', Monaco, Consolas, 'Courier New', monospace;
+	font-weight: 600;
+}
+
+.products-count,
+.discount-value {
+	font-weight: 500;
+	color: #495057;
+}
+
+/* Badges de Status Específicos */
+.status-badge.status-available {
+	background-color: #d1fae5; /* green-100 */
+	color: #065f46; /* green-800 */
+}
+.status-badge.status-in-use {
+	background-color: #fef3c7; /* yellow-100 */
+	color: #92400e; /* yellow-800 */
+}
+.status-badge.status-used {
+	background-color: #e5e7eb; /* gray-200 */
+	color: #374151; /* gray-700 */
+}
+.status-badge.status-expired {
+	background-color: #fee2e2; /* red-100 */
+	color: #991b1b; /* red-800 */
+}
+
+/* =================================================================== */
+/* ================ RESPONSIVIDADE ESPECÍFICA ======================= */
+/* =================================================================== */
+
+@media (max-width: 767.98px) {
+	.action-buttons {
+		justify-content: flex-start;
+		margin-top: 0.5rem;
+	}
+
+	.coupons-table tbody td::before {
+		content: attr(data-label) ': ';
+		font-weight: 600;
+		color: #495057;
+		display: inline-block;
+		width: 100px;
+		margin-right: 10px;
+	}
+
+	.coupons-table tbody td[data-label='Ações']::before {
+		content: '';
+	}
+}

@@ -1,0 +1,484 @@
+﻿@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<BixWeb.Models.Voucher>
+
+@{
+    ViewData["Title"] = "Gestão de Vouchers";
+    var currentSearch = ViewBag.CurrentSearch as string;
+    var currentStatus = ViewBag.CurrentStatus as string;
+    var currentVoucher = ViewBag.CurrentVoucher as string;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Voucher/index.css" asp-append-version="true" />
+}
+
+@if (ViewData["Voucher"] != null)
+{
+    <div class="text-center d-flex flex-column justify-content-center" style="height: 70vh;">
+        <h2 class="display-6 fw-bold mb-4">@ViewData["Voucher"]</h2>
+        <div class="col-lg-6 mx-auto">
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a asp-action="Create" class="btn btn-primary-action btn-lg px-4 gap-3">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Adicionar Voucher
+                </a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div id="vouchers-page">
+        <!-- Cabeçalho da Página Padronizado -->
+        <div class="page-header">
+            <div class="page-header-content">
+                <h1>@ViewData["Title"]</h1>
+                <p class="page-subtitle">Gerencie e monitore seus vouchers de crédito</p>
+            </div>
+            <a asp-action="Create" class="btn btn-primary-action">
+                <i class="bi bi-plus-lg me-2"></i>
+                Adicionar Voucher
+            </a>
+        </div>
+
+        <!-- Estatísticas dos Vouchers -->
+        <div class="vouchers-stats mb-4">
+            <div class="row g-3">
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-primary">
+                            <i class="bi bi-ticket-detailed"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.TotalItemCount</div>
+                            <div class="stat-label">Total de Vouchers</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-success">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Count(v => !v.utilizado)</div>
+                            <div class="stat-label">Vouchers Ativos</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-info">
+                            <i class="bi bi-cash-stack"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Where(v => !v.utilizado).Sum(v => v.valorDisponivel).ToString("C")</div>
+                            <div class="stat-label">Valor Disponível</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-warning">
+                            <i class="bi bi-cart-check"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Sum(v => v.valorOriginal - v.valorDisponivel).ToString("C")</div>
+                            <div class="stat-label">Valor Utilizado</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros & Pesquisa -->
+        <div class="filter-bar">
+            <div class="filter-bar-header">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-funnel text-muted"></i>
+                    <span class="filter-title">Filtros e Pesquisa</span>
+                </div>
+            </div>
+            
+            <div class="filter-controls">
+                <!-- Search (flexível) -->
+                <div class="search-wrapper">
+                    <label class="filter-label">Pesquisar</label>
+                    <div class="search-container">
+                        <i class="bi bi-search position-absolute search-icon"></i>
+                        <input type="text" id="searchInput" class="form-control search-input" placeholder="Buscar por cliente ou voucher..." value="@currentSearch">
+                    </div>
+                </div>
+
+                <!-- Filtros para Desktop (escondidos em mobile) -->
+                <div class="desktop-filters d-none d-md-flex gap-3">
+                    <!-- Status Filter -->
+                    <div class="filter-group">
+                        <label class="filter-label">Status</label>
+                        <select name="statusFilter" class="form-select filter-select">
+                            <option value="">Todos os Status</option>
+                            <option value="naousado" selected="@(currentStatus == "naousado")">Não Usado</option>
+                            <option value="emuso" selected="@(currentStatus == "emuso")">Em Uso</option>
+                            <option value="desativado" selected="@(currentStatus == "desativado")">Desativado</option>
+                        </select>
+                    </div>
+                    <!-- Voucher Filter -->
+                    <div class="filter-group">
+                        <label class="filter-label">Voucher</label>
+                        <select name="voucherFilter" class="form-select filter-select" id="voucherFilter">
+                            <option value="">Todos os Vouchers</option>
+                            @{
+                                var vouchers = Model.Where(v => !string.IsNullOrEmpty(v.tokenVoucher))
+                                                   .Select(v => v.tokenVoucher)
+                                                   .Distinct()
+                                                   .OrderBy(t => t);
+                            }
+                            @foreach (var voucher in vouchers)
+                            {
+                                <option value="@voucher" selected="@(currentVoucher == voucher)">@voucher</option>
+                            }
+                        </select>
+                    </div>
+                    
+                    <div class="filter-actions">
+                        <button type="button" id="clearFiltersBtn" class="btn btn-outline-secondary btn-clear-filters"><i class="bi bi-arrow-clockwise me-1"></i>
+                        Limpar Filtros</button>
+                    </div>
+                </div>
+
+                <!-- Botão de Filtro para Mobile (visível apenas em mobile) -->
+                <button type="button" id="mobileFilterBtn" class="btn btn-outline-primary d-md-none mobile-filter-btn">
+                    <i class="bi bi-funnel me-2"></i>
+                    Filtros
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal de Filtros para Mobile -->
+        <div class="filter-modal-overlay" id="filterModalOverlay">
+            <div class="filter-modal-content">
+                <div class="filter-modal-header">
+                    <h5 class="modal-title">Filtros</h5>
+                    <button type="button" class="btn-close" id="closeFilterModal"></button>
+                </div>
+                <div class="filter-modal-body">
+                    <!-- Status Filter -->
+                    <div class="mb-3">
+                        <label for="statusFilterModal" class="form-label">Status</label>
+                        <select id="statusFilterModal" class="form-select">
+                            <option value="">Todos os Status</option>
+                            <option value="naousado">Não Usado</option>
+                            <option value="emuso">Em Uso</option>
+                            <option value="desativado">Desativado</option>
+                        </select>
+                    </div>
+                    <!-- Voucher Filter -->
+                    <div class="mb-3">
+                        <label for="voucherFilterModal" class="form-label">Voucher</label>
+                        <select id="voucherFilterModal" class="form-select">
+                            <option value="">Todos os Vouchers</option>
+                            @foreach (var voucher in vouchers)
+                            {
+                                <option value="@voucher">@voucher</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="button" id="clearFiltersModalBtn" class="btn btn-clear-filters w-100 mb-2">Limpar Filtros</button>
+                    <button type="button" id="applyFiltersModalBtn" class="btn btn-primary w-100">Aplicar Filtros</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Filter Tags -->
+        @if (!String.IsNullOrEmpty(currentSearch) || !String.IsNullOrEmpty(currentStatus) || !String.IsNullOrEmpty(currentVoucher))
+        {
+            <div class="filter-tags-container mb-4 d-flex align-items-center gap-2">
+                <span class="fw-bold small">Filtros Ativos:</span>
+                @if (!String.IsNullOrEmpty(currentSearch))
+                {
+                    <a asp-action="Index" asp-route-statusFilter="@currentStatus" asp-route-voucherFilter="@currentVoucher" class="filter-tag">
+                        Busca: @currentSearch <span class="close-tag">&times;</span>
+                    </a>
+                }
+                @if (!String.IsNullOrEmpty(currentStatus))
+                {
+                    <a asp-action="Index" asp-route-searchString="@currentSearch" asp-route-voucherFilter="@currentVoucher" class="filter-tag">
+                        Status: @(currentStatus == "naousado" ? "Não Usado" : currentStatus == "emuso" ? "Em Uso" : "Desativado") <span class="close-tag">&times;</span>
+                    </a>
+                }
+                @if (!String.IsNullOrEmpty(currentVoucher))
+                {
+                    <a asp-action="Index" asp-route-searchString="@currentSearch" asp-route-statusFilter="@currentStatus" class="filter-tag">
+                        Voucher: @currentVoucher <span class="close-tag">&times;</span>
+                    </a>
+                }
+            </div>
+        }
+
+        <!-- Tabela de Vouchers Padronizada -->
+        <div class="table-wrapper">
+            <div class="table-responsive">
+                <table class="table vouchers-table align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="client-col"><i class="bi bi-person me-2"></i>Cliente</th>
+                            <th scope="col" class="status-col"><i class="bi bi-flag me-2"></i>Status</th>
+                            <th scope="col" class="validity-col"><i class="bi bi-calendar-event me-2"></i>Validade</th>
+                            <th scope="col" class="voucher-col text-center"><i class="bi bi-ticket-perforated me-2"></i>Voucher</th>
+                            <th scope="col" class="value-col text-end"><i class="bi bi-cash-stack me-2"></i>Disponível</th>
+                            <th scope="col" class="total-value-col text-end"><i class="bi bi-cash me-2"></i>Valor Total</th>
+                            <th scope="col" class="actions-col text-center"><i class="bi bi-gear me-2"></i>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td data-label="Cliente">
+                                    <div class="client-info">
+                                        <span class="client-name">@(item.Cliente?.nome ?? "Não atribuído")</span>
+                                        <span class="client-email">@(item.Cliente?.email ?? "")</span>
+                                    </div>
+                                </td>
+                                <td data-label="Status">
+                                    @if (item.utilizado)
+                                    {
+                                        <span class="status-badge status-disabled">Desativado</span>
+                                    }
+                                    else if (item.valorOriginal != item.valorDisponivel)
+                                    {
+                                        <span class="status-badge status-in-use">Em Uso</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-badge status-not-used">Não Usado</span>
+                                    }
+                                </td>
+                                <td data-label="Validade">@item.validadeVoucher.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td data-label="Voucher" class="text-center font-mono">@item.tokenVoucher</td>
+                                <td data-label="Valor Disponível" class="text-end fw-medium">@item.valorDisponivel.ToString("C")</td>
+                                <td data-label="Valor Total" class="text-end text-muted">@item.valorOriginal.ToString("C")</td>
+                                <td data-label="Ações">
+                                    <div class="action-buttons">
+                                        <div class="dropdown">
+                                            <button class="btn btn-action-icon dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Enviar voucher" @(item.utilizado ? "disabled" : "")>
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_email_@item.codVoucher"><i class="bi bi-envelope me-2"></i>E-mail</a></li>
+                                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#kt_modal_whats_@item.codVoucher"><i class="bi bi-whatsapp me-2"></i>WhatsApp</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Modal de E-mail -->
+                            <div class="modal fade" id="kt_modal_email_@item.codVoucher" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered mw-650px">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h2>Enviar Voucher por Email</h2>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form asp-action="Enviar" class="form">
+                                            <div class="modal-body">
+                                                <input name="id" value="@item.codVoucher" type="hidden" />
+                                                <div class="mb-3">
+                                                    <label class="form-label required">Nome do cliente:</label>
+                                                    <input type="text" class="form-control" placeholder="Digite o nome" name="nome">
+                                                </div>
+                                                <div>
+                                                    <label class="form-label required">Email do Cliente</label>
+                                                    <input type="email" class="form-control" name="email" placeholder="Digite o Email" />
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer flex-center">
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary-action">Enviar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal de WhatsApp -->
+                            <div class="modal fade" id="kt_modal_whats_@item.codVoucher" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered mw-650px">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h2>Enviar Voucher por WhatsApp</h2>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form asp-action="EnviarWhats" class="form">
+                                            <div class="modal-body">
+                                                <input name="id" value="@item.codVoucher" type="hidden" />
+                                                <div class="mb-3">
+                                                    <label class="form-label required">Nome do cliente:</label>
+                                                    <input type="text" class="form-control" placeholder="Digite o nome" name="nome">
+                                                </div>
+                                                <div>
+                                                    <label class="form-label required">WhatsApp do Cliente</label>
+                                                    <input type="text" class="form-control" name="telefone" placeholder="(00)00000-0000" />
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer flex-center">
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-light me-3">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary-action">Enviar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Paginação Aprimorada -->
+        @if (Model.PageCount > 1)
+        {
+            <div class="pagination-wrapper">
+                <div class="pagination-info">
+                     <span class="pagination-text">
+                        Mostrando @((Model.PageNumber - 1) * Model.PageSize + 1) até @(Math.Min(Model.PageNumber * Model.PageSize, Model.TotalItemCount)) de @Model.TotalItemCount vouchers
+                    </span>
+                </div>
+                <div class="pagination-controls">
+                     @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = currentSearch, statusFilter = currentStatus, voucherFilter = currentVoucher }), new PagedListRenderOptions
+                     {
+                         UlElementClasses = new[] { "pagination", "custom-pagination" },
+                         LiElementClasses = new[] { "page-item" },
+                         PageClasses = new[] { "page-link" },
+                         ActiveLiElementClass = "active"
+                     })
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@section Scripts {
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Elementos da UI ---
+        const searchInput = document.getElementById('searchInput');
+        const mobileFilterBtn = document.getElementById('mobileFilterBtn');
+        const filterModalOverlay = document.getElementById('filterModalOverlay');
+        const closeFilterModal = document.getElementById('closeFilterModal');
+        const applyFiltersModalBtn = document.getElementById('applyFiltersModalBtn');
+        const clearFiltersModalBtn = document.getElementById('clearFiltersModalBtn');
+
+        // --- Filtros (Desktop) ---
+        const statusFilterDesktop = document.querySelector('.desktop-filters select[name="statusFilter"]');
+        const voucherFilterDesktop = document.getElementById('voucherFilter');
+        const clearFiltersBtnDesktop = document.getElementById('clearFiltersBtn');
+        
+        // --- Filtros (Modal) ---
+        const statusFilterModal = document.getElementById('statusFilterModal');
+        const voucherFilterModal = document.getElementById('voucherFilterModal');
+
+        // --- Função para aplicar filtros ---
+        function applyFilters() {
+            const search = searchInput.value;
+            const status = statusFilterDesktop.value;
+            const voucher = voucherFilterDesktop.value;
+            window.location.href = `@Url.Action("Index")?searchString=${encodeURIComponent(search)}&statusFilter=${encodeURIComponent(status)}&voucherFilter=${encodeURIComponent(voucher)}`;
+        }
+
+        // --- Lógica do Modal de Filtro ---
+        if(mobileFilterBtn) {
+            mobileFilterBtn.addEventListener('click', () => {
+                // Popula e seleciona os filtros do modal com os valores atuais
+                statusFilterModal.value = statusFilterDesktop.value;
+                voucherFilterModal.innerHTML = voucherFilterDesktop.innerHTML;
+                voucherFilterModal.value = voucherFilterDesktop.value;
+                filterModalOverlay.classList.add('active');
+            });
+        }
+        
+        const closeModal = () => {
+            if (filterModalOverlay) filterModalOverlay.classList.remove('active');
+        };
+
+        if(closeFilterModal) closeFilterModal.addEventListener('click', closeModal);
+        if(filterModalOverlay) filterModalOverlay.addEventListener('click', (e) => {
+            if (e.target === filterModalOverlay) closeModal();
+        });
+
+        if(applyFiltersModalBtn) applyFiltersModalBtn.addEventListener('click', () => {
+            // Aplica os valores do modal nos filtros do desktop e submete
+            statusFilterDesktop.value = statusFilterModal.value;
+            voucherFilterDesktop.value = voucherFilterModal.value;
+            applyFilters();
+            closeModal();
+        });
+
+        if(clearFiltersModalBtn) clearFiltersModalBtn.addEventListener('click', () => {
+            statusFilterModal.value = '';
+            voucherFilterModal.value = '';
+        });
+
+        // --- Event Listeners para filtros do Desktop ---
+        if(searchInput) searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') applyFilters();
+        });
+        if(statusFilterDesktop) statusFilterDesktop.addEventListener('change', applyFilters);
+        if(voucherFilterDesktop) voucherFilterDesktop.addEventListener('change', applyFilters);
+
+        if(clearFiltersBtnDesktop) clearFiltersBtnDesktop.addEventListener('click', () => {
+            searchInput.value = '';
+            statusFilterDesktop.value = '';
+            voucherFilterDesktop.value = '';
+            applyFilters();
+        });
+
+        // --- Lógica de notificação de sucesso/erro ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const formSubmitted = urlParams.get('formSubmitted');
+
+        if (formSubmitted === 'True') {
+            // Futuramente, substituir por um toast/modal mais elegante
+            console.log('Voucher enviado com sucesso!');
+        } else if (formSubmitted === 'False') {
+            console.error('Ocorreu um erro ao enviar o voucher.');
+        }
+        
+        // --- LÓGICA PARA CORREÇÃO DE DROPDOWNS EM TABELAS ---
+        const tableWrappers = document.querySelectorAll('.table-responsive');
+        tableWrappers.forEach(wrapper => {
+            const dropdowns = wrapper.querySelectorAll('.dropdown-toggle');
+            dropdowns.forEach(dd => {
+                dd.addEventListener('show.bs.dropdown', function (event) {
+                    const row = event.target.closest('tr');
+                    if (row) row.classList.add('dropdown-open');
+                    
+                    // Adiciona a classe ao wrapper da tabela e ao container pai
+                    const tableWrapper = event.target.closest('.table-wrapper');
+                    if (tableWrapper) tableWrapper.classList.add('dropdown-visible');
+                    
+                    // Apenas adiciona a classe ao wrapper da tabela se estiver em modo de lista (desktop)
+                    if (window.getComputedStyle(wrapper.querySelector('table thead')).display !== 'none') {
+                         wrapper.classList.add('dropdown-visible');
+                    }
+                });
+
+                dd.addEventListener('hide.bs.dropdown', function (event) {
+                    const row = event.target.closest('tr');
+                    if (row) row.classList.remove('dropdown-open');
+                    
+                    // Remove a classe do wrapper da tabela e do container pai
+                    const tableWrapper = event.target.closest('.table-wrapper');
+                    if (tableWrapper) tableWrapper.classList.remove('dropdown-visible');
+                    
+                    if (window.getComputedStyle(wrapper.querySelector('table thead')).display !== 'none') {
+                        wrapper.classList.remove('dropdown-visible');
+                    }
+                });
+            });
+        });
+    });
+</script>
+}
+

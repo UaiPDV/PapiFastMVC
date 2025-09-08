@@ -1,0 +1,313 @@
+﻿@using X.PagedList.Mvc.Core
+@using X.PagedList
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model X.PagedList.IPagedList<BixWeb.Models.Convite>
+
+@{
+    ViewData["Title"] = "Convites Disponíveis";
+    var currentSearch = ViewBag.CurrentSearch as string;
+    var currentEvento = ViewBag.CurrentEvento as string;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Convites/lista.css" asp-append-version="true" />
+}
+
+@if (ViewData["Convites"] != null)
+{
+    <div class="text-center d-flex flex-column justify-content-center" style="height: 70vh;">
+        <h2 class="display-6 fw-bold mb-4">@ViewData["Convites"]</h2>
+        <div class="col-lg-6 mx-auto">
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a asp-action="Adicionar" class="btn btn-primary-action btn-lg px-4 gap-3">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Criar Convite
+                </a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div id="invites-page">
+        <!-- Cabeçalho da Página Padronizado -->
+        <div class="page-header">
+            <div class="page-header-content">
+                <h1>@ViewData["Title"]</h1>
+                <p class="page-subtitle">Gerencie os convites disponíveis para seus clientes.</p>
+            </div>
+            <a asp-action="Adicionar" class="btn btn-primary-action">
+                <i class="bi bi-plus-lg me-2"></i>
+                Cadastrar Convite
+            </a>
+        </div>
+
+        <!-- Estatísticas dos Convites -->
+        <div class="lista-stats mb-4">
+            <div class="row g-3">
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-primary">
+                            <i class="bi bi-envelope-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.TotalItemCount</div>
+                            <div class="stat-label">Total de Convites</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-info">
+                            <i class="bi bi-ticket-detailed-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Sum(c => c.Ingressos.Count())</div>
+                            <div class="stat-label">Total de Ingressos</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-success">
+                            <i class="bi bi-calendar-event-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.GroupBy(c => c.codEvento).Count()</div>
+                            <div class="stat-label">Eventos Únicos</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-warning">
+                             <i class="bi bi-people-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.GroupBy(c => c.codCliente).Count()</div>
+                            <div class="stat-label">Clientes Únicos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros & Pesquisa -->
+        <div class="filter-bar">
+            <div class="filter-bar-header">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-funnel text-muted"></i>
+                    <span class="filter-title">Filtros e Pesquisa</span>
+                </div>
+            </div>
+            <div class="filter-controls">
+                <!-- Search -->
+                <div class="search-wrapper">
+                    <label class="filter-label">Pesquisar</label>
+                    <div class="position-relative search-container">
+                        <i class="bi bi-search position-absolute search-icon"></i>
+                        <input type="text" id="searchInput" class="form-control search-input" placeholder="Buscar por cliente, email ou evento..." value="@currentSearch">
+                    </div>
+                </div>
+
+                <!-- Event Filter -->
+                <div class="filter-group">
+                    <label class="filter-label">Evento</label>
+                    <select class="form-select filter-select" id="eventoFilter">
+                        <option value="">Todos os Eventos</option>
+                        @{
+                            var eventos = ViewBag.Eventos as SelectList;
+                            if (eventos != null)
+                            {
+                                foreach (var evento in eventos)
+                                {
+                                    <option value="@evento.Value" selected="@(currentEvento == evento.Value)">@evento.Text</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+
+                <!-- Actions -->
+                <div class="filter-actions">
+                    <button type="button" id="clearFiltersBtn" class="btn btn-outline-secondary btn-clear-filters">
+                        Limpar Filtros
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Convites Aprimorada -->
+        <div class="table-wrapper">
+            <div class="table-responsive">
+                <table class="table invites-table align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="client-col">
+                                <i class="bi bi-person-fill me-2"></i>
+                                Cliente
+                            </th>
+                            <th scope="col" class="email-col">
+                                <i class="bi bi-envelope-fill me-2"></i>
+                                E-mail
+                            </th>
+                            <th scope="col" class="text-center count-col">
+                                <i class="bi bi-ticket-perforated-fill me-2"></i>
+                                Ingressos
+                            </th>
+                            <th scope="col" class="event-col">
+                                <i class="bi bi-calendar-event-fill me-2"></i>
+                                Evento
+                            </th>
+                            <th scope="col" class="date-col">
+                                <i class="bi bi-clock-fill me-2"></i>
+                                Criado em
+                            </th>
+                            <th scope="col" class="text-center actions-col">
+                                <i class="bi bi-gear-fill me-2"></i>
+                                Ações
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="invite-row">
+                                <td data-label="Cliente">
+                                     <div class="client-info">
+                                        <a asp-action="Details" asp-controller="Usuarios" asp-route-id="@item.codCliente" class="client-name text-dark text-hover-primary">
+                                            @item.Usuario.nome
+                                        </a>
+                                    </div>
+                                </td>
+                                <td data-label="E-mail" class="client-email">@item.Usuario.email</td>
+                                <td data-label="Ingressos" class="text-center">
+                                    <span class="invite-count-badge">@item.Ingressos.Count()</span>
+                                </td>
+                                <td data-label="Evento">
+                                     <a asp-action="Details" asp-controller="Eventos" asp-route-id="@item.codEvento" class="event-badge-table text-muted text-hover-primary">
+                                        @item.Evento.nomeEvento
+                                    </a>
+                                </td>
+                                <td data-label="Criado em">
+                                    <div class="date-display">@item.dataCriacao.ToString("dd/MM/yyyy")</div>
+                                    <div class="time-display">@item.dataCriacao.ToString("HH:mm")</div>
+                                </td>
+                                <td data-label="Ações" class="invite-actions-cell">
+                                    <div class="action-buttons">
+                                        <div class="dropdown">
+                                            <button class="btn btn-action-icon dropdown-toggle" type="button" data-bs-toggle="dropdown" title="Mais opções">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" asp-action="Edit" asp-route-id="@item.codConvite"><i class="bi bi-pencil-fill me-2"></i>Editar</a></li>
+                                                <li><a class="dropdown-item" asp-action="EnviarConvite" asp-route-id="@item.codConvite"><i class="bi bi-envelope-fill me-2"></i>Enviar por Email</a></li>
+                                                <li><a class="dropdown-item" asp-action="EnviarConvite" asp-route-id="@item.codConvite" asp-route-sessao="1"><i class="bi bi-whatsapp me-2"></i>Enviar por WhatsApp</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                @if (item.ListaPresente == null)
+                                                {
+                                                    <li><a class="dropdown-item" asp-action="BuscarPresente" asp-controller="Eventos" asp-route-id="@item.codConvite"><i class="bi bi-gift-fill me-2"></i>Solicitar Presentes</a></li>
+                                                }
+                                                else
+                                                {
+                                                    <li><a class="dropdown-item" asp-action="Index" asp-controller="Presentes" asp-route-id="@item.codConvite"><i class="bi bi-card-list me-2"></i>Lista de Presentes</a></li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Paginação Aprimorada -->
+        @if (Model.PageCount > 1)
+        {
+            <div class="pagination-wrapper">
+                <div class="pagination-info">
+                    <span class="pagination-text">
+                        Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @(Model.PageCount)
+                        (@Model.TotalItemCount total de convites)
+                    </span>
+                </div>
+                <div class="pagination-controls">
+                    @Html.PagedListPager(Model, page => Url.Action("Lista", new { page, searchString = currentSearch, eventoFilter = currentEvento }), new PagedListRenderOptions
+                    {
+                        UlElementClasses = new[] { "pagination", "custom-pagination" },
+                        LiElementClasses = new[] { "page-item" },
+                        PageClasses = new[] { "page-link" },
+                        ActiveLiElementClass = "active"
+                    })
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Filtros ---
+            const searchInput = document.getElementById('searchInput');
+            const eventoFilter = document.getElementById('eventoFilter');
+            const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+
+            function applyFilters() {
+                const search = searchInput.value;
+                const evento = eventoFilter.value;
+                window.location.href = `@Url.Action("Lista")?searchString=${encodeURIComponent(search)}&eventoFilter=${encodeURIComponent(evento)}`;
+            }
+            
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    applyFilters();
+                }
+            });
+
+            eventoFilter.addEventListener('change', applyFilters);
+
+            clearFiltersBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                eventoFilter.value = '';
+                applyFilters();
+            });
+
+
+            // --- Dropdown da Tabela ---
+            const tableWrappers = document.querySelectorAll('.table-responsive');
+            tableWrappers.forEach(wrapper => {
+                const dropdowns = wrapper.querySelectorAll('.dropdown-toggle');
+                dropdowns.forEach(dd => {
+                    dd.addEventListener('show.bs.dropdown', function (event) {
+                        const row = event.target.closest('tr');
+                        if (row) row.classList.add('dropdown-open');
+                        
+                        const tableWrapper = event.target.closest('.table-wrapper');
+                        if (tableWrapper) tableWrapper.classList.add('dropdown-visible');
+                        
+                        if (window.getComputedStyle(wrapper.querySelector('table thead')).display !== 'none') {
+                             wrapper.classList.add('dropdown-visible');
+                        }
+                    });
+
+                    dd.addEventListener('hide.bs.dropdown', function (event) {
+                        const row = event.target.closest('tr');
+                        if (row) row.classList.remove('dropdown-open');
+                        
+                        const tableWrapper = event.target.closest('.table-wrapper');
+                        if (tableWrapper) tableWrapper.classList.remove('dropdown-visible');
+                        
+                        if (window.getComputedStyle(wrapper.querySelector('table thead')).display !== 'none') {
+                            wrapper.classList.remove('dropdown-visible');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+}
+

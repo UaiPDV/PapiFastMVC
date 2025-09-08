@@ -1,0 +1,219 @@
+/* Estilos específicos para o Dashboard */
+
+/* Cabeçalho do Dashboard */
+.dashboard-header {
+	background: linear-gradient(135deg, #f98303 0%, #ff9f40 100%);
+	border-radius: 15px;
+	padding: 2rem;
+	margin-bottom: 2rem;
+	color: white;
+	box-shadow: 0 8px 25px rgba(249, 131, 3, 0.3);
+}
+
+.dashboard-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-bottom: 0.5rem;
+}
+
+.dashboard-subtitle {
+	font-size: 1.2rem;
+	opacity: 0.9;
+}
+
+/* Seção de Filiais */
+.filial-selector {
+	background: white;
+	border-radius: 15px;
+	padding: 1.5rem;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+	margin-bottom: 2rem;
+}
+
+.filial-selector .form-select {
+	border: 2px solid #e9ecef;
+	border-radius: 10px;
+	padding: 0.75rem 1rem;
+	font-size: 1rem;
+	transition: all 0.3s ease;
+}
+
+.filial-selector .form-select:focus {
+	border-color: #f98303;
+	box-shadow: 0 0 0 0.2rem rgba(249, 131, 3, 0.25);
+}
+
+/* --- NOVOS ESTILOS DO PROTÓTIPO --- */
+
+/* Cards de Estatísticas v2 */
+.stats-card-v2 {
+	background-color: #fff;
+	padding: 1.5rem;
+	border-radius: 0.75rem;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 100%;
+    border: 1px solid #f1f3f4;
+}
+
+.stats-card-label {
+	font-size: 0.875rem;
+	color: #6c757d;
+	margin-bottom: 0.25rem;
+}
+
+.stats-card-number {
+	font-size: 1.875rem;
+	font-weight: 700;
+	color: #1f2937;
+    line-height: 1.2;
+}
+.stats-card-number.small {
+    font-size: 1.25rem;
+}
+
+.stats-card-change {
+	font-size: 0.875rem;
+	color: #6c757d;
+	margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+}
+
+.stats-card-change.positive {
+	color: #16a34a;
+}
+
+.stats-icon-v2 {
+	padding: 0.75rem;
+	border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.stats-icon-v2.primary {
+	background-color: rgba(249, 131, 3, 0.15);
+	color: #f98303;
+}
+.stats-icon-v2.warning {
+	background-color: rgba(248, 188, 31, 0.15);
+	color: #f8bc1f;
+}
+.stats-icon-v2.info {
+	background-color: rgba(23, 162, 184, 0.15);
+	color: #17a2b8;
+}
+.stats-icon-v2.danger {
+	background-color: rgba(220, 35, 15, 0.15);
+	color: #dc230f;
+}
+
+/* Containers de Gráfico */
+.chart-container {
+	background-color: #fff;
+	padding: 1.5rem;
+	border-radius: 0.75rem;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    border: 1px solid #f1f3f4;
+}
+
+.chart-title-v2 {
+	font-size: 1.125rem;
+	font-weight: 600;
+	color: #1f2937;
+	margin-bottom: 1rem;
+}
+
+.chart-wrapper {
+	position: relative;
+	height: 320px;
+}
+
+/* Tabela de Atividades Recentes */
+.recent-activities-v2 {
+	background-color: #fff;
+	padding: 1.5rem;
+	border-radius: 0.75rem;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f1f3f4;
+}
+
+.recent-activities-v2 .btn-link {
+    font-size: 0.875rem;
+    color: #f98303;
+    text-decoration: none;
+    font-weight: 500;
+}
+.recent-activities-v2 .btn-link:hover {
+    text-decoration: underline;
+}
+
+.recent-activities-v2 .table {
+    margin-bottom: 0;
+}
+
+.recent-activities-v2 .table thead {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: #4b5563;
+    background-color: #f9fafb;
+}
+
+.recent-activities-v2 .table th {
+    padding: 0.75rem 1.5rem;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.recent-activities-v2 .table td {
+    padding: 1rem 1.5rem;
+    font-weight: 500;
+    color: #111827;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.badge-status {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+}
+.badge-status.success {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #15803d;
+}
+.badge-status.info {
+    background-color: rgba(23, 162, 184, 0.1);
+    color: #0e7490;
+}
+.badge-status.danger {
+    background-color: rgba(220, 35, 15, 0.1);
+    color: #b91c1c;
+}
+
+
+/* Responsividade */
+@media (max-width: 767.98px) {
+	.dashboard-header {
+		padding: 1.5rem;
+		text-align: center;
+	}
+
+	.dashboard-title {
+		font-size: 2rem;
+	}
+
+	.dashboard-subtitle {
+		font-size: 1rem;
+	}
+    .chart-wrapper {
+        height: 250px;
+    }
+}

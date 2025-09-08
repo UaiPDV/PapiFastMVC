@@ -1,0 +1,36 @@
+/* =================================================================== */
+/* =========== ESTILOS ESPECÍFICOS - LISTA DE INGRESSOS ============== */
+/* =================================================================== */
+
+.tickets-table .status-badge {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.status-awaiting {
+    background-color: #f3f4f6;
+    color: #4b5563;
+}
+
+.status-unused {
+    background-color: var(--papi-success-bg);
+    color: var(--papi-success);
+}
+
+.status-used {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.status-sale-type {
+    background-color: #e0e7ff;
+    color: #3730a3;
+}
+
+/* Dropdown de informações */
+.dropdown-menu .border-bottom {
+    border-bottom: 1px solid var(--papi-border-color) !important;
+}
+

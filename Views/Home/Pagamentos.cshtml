@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Pagamentos";
+}
+<input type="hidden" id="PREFERENCEID" value="@ViewBag.Preferencia" />
+<div id="wallet_container">
+</div>
+<script>
+    const id = document.getElementById('PREFERENCEID').value;
+    const mp = new MercadoPago('APP_USR-6ee81902-d059-46ee-97a7-ac21260ac0e8', {
+      locale: 'pt-BR'
+    });
+
+    mp.bricks().create("wallet", "wallet_container", {
+      initialization: {
+          preferenceId: id,
+      },
+    });
+</script>

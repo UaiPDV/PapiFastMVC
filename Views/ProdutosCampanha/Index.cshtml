@@ -1,0 +1,290 @@
+﻿@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<BixWeb.Models.ProdutoCampanha>
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Produtos da Campanha";
+    var currentSearch = ViewBag.CurrentSearch as string;
+    var codCampanha = ViewData["codCampanha"];
+    var nomeCampanha = ViewData["nomeCampanha"];
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/ProdutosCampanhas/index.css" asp-append-version="true" />
+}
+
+<div id="products-campaign-page">
+    <!-- Cabeçalho da Página Padronizado -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <h1>@ViewData["Title"]: <span class="text-primary">@nomeCampanha</span></h1>
+            <p class="page-subtitle">Gerencie os produtos incluídos nesta campanha específica.</p>
+        </div>
+        <a asp-action="Create" asp-route-id="@codCampanha" class="btn btn-primary-action">
+            <i class="bi bi-plus-lg me-2"></i>
+            Adicionar Produto
+        </a>
+    </div>
+
+    <!-- Estatísticas -->
+    <div class="product-stats mb-4">
+        <div class="row g-3">
+            <div class="col-md-4 col-12">
+                <div class="stat-card">
+                    <div class="stat-icon bg-primary">
+                        <i class="bi bi-box-seam-fill"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">@Model.TotalItemCount</div>
+                        <div class="stat-label">Total de Produtos</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-6">
+                <div class="stat-card">
+                    <div class="stat-icon bg-success">
+                        <i class="bi bi-tags-fill"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">@Model.Select(p => p.Produto.Categoria.nome).Distinct().Count()</div>
+                        <div class="stat-label">Categorias Diferentes</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-6">
+                <div class="stat-card">
+                    <div class="stat-icon bg-info">
+                        <i class="bi bi-cash-coin"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">@Model.Sum(p => p.valor).ToString("C", new CultureInfo("pt-BR"))</div>
+                        <div class="stat-label">Valor Total dos Produtos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Filtros -->
+    <div class="filter-bar">
+        <div class="filter-bar-header">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-funnel text-muted"></i>
+                <span class="filter-title">Filtros e Pesquisa</span>
+            </div>
+        </div>
+        <div class="filter-controls">
+            <form method="get" asp-action="Index" class="search-wrapper">
+                <input type="hidden" name="id" value="@codCampanha" />
+                <label class="filter-label">Pesquisar Produto</label>
+                <div class="search-container">
+                    <i class="bi bi-search search-icon"></i>
+                    <input type="text" name="SearchString" value="@currentSearch" class="form-control search-input" placeholder="Buscar por nome ou categoria..." />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabela de Produtos -->
+    <div class="table-wrapper">
+        <div class="table-responsive">
+            <table class="table products-table align-middle">
+                <thead>
+                    <tr>
+                        <th class="product-col">Produto</th>
+                        <th class="category-col text-end">Categoria</th>
+                        <th class="price-col text-end">Preço</th>
+                        <th class="actions-col text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody class="fw-semibold text-gray-600">
+                    @foreach (var produto in Model)
+                    {
+                        <tr>
+                            <td data-label="Produto">
+                                <div class="product-info-cell">
+                                    <div class="product-image-wrapper">
+                                        <img src="@produto.Produto.imagem" class="product-image" alt="@produto.Produto.nomeProduto" onerror="this.onerror=null;this.src='https://placehold.co/50x50/EFEFEF/A8A8A8?text=Img';" />
+                                    </div>
+                                    <div class="product-details">
+                                        <span class="product-name">@produto.Produto.nomeProduto</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-label="Categoria" class="text-end product-category">
+                                @produto.Produto.Categoria.nome
+                            </td>
+                            <td data-label="Preço" class="text-end product-price">
+                                @string.Format(CultureInfo.GetCultureInfo("pt-BR"), "{0:C}", produto.valor)
+                            </td>
+                            <td data-label="Ações" class="text-center">
+                                <button class="btn btn-action-icon btn-action-danger delete-btn" data-id="@produto.codProdCamp" title="Excluir">
+                                    <i class="bi bi-trash3"></i>
+                                </button>
+                            </td>
+
+                            <!-- Wrapper para detalhes em mobile -->
+                            <td class="d-md-none">
+                                <div class="details-wrapper">
+                                    <div class="product-category" data-label="Categoria: ">@produto.Produto.Categoria.nome</div>
+                                    <div class="product-price" data-label="Preço: ">@string.Format(CultureInfo.GetCultureInfo("pt-BR"), "{0:C}", produto.valor)</div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Paginação -->
+    @if (Model.PageCount > 1)
+    {
+        <div class="pagination-wrapper">
+            <div class="pagination-info">
+                <span class="pagination-text">
+                    Mostrando @((Model.PageNumber - 1) * Model.PageSize + 1) até @(Math.Min(Model.PageNumber * Model.PageSize, Model.TotalItemCount)) de @Model.TotalItemCount produtos
+                </span>
+            </div>
+            <div class="pagination-controls">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { id = codCampanha, page, SearchString = currentSearch }),
+                    new PagedListRenderOptions
+                    {
+                        UlElementClasses = new[] { "pagination", "custom-pagination" },
+                        LiElementClasses = new[] { "page-item" },
+                        PageClasses = new[] { "page-link" },
+                        ActiveLiElementClass = "active"
+                    })
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Modal de Exclusão -->
+<div id="delete-popup" class="popup-confirm">
+    <div class="popup-confirm-content">
+        <div class="popup-icon">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+        </div>
+        <h4 class="popup-title">Confirmar Remoção</h4>
+        <p class="popup-message">Tem certeza que deseja remover este produto da campanha?</p>
+        <p class="popup-warning">Esta ação não pode ser desfeita.</p>
+        <div class="popup-actions">
+            <button class="btn btn-outline-secondary popup-btn-cancel" id="cancelBtn">
+                <i class="bi bi-x-lg me-2"></i>Cancelar
+            </button>
+            <button class="btn btn-danger popup-btn-confirm" id="confirmDeleteBtn">
+                <i class="bi bi-trash3-fill me-2"></i>Sim, remover
+            </button>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <!-- SweetAlert2 para popups bonitos -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const deletePopup = document.getElementById('delete-popup');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+            let productIdToDelete = null;
+
+            function openDeletePopup(id) {
+                productIdToDelete = id;
+                deletePopup.style.display = 'flex';
+                // Adiciona uma animação de entrada
+                deletePopup.querySelector('.popup-confirm-content').style.animation = 'popupShow 0.3s ease-out forwards';
+            }
+
+            function closeDeletePopup() {
+                productIdToDelete = null;
+                deletePopup.style.display = 'none';
+            }
+            
+            // --- INÍCIO DA CORREÇÃO ---
+            function deleteProduct() {
+                if (!productIdToDelete) return;
+
+                // Faz a chamada AJAX para o endpoint de exclusão
+                $.ajax({
+                    url: "../Delete", // URL relativa para a action Delete
+                    type: "POST",
+                    data: { id: productIdToDelete },
+                    beforeSend: function () {
+                        // Desabilita o botão para evitar cliques duplos
+                        confirmDeleteBtn.disabled = true;
+                        confirmDeleteBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Removendo...';
+                    },
+                    success: function (data) {
+                        closeDeletePopup();
+                        if (data === true) {
+                            Swal.fire({
+                                text: "Produto removido com Sucesso!",
+                                icon: "success",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok, Entendi!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            }).then(function (result) {
+                                if (result.isConfirmed) {
+                                    location.reload(); // Recarrega a página para atualizar a lista
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                text: "Ocorreu um erro ao remover o produto.",
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok, Entendi!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            });
+                        }
+                    },
+                    error: function() {
+                        closeDeletePopup();
+                        Swal.fire({
+                            text: "Erro de comunicação com o servidor.",
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok, Entendi!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        });
+                    },
+                    complete: function() {
+                         // Reabilita o botão
+                        confirmDeleteBtn.disabled = false;
+                        confirmDeleteBtn.innerHTML = '<i class="bi bi-trash3-fill me-2"></i>Sim, remover';
+                    }
+                });
+            }
+            // --- FIM DA CORREÇÃO ---
+            
+            document.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const id = this.getAttribute('data-id');
+                    openDeletePopup(id);
+                });
+            });
+
+            cancelBtn.addEventListener('click', closeDeletePopup);
+            confirmDeleteBtn.addEventListener('click', deleteProduct);
+
+            // Fechar o popup se clicar fora dele
+            deletePopup.addEventListener('click', function(event) {
+                if (event.target === this) {
+                    closeDeletePopup();
+                }
+            });
+        });
+    </script>
+}
+

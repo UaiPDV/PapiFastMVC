@@ -1,0 +1,72 @@
+﻿@model BixWeb.Models.Cupom
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Cupom</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UsuarioFilial)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UsuarioFilial.codUsuario)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.descontoCupom)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.descontoCupom)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.validadeCupom)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.validadeCupom)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.statusCupom)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.statusCupom)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.usadoCupom)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.usadoCupom)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.tokenCupom)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.tokenCupom)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Campanha)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Campanha.nomeCampanha)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.produtos)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.produtos)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.usuario)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.usuario.email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.codCupom">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

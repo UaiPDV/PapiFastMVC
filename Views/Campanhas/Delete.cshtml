@@ -1,0 +1,164 @@
+﻿@model BixWeb.Models.Campanha
+
+@{
+    ViewData["Title"] = "Deletar Campanha";
+}
+
+<h3>Tem Certeza que deseja excluir a campanha @Model.nomeCampanha?</h3>
+<div class="p-5 bg-body-tertiary rounded-3">
+    <hr>
+    <dl class="row">
+        <div class="col-md-6 row">
+            <dt class="col-sm-4">
+                Data da Postagem:
+            </dt>
+            <dd class="col-sm-8">
+                8/26/2024 6:45:41 PM
+            </dd>
+            <dt class="col-sm-4">
+                Status:
+            </dt>
+            <dd class="col-sm-8">
+                <div class="form-check form-switch" style="margin:auto">
+                    <input checked="checked" name="name" type="checkbox" class="form-check-input" disabled="">
+                </div>
+            </dd>
+            <dt class="col-sm-4">
+                Cardápio Online:
+            </dt>
+            <dd class="col-sm-8">
+                <div class="form-check form-switch" style="margin:auto">
+                    <input checked="checked" name="name" type="checkbox" class="form-check-input" disabled="">
+                </div>
+            </dd>
+
+        </div>
+        <div class="col-md-6 row">
+            <dt class="col-sm-4">
+                Filial:
+            </dt>
+            <dd class="col-sm-8">
+                FILIAL DEMONSTRACAO
+            </dd>
+            <dt class="col-sm-4">
+                Funcionário que criou:
+            </dt>
+            <dd class="col-sm-8">
+                Alex
+            </dd>
+        </div>
+    </dl>
+    <div class="rool-botton link-green" style="width:auto" onclick="scrollToBottom()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"></path>
+        </svg>
+    </div>
+    <h5 style="margin: 14px 13%;">Produtos:</h5>
+    <div class="col-md-9 row" style="margin: 0 auto;">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>
+                        <a class="link-green" href="/Campanhas">Nome:</a>
+                    </th>
+                    <th class="categoria">
+                        Categoria:
+                    </th>
+                    <th>
+                        Imagem:
+                    </th>
+                    <th>
+                        Valor:
+                    </th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>
+                        Agua c Gas
+                    </td>
+                    <td class="categoria">
+                        BEBIDAS
+                    </td>
+                    <td>
+                        <img src="https://docs.lacartadigital.com.br/produtos/d782884a-8627-4c36-ae75-5d0bb6ed8e34_resize.jpg" width="80" height="80" class="rounded float-start img-fluid" alt="...">
+                    </td>
+                    <td>
+                        R$ 4,00
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <form action="/Campanhas/Delete/62" method="post">
+        <input type="hidden" data-val="true" data-val-required="The codCampanha field is required." id="codCampanha" name="codCampanha" value="62">
+        <a style="color: #1ba55a" href="/Campanhas">
+            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+                <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"></path>
+            </svg>
+        </a> |
+        <input type="submit" value="Deletar" class="btn btn-danger">
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8M7NgtV7HAxJg-onb9tKt4fu2ND4Pthh_bovq2LL3ie9wrTySvXHDqu97hTmrLDSvF-STVLUJhJ9shmsgorODaj3fRA3MPrwLfvVDy5A_Y6pYKx6rthpW7JgF28T0OH1xIeC7qZY2hBjLTu13MKVjQ0WFpfac4re7nPien0yO1afU7WG6mUagzUXtrmgnaRTZg">
+    </form>
+</div>
+
+<div>
+    <h4>Campanha</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.nomeCampanha)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.nomeCampanha)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.dataPostCampanha)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.dataPostCampanha)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.campanhaAtiva)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.campanhaAtiva)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.matriculaFuncionario)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.matriculaFuncionario)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.linkCardapio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.linkCardapio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.tipoCardapio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.tipoCardapio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.typeServise)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.typeServise)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Usuariofilial)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Usuariofilial.codUsuario)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="codCampanha" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

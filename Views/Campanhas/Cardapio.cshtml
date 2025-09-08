@@ -1,0 +1,154 @@
+﻿@{
+    ViewData["Title"] = "Seleção de Cardápio";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Campanhas/cardapio.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+}
+
+<div class="container my-5">
+    <!-- Cabeçalho da Página -->
+    <div class="text-center mb-5">
+        <h1 class="form-page-title">Escolha um Modelo de Cardápio Online</h1>
+        <p class="page-subtitle">Selecione uma das opções abaixo para a sua campanha.</p>
+    </div>
+
+    @if (ViewData["Sucesso"] != null || ViewData["Erro"] != null)
+    {
+        <!-- Mensagens de Resultado -->
+        <div class="action-footer mt-5 text-center">
+            @if (ViewData["Sucesso"] != null)
+            {
+                <div class="alert alert-success">
+                    <h5 class="alert-heading">Sucesso!</h5>
+                    <p>@ViewData["Sucesso"]</p>
+                    <hr>
+                    <a href="@ViewData["Link"]" target="_blank" class="btn btn-success me-2">
+                        <i class="bi bi-eye-fill me-2"></i>Ver Cardápio
+                    </a>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-check-circle-fill me-2"></i>Finalizar
+                    </a>
+                </div>
+                
+                <!-- Previne reenvio do formulário ao recarregar a página -->
+                <script>
+                    if (window.history.replaceState) {
+                        window.history.replaceState(null, null, window.location.href);
+                    }
+                </script>
+            }
+            else if (ViewData["Erro"] != null)
+            {
+                <div class="alert alert-danger">
+                    <h5 class="alert-heading">Ocorreu um Erro</h5>
+                    <p>@ViewData["Erro"]</p>
+                     <a asp-action="Index" class="btn btn-secondary mt-2">
+                        <i class="bi bi-arrow-left me-2"></i>Voltar
+                    </a>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <!-- Formulário Principal -->
+        <form asp-action="Cardapio" method="post">
+            
+            <!-- Opção "Nenhum Cardápio" -->
+            <div class="card cardapio-card mb-3 selected" data-value="0">
+                <div class="card-body d-flex align-items-center">
+                    <input class="form-check-input me-3" type="radio" name="tipoCardapio" id="tipoCardapio0" value="0" checked>
+                    <label class="form-check-label w-100" for="tipoCardapio0">
+                        <span class="fw-bold">Nenhum Cardápio</span>
+                        <p class="mb-0 text-muted small">A campanha não exibirá um cardápio digital.</p>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Grid de Cardápios -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                @{
+                    var cardapios = new[]
+                    {
+                        new { id = 1, title = "Modelo 1", text = "Tema simplificado, itens na horizontal e barra de busca.", img = "/imagens/layout.jpg", link = "/ExemploCardapio/Cardapio/Index.html" },
+                        new { id = 2, title = "Modelo 2", text = "Tema simplificado, itens em grade e barra de busca.", img = "/imagens/layout2.jpg", link = "/ExemploCardapio/Cardapio2/Index.html" },
+                        new { id = 3, title = "Modelo 3", text = "Tema elaborado, categorias, identificação de mesa e pedidos via WhatsApp.", img = "/imagens/layout3.jpg", link = "/ExemploCardapio/Cardapio3/Index.html" },
+                        new { id = 4, title = "Modelo 4", text = "Tema avançado com adicionais de itens e integração com robô de atendimento.", img = "/imagens/layout4.jpg", link = "/ExemploCardapio/Cardapio4/Index.html" },
+                        new { id = 5, title = "Modelo 5", text = "Tema harmônico (branco/cinza), pedidos via WhatsApp e identificação de mesa.", img = "/imagens/layout5.jpg", link = "/ExemploCardapio/Cardapio5/Index.html" },
+                        new { id = 6, title = "Modelo 6", text = "Tema harmônico (branco/verde), itens em blocos e barra de pesquisa.", img = "/imagens/layout6.jpg", link = "/ExemploCardapio/Cardapio6/index.html" }
+                    };
+                }
+
+                @foreach (var cardapio in cardapios)
+                {
+                    <div class="col">
+                        <div class="card h-100 cardapio-card" data-value="@cardapio.id">
+                            <img src="@cardapio.img" class="card-img-top" alt="Visualização do Cardápio @cardapio.id" onerror="this.onerror=null;this.src='https://placehold.co/500x200/f8bc1f/FFFFFF?text=Cardápio+@cardapio.id';">
+                            <div class="card-body">
+                                <h5 class="card-title">@cardapio.title</h5>
+                                <p class="card-text small">@cardapio.text</p>
+                            </div>
+                            <div class="card-footer bg-white border-0 pb-3">
+                                <div class="btn-group w-100" role="group">
+                                    <label for="tipoCardapio@(cardapio.id)" class="btn btn-outline-primary w-50 select-btn">
+                                        <i class="bi bi-check-circle-fill me-2"></i>
+                                        Selecionar
+                                    </label>
+                                    <a href="@cardapio.link" target="_blank" class="btn btn-outline-secondary w-50">
+                                        <i class="bi bi-eye me-2"></i>Visualizar
+                                    </a>
+                                </div>
+                                <input class="form-check-input visually-hidden" type="radio" name="tipoCardapio" id="tipoCardapio@(cardapio.id)" value="@cardapio.id">
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Botão de Ação -->
+            <div class="action-footer mt-5 text-center">
+                <div class="form-action-buttons justify-content-center">
+                    <button type="submit" class="btn btn-primary-action btn-lg">
+                        <i class="bi bi-check-circle-fill me-2"></i>Finalizar Seleção
+                    </button>
+                </div>
+            </div>
+        </form>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Só habilita a interação se não estivermos exibindo mensagens de resultado
+            var hasResult = @((ViewData["Sucesso"] != null || ViewData["Erro"] != null).ToString().ToLower());
+            
+            if (!hasResult) {
+                const cardapioCards = document.querySelectorAll('.cardapio-card');
+                
+                cardapioCards.forEach(card => {
+                    card.addEventListener('click', function(e) {
+                        if (e.target.closest('a')) {
+                            return; // Não faz nada se o clique for no botão de visualizar
+                        }
+
+                        // Remove a seleção de todos os cards
+                        cardapioCards.forEach(c => c.classList.remove('selected'));
+                        
+                        // Adiciona a seleção ao card clicado
+                        this.classList.add('selected');
+
+                        // Marca o radio button correspondente
+                        const radio = this.querySelector('input[type="radio"]');
+                        if (radio) {
+                            radio.checked = true;
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+}
+

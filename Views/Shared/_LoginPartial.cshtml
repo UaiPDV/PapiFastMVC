@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+
+@{
+    var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    List<Filial> userFiliais = new List<Filial>();
+    if (userId != null && User.Identity?.IsAuthenticated == true)
+    {
+        int codUsuario = int.Parse(userId);
+        var context = ViewContext.HttpContext.RequestServices.GetService<DbPrint>();
+        if (context != null)
+        {
+            userFiliais = context.UsuarioFiliais
+                .Where(uf => uf.codUsuario == codUsuario)
+                .Select(uf => uf.Filial!)
+                .Where(f => f != null)
+                .OrderBy(f => f.nome)
+                .ToList();
+        }
+    }
+}
+
+@if (User.Identity?.IsAuthenticated == true)
+{
+    var Imagem = User.FindFirst(System.Security.Claims.ClaimTypes.Thumbprint)?.Value;
+    var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+    <!-- 
+      CORREÇÃO: 
+      As classes do Bootstrap foram substituídas pela classe personalizada 'hide-on-mobile'.
+      A classe 'd-flex' garante que o alinhamento continue correto no desktop.
+    -->
+    <div class="d-flex align-items-center hide-on-mobile">
+        <!-- Botão de notificação -->
+        <button class="btn btn-light position-relative me-3">
+            <i class="bi bi-bell-fill"></i>
+            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                <span class="visually-hidden">New alerts</span>
+            </span>
+        </button>
+        
+        <!-- Dropdown do usuário -->
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img class="rounded-circle me-2" src="@Imagem" alt="Avatar do gerente" width="32" height="32" onerror="this.onerror=null; this.src='/imagens/Usuario.png';">
+                <!-- Informações do usuário (já são ocultadas pelo d-none d-md-block, o que está correto) -->
+                <div class="d-none d-md-block">
+                    <div class="fw-bold">@User.Identity.Name</div>
+                    <div class="text-muted small">@userRole</div>
+                </div>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <a class="dropdown-item" asp-controller="Usuarios" asp-action="Edit" asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)">Configurações</a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item" asp-controller="Login" asp-action="Logout">Sair</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+}
+else
+{
+    <div class="d-flex align-items-center">
+        <a class="btn btn-outline-secondary me-2" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
+        <a class="btn btn-primary-custom" asp-area="" asp-controller="Login" asp-action="Create">Cadastrar</a>
+    </div>
+}

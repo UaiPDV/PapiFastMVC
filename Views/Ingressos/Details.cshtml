@@ -1,0 +1,54 @@
+﻿@model BixWeb.Models.Ingresso
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Ingresso</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ticketIngresso)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ticketIngresso)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NomeIngresso)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NomeIngresso)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EmailIngresso)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EmailIngresso)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.tipoVendaIngresso)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.tipoVendaIngresso)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ativoIngresso)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ativoIngresso)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lote)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lote.codLote)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.codIngresso">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

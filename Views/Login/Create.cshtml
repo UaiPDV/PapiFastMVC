@@ -1,0 +1,147 @@
+﻿@model BixWeb.Models.Usuario
+@{
+    ViewBag.Title = "Criar Conta";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Login/cadastro.css" asp-append-version="true" />
+    <!-- Adicionando Font Awesome para os ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+}
+
+<div class="register-container">
+    <div class="register-card">
+        <img class="logo" src="/imagens/novaLogo1.png" alt="Papi Fast Logo">
+        
+        <h1>Crie sua conta</h1>
+        <p class="subtitle">
+            Já tem uma conta? <a href="@Url.Action("Index", "Login")">Acesse aqui</a>
+        </p>
+
+        <form method="post" enctype="multipart/form-data" asp-action="Create" class="register-form">
+            
+            <div class="avatar-upload">
+                <div class="avatar-preview">
+                    <img id="avatarPreview" src="/assets/media/svg/files/blank-image.svg" alt="Avatar" />
+                </div>
+                <label for="avatarInput" class="avatar-edit">
+                    <i class="fas fa-camera"></i>
+                </label>
+                <input type="file" name="avatar" id="avatarInput" accept=".png, .jpg, .jpeg" style="display: none;">
+            </div>
+
+            <div class="form-group">
+                <label asp-for="nome">Nome Completo</label>
+                <div class="input-group">
+                    <i class="fa-regular fa-user"></i>
+                    <input asp-for="nome" class="form-control" placeholder="Digite seu nome completo">
+                </div>
+                <span asp-validation-for="nome" class="text-danger"></span>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="cpf">CPF</label>
+                    <div class="input-group">
+                        <i class="fa-regular fa-id-card"></i>
+                        <input asp-for="cpf" class="form-control cpf" placeholder="000.000.000-00" maxlength="14">
+                    </div>
+                    <span asp-validation-for="cpf" class="text-danger cpfInvalid">@Html.Raw(ViewBag.msg2)</span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="telefone">Telefone</label>
+                    <div class="input-group">
+                        <i class="fas fa-phone"></i>
+                        <input asp-for="telefone" class="form-control telefone" placeholder="(00) 00000-0000">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="email">Email</label>
+                <div class="input-group">
+                    <i class="fa-regular fa-envelope"></i>
+                    <input asp-for="email" class="form-control emailC" placeholder="seu@email.com">
+                </div>
+                <span asp-validation-for="email" class="text-danger emailV">@Html.Raw(ViewBag.msg1)</span>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="password">Senha</label>
+                    <div class="input-group">
+                        <i class="fa-solid fa-lock"></i>
+                        <input asp-for="password" type="password" class="form-control" placeholder="••••••">
+                    </div>
+                    <span asp-validation-for="password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="confSenha">Confirmar Senha</label>
+                    <div class="input-group">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" name="confSenha" id="confSenha" class="form-control" placeholder="••••••">
+                    </div>
+                    <span class="text-danger">@Html.Raw(ViewBag.msg)</span>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a class="btn btn-outline-secondary me-2" asp-area="" asp-controller="Login" asp-action="Index">Voltar</a>
+                <button type="submit" id="click" class="btn btn-primary">
+                    <span class="indicator-label">Criar Conta</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Script para preview do avatar
+        const avatarInput = document.getElementById('avatarInput');
+        const avatarPreview = document.getElementById('avatarPreview');
+        avatarInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Seus scripts de validação de email e CPF
+        document.querySelector('.emailC').addEventListener('blur', function () {
+            const email = this.value.trim();
+            fetch(`../../Usuarios/VerificarEmail?email=${encodeURIComponent(email)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const spanErro = document.querySelector('.emailV');
+                    if (!spanErro) return;
+                    if (data.success) {
+                        spanErro.textContent = "O e-mail informado já está cadastrado!";
+                        document.getElementById('click').disabled = true;
+                    } else {
+                        spanErro.textContent = "";
+                        document.getElementById('click').disabled = false;
+                    }
+                })
+                .catch(error => console.error('Erro na verificação do E-mail:', error));
+        });
+
+        function verificarCpf(cpf) {
+            fetch(`../Convites/VeryCPF/?cpf=${cpf}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const spanErro = document.querySelector('.cpfInvalid');
+                        spanErro.textContent = "CPF já cadastrado!";
+                    }
+                })
+                .catch(error => console.error('Erro na verificação do CPF:', error));
+        }
+    </script>
+}

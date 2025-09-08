@@ -1,0 +1,308 @@
+﻿@model BixWeb.Models.ReciboIngresso
+@using System.Globalization
+@{
+    ViewData["Title"] = "Detalhes Recibo";
+}
+<h1 class="text-center py-img">Recibo:</h1>
+<div id="kt_app_content_container" class="app-container container-fluid">
+    <div class="d-flex flex-column gap-7 gap-lg-10">
+        <!--begin::Order summary-->
+        <div class="d-flex flex-column flex-xl-row gap-7 gap-lg-10">
+            <!--begin::Order details-->
+            <div class="card card-flush py-4 flex-row-fluid">
+                <!--begin::Card header-->
+                <div class="card-header">
+                    <div class="card-title">
+                        <h2>Order Details (#@Model.codReciboIngresso)</h2>
+                    </div>
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <div class="table-responsive">
+                        <!--begin::Table-->
+                        <table class="table align-middle table-row-bordered mb-0 fs-6 gy-5 min-w-300px">
+                            <tbody class="fw-semibold text-gray-600">
+                                <tr>
+                                    <td class="text-muted">
+                                        <div class="d-flex align-items-center">
+                                            <i class="ki-duotone ki-calendar fs-2 me-2"><span class="path1"></span><span class="path2"></span></i>Data do Pedido:
+                                        </div>
+                                    </td>
+                                    <td class="fw-bold text-end">@Model.dataCriacao</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">
+                                        <div class="d-flex align-items-center">
+                                            <i class="ki-duotone ki-wallet fs-2 me-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>Metodo de Pagemento:
+                                        </div>
+                                    </td>
+                                    <td class="fw-bold text-end">
+                                        Mercado Pago
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">
+                                        <div class="d-flex align-items-center">
+                                            <i class="ki-duotone ki-gift fs-2 me-2">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                                <span class="path4"></span>
+                                            </i>Tipo:
+                                        </div>
+                                    </td>
+                                    <td class="fw-bold text-end">Presente</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!--end::Table-->
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Order details-->
+            <!--begin::Customer details-->
+            <div class="card card-flush py-4  flex-row-fluid">
+                <!--begin::Card header-->
+                <div class="card-header">
+                    <div class="card-title">
+                        <h2>Dados do Comprador:</h2>
+                    </div>
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <div class="table-responsive">
+                        <!--begin::Table-->
+                        <table class="table align-middle table-row-bordered mb-0 fs-6 gy-5 min-w-300px">
+                            <tbody class="fw-semibold text-gray-600">
+                                <tr>
+                                    <td class="text-muted">
+                                        <div class="d-flex align-items-center">
+                                            <i class="ki-duotone ki-profile-circle fs-2 me-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i> Nome:
+                                        </div>
+                                    </td>
+
+                                    <td class="fw-bold text-end">
+                                        <div class="d-flex align-items-center justify-content-end">
+                                            <!--begin::Name-->
+                                            @Model.nomeCliente
+                                            <!--end::Name-->
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">
+                                        <div class="d-flex align-items-center">
+                                            <i class="ki-duotone ki-sms fs-2 me-2"><span class="path1"></span><span class="path2"></span></i> Email:
+                                        </div>
+                                    </td>
+                                    <td class="fw-bold text-end">
+                                        @Model.emailCliente
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">
+                                        <div class="d-flex align-items-center">
+                                            <i class="ki-duotone ki-phone fs-2 me-2"><span class="path1"></span><span class="path2"></span></i> Contato:
+                                        </div>
+                                    </td>
+                                    <td class="fw-bold text-end">@Model.telefoneCliente</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!--end::Table-->
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Customer details-->
+            <!--begin::Documents-->
+            <div class="card card-flush py-4  flex-row-fluid">
+                <!--begin::Card header-->
+                <div class="card-header">
+                    <div class="card-title">
+                        <h2>Documentos</h2>
+                    </div>
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <div class="table-responsive">
+                        <!--begin::Table-->
+                        <table class="table align-middle table-row-bordered mb-0 fs-6 gy-5 min-w-300px">
+                            <tbody class="fw-semibold text-gray-600">
+                                <tr>
+                                    <td class="text-muted">
+                                        <div class="d-flex align-items-center">
+                                            <i class="ki-duotone ki-devices fs-2 me-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>CPF:
+                                            <span class="ms-1" data-bs-toggle="tooltip" aria-label="View the invoice generated by this order." data-bs-original-title="View the invoice generated by this order." data-kt-initialized="1">
+                                                <i class="ki-duotone ki-information-5 text-gray-500 fs-6"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="fw-bold text-end">@Model.cpfCliente</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">
+                                        <div class="d-flex align-items-center">
+                                            <i class="ki-duotone ki-discount fs-2 me-2"><span class="path1"></span><span class="path2"></span></i>Status:
+                                            <span class="ms-1" data-bs-toggle="tooltip" aria-label="Reward value earned by customer when purchasing this order" data-bs-original-title="Reward value earned by customer when purchasing this order" data-kt-initialized="1">
+                                                <i class="ki-duotone ki-information-5 text-gray-500 fs-6"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="fw-bold text-end">
+                                        @if (Model.status == "Aprovado")
+                                        {
+                                            <div class="fw-bold badge badge-light-success">@Model.status</div>
+                                        }
+                                        else if (Model.status == "Pendente")
+                                        {
+
+                                            <div class="fw-bold badge badge-light-warning">@Model.status</div>
+                                        }
+                                        else
+                                        {
+
+                                            <div class="fw-bold badge badge-light-danger">@Model.status</div>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">
+                                        <div class="d-flex align-items-center">
+                                            <i class="ki-duotone ki-truck fs-2 me-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>Envio:
+                                            <span class="ms-1" data-bs-toggle="tooltip" aria-label="View the shipping manifest generated by this order." data-bs-original-title="View the shipping manifest generated by this order." data-kt-initialized="1">
+                                                <i class="ki-duotone ki-information-5 text-gray-500 fs-6"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    @if (Model.status == "Aprovado")
+                                    {
+                                        <td class="fw-bold text-end">
+                                            Entregue
+                                        </td>
+                                    }
+                                    else if (Model.status == "Pendente")
+                                    {
+
+                                        <td class="fw-bold text-end">
+                                            Em Andamento
+                                        </td>
+                                    }
+                                    else
+                                    {
+
+                                        <td class="fw-bold text-end">
+                                            Cancelado
+                                        </td>
+                                    }
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!--end::Table-->
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Documents-->
+        </div>
+        <!--end::Order summary-->
+        <!--begin::Tab content-->
+        <div class="tab-content">
+            <!--begin::Tab pane-->
+            <div class="tab-pane fade show active" id="kt_ecommerce_sales_order_summary" role="tab-panel">
+                <!--begin::Orders-->
+                <div class="d-flex flex-column gap-7 gap-lg-10">
+                    <div class="card card-flush py-4 flex-row-fluid overflow-hidden">
+                        <!--begin::Card header-->
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h2>Ordem #@Model.codReciboIngresso</h2>
+                            </div>
+                        </div>
+                        <!--end::Card header-->
+                        <!--begin::Card body-->
+                        <div class="card-body pt-0">
+                            <div class="table-responsive">
+                                <!--begin::Table-->
+                                <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
+                                    <thead>
+                                        <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
+                                            <th class="min-w-175px">Produto:</th>
+                                            <th class="min-w-100px text-end">Código:</th>
+                                            <th class="min-w-70px text-end">Quantidade:</th>
+                                            <th class="min-w-100px text-end">Preço Unidade:</th>
+                                            <th class="min-w-100px text-end">Total:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="fw-semibold text-gray-600">
+                                        @{
+                                            double valor = 0;
+                                        }
+                                        @foreach (var item in Model.ingressos)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <!--begin::Thumbnail-->
+                                                        <a class="symbol symbol-50px">
+                                                            <span class="symbol-label" style="background-image:url(../../imagens/ingresso.png);"></span>
+                                                        </a>
+                                                        <!--end::Thumbnail-->
+                                                        <!--begin::Title-->
+                                                        <div class="ms-5">
+                                                            <a class="fw-bold text-gray-600 text-hover-primary">@item.NomeIngresso</a>
+                                                            <div class="fs-7 text-muted">Data da entrega: @Model.dataCriacao</div>
+                                                        </div>
+                                                        <!--end::Title-->
+                                                    </div>
+                                                </td>
+                                                <td class="text-end">
+                                                    @item.ticketIngresso
+                                                </td>
+                                                <td class="text-end">
+                                                    1
+                                                </td>
+                                                <td class="text-end">
+                                                    @{
+                                                        valor += item.Lote.valorLote;
+                                                        var precoFormatado = string.Format(CultureInfo.GetCultureInfo("pt-BR"), "{0:C}", item.Lote.valorLote);
+                                                    }
+                                                    @precoFormatado
+                                                </td>
+                                                <td class="text-end">
+                                                    @precoFormatado
+                                                </td>
+                                            </tr>
+                                        }
+                                        <tr>
+                                            <td colspan="4" class="fs-3 text-gray-900 text-end">
+                                                Total da Compra:
+                                            </td>
+                                            <td class="text-gray-900 fs-3 fw-bolder text-end">
+                                                @{
+                                                    var valorFormatado = string.Format(CultureInfo.GetCultureInfo("pt-BR"), "{0:C}", valor);
+                                                }
+                                                @valorFormatado
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!--end::Table-->
+                            </div>
+                        </div>
+                        <!--end::Card body-->
+                    </div>
+                    <!--end::Product List-->
+                </div>
+                <!--end::Orders-->
+            </div>
+            <!--end::Tab pane-->
+        </div>
+        <!--end::Tab content-->
+    </div>
+</div>

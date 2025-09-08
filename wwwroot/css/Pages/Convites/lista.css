@@ -1,0 +1,460 @@
+/* --- Estilos Específicos para a página de Convites --- */
+
+/* =================================================================== */
+/* ================ CABEÇALHO DA PÁGINA E ESTATÍSTICAS ============== */
+/* =================================================================== */
+.page-header .page-header-content h1 {
+	margin-bottom: 0.25rem;
+}
+
+.page-subtitle {
+	color: #6c757d;
+	font-size: 0.9rem;
+	margin-bottom: 0;
+}
+
+.lista-stats {
+	margin-bottom: 2rem;
+}
+
+.stat-card {
+	background: #fff;
+	border-radius: 12px;
+	padding: 1.5rem;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	border: 1px solid #f1f3f4;
+	transition: all 0.3s ease;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.stat-card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+	width: 50px;
+	height: 50px;
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.5rem;
+	color: white;
+	flex-shrink: 0;
+}
+
+.stat-icon.bg-primary {
+	background: linear-gradient(135deg, #007bff, #0056b3);
+}
+
+.stat-icon.bg-success {
+	background: linear-gradient(135deg, #28a745, #1e7e34);
+}
+
+.stat-icon.bg-warning {
+	background: linear-gradient(135deg, #ffc107, #d39e00);
+}
+
+.stat-icon.bg-info {
+	background: linear-gradient(135deg, #17a2b8, #117a8b);
+}
+
+.stat-content {
+	flex: 1;
+}
+
+.stat-number {
+	font-size: 2rem;
+	font-weight: 700;
+	margin-bottom: 0.25rem;
+	color: #2c3e50;
+}
+
+.stat-label {
+	font-size: 0.875rem;
+	color: #6c757d;
+	margin-bottom: 0;
+	font-weight: 500;
+}
+
+/* =================================================================== */
+/* ================ BARRA DE FILTROS APRIMORADA ===================== */
+/* =================================================================== */
+
+.filter-bar {
+	background: #fff;
+	border-radius: 16px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	border: 1px solid #f1f3f4;
+	padding: 0;
+	margin-bottom: 2rem;
+	overflow: hidden;
+}
+
+.filter-bar-header {
+	background: #fff;
+	padding: 1rem 1.5rem;
+	border-bottom: 1px solid #f1f3f4;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.filter-title {
+	font-weight: 600;
+	color: #495057;
+	font-size: 0.95rem;
+}
+
+.filter-controls {
+	padding: 1.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5rem;
+	align-items: end;
+}
+
+.search-wrapper {
+	flex: 1;
+	min-width: 250px;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.search-container {
+	position: relative;
+}
+
+.search-icon {
+	left: 12px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #6c757d;
+	z-index: 5;
+}
+
+.search-input {
+	padding-left: 3rem;
+	border-radius: 10px;
+	border: 2px solid #e9ecef;
+	transition: all 0.3s ease;
+}
+
+.search-input:focus {
+	border-color: var(--papi-orange);
+	box-shadow: 0 0 0 0.2rem rgba(249, 131, 3, 0.15);
+}
+
+.filter-actions {
+	display: flex;
+	align-items: end;
+}
+
+.btn-clear-filters {
+	border-radius: 8px;
+	padding: 0.5rem 1rem;
+	font-weight: 500;
+}
+
+.filter-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	min-width: 150px;
+}
+
+.filter-label {
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: #495057;
+	margin-bottom: 0;
+}
+
+.filter-select {
+	border-radius: 8px;
+	border: 2px solid #e9ecef;
+	transition: all 0.3s ease;
+}
+
+.filter-select:focus {
+	border-color: var(--papi-orange);
+	box-shadow: 0 0 0 0.2rem rgba(249, 131, 3, 0.15);
+}
+
+
+/* =================================================================== */
+/* ================ TABELA DE CONVITES APRIMORADA =================== */
+/* =================================================================== */
+
+#invites-page {
+	overflow-x: hidden;
+}
+
+.invites-table {
+	margin-bottom: 0;
+	width: 100%;
+	table-layout: fixed;
+	max-width: 100%;
+	word-wrap: break-word;
+}
+
+.invites-table thead th {
+	background: #f8f9fa;
+	color: #495057;
+	font-weight: 700;
+	font-size: 0.8rem;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	border: none;
+	padding: 1rem 0.75rem;
+	position: relative;
+	z-index: 1; 
+}
+
+.invites-table thead th i {
+	color: var(--papi-orange);
+	opacity: 0.8;
+}
+
+.client-col { width: 18%; }
+.email-col { width: 22%; }
+.count-col { width: 10%; }
+.event-col { width: 18%; }
+.date-col { width: 12%; }
+.actions-col { width: 10%; }
+
+.client-col,
+.email-col {
+	white-space: normal !important;
+}
+
+.count-col,
+.event-col,
+.date-col,
+.actions-col {
+	white-space: nowrap !important;
+}
+
+.invite-row {
+	transition: all 0.2s ease;
+	border-bottom: 1px solid #f1f3f4;
+}
+
+.invite-row:hover {
+	background-color: #fafbfc;
+}
+
+.invite-row:last-child {
+	border-bottom: none;
+}
+
+.invites-table tbody td {
+	padding: 1rem 0.75rem;
+	vertical-align: middle;
+	border: none;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.client-info {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.client-name {
+	color: #2c3e50;
+	font-weight: 600;
+	font-size: 0.95rem;
+	line-height: 1.2;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.client-email {
+	color: #6c757d;
+	font-size: 0.85rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.invite-count-badge {
+	background: rgba(13, 110, 253, 0.08);
+	color: #0d6efd;
+	padding: 0.25rem 0.5rem;
+	border-radius: 16px;
+	font-size: 0.8rem;
+	font-weight: 600;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 2rem;
+}
+
+.event-badge-table {
+	background: rgba(13, 110, 253, 0.08);
+	color: #0d6efd;
+	padding: 0.25rem 0.5rem;
+	border-radius: 16px;
+	font-size: 0.8rem;
+	font-weight: 500;
+    text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+}
+
+.date-display {
+	font-weight: 600;
+	color: #495057;
+	font-size: 0.9rem;
+}
+
+.time-display {
+	font-size: 0.8rem;
+	color: #6c757d;
+}
+
+.action-buttons {
+	display: flex;
+	justify-content: center;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.btn-action-icon {
+	width: 36px;
+	height: 36px;
+	font-size: 1rem;
+	border-radius: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #f8f9fa;
+	color: #495057;
+	border: 1px solid #dee2e6;
+	transition: all 0.2s ease-in-out;
+}
+.btn-action-icon:hover {
+	color: var(--papi-orange);
+	background-color: #fef7ed;
+	border-color: var(--papi-orange);
+	z-index: 1;
+}
+
+.invites-table .dropdown-menu {
+	border: none;
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+	border-radius: 12px;
+	padding: 0.5rem 0;
+	min-width: 200px;
+}
+
+.invites-table .dropdown-item {
+	padding: 0.75rem 1rem;
+	font-size: 0.9rem;
+	transition: all 0.2s ease;
+	display: flex;
+	align-items: center;
+}
+
+.invites-table .dropdown-item:hover {
+	background-color: #f8f9fa;
+	color: var(--papi-orange);
+}
+
+.invites-table .dropdown-item i {
+	color: #6c757d;
+	transition: color 0.2s ease;
+}
+
+.invites-table .dropdown-item:hover i {
+	color: var(--papi-orange);
+}
+
+.table-responsive.dropdown-visible {
+	overflow: visible !important;
+}
+
+.table-wrapper.dropdown-visible {
+	overflow: visible !important;
+}
+
+.invites-table tbody tr.dropdown-open {
+	position: relative;
+	z-index: 1055;
+}
+
+/* =================================================================== */
+/* ================ PAGINAÇÃO APRIMORADA ============================= */
+/* =================================================================== */
+
+.pagination-wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 2rem;
+	padding: 1.5rem;
+	background: #fff;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	border: 1px solid #f1f3f4;
+}
+
+.pagination-info {
+	display: flex;
+	align-items: center;
+}
+
+.pagination-text {
+	color: #6c757d;
+	font-size: 0.9rem;
+	font-weight: 500;
+}
+
+.pagination-controls {
+	display: flex;
+	align-items: center;
+}
+
+.custom-pagination {
+	margin-bottom: 0;
+}
+
+.custom-pagination .page-link {
+	border: 2px solid #f1f3f4;
+	color: #6c757d;
+	font-weight: 500;
+	padding: 0.5rem 0.75rem;
+	margin: 0 0.125rem;
+	border-radius: 8px;
+	transition: all 0.3s ease;
+}
+
+.custom-pagination .page-link:hover {
+	background-color: var(--papi-orange);
+	border-color: var(--papi-orange);
+	color: white;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 12px rgba(249, 131, 3, 0.3);
+}
+
+.custom-pagination .page-item.active .page-link {
+	background: linear-gradient(135deg, var(--papi-orange), #e07503);
+	border-color: var(--papi-orange);
+	color: white;
+	box-shadow: 0 4px 12px rgba(249, 131, 3, 0.3);
+}
+
+.custom-pagination .page-item.disabled .page-link {
+	background-color: #f8f9fa;
+	border-color: #f1f3f4;
+	color: #adb5bd;
+}
+

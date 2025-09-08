@@ -1,0 +1,168 @@
+﻿@model BixWeb.Models.Filial
+
+@{
+    ViewData["Title"] = "Editar Filial";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Filiais/editarFilial.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
+}
+
+<!-- Cabeçalho da Página -->
+<div class="form-page-header">
+    <a asp-action="Index" class="form-back-link">
+        <i class="bi bi-arrow-left-circle fs-2"></i>
+    </a>
+    <h1 class="form-page-title">Editar Filial</h1>
+</div>
+
+<!-- Formulário Principal -->
+<div class="form-main-card">
+    <form asp-action="Edit" enctype="multipart/form-data" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="codFilial" />
+        <input type="hidden" asp-for="codEndereco" />
+        <input type="hidden" asp-for="logoHome" />
+        <input type="hidden" asp-for="logoPDV" />
+
+        <div class="form-grid">
+            <!-- Coluna Principal -->
+            <div class="form-main-column">
+                <h2 class="form-section-title">Dados da Filial</h2>
+                <p class="form-section-subtitle">Atualize as informações de identificação e contato.</p>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label asp-for="nome" class="form-label">Nome</label>
+                        <input asp-for="nome" class="form-control" />
+                        <span asp-validation-for="nome" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="cnpj" class="form-label">CNPJ</label>
+                        <input asp-for="cnpj" class="form-control" />
+                        <span asp-validation-for="cnpj" class="text-danger"></span>
+                        <span class="text-danger cnpjInvalid"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="telefone" class="form-label">Telefone</label>
+                        <input asp-for="telefone" class="form-control" />
+                        <span asp-validation-for="telefone" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="email" class="form-label">Email</label>
+                        <input asp-for="email" class="form-control" />
+                        <span asp-validation-for="email" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-top">
+                    <h2 class="form-section-title">Endereço</h2>
+                    <p class="form-section-subtitle">Atualize a localização da filial.</p>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="Endereco.cep" class="form-label">CEP</label>
+                            <input asp-for="Endereco.cep" class="form-control" />
+                            <span asp-validation-for="Endereco.cep" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Endereco.estado" class="form-label">Estado</label>
+                            <input asp-for="Endereco.estado" class="form-control" />
+                            <span asp-validation-for="Endereco.estado" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Endereco.cidade" class="form-label">Cidade</label>
+                            <input asp-for="Endereco.cidade" class="form-control" />
+                            <span asp-validation-for="Endereco.cidade" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Endereco.bairro" class="form-label">Bairro</label>
+                            <input asp-for="Endereco.bairro" class="form-control" />
+                            <span asp-validation-for="Endereco.bairro" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Endereco.logradouro" class="form-label">Rua/Avenida</label>
+                            <input asp-for="Endereco.logradouro" class="form-control" />
+                            <span asp-validation-for="Endereco.logradouro" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Endereco.numeroendereco" class="form-label">Número</label>
+                            <input asp-for="Endereco.numeroendereco" class="form-control" />
+                            <span asp-validation-for="Endereco.numeroendereco" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna Lateral -->
+            <div class="form-side-column">
+                <h2 class="form-section-title">Logos</h2>
+                <div class="image-upload-group">
+                    <label class="form-label">Logo Principal</label>
+                    <div class="image-uploader" id="logoHomeUploader" style="background-image: url('@Model.logoHome')">
+                        <input type="file" name="Homelogo" accept="image/*" class="image-input" />
+                        <div class="uploader-content">
+                            <i class="bi bi-cloud-upload fs-1"></i>
+                            <span>Clique para enviar</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="image-upload-group">
+                    <label class="form-label">Logo para Cardápio</label>
+                    <div class="image-uploader" id="logoPdvUploader" style="background-image: url('@Model.logoPDV')">
+                        <input type="file" name="logoCardapio" accept="image/*" class="image-input" />
+                        <div class="uploader-content">
+                            <i class="bi bi-cloud-upload fs-1"></i>
+                            <span>Clique para enviar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="form-action-buttons">
+            <a asp-action="Index" class="btn btn-light">Cancelar</a>
+            <button type="submit" class="btn btn-primary d-flex align-items-center">
+                <i class="bi bi-check-circle me-2"></i>
+                Salvar Alterações
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Força atualização responsiva específica para esta página
+            if (window.forceResponsiveUpdate) {
+                window.forceResponsiveUpdate();
+            }
+            
+            function setupImageUploader(uploaderId) {
+                const uploader = document.getElementById(uploaderId);
+                const input = uploader.querySelector('.image-input');
+
+                input.addEventListener('change', function(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            uploader.style.backgroundImage = `url('${e.target.result}')`;
+                            uploader.classList.add('has-image');
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                });
+
+                if (uploader.style.backgroundImage && uploader.style.backgroundImage !== 'none') {
+                    uploader.classList.add('has-image');
+                }
+            }
+
+            setupImageUploader('logoHomeUploader');
+            setupImageUploader('logoPdvUploader');
+        });
+    </script>
+}

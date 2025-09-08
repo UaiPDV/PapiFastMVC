@@ -1,0 +1,68 @@
+﻿@model IEnumerable<BixWeb.Models.Preco>
+@using System.Globalization
+
+@if (Model == null || !Model.Any())
+{
+    <div class="text-center p-5">
+        <i class="bi bi-box-seam fs-1 text-muted"></i>
+        <h5 class="mt-3">Nenhum produto encontrado</h5>
+        <p class="text-muted">Não há produtos disponíveis para esta filial.</p>
+    </div>
+}
+else
+{
+    <!-- Barra de Pesquisa Simplificada para o Modal -->
+    <div class="p-3 border-bottom bg-light">
+        <div class="search-container position-relative">
+            <i class="bi bi-search search-icon"></i>
+            <input type="text" id="productSearchInputModal" class="form-control search-input" placeholder="Buscar por nome ou categoria..." />
+        </div>
+    </div>
+
+    <!-- Tabela de Produtos -->
+    <div class="modal-table-container">
+        <table class="table align-middle product-selection-table">
+            <thead>
+                <tr>
+                    <th class="text-center" style="width: 50px;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="selectAllProducts" title="Selecionar Todos"/>
+                        </div>
+                    </th>
+                    <th>Produto</th>
+                    <th class="text-end">Categoria</th>
+                    <th class="text-end">Preço</th>
+                </tr>
+            </thead>
+            <tbody class="fw-semibold text-gray-600">
+                @foreach (var preco in Model)
+                {
+                    <tr class="product-row">
+                        <td data-label="Selecionar" class="text-center">
+                            <div class="form-check">
+                                <input class="form-check-input product-checkbox" type="checkbox" value="@preco.codProduto">
+                            </div>
+                        </td>
+                        <td data-label="Produto">
+                            <div class="product-info-cell">
+                                <div class="product-image-wrapper">
+                                    <img src="@preco.Produto.imagem" class="product-image" alt="@preco.Produto.nomeProduto" onerror="this.onerror=null;this.src='https://placehold.co/50x50/EFEFEF/A8A8A8?text=Img';" />
+                                </div>
+                                <div class="product-details">
+                                    <span class="product-name">@preco.Produto.nomeProduto</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-label="Categoria" class="text-end product-category">
+                            @preco.Produto.Categoria.nome
+                        </td>
+                        <td data-label="Preço" class="text-end product-price">
+                             @string.Format(CultureInfo.GetCultureInfo("pt-BR"), "{0:C}", preco.valor)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+

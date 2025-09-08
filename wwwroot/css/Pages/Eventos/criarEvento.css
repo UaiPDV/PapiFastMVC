@@ -1,0 +1,126 @@
+/* =================================================================== */
+/* ================ ESTILOS ESPECÍFICOS PARA EVENTOS ================ */
+/* =================================================================== */
+
+/* --- Indicador de Status do Script --- */
+.script-status-indicator {
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background-color: #ef4444; /* Vermelho por padrão (erro) */
+	transition: background-color 0.3s ease;
+}
+
+.script-status-indicator.active {
+	background-color: #22c55e; /* Verde quando ativo */
+}
+
+/* --- Visibilidade da Seção de Ingressos --- */
+.ticket-config-section {
+	transition: all 0.4s ease-in-out;
+	overflow: hidden;
+	max-height: 1000px; /* Um valor alto para permitir a expansão */
+	opacity: 1;
+}
+
+.ticket-config-section.hidden {
+	max-height: 0;
+	opacity: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	border: none;
+}
+
+/* --- Seção de Lotes específica para eventos --- */
+.lotes-section {
+	margin-top: 1.5rem;
+	max-height: 400px; /* Altura máxima para ativar a rolagem */
+	overflow-y: auto; /* Barra de rolagem vertical quando necessário */
+	padding-right: 0.5rem; /* Espaço para a barra de rolagem */
+	border: 1px solid #e5e7eb;
+	border-radius: 0.5rem;
+	background-color: #fafafa;
+	padding: 1rem;
+}
+
+/* Estilização personalizada da barra de rolagem */
+.lotes-section::-webkit-scrollbar {
+	width: 8px;
+}
+
+.lotes-section::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	border-radius: 4px;
+}
+
+.lotes-section::-webkit-scrollbar-thumb {
+	background: #c1c1c1;
+	border-radius: 4px;
+}
+
+.lotes-section::-webkit-scrollbar-thumb:hover {
+	background: #a8a8a8;
+}
+
+.lote-item {
+	background-color: #ffffff;
+	border: 1px solid #e5e7eb;
+	border-radius: 0.5rem;
+	padding: 1.5rem;
+	margin-bottom: 1rem;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.lote-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+	padding-bottom: 0.75rem;
+	border-bottom: 1px solid #e5e7eb;
+}
+
+.lote-header h4 {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 600;
+	color: #1f2937;
+}
+
+.lote-item .form-fields {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1rem;
+}
+
+@media (min-width: 768px) {
+	.lote-item .form-fields {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+.lote-item .form-group.full-width {
+	grid-column: 1 / -1;
+}
+
+/* Estilo para quando há muitos lotes - adiciona indicador visual */
+.lotes-section.many-items {
+	border-color: #3b82f6;
+	background-color: #f8faff;
+}
+
+.lotes-section.many-items::before {
+	content: '📜 Role para ver todos os itens';
+	display: block;
+	text-align: center;
+	font-size: 0.875rem;
+	color: #6b7280;
+	margin-bottom: 1rem;
+	padding: 0.5rem;
+	background-color: #e0f2fe;
+	border-radius: 0.25rem;
+	border: 1px solid #b3e5fc;
+}

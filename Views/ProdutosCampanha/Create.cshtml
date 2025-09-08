@@ -1,0 +1,126 @@
+﻿@model BixWeb.Models.ProdutoCampanha
+
+@{
+    ViewData["Title"] = "Adicionar Produto à Campanha";
+    var codCampanha = ViewData["codCampanha"];
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/GlobalStyles.css" asp-append-version="true" />
+}
+
+<!-- Cabeçalho da Página de Formulário Padronizado -->
+<div class="form-page-header">
+    <a asp-action="Index" asp-route-id="@codCampanha" class="form-back-link">
+        <i class="bi bi-arrow-left-circle fs-2"></i>
+    </a>
+    <h1 class="form-page-title">@ViewData["Title"]</h1>
+</div>
+
+<!-- Card Principal do Formulário Padronizado -->
+<div class="form-main-card">
+    <form asp-action="Create" id="createForm">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="codCampanha" type="hidden" value="@codCampanha" />
+
+        <!-- Seção de Dados do Produto -->
+        <h2 class="form-section-title">Dados do Produto</h2>
+        <p class="form-section-subtitle">Selecione a categoria para filtrar e encontrar o produto, depois defina o valor promocional.</p>
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="Produto.Categoria.codCategoria" class="form-label required">Categoria do Produto</label>
+                <select asp-for="Produto.Categoria.codCategoria" class="form-select" asp-items="ViewBag.codCategoria" id="categoriaSelect">
+                    <option value="0">Selecione uma categoria</option>
+                </select>
+                <span asp-validation-for="Produto.Categoria.codCategoria" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="codProduto" class="form-label required">Produto</label>
+                <select asp-for="codProduto" class="form-select" asp-items="ViewBag.codProduto" id="produtoSelect">
+                    <option value="">Selecione um produto</option>
+                </select>
+                <span asp-validation-for="codProduto" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="valor" class="form-label required">Valor do produto (R$)</label>
+                <input asp-for="valor" class="form-control" placeholder="0,00" />
+                <span asp-validation-for="valor" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Botões de Ação Padronizados -->
+        <div class="form-action-buttons">
+            <a asp-action="Index" asp-route-id="@codCampanha" class="btn btn-light">Cancelar</a>
+            <button type="submit" class="btn btn-primary d-flex align-items-center">
+                <i class="bi bi-check-circle me-2"></i>
+                Adicionar
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Remove o atributo de validação numérica que pode causar problemas com formatos de moeda brasileiros
+            var inputs = document.querySelectorAll('input[data-val-number]');
+            inputs.forEach(function (input) {
+                input.removeAttribute('data-val-number');
+            });
+
+            const categoriaSelect = document.getElementById('categoriaSelect');
+            const produtoSelect = document.getElementById('produtoSelect');
+
+            if (categoriaSelect && produtoSelect) {
+                // Função para carregar produtos por categoria usando AJAX
+                function carregarProdutos(categoriaId) {
+                    if (categoriaId && categoriaId !== '0') {
+                        // Faz requisição AJAX para buscar produtos da categoria selecionada
+                        fetch('/ProdutosCampanha/GetProdutos?id=' + categoriaId)
+                            .then(response => response.json())
+                            .then(data => {
+                                // Limpa as opções existentes
+                                produtoSelect.innerHTML = '<option value="">Selecione um produto</option>';
+                                
+                                // Adiciona os novos produtos
+                                data.forEach(produto => {
+                                    const option = document.createElement('option');
+                                    option.value = produto.codProduto;
+                                    option.textContent = produto.nomeProduto;
+                                    produtoSelect.appendChild(option);
+                                });
+                                
+                                // Habilita o select de produtos
+                                produtoSelect.disabled = false;
+                            })
+                            .catch(error => {
+                                console.error('Erro ao carregar produtos:', error);
+                                produtoSelect.innerHTML = '<option value="">Erro ao carregar produtos</option>';
+                                produtoSelect.disabled = true;
+                            });
+                    } else {
+                        // Se nenhuma categoria selecionada, limpa e desabilita o select de produtos
+                        produtoSelect.innerHTML = '<option value="">Selecione um produto</option>';
+                        produtoSelect.disabled = true;
+                    }
+                }
+
+                // Evento para quando a categoria for alterada
+                categoriaSelect.addEventListener('change', function () {
+                    carregarProdutos(this.value);
+                });
+
+                // Verifica se há uma categoria pré-selecionada e carrega os produtos
+                if (categoriaSelect.value && categoriaSelect.value !== '0') {
+                    carregarProdutos(categoriaSelect.value);
+                } else {
+                    produtoSelect.disabled = true;
+                }
+            }
+        });
+    </script>
+}

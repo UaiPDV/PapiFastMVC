@@ -1,0 +1,240 @@
+/* Importando a fonte Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Container principal para centralizar o card */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 40px 20px; /* Adicionado padding vertical */
+    font-family: 'Poppins', sans-serif; /* Fonte aplicada aqui para não afetar o site todo */
+    box-sizing: border-box;
+}
+
+/* O card de cadastro branco */
+.register-card {
+    background-color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+}
+
+/* Estilo do logo */
+.register-card .logo {
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+.register-card h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.register-card .subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.register-card .subtitle a {
+    color: #f7941d;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.register-card .subtitle a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos do seletor de avatar */
+.avatar-upload {
+    position: relative;
+    margin: 0 auto 25px auto;
+    width: 120px;
+    height: 120px;
+}
+.avatar-preview img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #f0f2f5;
+}
+.avatar-edit {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    width: 34px;
+    height: 34px;
+    background: #f7941d;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px solid white;
+    transition: background-color 0.3s ease;
+}
+.avatar-edit:hover {
+    background-color: #e68a1b;
+}
+
+/* Estilos do formulário */
+.register-form .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.register-form .form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.register-form .input-group {
+    display: flex;
+    align-items: center;
+    background-color: #f0f2f5;
+    border: 1px solid #e0e6ed;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.register-form .input-group i {
+    color: #aaa;
+    transition: color 0.3s ease;
+    padding-left: 15px;
+    padding-right: 10px;
+}
+
+.register-form .form-control {
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    height: 46px; /* 48px - 2px da borda do pai */
+    padding-left: 0;
+    font-size: 14px;
+    width: 100%;
+    flex: 1;
+    box-sizing: border-box;
+}
+
+.register-form .form-control:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.register-form .input-group:focus-within {
+    background-color: #ffffff;
+    border-color: #f7941d;
+}
+
+.register-form .input-group:focus-within i {
+    color: #f7941d;
+}
+
+/* --- Correção para Autocomplete do Navegador --- */
+/* Força o fundo do input no estado normal (cinza) */
+.register-form input:-webkit-autofill,
+.register-form input:-webkit-autofill:hover,
+.register-form input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #f0f2f5 inset !important;
+    -webkit-text-fill-color: #333 !important;
+}
+
+/* Força o fundo do input no estado focado (branco) */
+.register-form .input-group:focus-within input:-webkit-autofill,
+.register-form .input-group:focus-within input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+    -webkit-text-fill-color: #333 !important;
+}
+
+
+/* Layout em duas colunas para alguns campos */
+.register-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Botões de ação */
+.register-form .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+/* Estilos de botão específicos para o formulário de cadastro */
+.register-form .btn {
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.register-form .btn-primary {
+    background-color: #f7941d;
+    color: #ffffff;
+}
+.register-form .btn-primary:hover {
+    background-color: #e68a1b;
+    color: #ffffff;
+}
+
+.register-form .btn-secondary {
+    background-color: #e9ecef;
+    color: #555;
+}
+.register-form .btn-secondary:hover {
+    background-color: #d8dde2;
+    color: #555;
+}
+
+/* Mensagens de validação */
+.register-form .text-danger {
+    font-size: 12px;
+    color: #dc3545;
+    text-align: left;
+    display: block;
+    margin-top: 4px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .register-card {
+        padding: 30px 20px;
+    }
+    
+    .register-form .form-row {
+        grid-template-columns: 1fr; /* Coluna única em telas menores */
+        gap: 0; /* Remove o gap para não ter espaço extra */
+    }
+
+    /* Adiciona margem inferior ao primeiro item da linha quando em coluna única */
+    .register-form .form-row .form-group:first-child {
+        margin-bottom: 20px;
+    }
+
+    .register-form .form-actions {
+        flex-direction: column-reverse; /* Inverte a ordem e empilha os botões */
+    }
+
+    .register-form .btn {
+        width: 100%;
+    }
+}
+

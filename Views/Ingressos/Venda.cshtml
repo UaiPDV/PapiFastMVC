@@ -1,0 +1,160 @@
+﻿@using System.Globalization
+@model BixWeb.Models.Ingresso
+@{
+    ViewData["Title"] = "Venda de Ingressos";
+    var precoFormatado = string.Format(CultureInfo.GetCultureInfo("pt-BR"), "{0:C}", Model.Lote.valorLote);
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/ingressos/venda.css" asp-append-version="true" />
+}
+
+<div id="ticket-sale-page">
+    <!-- Cabeçalho da Página -->
+    <div class="form-page-header">
+        <a asp-action="Lista" class="form-back-link">
+            <i class="bi bi-arrow-left-circle fs-2"></i>
+        </a>
+        <h1 class="form-page-title">Venda de Ingresso</h1>
+    </div>
+
+    <form asp-action="Venda" method="post">
+        <input type="hidden" name="quantidade" id="quantidade" value="1" />
+        <input type="hidden" name="lote" value="@Model.codLote" />
+        <input type="hidden" name="codEvento" value="@Model.Lote.codEvento" />
+        <input type="hidden" name="qtdMax" value="@ViewBag.qtdade" id="qtdMax" />
+
+        <div class="form-main-card">
+            <div class="sale-grid">
+                <!-- Coluna de Dados do Cliente -->
+                <div class="customer-data-column">
+                    <h2 class="form-section-title">Dados para o Recibo</h2>
+                    <p class="form-section-subtitle">Preencha as informações do comprador.</p>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label asp-for="ReciboIngresso.cpfCliente" class="form-label required">CPF:</label>
+                            <input class="form-control cpf" asp-for="ReciboIngresso.cpfCliente" maxlength="14" placeholder="000.000.000-00">
+                            <span asp-validation-for="ReciboIngresso.cpfCliente" class="text-danger"></span>
+                            <span class="text-danger cpfInvalid"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="ReciboIngresso.nomeCliente" class="form-label required">Nome Completo:</label>
+                            <input class="form-control" asp-for="ReciboIngresso.nomeCliente" placeholder="Nome do Cliente">
+                            <span asp-validation-for="ReciboIngresso.nomeCliente" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="ReciboIngresso.emailCliente" class="form-label required">Email:</label>
+                            <input class="form-control email" asp-for="ReciboIngresso.emailCliente" placeholder="email@exemplo.com">
+                            <span asp-validation-for="ReciboIngresso.emailCliente" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="ReciboIngresso.telefoneCliente" class="form-label">Telefone:</label>
+                            <input class="form-control" asp-for="ReciboIngresso.telefoneCliente" placeholder="(00) 00000-0000">
+                        </div>
+                    </div>
+                </div>
+                <!-- Coluna de Detalhes do Pedido -->
+                <div class="order-details-column">
+                    <h2 class="form-section-title">Detalhes do Pedido</h2>
+                    <div class="alert alert-warning d-flex align-items-center">
+                        <i class="bi bi-ticket-perforated-fill me-2"></i>
+                        <span>Ingressos disponíveis: <strong>@ViewBag.qtdade</strong></span>
+                    </div>
+
+                    <div class="product-summary">
+                        <div class="product-info">
+                            <img src="~/imagens/ingresso.png" alt="Ingresso" class="product-image" />
+                            <div>
+                                <div class="product-name">Ingresso - Lote @Model.Lote.numLote</div>
+                                <div class="product-event-date">Data: @Model.Lote.Evento.dataInicioEvento.ToString("dd/MM/yyyy")</div>
+                            </div>
+                        </div>
+                        <div class="quantity-selector">
+                            <button type="button" class="btn btn-icon btn-light" onclick="subtrair()">-</button>
+                            <span id="count-ingre">1</span>
+                            <button type="button" class="btn btn-icon btn-light" onclick="somar()">+</button>
+                        </div>
+                        <div class="price-info">
+                            <div id="valorTotal" class="total-price">@precoFormatado</div>
+                            <div id="valorUnitario" class="unit-price">@precoFormatado cada</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Botões de Ação -->
+            <div class="form-action-buttons">
+                <a href="@ViewBag.url" class="btn btn-light">Cancelar</a>
+                <button type="submit" id="submitBtn" class="btn btn-primary-action">
+                    <span class="indicator-label">Continuar Compra</span>
+                    <span class="indicator-progress" style="display:none;">
+                        Processando...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        const valorUnitario = @Model.Lote.valorLote.ToString(CultureInfo.InvariantCulture);
+        const qtdMax = parseInt(document.getElementById('qtdMax').value, 10);
+        const countElement = document.getElementById('count-ingre');
+        const valorTotalElement = document.getElementById('valorTotal');
+        const quantidadeInput = document.getElementById('quantidade');
+
+        function formatCurrency(value) {
+            return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        function atualizarTotal() {
+            let count = parseInt(countElement.innerText, 10);
+            valorTotalElement.innerText = formatCurrency(count * valorUnitario);
+            quantidadeInput.value = count;
+        }
+
+        function somar() {
+            let count = parseInt(countElement.innerText, 10);
+            if (count < qtdMax) {
+                count++;
+                countElement.innerText = count;
+                atualizarTotal();
+            }
+        }
+
+        function subtrair() {
+            let count = parseInt(countElement.innerText, 10);
+            if (count > 1) {
+                count--;
+                countElement.innerText = count;
+                atualizarTotal();
+            }
+        }
+
+        document.querySelector('form').addEventListener('submit', function () {
+            const btn = document.getElementById('submitBtn');
+            btn.querySelector('.indicator-label').style.display = 'none';
+            btn.querySelector('.indicator-progress').style.display = 'inline-block';
+            btn.disabled = true;
+        });
+
+        document.querySelector('.cpf').addEventListener('blur', function () {
+            const cpf = this.value;
+            if (cpf && cpf.length === 14) {
+                fetch(`../../Convites/VeryCPF/?cpf=${cpf}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('ReciboIngresso_nomeCliente').value = data.nome;
+                            document.getElementById('ReciboIngresso_emailCliente').value = data.email;
+                            document.getElementById('ReciboIngresso_telefoneCliente').value = data.telefone;
+                        }
+                    })
+                    .catch(error => console.error('Erro na verificação do CPF:', error));
+            }
+        });
+    </script>
+}
+

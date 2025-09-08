@@ -1,0 +1,101 @@
+﻿@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<BixWeb.Models.Presente>
+@{
+	ViewData["Title"] = "Presentes";
+}
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+	<!--begin::Content wrapper-->
+	<div class="d-flex flex-column flex-column-fluid">
+		<!--begin::Content-->
+		<div id="kt_app_content" class="app-content flex-column-fluid">
+			<!--begin::Content container-->
+			<div id="kt_app_content_container" class="app-container container-fluid">
+				<!--begin::Home card-->
+				<div class="card">
+					<!--begin::Body-->
+					<div class="card-body p-lg-10">
+						<!--begin::Latest posts-->
+						<div class="mb-15">
+							<!--begin::Title-->
+							<h3 class="text-gray-900 mb-7 text-center" style="font-size:2.0rem">Com base no perfil repassado recomendamos esses presentes:</h3>
+							<!--end::Title-->
+							<!--begin::Separator-->
+							<div class="separator separator-dashed mb-9"></div>
+							<!--end::Separator-->
+						</div>
+						<!--end::Latest posts-->
+						<div class="mb-17">
+							<!--begin::Row-->
+							<div class="row g-5 g-lg-10">
+								@foreach (var item in Model)
+								{
+
+									<!--begin::Col-->
+									<div class="col-md-4">
+										<!--begin::Hot sales post-->
+										<div class="card-xl-stretch me-md-6">
+											<!--begin::Overlay-->
+											<a class="d-block overlay" data-fslightbox="latest-posts" href="@item.Imagem">
+												<!--begin::Image-->
+												<div class="overlay-wrapper bgi-no-repeat bgi-position-center card-rounded min-h-175px" style="background-image:url('@item.Imagem');background-size:contain"></div>
+												<!--end::Image-->
+												<!--begin::Action-->
+												<div class="overlay-layer card-rounded bg-dark bg-opacity-25">
+													<i class="ki-duotone ki-eye fs-2x text-white">
+														<span class="path1"></span>
+														<span class="path2"></span>
+														<span class="path3"></span>
+													</i>
+												</div>
+												<!--end::Action-->
+											</a>
+											<!--end::Overlay-->
+											<!--begin::Body-->
+											<div class="mt-5">
+												<!--begin::Title-->
+												<div class="fs-4 text-gray-900 fw-bold text-hover-primary lh-base"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Nome</font></font></div>
+												<!--end::Title-->
+												<!--begin::Text-->
+												<div class="fw-semibold fs-5 text-gray-600 pt-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Descricao</font></font></div>
+												<!--end::Text-->
+												<!--begin::Footer-->
+												<div class="d-flex flex-stack flex-wrap pt-4 gap-2">
+													<!--begin::Label-->
+													<span class="rounded border border-dashed fs-2 fw-bold text-gray-900 py-1 px-2">
+														<span class="fs-6 fw-semibold text-gray-500"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">R$</font></font></span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> @item.Preco</font></font>
+													</span>
+													<!--end::Label-->
+													<!--begin::Action-->
+													<a asp-action="CriarPreferencia" asp-route-codConvite="@ViewBag.CodConvite" asp-route-codPresente="@item.codPresente" class="btn btn-sm btn-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Comprar</font></font></a>
+													<!--end::Action-->
+												</div>
+												<!--end::Footer-->
+											</div>
+											<!--end::Body-->
+										</div>
+										<!--end::Hot sales post-->
+									</div>
+									<!--end::Col-->
+								}
+							</div>
+							<!--end::Row-->
+						</div>
+						<div class="d-flex gap-2 justify-content-center py-5">
+							<a class="btn btn-success d-inline-flex align-items-center" href="/Eventos/BuscarPresente/@ViewBag.codConvite">
+								Buscar outras recomendações
+							</a>
+						</div>
+					</div>
+					<!--end::Body-->
+				</div>
+				<!--end::Home card-->
+			</div>
+			<!--end::Content container-->
+		</div>
+		<!--end::Content-->
+	</div>
+	<!--end::Content wrapper-->
+</div>
+
+
+

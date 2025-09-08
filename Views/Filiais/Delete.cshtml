@@ -1,0 +1,146 @@
+﻿@model BixWeb.Models.Filial
+
+@{
+    ViewData["Title"] = "Excluir Filial";
+}
+<h2 class="py-4 text-center">Excluir filial</h2>
+    <p class="error"></p>
+<div class="row g-5 bg-body-tertiary rounded-3 Container-Widht">
+    <div class="col-md-12 col-lg-11" style="margin:auto !important;">
+        <h4>Tem certeza de que deseja excluir @Model.nome</h4>
+        <dl class="row g-3">
+            <div class="col-sm-6">
+
+                <dt>
+                    CNPJ:
+                </dt>
+
+                <dd>
+                    @Model.cnpj
+                </dd>
+
+                <dt>
+                    Email:
+                </dt>
+
+                <dd>
+                    @Model.email
+                </dd>
+
+                <dt>
+                    Contato:
+                </dt>
+
+                <dd>
+                    @Model.telefone
+                </dd>
+                <dt>
+                    Total de produtos:
+                </dt>
+
+                <dd>
+                    @ViewBag.totalProdutos
+                </dd>
+            </div>
+            <div class="col-md-5">
+                <dt>
+                    Estado:
+                </dt>
+                <dd>
+                    @Model.Endereco.estado
+                </dd>
+                <dt>
+                    Cidade:
+                </dt>
+                <dd>
+                    @Model.Endereco.cidade
+                </dd>
+                <dt>
+                    CEP:
+                </dt>
+                <dd>
+                    @Model.Endereco.cep
+                </dd>
+                <dt>
+                    Bairro:
+                </dt>
+                <dd>
+                    @Model.Endereco.bairro
+                </dd>
+                <dt>
+                    Endereço:
+                </dt>
+                <dd>
+                    @Model.Endereco.logradouro, @Model.Endereco.numeroendereco
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
+    
+        <form class="form-actions no-color" action="/Filiais/Delete/13598" method="post">
+            <input type="hidden" data-val="true" data-val-required="The codFilial field is required." id="codFilial" name="codFilial" value="13598">
+            <a style="color: #1ba55a" href="/Filiais">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+                    <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"></path>
+                </svg>
+            </a> |
+            <input type="submit" value="Deletar" class="btn btn-danger">
+
+            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8NyGlD5qaH9Lm7pAPYI7pWjgEY5SLYr7lep8GPGCSpwgyMLpfe3qGmYLUEfFpR2P8dO4kPuEDqQjamoiIx0tqXQwcUGckY9D1GvwcuC94hXgzv1YbphIFGvqhi4LHhUTA0a-9iXPayFFBTg1zyjVEdWeHk_14qQ0DeU7m4b2imOBcM92BqddzHmUvhdmZTQ1qA">
+        </form>
+    <hr>
+<div>
+    <h4>Filial</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.nome)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.nome)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.cnpj)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.cnpj)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.telefone)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.telefone)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.logoHome)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.logoHome)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.logoPDV)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.logoPDV)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Endereco)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Endereco.codEndereco)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="codFilial" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

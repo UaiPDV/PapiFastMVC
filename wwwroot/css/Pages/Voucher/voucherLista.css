@@ -1,0 +1,26 @@
+/* Estilos específicos para a página de Lista de Vouchers */
+
+/* Herda a maior parte dos estilos do GlobalStyles.css */
+
+/* Badges de Status Específicos para Vouchers */
+.status-badge.status-not-used {
+	background-color: #d1fae5; /* green-100 */
+	color: #065f46; /* green-800 */
+}
+.status-badge.status-in-use {
+	background-color: #fef3c7; /* yellow-100 */
+	color: #92400e; /* yellow-800 */
+}
+.status-badge.status-disabled {
+	background-color: #fee2e2; /* red-100 */
+	color: #991b1b; /* red-800 */
+}
+
+/* Ajustes de coluna da tabela */
+.client-col { width: 25%; }
+.status-col { width: 12%; }
+.validity-col { width: 18%; }
+.voucher-col { width: 15%; }
+.value-col { width: 10%; }
+.total-value-col { width: 10%; }
+.actions-col { width: 10%; }

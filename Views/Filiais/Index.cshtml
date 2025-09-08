@@ -1,0 +1,216 @@
+﻿@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<BixWeb.Models.Filial>
+
+@{
+    ViewData["Title"] = "Gestão de Filiais";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Filiais/index.css" asp-append-version="true" />
+}
+
+<div id="branches-page">
+    @if (ViewData["filial"] != null)
+    {
+        <div class="text-center d-flex flex-column justify-content-center" style="height: 70vh;">
+            <h2 class="display-6 fw-bold mb-4">@ViewData["filial"]</h2>
+            <a asp-action="Create" class="btn btn-primary-action btn-lg px-4 gap-3">
+                <i class="bi bi-plus-circle me-2"></i>
+                Adicionar Filial
+            </a>
+        </div>
+    }
+    else
+    {
+        <!-- Cabeçalho da Página Padronizado -->
+        <div class="page-header">
+            <div class="page-header-content">
+                <h1>@ViewData["Title"]</h1>
+                <p class="page-subtitle">Gerencie todas as suas filiais cadastradas.</p>
+            </div>
+            <a asp-action="Create" class="btn btn-primary-action">
+                <i class="bi bi-plus-lg me-2"></i>
+                Adicionar Filial
+            </a>
+        </div>
+
+        <!-- Estatísticas das Filiais -->
+        <div class="branches-stats mb-4">
+            <div class="row g-3">
+                <div class="col-md-4 col-12">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-primary">
+                            <i class="bi bi-shop-window"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.TotalItemCount</div>
+                            <div class="stat-label">Total de Filiais</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-success">
+                            <i class="bi bi-box-seam"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">@Model.Sum(f => f.precos?.Count() ?? 0)</div>
+                            <div class="stat-label">Total de Produtos</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-info">
+                            <i class="bi bi-person-check-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            @* <div class="stat-number">@Model.Sum(f => f.Usuariofilial?.Count() ?? 0)</div> *@
+                            <div class="stat-label">Usuários Vinculados</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="filter-bar">
+            <div class="filter-bar-header">
+                 <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-funnel text-muted"></i>
+                    <span class="filter-title">Filtros e Pesquisa</span>
+                </div>
+            </div>
+             <div class="filter-controls">
+                <form method="post" class="search-wrapper">
+                    <label class="filter-label">Pesquisar Filial</label>
+                    <div class="search-container">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" name="SearchString" placeholder="Buscar por nome ou CNPJ..." class="form-control search-input" value="@ViewBag.CurrentFilter" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Grade de Cards -->
+        <div class="card-grid">
+            @foreach (var filial in Model)
+            {
+                <div class="branch-card">
+                    <div class="card-header">
+                        <img src="@filial.logoHome" onerror="this.onerror=null; this.src='https://placehold.co/100x100/f98303/FFFFFF?text=Logo';" class="branch-logo" alt="Logo da Filial">
+                        <div class="branch-header-info">
+                            <h3 class="branch-name">@filial.nome</h3>
+                            <p class="branch-cnpj">@filial.cnpj</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="branch-info-item">
+                            <i class="bi bi-telephone-fill"></i>
+                            <span>@filial.telefone</span>
+                        </div>
+                        <div class="branch-info-item">
+                            <i class="bi bi-envelope-fill"></i>
+                            <span>@filial.email</span>
+                        </div>
+                        <div class="branch-info-item">
+                            <i class="bi bi-box-seam-fill"></i>
+                            <span>@filial.precos.Count() produtos cadastrados</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-actions">
+                            <a asp-controller="Precos" asp-action="Index" asp-route-id="@filial.codFilial" class="btn btn-action-icon" title="Ver Produtos">
+                                <i class="bi bi-cart3"></i>
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@filial.codFilial" class="btn btn-action-icon" title="Editar Filial">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <button class="btn btn-action-icon btn-action-danger" title="Excluir Filial" data-id="@filial.codFilial" id="deleteBtn-@filial.codFilial">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Paginação -->
+        @if (Model != null && Model.PageCount > 1)
+        {
+            <div class="pagination-wrapper">
+                 <div class="pagination-info">
+                    <span class="pagination-text">
+                        Mostrando @((Model.PageNumber - 1) * Model.PageSize + 1) até @(Math.Min(Model.PageNumber * Model.PageSize, Model.TotalItemCount)) de @Model.TotalItemCount filiais
+                    </span>
+                </div>
+                <div class="pagination-controls">
+                     @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+                     {
+                         UlElementClasses = new[] { "pagination", "custom-pagination" },
+                         LiElementClasses = new[] { "page-item" },
+                         PageClasses = new[] { "page-link" },
+                         ActiveLiElementClass = "active"
+                     })
+                </div>
+            </div>
+        }
+    }
+</div>
+
+<!-- Modal de Exclusão -->
+<div id="delete-popup" class="popup-confirm">
+    <div class="popup-confirm-content">
+        <div class="popup-icon">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+        </div>
+        <h4 class="popup-title">Confirmar Exclusão</h4>
+        <p class="popup-message">Tem certeza que deseja excluir esta filial?</p>
+        <p class="popup-warning">Esta ação não pode ser desfeita.</p>
+        <div class="popup-actions">
+            <button class="btn btn-outline-secondary popup-btn-cancel" id="cancelBtn">
+                <i class="bi bi-x-lg me-2"></i>Cancelar
+            </button>
+            <button class="btn btn-danger popup-btn-confirm" id="confirmDeleteBtn">
+                <i class="bi bi-trash3-fill me-2"></i>Sim, excluir
+            </button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Funções do Modal de Exclusão
+            const deletePopup = document.getElementById('delete-popup');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+            let filialIdToDelete = null;
+
+            function openDeletePopup(id) {
+                filialIdToDelete = id;
+                deletePopup.style.display = 'flex';
+            }
+
+            function closeDeletePopup() {
+                filialIdToDelete = null;
+                deletePopup.style.display = 'none';
+            }
+
+            function deletarFilial() {
+                if (filialIdToDelete) {
+                    console.log("Deletando filial com ID:", filialIdToDelete);
+                    // Adicionar lógica de exclusão aqui (ex: fetch para a API)
+                    closeDeletePopup();
+                }
+            }
+
+            document.querySelectorAll('[id^="deleteBtn-"]').forEach(btn => {
+                btn.addEventListener('click', () => openDeletePopup(btn.dataset.id));
+            });
+
+            cancelBtn.addEventListener('click', closeDeletePopup);
+            confirmDeleteBtn.addEventListener('click', deletarFilial);
+        });
+    </script>
+}

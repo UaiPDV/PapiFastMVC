@@ -1,0 +1,191 @@
+﻿@model BixWeb.Models.Voucher
+
+@{
+    ViewData["Title"] = "Criar Voucher";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Voucher/criarVoucher.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+}
+
+<!-- Cabeçalho da Página -->
+<div class="form-page-header">
+    <a asp-action="Index" class="form-back-link">
+        <i class="bi bi-arrow-left-circle fs-2"></i>
+    </a>
+    <h1 class="form-page-title">Cadastrar Voucher</h1>
+</div>
+
+<!-- Formulário Principal -->
+<div class="form-main-card">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="codCliente" type="hidden" />
+        <input asp-for="Cliente.password" type="hidden" value="11" />
+
+        <h2 class="form-section-title">Preencha os dados para cadastrar um voucher!</h2>
+        <p class="form-section-subtitle">Recomendamos cadastrar os dados do cliente no voucher.</p>
+
+        <div class="form-fields">
+                <!-- Dados do Cliente -->
+                <div class="form-group">
+                    <label asp-for="Cliente.cpf" class="form-label">CPF do cliente:</label>
+                    <input type="text" asp-for="Cliente.cpf" maxlength="14" placeholder="000.000.000-00" class="form-control cpf" onblur="verificarCpf(this.value)" />
+                    <span asp-validation-for="Cliente.cpf" class="text-danger"></span>
+                    <span class="text-danger cpfInvalid"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cliente.telefone" class="form-label">Contato do cliente:</label>
+                    <input asp-for="Cliente.telefone" class="form-control telefone" placeholder="(00) 00000-0000" />
+                    <span asp-validation-for="Cliente.telefone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cliente.nome" class="form-label">Nome:</label>
+                    <input asp-for="Cliente.nome" type="text" class="form-control" />
+                    <span asp-validation-for="Cliente.nome" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cliente.email" class="form-label">Email:</label>
+                    <input asp-for="Cliente.email" type="email" class="form-control" />
+                    <span asp-validation-for="Cliente.email" class="text-danger"></span>
+                </div>
+
+                <!-- Dados do Voucher -->
+                <div class="form-group">
+                    <label asp-for="codFilial" class="form-label required">Filial</label>
+                    <select asp-for="codFilial" class="form-select" asp-items="ViewBag.codFilial">
+                        <option value="">Selecione uma Filial</option>
+                    </select>
+                    <span asp-validation-for="codFilial" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="codCampanha" class="form-label">Campanha (opcional):</label>
+                    <select asp-for="codCampanha" class="form-select" asp-items="ViewBag.codCampanha" disabled>
+                        <option value="">Selecione uma filial primeiro</option>
+                    </select>
+                    <span asp-validation-for="codCampanha" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="validadeVoucher" class="form-label required">Data de validade:</label>
+                    <input asp-for="validadeVoucher" type="datetime-local" class="form-control" />
+                    <span asp-validation-for="validadeVoucher" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="valorOriginal" class="form-label required">Valor (R$):</label>
+                    <input asp-for="valorOriginal" type="number" step="0.01" min="0" class="form-control" placeholder="100.00" />
+                    <span asp-validation-for="valorOriginal" class="text-danger"></span>
+                </div>
+                
+                <!-- Switch para Uso Exclusivo -->
+                <div class="form-group form-switch-container">
+                    <label for="usoExclusivo" class="form-switch-wrapper">
+                        <div class="form-switch-info">
+                            <span class="form-switch-title">Uso Exclusivo</span>
+                            <p class="form-switch-description">Marque para restringir o voucher apenas ao cliente cadastrado.</p>
+                        </div>
+                        <div class="form-toggle-switch">
+                            <input type="checkbox" id="usoExclusivo" name="usoExclusivo" value="true" role="switch">
+                            <span class="form-toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+        <!-- Botões de Ação -->
+        <div class="form-action-buttons">
+            <a asp-action="Index" class="btn btn-light">Cancelar</a>
+            <button type="submit" class="btn btn-primary d-flex align-items-center">
+                <i class="bi bi-check-circle me-2"></i>
+                Cadastrar
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Força atualização responsiva específica para esta página
+            if (window.forceResponsiveUpdate) {
+                window.forceResponsiveUpdate();
+            }
+            
+            // Monitora mudanças de tamanho de tela específicamente para o grid de formulário
+            function updateFormGrid() {
+                const formFields = document.querySelector('.form-fields');
+                if (formFields) {
+                    const isMobile = window.innerWidth < 768;
+                    if (isMobile) {
+                        formFields.style.gridTemplateColumns = '1fr';
+                    } else {
+                        formFields.style.gridTemplateColumns = '1fr 1fr';
+                    }
+                }
+            }
+            
+            // Atualiza grid na inicialização
+            updateFormGrid();
+            
+            // Monitora redimensionamento
+            window.addEventListener('resize', updateFormGrid);
+            window.addEventListener('orientationchange', function() {
+                setTimeout(updateFormGrid, 300);
+            });
+            
+            // Lógica para carregar campanhas dinamicamente
+            const filialSelect = document.getElementById('codFilial');
+            if (filialSelect) {
+                filialSelect.addEventListener('change', function () {
+                    const filialId = this.value;
+                    const campanhaSelect = document.getElementById('codCampanha');
+                    
+                    campanhaSelect.innerHTML = '<option value="">Carregando...</option>';
+                    campanhaSelect.disabled = true;
+
+                    if (!filialId) {
+                        campanhaSelect.innerHTML = '<option value="">Selecione uma filial primeiro</option>';
+                        return;
+                    }
+
+                    fetch(`/Cupons/ListaCampanhas/${filialId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            campanhaSelect.innerHTML = '<option value="">Nenhuma (voucher avulso)</option>';
+                            if (data && data.length > 0) {
+                                data.forEach(item => {
+                                    const option = new Option(item.nomeCampanha, item.codCampanha);
+                                    campanhaSelect.add(option);
+                                });
+                            }
+                            campanhaSelect.disabled = false;
+                        })
+                        .catch(error => {
+                            console.error('Erro ao buscar campanhas:', error);
+                            campanhaSelect.innerHTML = '<option value="">Erro ao carregar</option>';
+                        });
+                });
+            }
+        });
+
+        // Função para verificar CPF (mantida da sua implementação)
+        function verificarCpf(cpf) {
+            if (cpf && cpf.length === 14) { // Verifica se o CPF tem o tamanho correto
+                fetch(`/Convites/VeryCPF/?cpf=${cpf}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('Cliente_nome').value = data.nome;
+                            document.getElementById('Cliente_email').value = data.email;
+                            document.getElementById('Cliente_telefone').value = data.telefone;
+                            document.getElementById('codCliente').value = data.codCliente;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro na verificação do CPF:', error);
+                    });
+            }
+        }
+    </script>
+}

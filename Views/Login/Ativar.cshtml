@@ -1,0 +1,45 @@
+﻿@model BixWeb.ViewModel.Ativar
+@{
+    ViewBag.Title = "Ativar Conta";
+}
+<form asp-action="Ativar" class="form-signin w-100 m-auto">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input asp-for="codFilial" type="hidden" value="@ViewBag.codFilial" />
+    <input asp-for="codUsuario" type="hidden" value="@ViewBag.codUsuario" />
+    <img class="rounded mx-auto mb-7 d-block" src="/imagens/Logo2.png" alt="" width="250">
+    @if (ViewBag.sucesso!=null)
+    {
+        <h1 class="text-gray-900 text-center">Conta ativada com sucesso!</h1>
+        <div class="text-gray-500 py-5 text-center fw-semibold fs-4">
+            @ViewBag.sucesso
+        </div>
+        <a asp-action="Index" class="btn btn-success w-100">Acessar Conta</a>
+    }
+    else
+    {
+        <h1 class="h3 mb-3 text-center">Ative sua conta.</h1>
+        <div class="form-floating">
+            <input asp-for="senha" class="form-control" placeholder="Senha" id="floatingInput">
+            <label asp-for="senha">Digite a Senha</label>
+        </div>
+        <div class="form-floating">
+            <input asp-for="confirmarSenha" class="form-control" id="floatingPassword" placeholder="Confirmar Senha" />
+            <label asp-for="confirmarSenha">Cofirmar Senha</label>
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="text-danger">
+            <span asp-validation-for="senha" class="text-danger"></span>
+            <span asp-validation-for="confirmarSenha" class="text-danger"></span>
+            <h5>@ViewBag.LogoOff</h5>
+        </div>
+        <button class="btn btn-success w-100 py-2" type="submit">Salvar</button>
+    }
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+

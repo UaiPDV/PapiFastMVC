@@ -1,0 +1,167 @@
+@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<BixWeb.Models.Cupom>
+
+@{
+	ViewData["Title"] = "Cupons";
+}
+
+<h1 class="py-img text-center">Cupons Cadastrados</h1>
+@if (ViewData["cupom"] != null)
+{
+	<div class="text-center py-img" style="height:550px">
+		<h2 class="display-6 fw-bold text-body-emphasis" style="margin-bottom:2rem !important">@ViewData["cupom"]</h2>
+	</div>
+}
+else
+{
+	<div class="d-flex flex-column flex-column-fluid" style=" width: 1200px;margin: auto;">
+		<!--begin::Content-->
+		<div id="kt_app_content" class="app-content flex-column-fluid">
+			<!--begin::Content container-->
+			<div id="kt_app_content_container" class="app-container container-fluid">
+				<!--begin::Products-->
+				<div class="card card-flush">
+					<!--begin::Card header-->
+					<div class="card-header align-items-center py-5 gap-2 gap-md-5">
+						<!--begin::Card title-->
+						<div class="card-title">
+							<!--begin::Search-->
+							<form method="post" class="d-flex align-items-center position-relative my-1">
+								<i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+									<span class="path1"></span>
+									<span class="path2"></span>
+								</i>
+								<input type="text" name="SearchString" data-kt-ecommerce-product-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="Buscar Ingresso...">
+							</form>
+							<!--end::Search-->
+							<!--begin::Export buttons-->
+							<div id="kt_ecommerce_report_shipping_export" class="d-none"><div class="dt-buttons btn-group flex-wrap">      <button class="btn btn-secondary buttons-copy buttons-html5" tabindex="0" aria-controls="kt_ecommerce_report_shipping_table" type="button"><span>Copy</span></button> <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0" aria-controls="kt_ecommerce_report_shipping_table" type="button"><span>Excel</span></button> <button class="btn btn-secondary buttons-csv buttons-html5" tabindex="0" aria-controls="kt_ecommerce_report_shipping_table" type="button"><span>CSV</span></button> <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0" aria-controls="kt_ecommerce_report_shipping_table" type="button"><span>PDF</span></button> </div></div>
+							<!--end::Export buttons-->
+						</div>
+						<!--end::Card title-->
+						<!--begin::Card toolbar-->
+						<div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+							<!--begin::Daterangepicker-->
+							<input class="form-control form-control-solid w-100 mw-250px" placeholder="Pick date range" id="kt_ecommerce_report_shipping_daterangepicker">
+							<!--end::Daterangepicker-->
+							<!--begin::Filter-->
+							@*<div class="w-150px">
+						<!--begin::select2-->
+						<select class="form-select form-select-solid select2-hidden-accessible" data-control="select2" data-hide-search="true" data-placeholder="status" data-kt-ecommerce-order-filter="status" data-select2-id="select2-data-10-ayrf" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
+						<option data-select2-id="select2-data-12-jdrp"></option>
+						<option value="all">all</option>
+						<option value="completed">completed</option>
+						<option value="in transit">in transit</option>
+						<option value="pending">pending</option>
+						<option value="cancelled">cancelled</option>
+						</select><span class="select2 select2-container select2-container--bootstrap5" dir="ltr" data-select2-id="select2-data-11-y17j" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single form-select form-select-solid" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-fkn0-container" aria-controls="select2-fkn0-container"><span class="select2-selection__rendered" id="select2-fkn0-container" role="textbox" aria-readonly="true" title="status"><span class="select2-selection__placeholder">status</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+						<!--end::select2-->
+						</div>*@
+							<!--end::Filter-->
+							
+						</div>
+						<!--end::Card toolbar-->
+					</div>
+					<!--end::Card header-->
+					<!--begin::Card body-->
+					<div class="card-body pt-0">
+						<!--begin::Table-->
+						<div id="kt_ecommerce_report_shipping_table_wrapper" class="dt-container dt-bootstrap5 dt-empty-footer">
+							<div id="" class="table-responsive">
+								<table class="table align-middle table-row-dashed fs-6 gy-5 dataTable" id="kt_ecommerce_report_shipping_table" style="width: 1099.1px;">
+									<colgroup><col data-dt-column="0" style="width: 170.438px;"><col data-dt-column="1" style="width: 236.338px;"><col data-dt-column="2" style="width: 206.75px;"><col data-dt-column="3" style="width: 170.438px;"><col data-dt-column="4" style="width: 144.663px;"><col data-dt-column="5" style="width: 170.475px;"></colgroup>
+									<thead>
+										<tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0" role="row">
+											<th class="min-w-100px dt-orderable-asc dt-orderable-desc" data-dt-column="0" rowspan="1" colspan="1" aria-label="Date: Activate to sort" tabindex="0"><span class="dt-column-title" role="button">Validade</span><span class="dt-column-order"></span></th>
+											<th class="min-w-100px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1" aria-label="Shipping Type: Activate to sort" tabindex="0"><span class="dt-column-title" role="button">Cliente</span><span class="dt-column-order"></span></th>
+											<th class="min-w-100px dt-orderable-asc dt-orderable-desc" data-dt-column="2" rowspan="1" colspan="1" aria-label="Shipping ID: Activate to sort" tabindex="0"><span class="dt-column-title" role="button">Token</span><span class="dt-column-order"></span></th>
+											<th class="min-w-100px dt-orderable-asc dt-orderable-desc" data-dt-column="3" rowspan="1" colspan="1" aria-label="Status: Activate to sort" tabindex="0"><span class="dt-column-title" role="button">Status</span><span class="dt-column-order"></span></th>
+											<th class="text-end min-w-75px dt-type-numeric dt-orderable-asc dt-orderable-desc" data-dt-column="4" rowspan="1" colspan="1" aria-label="No. Orders: Activate to sort" tabindex="0"><span class="dt-column-title" role="button">Produtos</span><span class="dt-column-order"></span></th>
+											<th class="text-end min-w-100px dt-type-numeric dt-orderable-asc dt-orderable-desc" data-dt-column="5" rowspan="1" colspan="1" aria-label="Total: Activate to sort" tabindex="0"><span class="dt-column-title" role="button">Desconto</span><span class="dt-column-order"></span></th>
+										</tr>
+									</thead>
+									<tbody class="fw-semibold text-gray-600">
+										@foreach (var item in Model)
+										{
+											<tr>
+												<td data-order="@item.validadeCupom">@item.validadeCupom.ToString("dd/MM/yyyy HH:mm")</td>
+
+												@if (item.codcliente != null || item.codcliente > 0)
+												{
+													<td>
+														@item.usuario.nome
+													</td>
+												}
+												else
+												{
+													<td>
+														-------------
+													</td>
+												}
+												<td>
+													<label class="text-gray-900 text-hover-primary">#@item.tokenCupom </label>
+												</td>
+												<td>
+													@if (item.statusCupom == false)
+													{
+														<div class="badge badge-light-danger">Expirado</div>
+													}
+													else if (item.usadoCupom)
+													{
+														<div class="badge badge-light-danger">Já utilizado</div>
+													}
+													else if (item.codcliente != null || item.codcliente > 0)
+													{
+														<div class="badge badge-light-warning">Em uso</div>
+													}
+													else if (item.usadoCupom == false)
+													{
+														<div class="badge badge-light-success">Dísponivel</div>
+													}
+												</td>
+												<td class="text-end pe-0 dt-type-numeric">@item.produtos</td>
+												<td class="text-end dt-type-numeric">@item.descontoCupom%</td>
+											</tr>
+										}
+									</tbody>
+									<tfoot></tfoot>
+								</table>
+							</div>
+							<div id="" class="row">
+								<div id="" class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start dt-toolbar">
+									<div>
+										<select name="kt_ecommerce_products_table_length" aria-controls="kt_ecommerce_products_table" class="form-select form-select-solid form-select-sm" id="dt-length-0">
+											<option value="10">10</option>
+											<option value="25">25</option>
+											<option value="50">50</option>
+											<option value="100">100</option>
+										</select>
+										<label for="dt-length-0"></label>
+									</div>
+								</div>
+								<div id="" class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
+
+									@Html.PagedListPager(Model, page => Url.Action("Index",
+																		new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+																		new PagedListRenderOptions
+								{
+									ContainerDivClasses = new[] { "dt-paging paging_simple_numbers" },
+									LiElementClasses = new[] { "dt-paging-button page-item" }, // Exemplo de classe Bootstrap
+									PageClasses = new[] { "page-link" }
+								})
+								</div>
+							</div>
+						</div>
+						<!--end::Table-->
+					</div>
+					<!--end::Card body-->
+				</div>
+				<!--end::Products-->
+			</div>
+			<!--end::Content container-->
+		</div>
+		<!--end::Content-->
+	</div>
+}
+
+

@@ -1,0 +1,161 @@
+/* --- Estilos Específicos para a página de Convites --- */
+
+/* =================================================================== */
+/* ================ CABEÇALHO DA PÁGINA E ESTATÍSTICAS ============== */
+/* =================================================================== */
+
+.btn-create-invite {
+	background: linear-gradient(135deg, var(--papi-orange), #e07503);
+	border: none;
+	padding: 0.75rem 1.5rem;
+	font-weight: 600;
+	border-radius: 10px;
+	box-shadow: 0 4px 12px rgba(249, 131, 3, 0.3);
+	transition: all 0.3s ease;
+}
+
+.btn-create-invite:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(249, 131, 3, 0.4);
+	background: linear-gradient(135deg, #e07503, #d16a03);
+}
+
+/* =================================================================== */
+/* ================ TABELA DE CONVITES APRIMORADA =================== */
+/* =================================================================== */
+
+.invites-table {
+	margin-bottom: 0;
+	width: 100%;
+	table-layout: fixed;
+	max-width: 100%;
+	word-wrap: break-word;
+}
+
+.invites-table thead th {
+	background: #f8f9fa;
+	color: #495057;
+	font-weight: 700;
+	font-size: 0.8rem;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	border: none;
+	padding: 1rem 0.75rem;
+}
+
+.invites-table thead th i {
+	color: var(--papi-orange);
+	opacity: 0.8;
+}
+
+/* Larguras das colunas otimizadas */
+.client-col {
+	width: 18%;
+}
+.email-col {
+	width: 22%;
+}
+.count-col {
+	width: 8%;
+}
+.event-col {
+	width: 18%;
+}
+.status-col {
+	width: 12%;
+}
+.date-col {
+	width: 12%;
+}
+.actions-col {
+	width: 10%;
+}
+
+.invite-row {
+	transition: all 0.2s ease;
+	border-bottom: 1px solid #f1f3f4;
+}
+
+.invite-row:hover {
+	background-color: #fafbfc;
+}
+
+.invite-row:last-child {
+	border-bottom: none;
+}
+
+.invites-table tbody td {
+	padding: 1rem 0.75rem;
+	vertical-align: middle;
+	border: none;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.client-name {
+	font-size: 0.95rem;
+}
+
+.client-email {
+	font-size: 0.85rem;
+}
+
+.invite-count-badge {
+	background: rgba(13, 110, 253, 0.08);
+	color: #0d6efd;
+	padding: 0.25rem 0.5rem;
+	border-radius: 16px;
+	font-size: 0.8rem;
+	font-weight: 600;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 2rem;
+}
+
+.event-badge-table {
+	background: rgba(13, 110, 253, 0.08);
+	color: #0d6efd;
+	padding: 0.25rem 0.5rem;
+	border-radius: 16px;
+	font-size: 0.8rem;
+	font-weight: 500;
+	display: inline-flex;
+	align-items: center;
+}
+
+.date-display {
+	font-weight: 600;
+	color: #495057;
+	font-size: 0.9rem;
+}
+
+.time-display {
+	font-size: 0.8rem;
+	color: #6c757d;
+}
+
+/* =================================================================== */
+/* ================ RESPONSIVIDADE ================================== */
+/* =================================================================== */
+
+@media (max-width: 767.98px) {
+	.invite-row {
+		padding: 0;
+	}
+
+	.invites-table tbody td {
+		padding: 0.75rem 1rem;
+		border-bottom: 1px solid #f1f3f4;
+	}
+
+	.invite-actions-cell:before {
+		content: '';
+	}
+
+	.action-buttons {
+		justify-content: flex-start;
+		margin-top: 0.5rem;
+	}
+}

@@ -1,0 +1,8 @@
+/* Estilo para a barra de rolagem da lista de produtos */
+.product-list-scroll {
+	max-height: 500px; /* Altura máxima da lista antes da rolagem aparecer */
+	overflow-y: auto; /* Habilita a barra de rolagem vertical quando necessário */
+	padding-right: 10px; /* Evita que a barra de rolagem sobreponha o conteúdo */
+	border: 1px solid #dee2e6; /* Adiciona uma borda sutil */
+	border-radius: 0.375rem; /* Bordas arredondadas como os inputs do Bootstrap */
+}

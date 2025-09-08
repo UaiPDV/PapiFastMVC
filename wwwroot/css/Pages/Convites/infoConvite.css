@@ -1,0 +1,103 @@
+/* --- Estilos para a página de Detalhes do Convite --- */
+
+/* Cor primária customizada (Laranja Papi Fast) */
+:root {
+    --papi-orange: #f98303;
+}
+
+/* Estilo para o cabeçalho da página e ícone de voltar */
+.page-header-icon {
+    color: #6c757d;
+    transition: color 0.2s ease-in-out;
+}
+
+.page-header-icon:hover {
+    color: var(--papi-orange);
+}
+
+/* Estilo para os campos de formulário desabilitados */
+.form-control:disabled, .form-control[readonly] {
+    background-color: #f8f9fa; /* Um cinza bem claro */
+    opacity: 1;
+    border: 1px solid #e9ecef;
+}
+
+/* Preview da Imagem */
+.image-preview-box {
+    width: 100%;
+    max-width: 280px;
+    height: 336px;
+    background-color: #f1f3f5;
+    border: 2px dashed #dee2e6;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.image-preview-box i {
+    font-size: 4rem;
+    color: #ced4da;
+}
+
+/* Tabela de Convidados */
+.guest-list-wrapper {
+    background-color: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    border: 1px solid #ecebeb;
+}
+
+.guest-list-wrapper .table {
+    margin-bottom: 0;
+}
+
+.guest-list-wrapper th {
+    text-transform: uppercase;
+    background-color: #f9fafb;
+    color: #585858;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border: none;
+    padding: 1rem 1.5rem;
+}
+
+.guest-list-wrapper td {
+    border-top: 1px solid #eff2f5;
+    padding: 1rem 1.5rem;
+    vertical-align: middle;
+    color: #3f4254;
+}
+
+.guest-list-wrapper tbody tr:first-child td {
+    border-top: none;
+}
+
+/* Badges de Status */
+.status-badge {
+    padding: 0.4em 0.8em;
+    font-size: 0.75rem;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.status-badge-confirmed {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #1e7e34;
+}
+
+.status-badge-waiting {
+    background-color: rgba(248, 188, 31, 0.2);
+    color: #b08000;
+}
+
+.status-badge-declined {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}

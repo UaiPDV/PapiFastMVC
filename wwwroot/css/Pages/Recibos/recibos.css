@@ -1,0 +1,137 @@
+/* =================================================================== */
+/* ============= ESTILOS UNIFICADOS PARA PÁGINAS DE RECIBOS ========== */
+/* =================================================================== */
+
+/* --- Layout Geral da Página --- */
+.receipts-page {
+    padding: 1rem 0;
+}
+
+/* --- Estatísticas --- */
+.receipt-stats {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .receipt-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.stat-card-receipts {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--papi-border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-title {
+    font-weight: 600;
+    color: var(--papi-text-muted);
+    font-size: 0.9rem;
+}
+
+.stat-icon-receipt {
+    font-size: 1.25rem;
+    color: var(--papi-orange);
+}
+
+.stat-value {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--papi-text-dark);
+}
+
+/* --- Tabela de Recibos --- */
+.receipts-table .client-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.receipts-table .client-name {
+    font-weight: 600;
+    color: var(--papi-text-dark);
+}
+
+.receipts-table .client-email {
+    font-size: 0.85rem;
+    color: var(--papi-text-muted);
+}
+
+.receipts-table .badge-status {
+    padding: 0.4em 0.8em;
+    font-size: 0.75rem;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.receipts-table .badge-approved {
+    background-color: var(--papi-success-bg);
+    color: var(--papi-success);
+}
+
+.receipts-table .badge-pending {
+    background-color: #fff8dd;
+    color: #f5b014;
+}
+
+.receipts-table .badge-rejected {
+    background-color: var(--papi-danger-bg);
+    color: var(--papi-danger);
+}
+
+.receipts-table .total-value {
+    font-weight: 600;
+}
+
+.receipts-table .btn-details {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    font-weight: 500;
+    padding: 0.375rem 0.75rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.receipts-table .btn-details:hover {
+    background-color: var(--papi-orange);
+    color: #fff;
+    border-color: var(--papi-orange);
+}
+
+/* --- Seletor de Evento (Página de Presentes) --- */
+.event-selector-card {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--papi-border-color);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* --- Spinner de Carregamento --- */
+#loadingSpinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    gap: 1rem;
+    color: var(--papi-text-muted);
+}

@@ -1,0 +1,124 @@
+/* =================================================================== */
+/* ================ ESTILOS ESPECÍFICOS PARA FILIAIS ================= */
+/* =================================================================== */
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+.branch-card {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.branch-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid var(--papi-border-color);
+}
+
+.branch-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.branch-header-info {
+    flex: 1;
+}
+
+.branch-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--papi-text-dark);
+    margin: 0;
+}
+
+.branch-cnpj {
+    font-size: 0.875rem;
+    color: var(--papi-text-muted);
+    font-family: var(--font-mono);
+    margin: 0.25rem 0 0;
+}
+
+.card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex-grow: 1;
+}
+
+.branch-info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.branch-info-item i {
+    color: var(--papi-orange);
+    font-size: 1.1rem;
+}
+
+.card-footer {
+    padding: 1rem 1.5rem;
+    background-color: #f8f9fa;
+    border-top: 1px solid var(--papi-border-color);
+}
+
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+
+/* =================================================================== */
+/* ================== RESPONSIVIDADE PARA FILIAIS ==================== */
+/* =================================================================== */
+
+@media (max-width: 767.98px) {
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .card-header {
+        padding: 1rem;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .card-footer {
+        padding: 0.75rem 1rem;
+    }
+
+    .card-actions {
+        justify-content: center;
+    }
+}

@@ -1,0 +1,68 @@
+/* =================================================================== */
+/* ====== ESTILOS ESPECÍFICOS - PRODUTOS PARA CARDÁPIO ============== */
+/* =================================================================== */
+
+.product-img {
+	width: 50px;
+	height: 50px;
+	object-fit: cover;
+	border-radius: 8px;
+	border: 1px solid var(--papi-border-color);
+}
+
+.product-details {
+	display: flex;
+	flex-direction: column;
+}
+
+.product-name {
+	font-weight: 600;
+	color: var(--papi-text-dark);
+}
+
+.product-category {
+	font-weight: 500;
+	color: var(--papi-text-muted);
+}
+
+.product-price {
+	font-weight: 600;
+	color: var(--papi-success);
+}
+
+/* --- Overlay de Carregamento --- */
+.loading-overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 9999;
+	backdrop-filter: blur(3px);
+}
+
+.loading-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+.loading-content .spinner-border {
+	width: 3rem;
+	height: 3rem;
+}
+
+.loading-text {
+	color: white;
+	margin-top: 1rem;
+	font-size: 1.1rem;
+	font-weight: 500;
+}

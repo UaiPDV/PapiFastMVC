@@ -1,0 +1,159 @@
+﻿@model BixWeb.Models.Convidado
+
+@{
+    ViewData["Title"] = "Confirmar Presença";
+}
+
+<div class="row mb-10 mb-lg-18 py-img convite" style="width:1000px;margin:auto">
+	<div class="col-sm-7 col-xxl-4 pb-12" style="margin:auto">
+		<!--begin::Card widget 14-->
+		<div class="card card-flush h-xl-100">
+			<!--begin::Body-->
+			<div class="card-body text-center pb-5">
+				<!--begin::Overlay-->
+				<a class="d-block overlay" data-fslightbox="lightbox-hot-sales" href="@Model.Convite.Evento.bannerEvento">
+					<!--begin::Image-->
+					<div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded mb-7" style="height: 266px;background-image:url('@Model.Convite.Evento.bannerEvento')"></div>
+					<!--end::Image-->
+					<!--begin::Action-->
+					<div class="overlay-layer card-rounded bg-dark bg-opacity-25">
+						<i class="ki-duotone ki-eye fs-3x text-white">
+							<span class="path1"></span>
+							<span class="path2"></span>
+							<span class="path3"></span>
+						</i>
+					</div>
+					<!--end::Action-->
+				</a>
+				<!--end::Overlay-->
+				<!--begin::Info-->
+				<div class="d-flex align-items-end flex-stack mb-1" style="width: 180px;margin: auto;">
+					<!--begin::Title-->
+					<div class="text-start">
+						<a href="@Model.Convite.instagram" class="text-gray-500 mt-1 fw-bold ">
+							<i class="ki-duotone ki-instagram fs-2tx instacolor">
+								<span class="path1"></span>
+								<span class="path2"></span>
+							</i>
+						</a>
+					</div>
+					<!--end::Title-->
+					<!--begin::Total-->
+					<a href="@Model.Convite.facebook" class="text-gray-600 text-end fw-bold">
+						<i class="ki-duotone ki-facebook fs-3x" style="color:#0866ff">
+							<span class="path1"></span>
+							<span class="path2"></span>
+						</i>
+					</a>
+					<!--end::Total-->
+				</div>
+				<!--end::Info-->
+			</div>
+			<!--end::Body-->
+			<!--begin::Footer-->
+			<div class="card-footer d-flex flex-stack pt-0">
+				<!--begin::Link-->
+				<a class="btn btn-sm btn-primary flex-shrink-0 me-2" asp-action="Presentes" asp-controller="Eventos" asp-route-codConvite="@Model.codConvite">Ver Presentes</a>
+				<!--end::Link-->
+				<!--begin::Link-->
+				<a class="btn btn-sm btn-light flex-shrink-0" href="@Model.Convite.Evento.linkEvento">Mais Informações</a>
+				<!--end::Link-->
+			</div>
+			<!--end::Footer-->
+		</div>
+		<!--end::Card widget 14-->
+	</div>
+	<!--begin::Col-->
+	<div class="col-sm-10 col-xl-8" style="margin:auto">
+		<!--begin::Details-->
+		<div class="ps-xl-6" style="text-align:justify">
+			<!--begin::Body-->
+			<div class="mb-7">
+				<!--begin::Title-->
+				<label class="fw-bold text-gray-800 mb-3 fs-3qx lh-sm text-hover-primary">
+					Venha comerar este grande dia comigo!
+				</label>
+				<!--end::Title-->
+				<!--begin::Text-->
+				<div class="fw-semibold fs-5 mt-3 text-gray-600">
+					@Model.Convite.msgConvite
+				</div>
+				<div class="d-flex align-items-center justify-content-between">
+					<!--begin::Date-->
+					<span class="text-gray-600 fw-bold fs-5 mt-3">
+						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar-date-fill text-success" viewBox="0 0 20 20">
+							<path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zm5.402 9.746c.625 0 1.184-.484 1.184-1.18 0-.832-.527-1.23-1.16-1.23-.586 0-1.168.387-1.168 1.21 0 .817.543 1.2 1.144 1.2z"></path>
+							<path d="M16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-6.664-1.21c-1.11 0-1.656-.767-1.703-1.407h.683c.043.37.387.82 1.051.82.844 0 1.301-.848 1.305-2.164h-.027c-.153.414-.637.79-1.383.79-.852 0-1.676-.61-1.676-1.77 0-1.137.871-1.809 1.797-1.809 1.172 0 1.953.734 1.953 2.668 0 1.805-.742 2.871-2 2.871zm-2.89-5.435v5.332H5.77V8.079h-.012c-.29.156-.883.52-1.258.777V8.16a12.6 12.6 0 0 1 1.313-.805h.632z"></path>
+						</svg> Data: @Model.Convite.Evento.dataInicioEvento.ToString("ddd, dd MMM yyyy HH:mm")
+					</span>
+					<!--end::Date-->
+				</div>
+				<div class="fw-semibold fs-5 mt-3">
+					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-geo-alt-fill text-danger" viewBox="0 0 16 16">
+						<path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"></path>
+					</svg> Local: @Model.Convite.Evento.Endereco.logradouro, n.º @Model.Convite.Evento.Endereco.numeroendereco - @Model.Convite.Evento.Endereco.bairro
+					<br />@Model.Convite.Evento.Endereco.cidade / @Model.Convite.Evento.Endereco.estado CEP: @Model.Convite.Evento.Endereco.cep
+				</div>
+				<!--end::Text-->
+			</div>
+			<!--end::Body-->
+			<!--begin::Footer-->
+			<div class="d-flex flex-stack flex-wrap">
+				<!--begin::Item-->
+				<div class="d-flex align-items-center pe-2">
+					<!--begin::Avatar-->
+					<div class="symbol symbol-40px symbol-rounded me-3">
+						<img src="@Model.Convite.Usuario.imagem" alt="">
+					</div>
+					<!--end::Avatar-->
+					<!--begin::Text-->
+					<div class="fs-5 fw-bold">
+						<span class="text-gray-500">Convite de </span>
+						<label class="text-gray-700 text-hover-primary">@Model.Convite.Usuario.nome</label>
+					</div>
+					<!--end::Text-->
+				</div>
+				<!--end::Item-->
+			</div>
+			<!--end::Footer-->
+		</div>
+		<!--end::Details-->
+	</div>
+	<!--end::Col-->
+</div>
+<hr />
+<h1 class="text-center py-img">Para confirmar sua presença preencha os dados abaixo:</h1>
+
+<div class="row py-9 bg-body-tertiary row-addProd">
+
+    <div class="col-md-8" style="margin:auto">
+        <form asp-action="Convidado">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="codConvite" type="hidden" />
+            <div class="fv-row mb-7">
+                <label asp-for="nomeConvidado" class="fs-6 fw-semibold form-label mt-3">Seu nome:</label>
+                <input asp-for="nomeConvidado" class="form-control form-control-solid" />
+                <span asp-validation-for="nomeConvidado" class="text-danger"></span>
+            </div>
+            <div class="fv-row mb-7" id="produtoCampanha">
+                <label asp-for="emailConvidado" class="fs-6 fw-semibold form-label mt-3">Seu email:</label>
+                <input asp-for="emailConvidado" class="form-control form-control-solid" />
+                <span asp-validation-for="emailConvidado" class="text-danger"></span>
+            </div>
+            <div class="fv-row mb-7">
+                <label asp-for="telefoneConvidado" class="fs-6 fw-semibold form-label mt-3l">Seu contato:</label>
+                <input asp-for="telefoneConvidado" class="form-control form-control-solid" />
+                <span asp-validation-for="telefoneConvidado" class="text-danger"></span>
+            </div>
+            <div class="d-flex gap-2 justify-content-center py-5">
+                <input type="submit" value="Confirmar" class="btn btn-success d-inline-flex align-items-center" style="width:25%" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

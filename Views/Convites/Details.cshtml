@@ -1,0 +1,117 @@
+﻿@model BixWeb.Models.Convite
+
+@{
+    ViewData["Title"] = "Informações do Convite";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Convites/infoConvite.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+}
+
+<!-- Cabeçalho da Página -->
+<div class="d-flex align-items-center mb-4">
+    <a asp-action="Index" class="text-decoration-none me-2 page-header-icon">
+        <i class="bi bi-arrow-left-circle fs-2"></i>
+    </a>
+    <h1 class="h3 mb-0">Informações do Convite</h1>
+</div>
+
+<div class="mx-auto" style="max-width: 1100px;">
+    <!-- Card Principal com Detalhes -->
+    <div class="card shadow-sm">
+        <div class="card-body p-4 p-lg-5">
+            <div class="row g-5">
+                <!-- Coluna de Informações -->
+                <div class="col-lg-7">
+                    <h2 class="h5 mb-4 fw-semibold">Detalhes do Convite de @Model.Usuario.nome</h2>
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Evento</label>
+                        <input asp-for="Evento.nomeEvento" class="form-control" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Link do Facebook</label>
+                        <input asp-for="facebook" class="form-control" placeholder="Não informado" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Link do Instagram</label>
+                        <input asp-for="instagram" class="form-control" placeholder="Não informado" disabled />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Mensagem para os convidados</label>
+                        <textarea asp-for="msgConvite" rows="6" class="form-control" placeholder="Nenhuma mensagem adicionada." disabled></textarea>
+                    </div>
+                </div>
+
+                <!-- Coluna da Imagem -->
+                <div class="col-lg-5 d-flex flex-column align-items-center">
+                     <h2 class="h5 mb-4 fw-semibold">Imagem do Convite</h2>
+                    <div class="image-preview-box" style="background-image: url('@Model.imagemConvite')">
+                        @if (string.IsNullOrEmpty(Model.imagemConvite))
+                        {
+                            <i class="bi bi-image-alt"></i>
+                        }
+                    </div>
+                    <small class="text-muted text-center mt-3">Dimensão recomendada: 280 × 336 pixels.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista de Convidados -->
+    <h2 class="h5 mt-5 mb-3 fw-semibold">Lista de Convidados</h2>
+    <div class="guest-list-wrapper">
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Contato</th>
+                        <th>Email</th>
+                        <th class="text-center">Visto</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Convidados)
+                    {
+                        <tr>
+                            <td class="fw-bold">@item.nomeConvidado</td>
+                            <td>@item.telefoneConvidado</td>
+                            <td>@item.emailConvidado</td>
+                            <td class="text-center">
+                                @if (item.vistoConvite == true)
+                                {
+                                    <i class="bi bi-eye-fill text-success fs-5" title="Visto"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-eye-slash-fill text-muted fs-5" title="Não Visto"></i>
+                                }
+                            </td>
+                            <td class="text-center">
+                                @if (item.confirmacaoConvite == "Confirmado")
+                                {
+                                    <span class="badge status-badge status-badge-confirmed">Confirmado</span>
+                                }
+                                else if (item.confirmacaoConvite == "Recusado")
+                                {
+                                    <span class="badge status-badge status-badge-declined">Recusado</span>
+                                }
+                                else
+                                {
+                                    <span class="badge status-badge status-badge-waiting">Aguardando</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Botão de Voltar -->
+    <div class="mt-4 d-flex justify-content-end">
+         <a asp-action="Index" class="btn btn-light">Voltar para a Lista</a>
+    </div>
+</div>
