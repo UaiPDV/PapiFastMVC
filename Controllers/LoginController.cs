@@ -19,7 +19,7 @@ namespace BixWeb.Controllers
         private readonly DbPrint _context;
         private readonly IMemoryCache _memoryCache;
         private readonly IPageGeneratorService _pageGeneratorService;
-        public  LoginController(DbPrint context, IMemoryCache memoryCache, IPageGeneratorService pageGeneratorService)
+        public LoginController(DbPrint context, IMemoryCache memoryCache, IPageGeneratorService pageGeneratorService)
         {
             _context = context;
             _memoryCache = memoryCache;
@@ -55,7 +55,7 @@ namespace BixWeb.Controllers
                         ModelState.AddModelError(string.Empty, "Usuário não encontrado!");
                         return View(Login);
                     }
-                    if (usuario.ativo==false)
+                    if (usuario.ativo == false)
                     {
                         ModelState.AddModelError(string.Empty, "Usuário não foi ativado!");
                         ViewBag.msg = "ativar";
@@ -132,54 +132,55 @@ namespace BixWeb.Controllers
             return View("Index", Login);
         }
         [AllowAnonymous]
-		public IActionResult Ativar(string? id)
+        public IActionResult Ativar(string? id)
         {
-            
-            if (id!=null) {
-                var usuario = _context.UsuarioFiliais.Where(s=>s.token==id).Include(s=>s.Usuario).FirstOrDefault();
-                if (usuario!=null) 
+
+            if (id != null)
+            {
+                var usuario = _context.UsuarioFiliais.Where(s => s.token == id).Include(s => s.Usuario).FirstOrDefault();
+                if (usuario != null)
                 {
-                    ViewBag.codFilial=usuario.codFilial;
-                    ViewBag.codUsuario=usuario.codUsuario;
+                    ViewBag.codFilial = usuario.codFilial;
+                    ViewBag.codUsuario = usuario.codUsuario;
                     return View();
                 }
                 else
                 {
-					ViewData["Error"] = "Ops! Link expirado!";
-					return View("Error");
-				}
+                    ViewData["Error"] = "Ops! Link expirado!";
+                    return View("Error");
+                }
             }
-			ViewData["Error"] = "Ops! Houve um erro ao carregar a página solicitada";
-			return View("Error");
+            ViewData["Error"] = "Ops! Houve um erro ao carregar a página solicitada";
+            return View("Error");
         }
-		[AllowAnonymous]
+        [AllowAnonymous]
         [HttpPost]
-		public IActionResult Ativar(Ativar ativar)
-		{
+        public IActionResult Ativar(Ativar ativar)
+        {
             try
             {
-				if (ativar.senha == null || ativar.confirmarSenha == null)
-				{
-					ViewBag.senha = ativar.senha;
-					ViewBag.confirmarsenha = ativar.confirmarSenha;
-					ViewBag.erro = "Você deve preencher todos o campos!";
-					return View();
-				}
-				if (ativar.codUsuario <= 0 || ativar.codFilial <= 0)
-				{
-					ViewData["Error"] = "Ops! Houve um erro ao carregar a página solicitada";
-					return View("Error");
-				}
-				if (ativar.senha != ativar.confirmarSenha)
-				{
-					ViewBag.senha = ativar.senha;
-					ViewBag.confirmarsenha = ativar.confirmarSenha;
-					ViewBag.erro = "O campo senha e confirmar senha devem ser iguais!";
-					return View();
-				}
-				var usuarioFilial = _context.UsuarioFiliais.Where(s => s.codUsuario == ativar.codUsuario && s.codFilial == ativar.codFilial).Include(s => s.Usuario).FirstOrDefault();
-				if (usuarioFilial != null)
-				{
+                if (ativar.senha == null || ativar.confirmarSenha == null)
+                {
+                    ViewBag.senha = ativar.senha;
+                    ViewBag.confirmarsenha = ativar.confirmarSenha;
+                    ViewBag.erro = "Você deve preencher todos o campos!";
+                    return View();
+                }
+                if (ativar.codUsuario <= 0 || ativar.codFilial <= 0)
+                {
+                    ViewData["Error"] = "Ops! Houve um erro ao carregar a página solicitada";
+                    return View("Error");
+                }
+                if (ativar.senha != ativar.confirmarSenha)
+                {
+                    ViewBag.senha = ativar.senha;
+                    ViewBag.confirmarsenha = ativar.confirmarSenha;
+                    ViewBag.erro = "O campo senha e confirmar senha devem ser iguais!";
+                    return View();
+                }
+                var usuarioFilial = _context.UsuarioFiliais.Where(s => s.codUsuario == ativar.codUsuario && s.codFilial == ativar.codFilial).Include(s => s.Usuario).FirstOrDefault();
+                if (usuarioFilial != null)
+                {
                     if (ModelState.IsValid)
                     {
 
@@ -193,24 +194,24 @@ namespace BixWeb.Controllers
                         ViewBag.sucesso = "A senha foi alterada com sucesso!";
                         return View();
                     }
-				}
-				ViewData["Error"] = "Ops! Houve um erro ao carregar a página solicitada";
-				return View("Error");
-			}
+                }
+                ViewData["Error"] = "Ops! Houve um erro ao carregar a página solicitada";
+                return View("Error");
+            }
             catch (Exception ex)
             {
-				ErrorViewModel.LogError($"Erro ao chamar ativarConta: {ex}");
-				ViewData["Error"] = "Ops! Houve um erro ao carregar a página solicitada";
-				return View("Error");
-			}
-            
-		}
-        public IActionResult Create() 
+                ErrorViewModel.LogError($"Erro ao chamar ativarConta: {ex}");
+                ViewData["Error"] = "Ops! Houve um erro ao carregar a página solicitada";
+                return View("Error");
+            }
+
+        }
+        public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Usuario usuario, IFormFile? avatar,string confSenha)
+        public async Task<IActionResult> Create(Usuario usuario, IFormFile? avatar, string confSenha)
         {
             if (usuario.password != confSenha)
             {
@@ -222,11 +223,11 @@ namespace BixWeb.Controllers
                 try
                 {
                     var hasher = new PasswordHasher<Usuario>();
-                    var senha=usuario.password;
+                    var senha = usuario.password;
                     usuario.password = hasher.HashPassword(usuario, senha);
                     usuario.ativo = false;
-                    var usuarioCad= _context.Usuario.Where(s=>s.email==usuario.email).FirstOrDefault();
-                    if (usuarioCad!= null)
+                    var usuarioCad = _context.Usuario.Where(s => s.email == usuario.email).FirstOrDefault();
+                    if (usuarioCad != null)
                     {
                         ViewBag.msg1 = "Email já cadastrado!";
                         return View(usuario);
@@ -237,10 +238,11 @@ namespace BixWeb.Controllers
                         ViewBag.msg2 = "CPF já cadastrado!";
                         return View(usuario);
                     }
+                    usuario.ativo = false;
                     _context.Usuario.Add(usuario);
                     await _context.SaveChangesAsync();
                     var baseUrl = $"{this.Request.Scheme}://{this.Request.Host}";
-                    if (avatar !=null)
+                    if (avatar != null)
                     {
                         string diretorio = Directory.GetCurrentDirectory();
 
@@ -255,18 +257,18 @@ namespace BixWeb.Controllers
                         {
                             avatar.CopyTo(stream);
                         }
-                        
+
                         usuario.imagem = baseUrl + "/Usuarios/" + usuario.codUsuario + "/" + fileName; ;
                     }
                     else
                     {
                         usuario.imagem = baseUrl + "/imagens/Usuario.png";
                     }
-                    
+
                     _context.Update(usuario);
                     await _context.SaveChangesAsync();
                     Random random = new Random();
-                    string token="";
+                    string token = "";
                     for (int i = 0; i < 6; i++)
                     {
                         token += random.Next(0, 10).ToString(); // Gera um número aleatório entre 0 e 9
@@ -302,11 +304,11 @@ namespace BixWeb.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Validation(string email, string token) 
+        public async Task<IActionResult> Validation(string email, string token)
         {
             try
             {
-                if (email==null)
+                if (email == null)
                 {
                     ViewData["Error"] = "Ops! Houve um erro ao carregar a página solicitada";
                     return View("Error");
@@ -315,7 +317,7 @@ namespace BixWeb.Controllers
                 {
                     if (token == tokenCache)
                     {
-                        Usuario usuario =await _context.Usuario.Where(s => s.email == email && s.ativo==false).FirstOrDefaultAsync();
+                        Usuario usuario = await _context.Usuario.Where(s => s.email == email && s.ativo == false).FirstOrDefaultAsync();
                         if (usuario == null)
                         {
                             ViewData["Error"] = "Ops! Houve um erro ao carregar a página solicitada";
@@ -338,7 +340,7 @@ namespace BixWeb.Controllers
                 ViewData["Error"] = "Ops! Houve um erro ao carregar a página solicitada";
                 return View("Error");
             }
-            
+
         }
         public async Task<IActionResult> Logout()
         {

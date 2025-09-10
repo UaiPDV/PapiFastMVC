@@ -49,7 +49,7 @@ namespace BixWeb.Controllers
                 {
                     int codUsuario = int.Parse(userId);
                     var convites = _context.Convites  // Supondo que a navegação está configurada
-                        .Include(c => c.UsuarioFilial.Filial).Include(s=>s.Usuario).Include(s=>s.Convidados).Include(s=>s.Evento)   // Se tiver uma entidade Filial relacionada
+                        .Include(c => c.UsuarioFilial.Filial).Include(s => s.Usuario).Include(s => s.Convidados).Include(s => s.Evento)   // Se tiver uma entidade Filial relacionada
                         .Where(c => _context.UsuarioFiliais
                                         .Any(uf => uf.codUsuario == codUsuario &&
                                                    uf.codFilial == c.codFilial) ||
@@ -98,74 +98,74 @@ namespace BixWeb.Controllers
                 return View("Error");
             }
         }
-		public IActionResult Lista(string sortOrder, string currentFilter, string searchString, int? page)
-		{
-			try
-			{
-				ViewBag.CurrentSort = sortOrder;
-				ViewBag.NameSortParm = System.String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+        public IActionResult Lista(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            try
+            {
+                ViewBag.CurrentSort = sortOrder;
+                ViewBag.NameSortParm = System.String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 
-				if (searchString != null)
-				{
-					page = 1;
-				}
-				else
-				{
-					searchString = currentFilter;
-				}
+                if (searchString != null)
+                {
+                    page = 1;
+                }
+                else
+                {
+                    searchString = currentFilter;
+                }
 
-				ViewBag.CurrentFilter = searchString;
+                ViewBag.CurrentFilter = searchString;
 
-				var userId = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-				if (userId != null)
-				{
-					int codUsuario = int.Parse(userId);
-					var convites = _context.Convites.Where(s=>s.codCliente==codUsuario).Include(s => s.Usuario).Include(s => s.Ingressos).Include(s => s.Evento).Include(s=>s.ListaPresente).AsQueryable();
+                var userId = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                if (userId != null)
+                {
+                    int codUsuario = int.Parse(userId);
+                    var convites = _context.Convites.Where(s => s.codCliente == codUsuario).Include(s => s.Usuario).Include(s => s.Ingressos).Include(s => s.Evento).Include(s => s.ListaPresente).AsQueryable();
 
-					if (convites.Any())
-					{
-						if (!String.IsNullOrEmpty(searchString))
-						{
-							convites = convites.Where(s => s.Evento.nomeEvento.Contains(searchString)
-													   || s.Usuario.nome.Contains(searchString));
+                    if (convites.Any())
+                    {
+                        if (!String.IsNullOrEmpty(searchString))
+                        {
+                            convites = convites.Where(s => s.Evento.nomeEvento.Contains(searchString)
+                                                       || s.Usuario.nome.Contains(searchString));
 
-						}
+                        }
 
-						switch (sortOrder)
-						{
-							case "name_desc":
-								convites = convites.OrderByDescending(s => s.dataCriacao);
-								break;
-							default:  // Name ascending 
-								convites = convites.OrderBy(s => s.dataCriacao);
-								break;
-						}
+                        switch (sortOrder)
+                        {
+                            case "name_desc":
+                                convites = convites.OrderByDescending(s => s.dataCriacao);
+                                break;
+                            default:  // Name ascending 
+                                convites = convites.OrderBy(s => s.dataCriacao);
+                                break;
+                        }
 
-						int pageSize = 10;
-						int pageNumber = (page ?? 1);
-						return View(convites.ToPagedList(pageNumber, pageSize));
-					}
-					else
-					{
-						ViewData["Convites"] = "Nenhum convite encontrado!";
-						return View();
-					}
+                        int pageSize = 10;
+                        int pageNumber = (page ?? 1);
+                        return View(convites.ToPagedList(pageNumber, pageSize));
+                    }
+                    else
+                    {
+                        ViewData["Convites"] = "Nenhum convite encontrado!";
+                        return View();
+                    }
 
-				}
-				else
-				{
-					ViewData["Error"] = "Ops! Houve um erro ao carregar a página solicitada";
-					return View("Error");
-				}
-			}
-			catch (Exception ex)
-			{
-				ErrorViewModel.LogError($"Erro ao chamar IndexConvites: {ex}");
-				ViewData["Error"] = "Ops! Houve um erro ao carregar a página solicitada";
-				return View("Error");
-			}
-		}
-		public JsonResult ListaEventos(int id)
+                }
+                else
+                {
+                    ViewData["Error"] = "Ops! Houve um erro ao carregar a página solicitada";
+                    return View("Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorViewModel.LogError($"Erro ao chamar IndexConvites: {ex}");
+                ViewData["Error"] = "Ops! Houve um erro ao carregar a página solicitada";
+                return View("Error");
+            }
+        }
+        public JsonResult ListaEventos(int id)
         {
             return Json(_context.Eventos.Where(s => s.codFilial == id).Select(s => new
             {
@@ -178,7 +178,7 @@ namespace BixWeb.Controllers
             var evento = _context.Eventos.Where(s => s.codEvento == id).Include(s => s.Lotes).ThenInclude(s => s.Ingressos.Where(s => s.tipoVendaIngresso == "Não vendido!")).FirstOrDefault();
             if (evento != null)
             {
-                int ingressos=0;
+                int ingressos = 0;
                 foreach (var item in evento.Lotes)
                 {
                     ingressos += item.Ingressos.Count();
@@ -201,7 +201,7 @@ namespace BixWeb.Controllers
                     nome = cliente.nome,
                     email = cliente.email,
                     telefone = cliente.telefone,
-                    codCliente= cliente.codUsuario
+                    codCliente = cliente.codUsuario
                 });
             }
             else
@@ -218,7 +218,7 @@ namespace BixWeb.Controllers
             }
 
             var convite = await _context.Convites
-                .Include(c => c.Evento).Include(s=>s.Convidados).Include(s=>s.Usuario)
+                .Include(c => c.Evento).Include(s => s.Convidados).Include(s => s.Usuario)
                 .FirstOrDefaultAsync(m => m.codConvite == id);
             if (convite == null)
             {
@@ -227,7 +227,7 @@ namespace BixWeb.Controllers
 
             return View(convite);
         }
-        public IActionResult Adicionar() 
+        public IActionResult Adicionar()
         {
             var userId = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             if (userId != null)
@@ -247,7 +247,7 @@ namespace BixWeb.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Adicionar(Convite convite, IFormFile? banner, int qtdIngressos) 
+        public async Task<IActionResult> Adicionar(Convite convite, IFormFile? banner, int qtdIngressos)
         {
             if (ModelState.IsValid)
             {
@@ -261,7 +261,7 @@ namespace BixWeb.Controllers
                         var baseUrl = $"{this.Request.Scheme}://{this.Request.Host}";
                         if (banner != null)
                         {
-                            diretorio = diretorio + "/wwwroot/Usuarios/" + CodUsuario + "/Eventos/"+convite.codEvento+"/ImagensEvento/Convites/";
+                            diretorio = diretorio + "/wwwroot/Usuarios/" + CodUsuario + "/Eventos/" + convite.codEvento + "/ImagensEvento/Convites/";
                             if (!Directory.Exists(diretorio))
                             {
                                 Directory.CreateDirectory(diretorio);
@@ -272,12 +272,12 @@ namespace BixWeb.Controllers
                             {
                                 banner.CopyTo(stream);
                             }
-                            convite.imagemConvite = baseUrl + "/Usuarios/" + CodUsuario + "/Eventos/"+convite.codEvento+"/ImagensEvento/Convites/" + fileName;
+                            convite.imagemConvite = baseUrl + "/Usuarios/" + CodUsuario + "/Eventos/" + convite.codEvento + "/ImagensEvento/Convites/" + fileName;
                         }
                         convite.dataCriacao = DateTime.Now;
                         convite.codCriador = CodUsuario;
                         convite.codCliente = CodUsuario; // Assumindo que o criador é o cliente
-                        
+
                         convite.ativo = true;
                         _context.Add(convite);
                         await _context.SaveChangesAsync();
@@ -366,17 +366,19 @@ namespace BixWeb.Controllers
                     int CodUsuario = int.Parse(userId);
                     if (ModelState.IsValid)
                     {
-                        var cliente = _context.Usuario.Where(s => s.cpf==convite.Usuario.cpf
-                                  || s.email == convite.Usuario.email || s.telefone == convite.Usuario.telefone).FirstOrDefault();
+                        var cliente = _context.Usuario.Where(s => s.cpf == convite.Usuario.cpf
+                                  || s.email.Contains(convite.Usuario.email) || s.telefone == convite.Usuario.telefone).FirstOrDefault();
 
-                        if (cliente!=null) {
+                        if (cliente != null)
+                        {
                             convite.Usuario = cliente;
                             convite.codCliente = cliente.codUsuario;
                         }
 
-                        convite.dataCriacao= DateTime.Now;
+                        convite.dataCriacao = DateTime.Now;
                         convite.codCriador = CodUsuario;
-                        convite.ativo=true;
+                        convite.ativo = true;
+
 
                         _context.Add(convite);
                         await _context.SaveChangesAsync();
@@ -405,24 +407,24 @@ namespace BixWeb.Controllers
                         // Chama SaveChangesAsync uma única vez, após terminar a iteração
                         await _context.SaveChangesAsync();
                         var usuarioFilial = _context.UsuarioFiliais.Where(s => s.codFilial == convite.codFilial && s.codUsuario == convite.codCliente).FirstOrDefault();
-                        if (usuarioFilial==null)
+                        if (usuarioFilial == null)
                         {
-                            usuarioFilial=new UsuarioFilial();
-							usuarioFilial.codUsuario = convite.codCliente;
-							usuarioFilial.codFilial = (int)convite.codFilial;
-							usuarioFilial.ativo = false;
-							usuarioFilial.tipoUsuario = "Cliente";
-                            string token= Guid.NewGuid().ToString();
-                            usuarioFilial.token = $"{this.Request.Scheme}://{this.Request.Host}"+"/Login/Ativar/"+token;
-							usuarioFilial.dataCadastro=DateTime.Now;
+                            usuarioFilial = new UsuarioFilial();
+                            usuarioFilial.codUsuario = convite.codCliente;
+                            usuarioFilial.codFilial = (int)convite.codFilial;
+                            usuarioFilial.ativo = false;
+                            usuarioFilial.tipoUsuario = "Cliente";
+                            string token = Guid.NewGuid().ToString();
+                            usuarioFilial.token = $"{this.Request.Scheme}://{this.Request.Host}" + "/Login/Ativar/" + token;
+                            usuarioFilial.dataCadastro = DateTime.Now;
 
-							if (_pageGeneratorService.AtivarContaCliente(convite.Usuario,usuarioFilial))
+                            if (_pageGeneratorService.AtivarContaCliente(convite.Usuario, usuarioFilial))
                             {
-                                usuarioFilial.token=token;
+                                usuarioFilial.token = token;
                                 _context.Add(usuarioFilial);
                                 await _context.SaveChangesAsync();
-								return RedirectToAction(nameof(Index));
-							}
+                                return RedirectToAction(nameof(Index));
+                            }
                             else
                             {
                                 ViewData["Error"] = "Ops! Houve um erro ao enviar o email";
@@ -432,29 +434,29 @@ namespace BixWeb.Controllers
                         else
                         {
                             var evento = _context.Eventos.Where(s => s.codEvento == convite.codEvento).Include(s => s.Endereco).FirstOrDefault();
-                            string link= $"{this.Request.Scheme}://{this.Request.Host}" + "/Login/";
+                            string link = $"{this.Request.Scheme}://{this.Request.Host}" + "/Login/";
                             if (evento != null)
                             {
                                 if (_pageGeneratorService.ComprovanteConvites(convite.Usuario, link, evento))
                                 {
-									return RedirectToAction(nameof(Index));
-								}
+                                    return RedirectToAction(nameof(Index));
+                                }
                                 else
                                 {
 
-									ViewData["Error"] = "Ops! Houve um erro ao enviar o email";
-									return View("Error");
-								}
+                                    ViewData["Error"] = "Ops! Houve um erro ao enviar o email";
+                                    return View("Error");
+                                }
                             }
                             else
                             {
-								ViewData["Error"] = "Ops! Houve um erro ao enviar o email";
-								return View("Error");
-							}
+                                ViewData["Error"] = "Ops! Houve um erro ao enviar o email";
+                                return View("Error");
+                            }
                         }
                     }
 
-                    
+
                     var filiais = _context.UsuarioFiliais
                         .Where(uf => uf.codUsuario == CodUsuario)
                         .Select(uf => uf.Filial)
@@ -482,13 +484,13 @@ namespace BixWeb.Controllers
         public IActionResult Convidado(int id)
         {
             Convidado convidado = new Convidado();
-            convidado.Convite = _context.Convites.Where(s => s.codConvite == id).Include(s=>s.Usuario).Include(s => s.Evento).ThenInclude(s=>s.Endereco).FirstOrDefault();
+            convidado.Convite = _context.Convites.Where(s => s.codConvite == id).Include(s => s.Usuario).Include(s => s.Evento).ThenInclude(s => s.Endereco).FirstOrDefault();
             convidado.codConvite = id;
             return View(convidado);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Convidado( Convidado convidado)
+        public async Task<IActionResult> Convidado(Convidado convidado)
         {
             if (!string.IsNullOrWhiteSpace(convidado.emailConvidado) &&
                 !string.IsNullOrWhiteSpace(convidado.telefoneConvidado) &&
@@ -499,7 +501,7 @@ namespace BixWeb.Controllers
 
                 _context.Add(convidado);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Confirmar", new { id = 0, resposta = true});
+                return RedirectToAction("Confirmar", new { id = 0, resposta = true });
             }
             else
             {
@@ -514,7 +516,7 @@ namespace BixWeb.Controllers
         {
             var baseUrl = $"{this.Request.Scheme}://{this.Request.Host}";
             ViewBag.linkConvite = baseUrl + "/Convites/Convidado/" + id;
-            var convite = await _context.Convites.Where(s=>s.codConvite==id).Include(s=>s.Evento).Include(s=>s.Convidados).FirstOrDefaultAsync();
+            var convite = await _context.Convites.Where(s => s.codConvite == id).Include(s => s.Evento).Include(s => s.Convidados).FirstOrDefaultAsync();
             if (convite == null)
             {
                 return NotFound();
@@ -522,11 +524,11 @@ namespace BixWeb.Controllers
 
             return View(convite);
         }
-		// POST: Convites/Edit/5
-		// To protect from overposting attacks, enable the specific properties you want to bind to.
-		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-		[HttpPost]
-		[ValidateAntiForgeryToken]
+        // POST: Convites/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Convite convite, IFormFile? banner)
         {
             if (id != convite.codConvite)
@@ -537,7 +539,7 @@ namespace BixWeb.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {   
+                {
                     if (banner != null)
                     {
                         string diretorio = Directory.GetCurrentDirectory();
@@ -549,7 +551,7 @@ namespace BixWeb.Controllers
                         }
                         else
                         {
-                            diretorio = diretorio + "/Empresas/" + convite.codFilial + "/Eventos/"+convite.codEvento+"/ImagensEvento/Convites/";
+                            diretorio = diretorio + "/Empresas/" + convite.codFilial + "/Eventos/" + convite.codEvento + "/ImagensEvento/Convites/";
                             baseUrl += "/Empresas/" + convite.codFilial + "/Eventos/" + convite.codEvento + "/ImagensEvento/Convites/";
                         }
                         if (!Directory.Exists(diretorio))
@@ -562,7 +564,7 @@ namespace BixWeb.Controllers
                         {
                             banner.CopyTo(stream);
                         }
-                        convite.imagemConvite = baseUrl  + fileName;
+                        convite.imagemConvite = baseUrl + fileName;
                     }
 
                     _context.Update(convite);
@@ -578,12 +580,12 @@ namespace BixWeb.Controllers
             }
             return View(convite);
         }
-        public async Task<IActionResult> EnviarConvite(int id, int? sessao) 
+        public async Task<IActionResult> EnviarConvite(int id, int? sessao)
         {
-            var convidados=await _context.Convidados.Where(s=>s.codConvite==id).ToListAsync();
-            if (convidados.Any()) 
+            var convidados = await _context.Convidados.Where(s => s.codConvite == id).ToListAsync();
+            if (convidados.Any())
             {
-                convidados = convidados.OrderBy(s=>s.nomeConvidado).ToList();
+                convidados = convidados.OrderBy(s => s.nomeConvidado).ToList();
                 ViewBag.sessao = sessao;
                 return View(convidados.ToPagedList());
             }
@@ -606,7 +608,7 @@ namespace BixWeb.Controllers
                         {
                             if (!string.IsNullOrWhiteSpace(convidado.telefoneConvidado))
                             {
-                                convidado.telefoneConvidado= convidado.telefoneConvidado.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "");
+                                convidado.telefoneConvidado = convidado.telefoneConvidado.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "");
                                 if (!string.IsNullOrWhiteSpace(convidado.telefoneConvidado))
                                 {
                                     Mensagem mensagem = new Mensagem();
@@ -689,7 +691,7 @@ namespace BixWeb.Controllers
                                 convidado.Convite = _context.Convites.Where(s => s.codConvite == convidado.codConvite).FirstOrDefault();
                                 var baseUrl = $"{this.Request.Scheme}://{this.Request.Host}";
                                 bool enviar = _pageGeneratorService.EnviarConvite(convidado, baseUrl);
-                                
+
                                 if (!enviar)
                                 {
                                     ViewData["Error"] = "Ops! Houve um erro ao carregar a página solicitada";
@@ -710,10 +712,10 @@ namespace BixWeb.Controllers
                 return View("Error");
             }
         }
-        public IActionResult VisualisarEmail(int id) 
+        public IActionResult VisualisarEmail(int id)
         {
-            var convidado=_context.Convidados.Find(id);
-            if (convidado != null) 
+            var convidado = _context.Convidados.Find(id);
+            if (convidado != null)
             {
                 convidado.vistoConvite = true;
 
@@ -722,7 +724,7 @@ namespace BixWeb.Controllers
             }
             return File(Convert.FromBase64String("R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"), "image/gif");
         }
-        public IActionResult Confirmar(int id, bool resposta) 
+        public IActionResult Confirmar(int id, bool resposta)
         {
             var convidado = _context.Convidados.Find(id);
 
@@ -741,7 +743,7 @@ namespace BixWeb.Controllers
                     convidado.Convite = _context.Convites.Where(s => s.codConvite == convidado.codConvite).Include(s => s.Usuario).FirstOrDefault();
                     if (convidado.Convite != null)
                     {
-                        if (convidado.Convite.notificar==1)
+                        if (convidado.Convite.notificar == 1)
                         {
                             _pageGeneratorService.EnviarNotPresenca(convidado);
                         }
@@ -765,7 +767,7 @@ namespace BixWeb.Controllers
             ViewData["Error"] = "Ops! Houve um erro ao carregar a página solicitada";
             return View("Error");
         }
-        public bool Desativar(int id) 
+        public bool Desativar(int id)
         {
             var convite = _context.Convites.Find(id);
             if (convite != null)
