@@ -232,7 +232,7 @@ namespace BixWeb.Controllers
                 var userId = (User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
                 if (userId != null)
                 {
-                    if (String.IsNullOrEmpty(usuario.cpf) && String.IsNullOrEmpty(usuario.email))
+                    if (!String.IsNullOrEmpty(usuario.cpf) && !String.IsNullOrEmpty(usuario.email))
                     {
                         var cpf = _context.UsuarioFiliais.Where(s => s.Usuario.cpf == usuario.cpf && s.Usuario.email == usuario.email && s.codFilial==codFilial).Any();
                         if (cpf)
@@ -427,7 +427,7 @@ namespace BixWeb.Controllers
                 if (userId != null)
                 {
                     int CodUsuario = int.Parse(userId);
-                    if (String.IsNullOrEmpty(usuario.cpf) && String.IsNullOrEmpty(usuario.email))
+                    if (!String.IsNullOrEmpty(usuario.cpf) && !String.IsNullOrEmpty(usuario.email))
                     {
                         var cpf = _context.UsuarioFiliais.Where(s => s.Usuario.cpf == usuario.cpf && s.Usuario.email == usuario.email && s.codFilial == codFilial).Any();
                         if (cpf)
