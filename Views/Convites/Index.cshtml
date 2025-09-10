@@ -313,9 +313,8 @@ else
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- INÍCIO DA NOVA LÓGICA DE FILTRAGEM FRONTEND ---
+            // --- INÍCIO DA LÓGICA DE FILTRAGEM FRONTEND ---
 
-            // Seletores para os elementos de filtro e tabela
             const searchInput = document.getElementById('searchInput');
             const statusFilter = document.getElementById('statusFilter');
             const eventoFilter = document.getElementById('eventoFilter');
@@ -323,7 +322,6 @@ else
             const tableBody = document.getElementById('invitesTableBody');
             const tableRows = tableBody.querySelectorAll('.invite-row');
             
-            // Seletores para o modal de filtros mobile
             const mobileFilterBtn = document.getElementById('mobileFilterBtn');
             const filterModalOverlay = document.getElementById('filterModalOverlay');
             const closeFilterModal = document.getElementById('closeFilterModal');
@@ -332,11 +330,8 @@ else
             const applyFiltersModalBtn = document.getElementById('applyFiltersModalBtn');
             const clearFiltersModalBtn = document.getElementById('clearFiltersModalBtn');
             
-            // Variável para armazenar o valor do filtro de evento selecionado no backend
             const initialEvento = "@currentEvento";
 
-            // 1. Função para popular o filtro de eventos dinamicamente
-            // Isso garante que o filtro contenha apenas eventos que estão na lista atual.
             function populateEventFilter() {
                 const events = new Set();
                 tableRows.forEach(row => {
@@ -346,14 +341,12 @@ else
                     }
                 });
 
-                // Limpa os filtros existentes (mantendo a primeira opção)
                 eventoFilter.innerHTML = '<option value="">Todos os Eventos</option>';
                 eventoFilterModal.innerHTML = '<option value="">Todos os Eventos</option>';
 
                 const sortedEvents = Array.from(events).sort();
 
                 sortedEvents.forEach(event => {
-                    // Adiciona ao filtro de desktop
                     const option = document.createElement('option');
                     option.value = event;
                     option.textContent = event;
@@ -362,7 +355,6 @@ else
                     }
                     eventoFilter.appendChild(option);
 
-                    // Adiciona ao filtro de mobile
                     const optionModal = document.createElement('option');
                     optionModal.value = event;
                     optionModal.textContent = event;
@@ -373,7 +365,6 @@ else
                 });
             }
 
-            // 2. Função principal para aplicar os filtros na tabela
             function applyClientSideFilters() {
                 const searchTerm = searchInput.value.toLowerCase();
                 const statusValue = statusFilter.value;
@@ -390,17 +381,14 @@ else
                     const eventMatch = eventoValue === '' || evento === eventoValue;
 
                     if (searchMatch && statusMatch && eventMatch) {
-                        row.style.display = ''; // Mostra a linha
+                        row.style.display = '';
                     } else {
-                        row.style.display = 'none'; // Esconde a linha
+                        row.style.display = 'none';
                     }
                 });
-
                 updatePaginationLinks();
             }
 
-            // 3. Função para atualizar os links da paginação com os filtros atuais
-            // Isso garante que ao mudar de página, os filtros sejam mantidos.
             function updatePaginationLinks() {
                 const searchTerm = searchInput.value;
                 const statusValue = statusFilter.value;
@@ -417,8 +405,6 @@ else
                 });
             }
 
-
-            // 4. Adiciona os event listeners para os filtros
             searchInput.addEventListener('input', applyClientSideFilters);
             statusFilter.addEventListener('change', applyClientSideFilters);
             eventoFilter.addEventListener('change', applyClientSideFilters);
@@ -430,9 +416,7 @@ else
                 applyClientSideFilters();
             });
 
-            // 5. Lógica para o modal de filtros mobile
             mobileFilterBtn.addEventListener('click', () => {
-                // Sincroniza os valores do filtro desktop para o modal antes de abrir
                 statusFilterModal.value = statusFilter.value;
                 eventoFilterModal.value = eventoFilter.value;
                 filterModalOverlay.classList.add('show');
@@ -445,7 +429,6 @@ else
             });
 
             applyFiltersModalBtn.addEventListener('click', () => {
-                // Sincroniza os valores do modal para o filtro desktop e aplica
                 statusFilter.value = statusFilterModal.value;
                 eventoFilter.value = eventoFilterModal.value;
                 applyClientSideFilters();
@@ -461,10 +444,8 @@ else
                 closeModal();
             });
 
-
-            // --- LÓGICA EXISTENTE (Popups e Dropdowns) ---
+            // --- LÓGICA DE POPUPS E AÇÕES ---
             
-            // Lógica dos Popups de Exclusão/Desativação
             document.querySelectorAll('[id^="deleteBtn-"]').forEach(button => {
                 button.addEventListener('click', function() {
                     const id = this.getAttribute('data-id');
@@ -476,15 +457,53 @@ else
                 });
             });
 
+            // ##### CORREÇÃO APLICADA AQUI #####
             document.querySelectorAll('[id^="confirmDeleteBtn-"]').forEach(button => {
                 button.addEventListener('click', function() {
                     const id = this.getAttribute('data-id');
-                    fetch(`/Convites/ToggleStatus/${id}`, { method: 'POST' })
+                    const popup = document.getElementById('popup-' + id);
+                    const isAtivo = this.classList.contains('btn-warning');
+
+                    const hidePopup = () => {
+                        if (popup) {
+                            popup.classList.remove('show');
+                            setTimeout(() => popup.style.display = 'none', 300);
+                        }
+                    };
+
+                    if (isAtivo) {
+                        // Ação de Desativar - chama o endpoint correto do backend
+                        fetch(`/Convites/Desativar`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                            },
+                            body: `id=${id}`
+                        })
                         .then(response => {
-                            if (response.ok) {
-                                location.reload(); // Recarrega a página após a ação
+                            if (!response.ok) {
+                                throw new Error('A resposta da rede não foi bem-sucedida.');
                             }
+                            return response.json();
+                        })
+                        .then(success => {
+                            if (success) {
+                                location.reload(); // Recarrega a página para refletir a mudança
+                            } else {
+                                alert('Ocorreu um erro no servidor ao tentar desativar o convite.');
+                                hidePopup();
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erro no fetch:', error);
+                            alert('Ocorreu um erro de comunicação ao desativar o convite.');
+                            hidePopup();
                         });
+                    } else {
+                        // Ação de Ativar - informa o usuário que a função não existe no backend
+                        alert('A função de "Ativar" não está implementada no backend. Nenhuma ação será executada.');
+                        hidePopup();
+                    }
                 });
             });
 
@@ -499,7 +518,6 @@ else
                 });
             });
 
-            // Lógica para correção de dropdowns em tabelas
             document.querySelectorAll('.table-responsive').forEach(wrapper => {
                 wrapper.querySelectorAll('.dropdown-toggle').forEach(dd => {
                     dd.addEventListener('show.bs.dropdown', (event) => {
@@ -514,8 +532,8 @@ else
             });
 
             // --- INICIALIZAÇÃO ---
-            populateEventFilter(); // Popula o filtro de eventos ao carregar a página
-            applyClientSideFilters(); // Aplica os filtros iniciais (caso venham do backend)
+            populateEventFilter();
+            applyClientSideFilters();
         });
     </script>
 }

@@ -1,0 +1,118 @@
+/* =================================================================== */
+/* ================ ESTILOS DA PÁGINA DE SUPORTE =================== */
+/* =================================================================== */
+
+.support-page-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Centraliza o cabeçalho da página */
+.page-header.text-center .page-header-content {
+    margin: 0 auto;
+    margin-bottom: 2rem;
+}
+
+/* Seção de Contato */
+.contact-section {
+    margin-bottom: 3rem;
+}
+
+.support-card {
+    background-color: #fff;
+    border: 1px solid var(--papi-border-color);
+    border-radius: 0.75rem;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.support-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.support-card-icon {
+    font-size: 2.5rem;
+    color: var(--papi-orange);
+    margin-bottom: 1rem;
+}
+
+.support-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--papi-text-dark);
+}
+
+.support-card-text {
+    color: var(--papi-text-muted);
+    margin-bottom: 1.5rem;
+    min-height: 4.5em; /* Garante altura mínima para alinhamento */
+}
+
+.btn-outline-primary-action {
+    color: var(--papi-orange);
+    border-color: var(--papi-orange);
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary-action:hover {
+    background-color: var(--papi-orange);
+    color: #fff;
+}
+
+/* Seção de Perguntas Frequentes (FAQ) */
+.faq-section {
+    margin-top: 2rem;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: var(--papi-text-dark);
+}
+
+.accordion-item {
+    background-color: #fff;
+    border: 1px solid var(--papi-border-color);
+    border-radius: 0.75rem !important; /* Sobrescreve o bootstrap */
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.accordion-header {
+    border-bottom: none;
+}
+
+.accordion-button {
+    font-weight: 600;
+    color: var(--papi-text-dark);
+    background-color: #fff;
+    border-radius: 0.75rem !important;
+    padding: 1.25rem;
+}
+
+.accordion-button:not(.collapsed) {
+    color: var(--papi-orange);
+    background-color: #fef7ed; /* Laranja bem claro */
+    box-shadow: none;
+}
+
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(249, 131, 3, 0.15);
+}
+
+.accordion-body {
+    padding: 1.25rem; /* Ajustado para adicionar espaçamento superior */
+    color: var(--papi-text-muted);
+    line-height: 1.6;
+}
+

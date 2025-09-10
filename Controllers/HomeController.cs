@@ -48,7 +48,7 @@ namespace BixWeb.Controllers
             try
             {
                 SmtpClient client = new SmtpClient("mail.uaipdv.com.br"); // Substitua pelo seu servidor SMTP
-                client.Port = 587; // Porta padrão para SMTP (pode ser 25 ou 465 para SSL)
+                client.Port = 587; // Porta padrï¿½o para SMTP (pode ser 25 ou 465 para SSL)
                 client.Credentials = new NetworkCredential("uai@uaipdv.com.br", "M6433vlks*");
                 client.EnableSsl = false; // Define SSL, dependendo do servidor SMTP
 
@@ -78,5 +78,9 @@ namespace BixWeb.Controllers
 
             return View();
 		}
+        public IActionResult Suporte()
+        {
+            return View();
+        }
 	}
 }

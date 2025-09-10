@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\codigo\\PapiFast\\BixWeb\\BixWeb\\BixWeb.csproj": {}
+    "C:\\Users\\pedro\\Downloads\\PapiFastMVC\\BixWeb.csproj": {}
   },
   "projects": {
-    "D:\\codigo\\PapiFast\\BixWeb\\BixWeb\\BixWeb.csproj": {
+    "C:\\Users\\pedro\\Downloads\\PapiFastMVC\\BixWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\codigo\\PapiFast\\BixWeb\\BixWeb\\BixWeb.csproj",
+        "projectUniqueName": "C:\\Users\\pedro\\Downloads\\PapiFastMVC\\BixWeb.csproj",
         "projectName": "BixWeb",
-        "projectPath": "D:\\codigo\\PapiFast\\BixWeb\\BixWeb\\BixWeb.csproj",
+        "projectPath": "C:\\Users\\pedro\\Downloads\\PapiFastMVC\\BixWeb.csproj",
         "packagesPath": "C:\\Users\\pedro\\.nuget\\packages\\",
-        "outputPath": "D:\\codigo\\PapiFast\\BixWeb\\BixWeb\\obj\\",
+        "outputPath": "C:\\Users\\pedro\\Downloads\\PapiFastMVC\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

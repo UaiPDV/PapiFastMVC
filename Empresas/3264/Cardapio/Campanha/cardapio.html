@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/cardapio.css">
+
+    <title>Cardápio Online</title>
+</head>
+<body>
+
+    <div class="banner">
+        <img src="images\banner1.png" alt="Banner exemplo 1">
+    </div>
+    <div class="flutuante eff" onclick="pedido(lista)">
+        <div id="mesa">
+            <h3 id="NumMesa">Mesa: </h3>
+        </div>
+        <div class="itens">
+            <h4 class="flutuante-text" style="margin-right:3px" id="total"> 0 </h4>
+            <h4 class="flutuante-text">Itens</h4>
+        </div>
+        <h4 style="margin:0 0 0 0">Valor:</h4>
+        <h3 class="conta">R$ 0,00</h3>
+    </div>
+    <div class="ButtonZap" onclick="pedido(lista)">
+        <button class="pedido eff"><span class="zapIcon "><img class="img-fluid" src="images/733585.png" alt=""></span>&nbsp; <span class="mostrar"> Enviar Pedido</span></button>
+    </div>
+    <div class="menu">
+        <div class="category-nav">
+            <ul class="category-list">
+                <li><a href="#entradas">Entradas</a></li>
+            </ul>
+        </div>
+
+        <div class="category" id="entradas">
+            <h2>Entradas</h2>
+
+            <div class="menu-item">
+                <div class="item-image" style="background-image: url('images/733585.png');"></div>
+                <div class="item-details">
+                    <h3 class="nome845028">Nome do Item</h3>
+                    <p class="item-description">Descrição do item vai aqui...</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t845028">R$ 10,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(845028,lista)">-</span>
+                    <span class="quantity" id="t845028">0</span>
+                    <span class="quantity-control" onclick="somar(845028,lista)">+</span>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+    <script src="funcoes.js"></script>
+    <script>
+        function pedido(li) {
+            if (li.length > 0) {
+                var Fonenumber = '5547927056';
+                enviar(li, Fonenumber)
+            }
+        }
+    </script>
+</body>
+</html>

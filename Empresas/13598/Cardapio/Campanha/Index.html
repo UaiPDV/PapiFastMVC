@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/cardapio.css">
+
+    <title>Cardápio Online</title>
+</head>
+<body>
+
+    <div class="banner">
+        <img src="https://docs.lacartadigital.com.br/empresa/hbam2qun6k_resize.png" alt="Banner exemplo 1">
+    </div>
+    <div class="flutuante eff" onclick="pedido(lista)">
+        <div id="mesa">
+            <h3 id="NumMesa">Mesa: </h3>
+        </div>
+        <div class="itens">
+            <h4 class="flutuante-text" style="margin-right:3px" id="total"> 0 </h4>
+            <h4 class="flutuante-text">Itens</h4>
+        </div>
+        <h4 style="margin:0 0 0 0">Valor:</h4>
+        <h3 class="conta">R$ 0,00</h3>
+    </div>
+    <div class="ButtonZap" onclick="pedido(lista)">
+        <button class="pedido eff"><span class="zapIcon "><img class="img-fluid" src="images/733585.png" alt=""></span>&nbsp; <span class="mostrar"> Enviar Pedido</span></button>
+    </div>
+    <div class="menu">
+        <div class="category-nav">
+            <ul class="category-list">
+<li><a href="#G15280">VESTUARIO</a></li>
+<li><a href="#G19117">BEBIDAS</a></li>
+<li><a href="#G36077">COMIDAS</a></li>
+<li><a href="#G36078">OUTROS</a></li>
+<li><a href="#G40695">SORVETERIA</a></li>
+<li><a href="#G70451">CONSUMACAO</a></li>
+<li><a href="#G90720">HORTIFRUTI</a></li>
+<li><a href="#G94943">FICHAS</a></li>
+<li><a href="#G112190">PIZZA</a></li>
+<li><a href="#G258971">LIMPEZA</a></li>
+           </ul>
+        </div>
+        <div class="category" id="G15280">
+            <h2>VESTUARIO</h2>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/48cd6fdc-0952-4ed0-936b-0f5dce6754c8_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome2975090">Camisa G Polo</h3>
+                    <p class="item-description">Camisa G Polo</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t2975090">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(2975090,lista)">-</span>
+                    <span class="quantity" id="t2975090">0</span>
+                    <span class="quantity-control" onclick="somar(2975090,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/48cd6fdc-0952-4ed0-936b-0f5dce6754c8_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome2975092">Cinto Fivela Branca</h3>
+                    <p class="item-description">Cinto Fivela Branca</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t2975092">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(2975092,lista)">-</span>
+                    <span class="quantity" id="t2975092">0</span>
+                    <span class="quantity-control" onclick="somar(2975092,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/48cd6fdc-0952-4ed0-936b-0f5dce6754c8_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome2975093">Cinto Fivela Vermelha</h3>
+                    <p class="item-description">Cinto Fivela Vermelha</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t2975093">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(2975093,lista)">-</span>
+                    <span class="quantity" id="t2975093">0</span>
+                    <span class="quantity-control" onclick="somar(2975093,lista)">+</span>
+                </div>
+            </div>
+        </div>
+        <div class="category" id="G19117">
+            <h2>BEBIDAS</h2>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome3300060">Coca 2L</h3>
+                    <p class="item-description">Coca 2L</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t3300060">R$ 10,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(3300060,lista)">-</span>
+                    <span class="quantity" id="t3300060">0</span>
+                    <span class="quantity-control" onclick="somar(3300060,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/dfeef039-2301-4852-86fe-831be0e3ef5b_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome3717285">Coca Cola 2L</h3>
+                    <p class="item-description">Coca Cola 2L</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t3717285">R$ 5,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(3717285,lista)">-</span>
+                    <span class="quantity" id="t3717285">0</span>
+                    <span class="quantity-control" onclick="somar(3717285,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome6074649">Coca Cola 300ml</h3>
+                    <p class="item-description">Coca Cola 300ml</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t6074649">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(6074649,lista)">-</span>
+                    <span class="quantity" id="t6074649">0</span>
+                    <span class="quantity-control" onclick="somar(6074649,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome4084363">Cerveja Lata 250ml</h3>
+                    <p class="item-description">Cerveja Lata 250ml</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t4084363">R$ 2,50</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(4084363,lista)">-</span>
+                    <span class="quantity" id="t4084363">0</span>
+                    <span class="quantity-control" onclick="somar(4084363,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/d782884a-8627-4c36-ae75-5d0bb6ed8e34_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome1807348">Agua c Gas</h3>
+                    <p class="item-description">Agua gasosa</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t1807348">R$ 5,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(1807348,lista)">-</span>
+                    <span class="quantity" id="t1807348">0</span>
+                    <span class="quantity-control" onclick="somar(1807348,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome3325877">Agua s Gas</h3>
+                    <p class="item-description">Agua</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t3325877">R$ 1,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(3325877,lista)">-</span>
+                    <span class="quantity" id="t3325877">0</span>
+                    <span class="quantity-control" onclick="somar(3325877,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome6784392">Fanta Laranja</h3>
+                    <p class="item-description">Fanta Laranja</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t6784392">R$ 3,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(6784392,lista)">-</span>
+                    <span class="quantity" id="t6784392">0</span>
+                    <span class="quantity-control" onclick="somar(6784392,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome6005116">Spaten 350ML</h3>
+                    <p class="item-description">Spaten 350ML</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t6005116">R$ 5,50</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(6005116,lista)">-</span>
+                    <span class="quantity" id="t6005116">0</span>
+                    <span class="quantity-control" onclick="somar(6005116,lista)">+</span>
+                </div>
+            </div>
+        </div>
+        <div class="category" id="G36077">
+            <h2>COMIDAS</h2>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome4193237">Pastel</h3>
+                    <p class="item-description">Pastel</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t4193237">R$ 15,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(4193237,lista)">-</span>
+                    <span class="quantity" id="t4193237">0</span>
+                    <span class="quantity-control" onclick="somar(4193237,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome3612051">PASTEL PROMOCAO</h3>
+                    <p class="item-description">PASTEL PROMOCAO</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t3612051">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(3612051,lista)">-</span>
+                    <span class="quantity" id="t3612051">0</span>
+                    <span class="quantity-control" onclick="somar(3612051,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome4193260">Churros</h3>
+                    <p class="item-description">Churros</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t4193260">R$ 13,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(4193260,lista)">-</span>
+                    <span class="quantity" id="t4193260">0</span>
+                    <span class="quantity-control" onclick="somar(4193260,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/d10173dc-f911-419b-bf1b-655da4fbb5e4_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome1361780">Fritas Queijo e Bacon</h3>
+                    <p class="item-description">Fritas Queijo e Bacon</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t1361780">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(1361780,lista)">-</span>
+                    <span class="quantity" id="t1361780">0</span>
+                    <span class="quantity-control" onclick="somar(1361780,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome3387702">Galeto inteiro</h3>
+                    <p class="item-description">Galeto inteiro</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t3387702">R$ 20,20</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(3387702,lista)">-</span>
+                    <span class="quantity" id="t3387702">0</span>
+                    <span class="quantity-control" onclick="somar(3387702,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome1754977">Gas Cozinha</h3>
+                    <p class="item-description">Gas Cozinha</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t1754977">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(1754977,lista)">-</span>
+                    <span class="quantity" id="t1754977">0</span>
+                    <span class="quantity-control" onclick="somar(1754977,lista)">+</span>
+                </div>
+            </div>
+        </div>
+        <div class="category" id="G36078">
+            <h2>OUTROS</h2>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome4861259">INGRESSO</h3>
+                    <p class="item-description">INGRESSO</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t4861259">R$ 50,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(4861259,lista)">-</span>
+                    <span class="quantity" id="t4861259">0</span>
+                    <span class="quantity-control" onclick="somar(4861259,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/9fd80110-19d6-4b6f-93fa-96c4bfe9eba9_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome3518254">LIVRO ELEMENTOS BASICOS</h3>
+                    <p class="item-description">LIVRO ELEMENTOS BASICOS</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t3518254">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(3518254,lista)">-</span>
+                    <span class="quantity" id="t3518254">0</span>
+                    <span class="quantity-control" onclick="somar(3518254,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/8d87eaaf-7eea-4e6d-b77f-3b9ca413ade9_resize.jpeg');"></div>
+                <div class="item-details">
+                    <h3 class="nome3439244">LIVRO GPS DA VENDAS</h3>
+                    <p class="item-description">LIVRO GPS DA VENDAS</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t3439244">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(3439244,lista)">-</span>
+                    <span class="quantity" id="t3439244">0</span>
+                    <span class="quantity-control" onclick="somar(3439244,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/0112eccd-ea6d-4654-bcdf-9498102b977b_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome4496820">Molho de Tomate</h3>
+                    <p class="item-description">Molho de Tomate</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t4496820">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(4496820,lista)">-</span>
+                    <span class="quantity" id="t4496820">0</span>
+                    <span class="quantity-control" onclick="somar(4496820,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/d782884a-8627-4c36-ae75-5d0bb6ed8e34_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome676800">Planta KG</h3>
+                    <p class="item-description">Planta KG</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t676800">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(676800,lista)">-</span>
+                    <span class="quantity" id="t676800">0</span>
+                    <span class="quantity-control" onclick="somar(676800,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/8850ddab-a1de-4013-a05d-eb7b8c0304b3_resize.jpeg');"></div>
+                <div class="item-details">
+                    <h3 class="nome3439237">ALCOOL ISOPROPILICO</h3>
+                    <p class="item-description">ALCOOL ISOPROPILICO</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t3439237">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(3439237,lista)">-</span>
+                    <span class="quantity" id="t3439237">0</span>
+                    <span class="quantity-control" onclick="somar(3439237,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/9fd80110-19d6-4b6f-93fa-96c4bfe9eba9_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome3518249">AMENDOIM DORI 320g</h3>
+                    <p class="item-description">AMENDOIM DORI 320g</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t3518249">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(3518249,lista)">-</span>
+                    <span class="quantity" id="t3518249">0</span>
+                    <span class="quantity-control" onclick="somar(3518249,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/8850ddab-a1de-4013-a05d-eb7b8c0304b3_resize.jpeg');"></div>
+                <div class="item-details">
+                    <h3 class="nome4461223">ABINOAM GONZAGA DA SILVA</h3>
+                    <p class="item-description">ABINOAM GONZAGA DA SILVA</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t4461223">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(4461223,lista)">-</span>
+                    <span class="quantity" id="t4461223">0</span>
+                    <span class="quantity-control" onclick="somar(4461223,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/8850ddab-a1de-4013-a05d-eb7b8c0304b3_resize.jpeg');"></div>
+                <div class="item-details">
+                    <h3 class="nome3518268">CHIP VIVO</h3>
+                    <p class="item-description">CHIP VIVO</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t3518268">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(3518268,lista)">-</span>
+                    <span class="quantity" id="t3518268">0</span>
+                    <span class="quantity-control" onclick="somar(3518268,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome2806088">Teste1</h3>
+                    <p class="item-description">Teste1</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t2806088">R$ 10,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(2806088,lista)">-</span>
+                    <span class="quantity" id="t2806088">0</span>
+                    <span class="quantity-control" onclick="somar(2806088,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/13e08a4e-a279-4b46-9f7f-97a50546e376_resize.jpeg');"></div>
+                <div class="item-details">
+                    <h3 class="nome7296003">Unidade 10</h3>
+                    <p class="item-description">Unidade 10</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t7296003">R$ 10,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(7296003,lista)">-</span>
+                    <span class="quantity" id="t7296003">0</span>
+                    <span class="quantity-control" onclick="somar(7296003,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/13e08a4e-a279-4b46-9f7f-97a50546e376_resize.jpeg');"></div>
+                <div class="item-details">
+                    <h3 class="nome7296007">Unidade 15</h3>
+                    <p class="item-description">Unidade 15</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t7296007">R$ 15,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(7296007,lista)">-</span>
+                    <span class="quantity" id="t7296007">0</span>
+                    <span class="quantity-control" onclick="somar(7296007,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/13e08a4e-a279-4b46-9f7f-97a50546e376_resize.jpeg');"></div>
+                <div class="item-details">
+                    <h3 class="nome2400096">Unidade 5</h3>
+                    <p class="item-description">Boi</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t2400096">R$ 5,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(2400096,lista)">-</span>
+                    <span class="quantity" id="t2400096">0</span>
+                    <span class="quantity-control" onclick="somar(2400096,lista)">+</span>
+                </div>
+            </div>
+        </div>
+        <div class="category" id="G40695">
+            <h2>SORVETERIA</h2>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome2562966">Casquinha 1 bola</h3>
+                    <p class="item-description">Casquinha 1 bola</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t2562966">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(2562966,lista)">-</span>
+                    <span class="quantity" id="t2562966">0</span>
+                    <span class="quantity-control" onclick="somar(2562966,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome2562967">Casquinha 2 bolas</h3>
+                    <p class="item-description">Casquinha 2 bolas</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t2562967">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(2562967,lista)">-</span>
+                    <span class="quantity" id="t2562967">0</span>
+                    <span class="quantity-control" onclick="somar(2562967,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/a7eb7d2c-0d9a-4574-9d0f-f3582a02ad84_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome3453933">ACAI 1KG</h3>
+                    <p class="item-description">ACAI 1KG</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t3453933">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(3453933,lista)">-</span>
+                    <span class="quantity" id="t3453933">0</span>
+                    <span class="quantity-control" onclick="somar(3453933,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/676d219f-8ac9-4330-a25f-79b42be7cd1a_resize.png');"></div>
+                <div class="item-details">
+                    <h3 class="nome1464313">Acai 500ml</h3>
+                    <p class="item-description">Sorvete 500g</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t1464313">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(1464313,lista)">-</span>
+                    <span class="quantity" id="t1464313">0</span>
+                    <span class="quantity-control" onclick="somar(1464313,lista)">+</span>
+                </div>
+            </div>
+        </div>
+        <div class="category" id="G70451">
+            <h2>CONSUMACAO</h2>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome2006705">8 Pessoas</h3>
+                    <p class="item-description">Ingresso 8 Pessoas</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t2006705">R$ 8,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(2006705,lista)">-</span>
+                    <span class="quantity" id="t2006705">0</span>
+                    <span class="quantity-control" onclick="somar(2006705,lista)">+</span>
+                </div>
+            </div>
+        </div>
+        <div class="category" id="G90720">
+            <h2>HORTIFRUTI</h2>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome2365409">BATATA</h3>
+                    <p class="item-description">BATATA</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t2365409">R$ 10,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(2365409,lista)">-</span>
+                    <span class="quantity" id="t2365409">0</span>
+                    <span class="quantity-control" onclick="somar(2365409,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome2365407">MACA</h3>
+                    <p class="item-description">MACA</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t2365407">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(2365407,lista)">-</span>
+                    <span class="quantity" id="t2365407">0</span>
+                    <span class="quantity-control" onclick="somar(2365407,lista)">+</span>
+                </div>
+            </div>
+        </div>
+        <div class="category" id="G94943">
+            <h2>FICHAS</h2>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome1621423">1 A 3 Passagem</h3>
+                    <p class="item-description">CABO USB CORDA 1.5M ART02 IPHONE (PRETO)</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t1621423">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(1621423,lista)">-</span>
+                    <span class="quantity" id="t1621423">0</span>
+                    <span class="quantity-control" onclick="somar(1621423,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome1621449">1 A 4 Passagem</h3>
+                    <p class="item-description">ADAPTADOR CONECTOR HDMI L LELONG LE05</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t1621449">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(1621449,lista)">-</span>
+                    <span class="quantity" id="t1621449">0</span>
+                    <span class="quantity-control" onclick="somar(1621449,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/a7eb7d2c-0d9a-4574-9d0f-f3582a02ad84_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome2444045">Costelinha Assada</h3>
+                    <p class="item-description">Costelinha Assada</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t2444045">R$ 45,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(2444045,lista)">-</span>
+                    <span class="quantity" id="t2444045">0</span>
+                    <span class="quantity-control" onclick="somar(2444045,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/a7eb7d2c-0d9a-4574-9d0f-f3582a02ad84_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome2444043">Frango Assado</h3>
+                    <p class="item-description">Frango Assado</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t2444043">R$ 40,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(2444043,lista)">-</span>
+                    <span class="quantity" id="t2444043">0</span>
+                    <span class="quantity-control" onclick="somar(2444043,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/a7eb7d2c-0d9a-4574-9d0f-f3582a02ad84_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome2444052">Frango Assado</h3>
+                    <p class="item-description">Frango Assado</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t2444052">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(2444052,lista)">-</span>
+                    <span class="quantity" id="t2444052">0</span>
+                    <span class="quantity-control" onclick="somar(2444052,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/a7eb7d2c-0d9a-4574-9d0f-f3582a02ad84_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome2444046">Joelho Assado</h3>
+                    <p class="item-description">Joelho Assado</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t2444046">R$ 40,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(2444046,lista)">-</span>
+                    <span class="quantity" id="t2444046">0</span>
+                    <span class="quantity-control" onclick="somar(2444046,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/a7eb7d2c-0d9a-4574-9d0f-f3582a02ad84_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome2444048">Porcao Batata</h3>
+                    <p class="item-description">Porcao Batata</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t2444048">R$ 20,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(2444048,lista)">-</span>
+                    <span class="quantity" id="t2444048">0</span>
+                    <span class="quantity-control" onclick="somar(2444048,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/a7eb7d2c-0d9a-4574-9d0f-f3582a02ad84_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome2444047">Rocambole Assado</h3>
+                    <p class="item-description">Rocambole Assado</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t2444047">R$ 50,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(2444047,lista)">-</span>
+                    <span class="quantity" id="t2444047">0</span>
+                    <span class="quantity-control" onclick="somar(2444047,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome1621450">Passagem</h3>
+                    <p class="item-description">ADAPTADOR DE CHIP C CHAVE CELULAR UNIVERSAL</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t1621450">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(1621450,lista)">-</span>
+                    <span class="quantity" id="t1621450">0</span>
+                    <span class="quantity-control" onclick="somar(1621450,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/a7eb7d2c-0d9a-4574-9d0f-f3582a02ad84_resize.jpg');"></div>
+                <div class="item-details">
+                    <h3 class="nome2444044">Lombo Assado</h3>
+                    <p class="item-description">Lombo Assado</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t2444044">R$ 42,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(2444044,lista)">-</span>
+                    <span class="quantity" id="t2444044">0</span>
+                    <span class="quantity-control" onclick="somar(2444044,lista)">+</span>
+                </div>
+            </div>
+        </div>
+        <div class="category" id="G112190">
+            <h2>PIZZA</h2>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('');"></div>
+                <div class="item-details">
+                    <h3 class="nome6479040">PIZZA CONTRA FILE</h3>
+                    <p class="item-description">PIZZA CONTRA FILE</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t6479040">R$ 0,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(6479040,lista)">-</span>
+                    <span class="quantity" id="t6479040">0</span>
+                    <span class="quantity-control" onclick="somar(6479040,lista)">+</span>
+                </div>
+            </div>
+        </div>
+        <div class="category" id="G258971">
+            <h2>LIMPEZA</h2>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/13e08a4e-a279-4b46-9f7f-97a50546e376_resize.jpeg');"></div>
+                <div class="item-details">
+                    <h3 class="nome5632432">Saco Lixo</h3>
+                    <p class="item-description">Saco Lixo</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t5632432">R$ 10,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(5632432,lista)">-</span>
+                    <span class="quantity" id="t5632432">0</span>
+                    <span class="quantity-control" onclick="somar(5632432,lista)">+</span>
+                </div>
+            </div>
+    <div class="menu-item">
+                <div class="item-image" style="background-image: url('https://docs.lacartadigital.com.br/produtos/13e08a4e-a279-4b46-9f7f-97a50546e376_resize.jpeg');"></div>
+                <div class="item-details">
+                    <h3 class="nome5632437">Agua Sanitaria</h3>
+                    <p class="item-description">Agua Sanitaria</p>
+                </div>
+                <div class="item-price">
+                    <div class="text-price">
+                        <p class="t5632437">R$ 5,00</p>
+                    </div>
+                    <span class="quantity-control" onclick="subtrair(5632437,lista)">-</span>
+                    <span class="quantity" id="t5632437">0</span>
+                    <span class="quantity-control" onclick="somar(5632437,lista)">+</span>
+                </div>
+            </div>
+        </div>
+    <script src="funcoes.js"></script>
+    <script>
+        function pedido(li) {
+            if (li.length > 0) {
+                var Fonenumber = '0';
+                enviar(li, Fonenumber)
+            }
+        }
+    </script>
+</body>
+</html>

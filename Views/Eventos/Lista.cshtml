@@ -7,6 +7,11 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/css/pages/Eventos/Lista.css" asp-append-version="true" />
+    <style>
+        .popup-icon.error-icon i {
+            color: #dc3545; /* Cor de perigo do Bootstrap */
+        }
+    </style>
 }
 
 <div id="events-page">
@@ -209,19 +214,37 @@
         <div class="popup-icon">
             <i class="bi bi-exclamation-triangle-fill"></i>
         </div>
-        <h4 class="popup-title">Confirmar Exclusão</h4>
-        <p class="popup-message">Tem certeza que deseja excluir este evento?</p>
-        <p class="popup-warning">Esta ação não pode ser desfeita.</p>
+        <h4 class="popup-title">Confirmar Ação</h4>
+        <p class="popup-message">Tem certeza que deseja excluir ou desativar este evento?</p>
+        <p class="popup-warning">Se houver ingressos vendidos ou convites, o evento será apenas desativado. Caso contrário, será excluído permanentemente.</p>
         <div class="popup-actions">
             <button class="btn btn-outline-secondary popup-btn-cancel" id="cancelBtn">
                 <i class="bi bi-x-lg me-2"></i>Cancelar
             </button>
             <button class="btn btn-danger popup-btn-confirm" id="confirmDeleteBtn">
-                <i class="bi bi-trash3-fill me-2"></i>Sim, excluir
+                <i class="bi bi-trash3-fill me-2"></i>Sim, continuar
             </button>
         </div>
     </div>
 </div>
+
+<!-- Modal de Erro na Exclusão -->
+<div id="error-popup" class="popup-confirm">
+    <div class="popup-confirm-content">
+        <div class="popup-icon error-icon">
+            <i class="bi bi-x-circle-fill"></i>
+        </div>
+        <h4 class="popup-title">Falha ao Processar</h4>
+        <p class="popup-message">Não foi possível concluir a solicitação.</p>
+        <p class="popup-warning">Isso geralmente ocorre por um erro de comunicação ou uma falha no servidor. Por favor, tente novamente.</p>
+        <div class="popup-actions">
+            <button class="btn btn-primary popup-btn-ok" id="errorOkBtn">
+                Entendi
+            </button>
+        </div>
+    </div>
+</div>
+
 
 @section Scripts {
     <script>
@@ -254,37 +277,82 @@
                 });
             });
 
-            // --- Modal de Exclusão ---
+            // --- Modais de Exclusão e Erro ---
             const deletePopup = document.getElementById('delete-popup');
+            const errorPopup = document.getElementById('error-popup');
             const cancelBtn = document.getElementById('cancelBtn');
             const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+            const errorOkBtn = document.getElementById('errorOkBtn');
             let eventIdToDelete = null;
 
             function openDeletePopup(id) {
                 eventIdToDelete = id;
                 deletePopup.style.display = 'flex';
+                setTimeout(() => deletePopup.classList.add('show'), 10);
             }
 
             function closeDeletePopup() {
                 eventIdToDelete = null;
-                deletePopup.style.display = 'none';
+                deletePopup.classList.remove('show');
+                setTimeout(() => deletePopup.style.display = 'none', 300);
             }
 
-            function deletarEvento() {
-                if (eventIdToDelete) {
-                    console.log("Deletando evento com ID:", eventIdToDelete);
-                    // Adicionar lógica de exclusão aqui (ex: fetch para a API)
-                    closeDeletePopup();
-                }
+            function openErrorPopup() {
+                errorPopup.style.display = 'flex';
+                setTimeout(() => errorPopup.classList.add('show'), 10);
             }
-            
-            // Adiciona listeners para todos os botões de exclusão
+
+            function closeErrorPopup() {
+                errorPopup.classList.remove('show');
+                setTimeout(() => errorPopup.style.display = 'none', 300);
+            }
+
+            // Listeners para abrir o modal de confirmação
             document.querySelectorAll('[id^="deleteBtn"]').forEach(btn => {
-                btn.addEventListener('click', () => openDeletePopup(btn.dataset.id));
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation(); 
+                    openDeletePopup(btn.dataset.id);
+                });
             });
 
+            // Listeners para fechar os modais
             cancelBtn.addEventListener('click', closeDeletePopup);
-            confirmDeleteBtn.addEventListener('click', deletarEvento);
+            errorOkBtn.addEventListener('click', closeErrorPopup);
+
+            // Listener para o botão de confirmação da exclusão
+            confirmDeleteBtn.addEventListener('click', function () {
+                if (!eventIdToDelete) return;
+
+                const url = '/Eventos/Delete';
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    },
+                    body: `id=${eventIdToDelete}`
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('A resposta da rede não foi bem-sucedida.');
+                    }
+                    return response.json();
+                })
+                .then(success => {
+                    closeDeletePopup();
+                    if (success) {
+                        location.reload();
+                    } else {
+                        openErrorPopup();
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro na requisição fetch:', error);
+                    closeDeletePopup();
+                    openErrorPopup();
+                });
+            });
         });
     </script>
 }
+

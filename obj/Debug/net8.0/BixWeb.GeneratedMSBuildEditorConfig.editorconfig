@@ -17,497 +17,497 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = BixWeb
 build_property.RootNamespace = BixWeb
-build_property.ProjectDir = D:\codigo\PapiFast\BixWeb\BixWeb\
+build_property.ProjectDir = C:\Users\pedro\Downloads\PapiFastMVC\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\codigo\PapiFast\BixWeb\BixWeb
+build_property.MSBuildProjectDirectory = C:\Users\pedro\Downloads\PapiFastMVC
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Campanhas/Anuncios.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Campanhas/Anuncios.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcGFuaGFzXEFudW5jaW9zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Campanhas/Cardapio.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Campanhas/Cardapio.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcGFuaGFzXENhcmRhcGlvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Campanhas/CardapioImpresso.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Campanhas/CardapioImpresso.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcGFuaGFzXENhcmRhcGlvSW1wcmVzc28uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Campanhas/Create.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Campanhas/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcGFuaGFzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Campanhas/Delete.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Campanhas/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcGFuaGFzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Campanhas/Details.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Campanhas/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcGFuaGFzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Campanhas/Edit.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Campanhas/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcGFuaGFzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Campanhas/Index.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Campanhas/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcGFuaGFzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Campanhas/Produtos.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Campanhas/Produtos.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcGFuaGFzXFByb2R1dG9zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Campanhas/ProdutosCardapio.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Campanhas/ProdutosCardapio.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcGFuaGFzXFByb2R1dG9zQ2FyZGFwaW8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Campanhas/ViewProduto.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Campanhas/ViewProduto.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcGFuaGFzXFZpZXdQcm9kdXRvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Campanhas/VisualizarCardapio.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Campanhas/VisualizarCardapio.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcGFuaGFzXFZpc3VhbGl6YXJDYXJkYXBpby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Convidados/Create.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Convidados/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udmlkYWRvc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Convidados/Delete.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Convidados/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udmlkYWRvc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Convidados/Details.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Convidados/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udmlkYWRvc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Convidados/Edit.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Convidados/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udmlkYWRvc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Convidados/Index.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Convidados/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udmlkYWRvc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Convites/Adicionar.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Convites/Adicionar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udml0ZXNcQWRpY2lvbmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Convites/Confirmar.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Convites/Confirmar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udml0ZXNcQ29uZmlybWFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Convites/Convidado.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Convites/Convidado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udml0ZXNcQ29udmlkYWRvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Convites/Create.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Convites/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udml0ZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Convites/Delete.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Convites/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udml0ZXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Convites/Details.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Convites/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udml0ZXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Convites/Edit.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Convites/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udml0ZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Convites/EnviarConvite.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Convites/EnviarConvite.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udml0ZXNcRW52aWFyQ29udml0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Convites/Index.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Convites/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udml0ZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Convites/Lista.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Convites/Lista.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udml0ZXNcTGlzdGEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Cupons/Create.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Cupons/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3Vwb25zXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Cupons/Cupons.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Cupons/Cupons.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3Vwb25zXEN1cG9ucy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Cupons/CuponsPublicos.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Cupons/CuponsPublicos.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3Vwb25zXEN1cG9uc1B1YmxpY29zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Cupons/Delete.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Cupons/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3Vwb25zXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Cupons/Details.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Cupons/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3Vwb25zXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Cupons/Edit.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Cupons/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3Vwb25zXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Cupons/Index.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Cupons/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3Vwb25zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Cupons/Lista.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Cupons/Lista.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3Vwb25zXExpc3RhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Cupons/ProdutoCampanha.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Cupons/ProdutoCampanha.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3Vwb25zXFByb2R1dG9DYW1wYW5oYS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Cupons/ViewProduto.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Cupons/ViewProduto.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3Vwb25zXFZpZXdQcm9kdXRvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Eventos/BuscarPresente.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Eventos/BuscarPresente.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xCdXNjYXJQcmVzZW50ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Eventos/Cardapio.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Eventos/Cardapio.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xDYXJkYXBpby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Eventos/Create.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Eventos/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Eventos/Delete.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Eventos/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Eventos/Details.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Eventos/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Eventos/DetailsPartial.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Eventos/DetailsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xEZXRhaWxzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Eventos/Edit.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Eventos/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Eventos/Index.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Eventos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Eventos/Lista.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Eventos/Lista.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xMaXN0YS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Eventos/Presentes.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Eventos/Presentes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xQcmVzZW50ZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Eventos/Produtos.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Eventos/Produtos.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRvc1xQcm9kdXRvcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Filiais/Create.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Filiais/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmlsaWFpc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Filiais/Delete.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Filiais/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmlsaWFpc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Filiais/Details.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Filiais/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmlsaWFpc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Filiais/Edit.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Filiais/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmlsaWFpc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Filiais/Index.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Filiais/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmlsaWFpc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Home/Index.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Home/Pagamentos.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Home/Pagamentos.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQYWdhbWVudG9zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Home/Privacy.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Home/Suporte.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Home/Suporte.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTdXBvcnRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Ingressos/CadastrarIngresso.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Ingressos/CadastrarIngresso.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ncmVzc29zXENhZGFzdHJhckluZ3Jlc3NvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Ingressos/Create.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Ingressos/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ncmVzc29zXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Ingressos/Delete.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Ingressos/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ncmVzc29zXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Ingressos/Details.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Ingressos/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ncmVzc29zXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Ingressos/Edit.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Ingressos/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ncmVzc29zXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Ingressos/Index.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Ingressos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ncmVzc29zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Ingressos/IngressoStatus.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Ingressos/IngressoStatus.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ncmVzc29zXEluZ3Jlc3NvU3RhdHVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Ingressos/ReciboIngresso.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Ingressos/ReciboIngresso.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ncmVzc29zXFJlY2lib0luZ3Jlc3NvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Ingressos/RecibosIngresso.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Ingressos/RecibosIngresso.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ncmVzc29zXFJlY2lib3NJbmdyZXNzby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Ingressos/Venda.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Ingressos/Venda.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ncmVzc29zXFZlbmRhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Login/Ativar.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Login/Ativar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cQXRpdmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Login/Create.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Login/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Login/Index.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Login/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Login/Validation.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Login/Validation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cVmFsaWRhdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Precos/Create.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Precos/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlY29zXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Precos/Delete.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Precos/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlY29zXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Precos/Details.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Precos/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlY29zXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Precos/Edit.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Precos/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlY29zXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Precos/Index.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Precos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlY29zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Presentes/Create.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Presentes/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlc2VudGVzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Presentes/Delete.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Presentes/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlc2VudGVzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Presentes/Details.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Presentes/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlc2VudGVzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Presentes/Edit.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Presentes/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlc2VudGVzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Presentes/Index.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Presentes/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlc2VudGVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/ProdutosCampanha/Create.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/ProdutosCampanha/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b3NDYW1wYW5oYVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/ProdutosCampanha/Delete.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/ProdutosCampanha/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b3NDYW1wYW5oYVxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/ProdutosCampanha/Details.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/ProdutosCampanha/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b3NDYW1wYW5oYVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/ProdutosCampanha/Edit.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/ProdutosCampanha/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b3NDYW1wYW5oYVxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/ProdutosCampanha/Index.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/ProdutosCampanha/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b3NDYW1wYW5oYVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/ReciboPresentes/Create.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/ReciboPresentes/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjaWJvUHJlc2VudGVzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/ReciboPresentes/Delete.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/ReciboPresentes/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjaWJvUHJlc2VudGVzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/ReciboPresentes/Details.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/ReciboPresentes/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjaWJvUHJlc2VudGVzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/ReciboPresentes/Edit.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/ReciboPresentes/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjaWJvUHJlc2VudGVzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/ReciboPresentes/Index.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/ReciboPresentes/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjaWJvUHJlc2VudGVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/ReciboPresentes/PresentesStatus.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/ReciboPresentes/PresentesStatus.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjaWJvUHJlc2VudGVzXFByZXNlbnRlc1N0YXR1cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/ReciboPresentes/ValidarToken.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/ReciboPresentes/ValidarToken.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjaWJvUHJlc2VudGVzXFZhbGlkYXJUb2tlbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Shared/Error.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Shared/_Layout.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Shared/_LoginPartial.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Shared/_LoginPartial2.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Shared/_LoginPartial2.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Sincronizar/Create.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Sincronizar/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2luY3Jvbml6YXJcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Sincronizar/Delete.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Sincronizar/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2luY3Jvbml6YXJcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Sincronizar/Edit.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Sincronizar/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2luY3Jvbml6YXJcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Sincronizar/Index.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Sincronizar/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2luY3Jvbml6YXJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Sincronizar/Sincronizar.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Sincronizar/Sincronizar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2luY3Jvbml6YXJcU2luY3Jvbml6YXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Usuarios/Clientes.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Usuarios/Clientes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcQ2xpZW50ZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Usuarios/Create.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Usuarios/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Usuarios/Delete.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Usuarios/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Usuarios/Details.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Usuarios/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Usuarios/Edit.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Usuarios/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Usuarios/Funcionarios.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Usuarios/Funcionarios.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRnVuY2lvbmFyaW9zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Usuarios/Index.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Usuarios/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Usuarios/NewCliente.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Usuarios/NewCliente.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcTmV3Q2xpZW50ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Usuarios/NewFuncionario.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Usuarios/NewFuncionario.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcTmV3RnVuY2lvbmFyaW8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Voucher/Create.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Voucher/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm91Y2hlclxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Voucher/Delete.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Voucher/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm91Y2hlclxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Voucher/Details.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Voucher/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm91Y2hlclxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Voucher/Edit.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Voucher/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm91Y2hlclxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Voucher/Index.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Voucher/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm91Y2hlclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/Voucher/Lista.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/Voucher/Lista.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVm91Y2hlclxMaXN0YS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/WhatsApps/Index.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/WhatsApps/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2hhdHNBcHBzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/_ViewImports.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/codigo/PapiFast/BixWeb/BixWeb/Views/_ViewStart.cshtml]
+[C:/Users/pedro/Downloads/PapiFastMVC/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
