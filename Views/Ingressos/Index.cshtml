@@ -88,7 +88,8 @@
                             <td data-label="Status">
                                 @if (item.tipoVendaIngresso == "Não vendido!")
                                 {
-                                    <span class="status-badge status-awaiting">Aguardando Venda</span>
+                                    // MUDANÇA APLICADA: Adicionado 'data-nomenclatura' para permitir que o JS altere este texto.
+                                    <span class="status-badge status-awaiting" data-nomenclatura="statusAguardando">Aguardando Venda</span>
                                 }
                                 else if (item.ativoIngresso)
                                 {

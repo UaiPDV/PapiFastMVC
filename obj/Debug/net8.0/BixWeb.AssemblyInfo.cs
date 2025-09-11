@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BixWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+44fd041471c21022b7a0de7a0ffee4af7482c27a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f3f81ce0db78b6f17241d2af209b5e5df84c9178")]
 [assembly: System.Reflection.AssemblyProductAttribute("BixWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BixWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,6 +1,6 @@
 /**
  * Nomenclatura Dinâmica para a Página de Ingressos (Index.cshtml)
- * v3.2 - Corrigido e com Melhor Diagnóstico
+ * v3.4 - Simplificado o cabeçalho da tabela de tipo de venda.
  *
  * Este script adapta toda a terminologia da página (incluindo o título da aba)
  * com base na categoria do evento, tipo de local e se é gratuito.
@@ -14,70 +14,70 @@ document.addEventListener('DOMContentLoaded', () => {
 			ingresso: 'Convite',
 			ingressos: 'Convites',
 			lote: 'Grupo',
-			tipoVendaHeader: 'Tipo de Distribuição',
+			tipoVendaHeader: 'Distribuição',
 			vendaAcao: 'Distribuir',
 		},
 		Casamento: {
 			ingresso: 'Convite',
 			ingressos: 'Convites',
 			lote: 'Mesa',
-			tipoVendaHeader: 'Tipo de Confirmação',
+			tipoVendaHeader: 'Confirmação',
 			vendaAcao: 'Distribuir',
 		},
 		Bodas: {
 			ingresso: 'Convite',
 			ingressos: 'Convites',
 			lote: 'Mesa',
-			tipoVendaHeader: 'Tipo de Confirmação',
+			tipoVendaHeader: 'Confirmação',
 			vendaAcao: 'Distribuir',
 		},
 		'Chá de Bebê': {
 			ingresso: 'Convite',
 			ingressos: 'Convites',
 			lote: 'Turma',
-			tipoVendaHeader: 'Tipo de Distribuição',
+			tipoVendaHeader: 'Distribuição',
 			vendaAcao: 'Distribuir',
 		},
 		'Chá de Panela': {
 			ingresso: 'Convite',
 			ingressos: 'Convites',
 			lote: 'Turma',
-			tipoVendaHeader: 'Tipo de Distribuição',
+			tipoVendaHeader: 'Distribuição',
 			vendaAcao: 'Distribuir',
 		},
 		'Congresso, Conferência, Seminário': {
 			ingresso: 'Inscrição',
 			ingressos: 'Inscrições',
 			lote: 'Categoria',
-			tipoVendaHeader: 'Tipo de Inscrição',
+			tipoVendaHeader: 'Inscrição',
 			vendaAcao: 'Inscrever',
 		},
 		'Curso, Workshop': {
 			ingresso: 'Inscrição',
 			ingressos: 'Inscrições',
 			lote: 'Turma',
-			tipoVendaHeader: 'Tipo de Inscrição',
+			tipoVendaHeader: 'Inscrição',
 			vendaAcao: 'Inscrever',
 		},
 		'Show, Música, Festas': {
 			ingresso: 'Ingresso',
 			ingressos: 'Ingressos',
 			lote: 'Setor',
-			tipoVendaHeader: 'Tipo de Venda',
+			tipoVendaHeader: 'Venda',
 			vendaAcao: 'Vender',
 		},
 		Esportivo: {
 			ingresso: 'Ingresso',
 			ingressos: 'Ingressos',
 			lote: 'Setor',
-			tipoVendaHeader: 'Tipo de Venda',
+			tipoVendaHeader: 'Venda',
 			vendaAcao: 'Vender',
 		},
 		'E-Sports': {
 			ingresso: 'Ingresso',
 			ingressos: 'Ingressos',
 			lote: 'Categoria',
-			tipoVendaHeader: 'Tipo de Venda',
+			tipoVendaHeader: 'Venda',
 			vendaAcao: 'Vender',
 		},
 
@@ -86,77 +86,77 @@ document.addEventListener('DOMContentLoaded', () => {
 			ingresso: 'Reserva',
 			ingressos: 'Reservas',
 			lote: 'Pacote',
-			tipoVendaHeader: 'Tipo de Reserva',
+			tipoVendaHeader: 'Reserva',
 			vendaAcao: 'Reservar',
 		},
 		'Hotel Fazenda': {
 			ingresso: 'Hospedagem',
 			ingressos: 'Hospedagens',
 			lote: 'Pacote',
-			tipoVendaHeader: 'Tipo de Hospedagem',
+			tipoVendaHeader: 'Hospedagem',
 			vendaAcao: 'Reservar',
 		},
 		Pousada: {
 			ingresso: 'Reserva',
 			ingressos: 'Reservas',
 			lote: 'Acomodação',
-			tipoVendaHeader: 'Tipo de Reserva',
+			tipoVendaHeader: 'Reserva',
 			vendaAcao: 'Reservar',
 		},
 		Restaurante: {
 			ingresso: 'Reserva',
 			ingressos: 'Reservas',
 			lote: 'Mesa',
-			tipoVendaHeader: 'Tipo de Reserva',
+			tipoVendaHeader: 'Reserva',
 			vendaAcao: 'Reservar',
 		},
 		'Bar/Pub': {
 			ingresso: 'Reserva',
 			ingressos: 'Reservas',
 			lote: 'Mesa',
-			tipoVendaHeader: 'Tipo de Reserva',
+			tipoVendaHeader: 'Reserva',
 			vendaAcao: 'Reservar',
 		},
 		'Day Use': {
 			ingresso: 'Reserva',
 			ingressos: 'Reservas',
 			lote: 'Pacote',
-			tipoVendaHeader: 'Tipo de Reserva',
+			tipoVendaHeader: 'Reserva',
 			vendaAcao: 'Reservar',
 		},
 		'Salão de festas': {
 			ingresso: 'Convite',
 			ingressos: 'Convites',
 			lote: 'Mesa',
-			tipoVendaHeader: 'Tipo de Distribuição',
+			tipoVendaHeader: 'Distribuição',
 			vendaAcao: 'Distribuir',
 		},
 		'Casa/Condomínio': {
 			ingresso: 'Convite',
 			ingressos: 'Convites',
 			lote: 'Grupo',
-			tipoVendaHeader: 'Tipo de Distribuição',
+			tipoVendaHeader: 'Distribuição',
 			vendaAcao: 'Distribuir',
 		},
 		Cinema: {
 			ingresso: 'Ingresso',
 			ingressos: 'Ingressos',
 			lote: 'Sessão',
-			tipoVendaHeader: 'Tipo de Venda',
+			tipoVendaHeader: 'Venda',
 			vendaAcao: 'Vender',
 		},
 		Anfiteatro: {
 			ingresso: 'Ingresso',
 			ingressos: 'Ingressos',
 			lote: 'Setor',
-			tipoVendaHeader: 'Tipo de Venda',
+			tipoVendaHeader: 'Venda',
 			vendaAcao: 'Vender',
 		},
 		'Auditório/Sala de Conferência': {
 			ingresso: 'Inscrição',
 			ingressos: 'Inscrições',
 			lote: 'Categoria',
-			tipoVendaHeader: 'Tipo de Inscrição',
+			tipoVendaHeader: 'Inscrição',
 			vendaAcao: 'Inscrever',
 		},
 
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			ingresso: 'Ingresso',
 			ingressos: 'Ingressos',
 			lote: 'Lote',
-			tipoVendaHeader: 'Tipo de Venda',
+			tipoVendaHeader: 'Venda',
 			vendaAcao: 'Vender',
 		},
 	};
@@ -179,12 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		return;
 	}
 
-	// Adicionado .trim() para remover espaços extras que possam vir do banco de dados.
 	const categoria = (pageContainer.dataset.categoriaEvento || '').trim();
 	const tipoLocal = (pageContainer.dataset.tipoEvento || '').trim();
 	const isGratuito = pageContainer.dataset.eventoGratuito === 'true';
 
-	// Log de diagnóstico melhorado.
 	console.log(
 		`[Nomenclatura] DADOS RECEBIDOS -> Categoria: "${categoria}", Tipo de Local: "${tipoLocal}", Gratuito: ${isGratuito}`
 	);
@@ -196,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		nomenclaturas.default;
 	console.log('[Nomenclatura] TERMOS APLICADOS:', termos);
 
-	// 3. Atualiza o título da aba do navegador para "papifast".
+	// 3. Atualiza o título da aba do navegador.
 	document.title = `${
 		termos.ingressos.charAt(0).toUpperCase() + termos.ingressos.slice(1)
 	} - PapiFast`;
@@ -207,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		const newText = termos[key];
 
 		if (newText) {
-			// Mantém a capitalização original do elemento (primeira letra maiúscula).
 			const isCapitalized =
 				el.textContent.length > 0 &&
 				el.textContent[0] === el.textContent[0].toUpperCase();
@@ -217,20 +214,36 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
-	// 5. Aplica lógicas específicas para eventos gratuitos (sobrescreve o passo 4 se necessário).
+	// 5. Aplica lógicas específicas para eventos gratuitos.
 	if (isGratuito) {
 		const spanAcao = document.querySelector(
 			'[data-nomenclatura="vendaAcao"]'
 		);
 		if (spanAcao) {
-			spanAcao.textContent = 'Distribuir'; // Ação principal vira "Distribuir"
+			spanAcao.textContent = 'Distribuir';
 		}
 
 		const tipoVendaHeader = document.querySelector(
 			'[data-nomenclatura="tipoVendaHeader"]'
 		);
 		if (tipoVendaHeader) {
-			tipoVendaHeader.textContent = 'Tipo de Distribuição'; // Cabeçalho da tabela
+			tipoVendaHeader.textContent = 'Distribuição';
 		}
+
+		// --- MUDANÇA APLICADA ---
+		// Altera o status de "Aguardando Venda" para "Aguardando Distribuição"
+		document
+			.querySelectorAll('[data-nomenclatura="statusAguardando"]')
+			.forEach((el) => {
+				el.textContent = 'Aguardando Distribuição';
+			});
+
+		// Altera o tipo de venda "Não vendido!" para "Não distribuído!"
+		document.querySelectorAll('.status-sale-type').forEach((el) => {
+			if (el.textContent.trim() === 'Não vendido!') {
+				el.textContent = 'Não distribuído!';
+			}
+		});
+		// --- FIM DA MUDANÇA ---
 	}
 });

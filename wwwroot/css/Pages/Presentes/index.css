@@ -1,0 +1,66 @@
+/* Estilos para a página de listar presentes escolhidos */
+
+.presentes-escolhidos-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.produto-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.produto-imagem {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    flex-shrink: 0;
+}
+
+.produto-detalhes {
+    display: flex;
+    flex-direction: column;
+}
+
+.produto-nome {
+    font-weight: 600;
+    color: var(--papi-text-dark);
+}
+
+.produto-descricao {
+    font-size: 0.85rem;
+    color: var(--papi-text-muted);
+    margin: 0;
+    
+    /* Limita o texto a 2 linhas */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+
+.produto-preco {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--papi-orange);
+}
+
+/* Responsividade da tabela */
+@media (max-width: 767.98px) {
+    .produto-imagem {
+        width: 60px;
+        height: 60px;
+    }
+
+    .presentes-table td[data-label="Produto"] {
+        padding: 0.75rem;
+    }
+
+    .presentes-table td::before {
+        min-width: 80px; /* Alinha os labels */
+    }
+}
+
