@@ -1,322 +1,132 @@
 ﻿@model BixWeb.Models.Evento
 
 @{
-    ViewData["Title"] = "Busque dicas de Presente";
+    ViewData["Title"] = "Buscar Dicas de Presente";
 }
-<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
-	<!--begin::Content wrapper-->
-	<div class="d-flex flex-column flex-column-fluid">
-		<!--begin::Content-->
-		<div id="kt_app_content" class="app-content flex-column-fluid">
-			<!--begin::Content container-->
-			<div id="kt_app_content_container" class="app-container container-fluid">
-				<!--begin::Hero card-->
-				<div class="card mb-12">
-					<!--begin::Hero body-->
-					<div class="card-body flex-column p-5">
-						<!--begin::Hero content-->
-						<div class="d-flex align-items-center h-lg-300px p-5 p-lg-15">
-							<!--begin::Wrapper-->
-							<div class="d-flex flex-column align-items-start justift-content-center flex-equal me-5">
-								<!--begin::Title-->
-								<h1 class="fw-bold fs-4 fs-lg-1 text-gray-800 mb-5 mb-lg-10">Está procurando sugestões de presente para enviar aos seus convidados?</h1>
-								<!--end::Title-->
-							</div>
-							<!--end::Wrapper-->
-							<!--begin::Wrapper-->
-							<div class="flex-equal d-flex justify-content-center align-items-end ms-5">
-								<!--begin::Illustration-->
-								<img src="~/imagens/ideias-presente-aniversario.jpg" alt="" class="mw-100 mh-125px mh-lg-275px mb-lg-n12">
-								<!--end::Illustration-->
-							</div>
-							<!--end::Wrapper-->
-						</div>
-						<!--end::Hero content-->
-					</div>
-					<!--end::Hero body-->
-				</div>
-				<!--end::Hero card-->
-				
-					<!--begin::Card-->
-					<div class="card">
-						<!--begin::Card body-->
-						<div class="card-body">
-							<form asp-action="PresentesB" enctype="multipart/form-data" method="post">
-								<input type="hidden" name="codConvite" value="@ViewBag.codConvite" />
-								<!--begin::Layout-->
-								<div class="d-flex flex-column flex-xl-row p-7">
-									<!--begin::Content-->
-									<div class="flex-lg-row-fluid me-xl-15 mb-20 mb-xl-0">
-										<!--begin::Tickets-->
-										<div class="mb-0">
-											<!--begin::Heading-->
-											<h1 class="text-gray-900 mb-10">Vamos te indicar alguns, somente preencha abaixo e receba as dicas!</h1>
-											<!--end::Heading-->
-											<!--begin::Tickets List-->
-											<div class="mb-10">
-												<!--begin::Ticket-->
-												<div class="d-flex mb-10">
-													<!--begin::Symbol-->
-													<i class="ki-duotone ki-artificial-intelligence fs-2x me-5 ms-n1 mt-2 text-primary">
-														<span class="path1"></span>
-														<span class="path2"></span>
-														<span class="path3"></span>
-														<span class="path4"></span>
-														<span class="path5"></span>
-														<span class="path6"></span>
-														<span class="path7"></span>
-														<span class="path8"></span>
-													</i>
-													<!--end::Symbol-->
-													<!--begin::Section-->
-													<div class="d-flex flex-column">
-														<!--begin::Content-->
-														<div class="d-flex align-items-center mb-2">
-															<!--begin::Title-->
-															<p class="text-gray-900 text-hover-primary fs-4 me-3 fw-semibold">Deseja usar a descrição do evento para filtrar os presentes?</p>
-															<!--end::Title-->
-														</div>
-														<!--end::Content-->
-														<!--begin::Text-->
-														<div class="mb-10 d-flex">
-															<div class="form-check form-check-custom form-check-solid me-10">
-																<input class="form-check-input h-30px w-30px" type="radio" name="descricaoEven" value="true" id="flexRadio30" />
-																<label class="form-check-label" for="flexRadio30">
-																	Sim
-																</label>
-															</div>
-															<div class="form-check form-check-custom form-check-solid me-10">
-																<input class="form-check-input h-30px w-30px" type="radio" name="descricaoEven" value="false" id="flexRadio30" />
-																<label class="form-check-label" for="flexRadio30">
-																	Não
-																</label>
-															</div>
-														</div>
-													</div>
-													<!--end::Text-->
-												</div>
-												<!--end::Section-->
-												<!--begin::Ticket-->
-												<div class="d-flex mb-10">
-													<!--begin::Symbol-->
-													<i class="ki-duotone ki-artificial-intelligence fs-2x me-5 ms-n1 mt-2 text-primary">
-														<span class="path1"></span>
-														<span class="path2"></span>
-														<span class="path3"></span>
-														<span class="path4"></span>
-														<span class="path5"></span>
-														<span class="path6"></span>
-														<span class="path7"></span>
-														<span class="path8"></span>
-													</i>
-													<!--end::Symbol-->
-													<!--begin::Section-->
-													<div class="d-flex flex-column">
-														<!--begin::Content-->
-														<div class="d-flex align-items-center mb-2">
-															<!--begin::Title-->
-															<p class="text-gray-900 text-hover-primary fs-4 me-3 fw-semibold">Deseja usar a descrição do convite para filtrar os presentes?</p>
-															<!--end::Title-->
-														</div>
-														<!--end::Content-->
-														<!--begin::Text-->
-														<div class="mb-10 d-flex">
-															<div class="form-check form-check-custom form-check-solid me-10">
-																<input class="form-check-input h-30px w-30px" name="convitedesc" type="radio" value="true" id="flexRadio30" />
-																<label class="form-check-label" for="flexRadio30">
-																	Sim
-																</label>
-															</div>
-															<div class="form-check form-check-custom form-check-solid me-10">
-																<input class="form-check-input h-30px w-30px" name="convitedesc" type="radio" value="false" id="flexRadio30" />
-																<label class="form-check-label" for="flexRadio30">
-																	Não
-																</label>
-															</div>
-														</div>
-													</div>
-													<!--end::Text-->
-												</div>
-												<!--end::Section-->
-											<!--begin::Ticket-->
-											<div class="d-flex mb-10">
-												<!--begin::Symbol-->
-												<i class="ki-outline ki-calendar-add fs-2x me-5 ms-n1 mt-2 text-primary"></i>
-												<!--end::Symbol-->
-												<!--begin::Section-->
-												<div class="d-flex flex-column">
-													<!--begin::Content-->
-													<div class="d-flex align-items-center mb-2">
-														<!--begin::Title-->
-														<p class="text-gray-900 text-hover-primary fs-4 me-3 fw-semibold">Qual sua data de nascimento?</p>
-														<!--end::Title-->
-													</div>
-													<!--end::Content-->
-													<!--begin::Text-->
-													<div class="mb-10 d-flex">
-														<input class="form-control form-control-solid" placeholder="Seleciona a data" name="nascimento" type="date" />
-													</div>
-												</div>
-												<!--end::Text-->
-											</div>
-											<!--end::Section-->
-											<div class="d-flex mb-10">
-												<!--begin::Symbol-->
-												<i class="ki-duotone ki-people fs-2x me-5 ms-n1 mt-2 text-primary">
-													<span class="path1"></span>
-													<span class="path2"></span>
-													<span class="path3"></span>
-													<span class="path4"></span>
-													<span class="path5"></span>
-												</i>
-												<!--end::Symbol-->
-												<!--begin::Section-->
-												<div class="d-flex flex-column">
-													<!--begin::Content-->
-													<div class="d-flex align-items-center mb-2">
-														<!--begin::Title-->
-														<p class="text-gray-900 text-hover-primary fs-4 me-3 fw-semibold">Qual a faixa de valor dos presentes?</p>
-														<!--end::Title-->
-													</div>
-													<!--end::Content-->
-													<!--begin::Text-->
-													<div class="mb-10 d-flex">
-														<input class="form-control form-control-solid me-10" id="valor" placeholder="Mínimo" name="precoMin" type="text">
-														<input class="form-control form-control-solid me-10" id="valorMax" placeholder="Máximo" name="precoMax" type="text">
-													</div>
-												</div>
-												<!--end::Text-->
-											</div>
-											<!--begin::Ticket-->
-											<div class="d-flex mb-10">
-												<!--begin::Symbol-->
-												<i class="ki-duotone ki-people fs-2x me-5 ms-n1 mt-2 text-primary">
-													<span class="path1"></span>
-													<span class="path2"></span>
-													<span class="path3"></span>
-													<span class="path4"></span>
-													<span class="path5"></span>
-												</i>
-												<!--end::Symbol-->
-												<!--begin::Section-->
-												<div class="d-flex flex-column">
-													<!--begin::Content-->
-													<div class="d-flex align-items-center mb-2">
-														<!--begin::Title-->
-														<p class="text-gray-900 text-hover-primary fs-4 me-3 fw-semibold">Qual o gênero que a pessoa se identifica?</p>
-														<!--end::Title-->
-													</div>
-													<!--end::Content-->
-													<!--begin::Text-->
-													<div class="mb-10 d-flex">
-														<div class="form-check form-check-custom form-check-solid me-10">
-															<input class="form-check-input h-30px w-30px" type="radio" name="genero" value="Feminino" id="flexRadio30" />
-															<label class="form-check-label" for="flexRadio30">
-																Feminino
-															</label>
-														</div>
-														<div class="form-check form-check-custom form-check-solid me-10">
-															<input class="form-check-input h-30px w-30px" type="radio" name="genero" value="Masculino" id="flexRadio30" />
-															<label class="form-check-label" for="flexRadio30">
-																Masculino
-															</label>
-														</div>
-														<input class="form-control form-control-solid" placeholder="Outros" name="genero" type="text" />
-													</div>
-												</div>
-												<!--end::Text-->
-											</div>
-											<!--end::Section-->
-												<!--begin::Ticket-->
-												<div class="d-flex mb-10">
-													<!--begin::Symbol-->
-													<i class="ki-duotone ki-faceid fs-2x me-5 ms-n1 mt-2 text-primary">
-														<span class="path1"></span>
-														<span class="path2"></span>
-														<span class="path3"></span>
-														<span class="path4"></span>
-														<span class="path5"></span>
-														<span class="path6"></span>
-													</i>
-													<!--end::Symbol-->
-													<!--begin::Section-->
-													<div class="d-flex flex-column">
-														<!--begin::Content-->
-														<div class="d-flex align-items-center mb-2">
-															<!--begin::Title-->
-															<p class="text-gray-900 text-hover-primary fs-4 me-3 fw-semibold">Descreva algumas características de quem vai receber o presente, para melhores dicas!</p>
-															<!--end::Title-->
-															<span class="badge badge-light my-1">Atividade favorita, preferencias de afazeres, gostos musicais, hobbies, o te lembra essa pessoa...</span>
-														</div>
-														<!--end::Content-->
-														<!--begin::Text-->
-														<div class="d-flex flex-column mb-10 fv-row fv-plugins-icon-container">
-															<label class="fs-6 fw-semibold mb-2">Dicas:</label>
-															<textarea class="form-control form-control-solid" rows="6" name="descricao" placeholder=""></textarea>
-															<div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-														</div>
-														<!--end::Text-->
-													</div>
-													<!--end::Section-->
-												</div>
-												<!--end::Ticket-->
-											</div>
-											<!--end::Ticket-->
-											<!--begin::Tickets List-->
-										</div>
-										<!--end::Tickets List-->
-									</div>
-									<!--end::Tickets-->
 
-								</div>
-								<div class="d-flex gap-2 justify-content-center py-5">
-								<button onclick="showLoading()" class="btn btn-success d-inline-flex align-items-center" type="submit">
-										Ver Presentes...
-									</button>
-								</div>
-								<!--end::Content-->
-							</form>
-							</div>
-							<!--end::Layout-->
-						</div>
-						<!--end::Card body-->
-					</div>
-					<!--end::Card-->
-			</div>
-			<!--end::Content container-->
-		</div>
-		<!--end::Content-->
-	</div>
-	<!--end::Content wrapper-->
-<div id="loadingOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 9999; justify-content: center; align-items: center; flex-direction: column;">
-	<div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status">
-		<span class="visually-hidden">Loading...</span>
-	</div>
-	<p class="text-light mt-3">Gerando presentes...</p>
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Eventos/BuscarPresentes.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+}
+
+<div class="presente-container">
+    <!-- Cabeçalho da Página -->
+    <div class="form-page-header">
+        <a asp-action="Index" asp-controller="Convites" class="form-back-link">
+            <i class="bi bi-arrow-left-circle fs-2"></i>
+        </a>
+        <h1 class="form-page-title">Encontre o Presente Ideal</h1>
+    </div>
+
+    <!-- Formulário Principal -->
+    <div class="form-main-card">
+        <form asp-action="PresentesB" method="post">
+            <input type="hidden" name="codConvite" value="@ViewBag.codConvite" />
+
+            <div class="form-card">
+                <h2 class="form-section-title">Gerador de Sugestões com IA</h2>
+                <p class="form-section-subtitle">Forneça alguns detalhes para receber dicas de presentes personalizadas.</p>
+
+                <div class="row g-3">
+                    <!-- Opções de Descrição -->
+                    <div class="col-12">
+                        <label class="form-label">Fontes de Informação</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="descricaoEven" value="true" id="descricaoEvenCheck">
+                            <label class="form-check-label" for="descricaoEvenCheck">
+                                Usar descrição do evento
+                            </label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="convitedesc" value="true" id="convitedescCheck">
+                            <label class="form-check-label" for="convitedescCheck">
+                                Usar descrição do convite
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Detalhes Pessoais -->
+                    <div class="col-md-6">
+                        <label class="form-label required">Data de Nascimento</label>
+                        <input name="nascimento" type="date" class="form-control" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required">Gênero</label>
+                        <select name="genero" class="form-select">
+                            <option value="Feminino">Feminino</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+
+                    <!-- Faixa de Preço -->
+                    <div class="col-md-6">
+                        <label class="form-label required">Preço Mínimo (R$)</label>
+                        <input name="precoMin" type="text" id="valor" class="form-control" placeholder="R$ 0,00" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required">Preço Máximo (R$)</label>
+                        <input name="precoMax" type="text" id="valorMax" class="form-control" placeholder="R$ 1.000,00" required />
+                    </div>
+                    
+                    <!-- Campo de Descrição Adicional -->
+                    <div class="col-12">
+                        <label class="form-label">Descreva a pessoa (opcional)</label>
+                        <textarea name="descricao" class="form-control" rows="4" placeholder="Ex: Gosta de música, hobbies, estilo, o que te lembra essa pessoa..."></textarea>
+                        <div class="form-text">
+                            Quanto mais detalhes, mais precisas serão as sugestões da IA.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão de Ação -->
+            <div class="form-action-buttons">
+                <button type="submit" class="btn btn-primary-action" onclick="showLoading()">
+                    <i class="bi bi-lightbulb me-2"></i>
+                    Buscar Sugestões
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
-<script>
 
-	// Mostra o loading
-	function showLoading() {
-		document.getElementById('loadingOverlay').style.display = 'flex';
-	}
-		function formatReal(int) {
-		var tmp = int.toString().replace(/([0-9]{2})$/g, ",$1");
-		if (tmp.length > 6)
-			tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
 
-		return "R$ " + tmp;
-	}
+<!-- Overlay de Loading -->
+<div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner-border text-light" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="loading-text">Gerando presentes...</p>
+</div>
 
-	var inputElement = document.getElementById('valor');
-	inputElement.addEventListener('input', function(e) {
-		var value = e.target.value.replace(/\D/g, '');
-		e.target.value = formatReal(value);
-	});
-	var inputElement = document.getElementById('valorMax');
-	inputElement.addEventListener('input', function(e) {
-		var value = e.target.value.replace(/\D/g, '');
-		e.target.value = formatReal(value);
-	});
+@section Scripts {
+    <script>
+        // Mostra o loading
+        function showLoading() {
+            // Verifica se o formulário é válido antes de mostrar o loading
+            const form = document.querySelector('form');
+            if (form.checkValidity()) {
+                document.getElementById('loadingOverlay').style.display = 'flex';
+            }
+        }
 
-</script>
+        function formatReal(int) {
+            var tmp = int.toString().replace(/([0-9]{2})$/g, ",$1");
+            if (tmp.length > 6)
+                tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+            return "R$ " + tmp;
+        }
+
+        document.getElementById('valor').addEventListener('input', function (e) {
+            var value = e.target.value.replace(/\D/g, '');
+            e.target.value = formatReal(value);
+        });
+
+        document.getElementById('valorMax').addEventListener('input', function (e) {
+            var value = e.target.value.replace(/\D/g, '');
+            e.target.value = formatReal(value);
+        });
+    </script>
+}
+

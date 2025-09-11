@@ -1,0 +1,117 @@
+/* =================================================================== */
+/* ============== ESTILOS DA PÁGINA DE BUSCAR PRESENTES ============== */
+/* =================================================================== */
+
+.presente-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* --- Hero Card --- */
+.hero-card {
+    background: linear-gradient(135deg, var(--papi-orange), #d16a03);
+    color: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 25px rgba(249, 131, 3, 0.3);
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.hero-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+.hero-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.hero-image-wrapper {
+    flex-shrink: 0;
+}
+
+.hero-image {
+    max-width: 250px;
+    border-radius: 0.75rem;
+}
+
+/* --- Formulário Principal --- */
+.form-group-card {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--papi-border-color);
+}
+
+.form-label-card {
+    display: block;
+    font-weight: 600;
+    color: var(--papi-text-dark);
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.btn-group .btn-outline-secondary {
+    border-color: #ced4da;
+    color: #495057;
+}
+
+.btn-group .btn-check:checked + .btn-outline-secondary,
+.btn-group .btn-outline-secondary.active {
+    background-color: var(--papi-orange);
+    color: white;
+    border-color: var(--papi-orange);
+    box-shadow: 0 2px 8px rgba(249, 131, 3, 0.3);
+}
+
+.form-action-buttons {
+    justify-content: center; /* Centraliza o botão */
+}
+
+/* --- Overlay de Loading --- */
+.loading-overlay {
+    display: none; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.7); 
+    z-index: 9999; 
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column;
+    color: white;
+}
+
+.loading-text {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 767.98px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-image {
+        max-width: 200px;
+    }
+}

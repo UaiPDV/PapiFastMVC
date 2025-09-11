@@ -1,0 +1,132 @@
+/* Importando uma fonte para manter a consistência */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Container principal para centralizar o card */
+.ativar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* O card de ativação branco */
+.ativar-card {
+    background-color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+/* Estilo do logo */
+.ativar-card .logo {
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+/* Título principal */
+.ativar-card h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+/* Subtítulo */
+.ativar-card .subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Estilo para os grupos de formulário (label + input) */
+.ativar-form .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.ativar-form .form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* Grupo de input que contém o ícone e o campo */
+.ativar-form .input-group {
+    display: flex;
+    align-items: center;
+    background-color: #f0f2f5;
+    border: 1px solid #e0e6ed;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.ativar-form .input-group i {
+    padding-left: 15px;
+    padding-right: 10px;
+    color: #aaa;
+    transition: color 0.3s ease;
+}
+
+/* Estilo dos campos de input */
+.ativar-form .form-control {
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    height: 46px;
+    padding-left: 0;
+    font-size: 14px;
+    width: 100%;
+    flex: 1;
+}
+
+/* Remove o foco do input e passa para o grupo */
+.ativar-form .form-control:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+/* Muda a cor do grupo e do ícone quando o input está focado */
+.ativar-form .input-group:focus-within {
+    background-color: #ffffff;
+    border-color: var(--papi-orange);
+}
+
+.ativar-form .input-group:focus-within i {
+    color: var(--papi-orange);
+}
+
+/* Botão de Ativar */
+.btn-ativar {
+    background-color: var(--papi-orange);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* Garante que a tag <a> se pareça com um botão */
+    display: inline-block; /* Necessário para padding e width em <a> */
+}
+
+.btn-ativar:hover {
+    background-color: var(--papi-orange-dark);
+    color: #ffffff;
+}
+
+/* Mensagens de validação */
+.text-danger {
+    font-size: 12px;
+    text-align: left;
+    display: block;
+    margin-top: 4px;
+}

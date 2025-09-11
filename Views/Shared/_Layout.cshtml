@@ -52,7 +52,21 @@
         <div class="offcanvas-body d-flex flex-column p-0 sidebar-scroll">
             <ul class="nav nav-pills flex-column mb-auto p-2">
                 <li class="nav-item">
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link d-flex align-items-center my-1">
+                    @{
+                        var homeAction = "homeC3"; // Padrão para deslogado
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole("Gerente") || User.IsInRole("Funcionario") || User.IsInRole("Administrador"))
+                            {
+                                homeAction = "Index"; // Home do Gerente/Admin
+                            }
+                            else if (User.IsInRole("Cliente"))
+                            {
+                                homeAction = "homeC2"; // Home do Cliente
+                            }
+                        }
+                    }
+                    <a asp-area="" asp-controller="Home" asp-action="@homeAction" class="nav-link d-flex align-items-center my-1">
                         <i class="bi bi-house-door-fill me-3 fs-5"></i> Home
                     </a>
                 </li>
@@ -127,7 +141,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Scripts do site -->
-    <!-- MODIFICADO: Apenas o responsive-manager.js é necessário -->
     <script src="~/js/responsive-manager.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     
@@ -149,7 +162,7 @@
                     const linkPath = new URL(link.href).pathname.toLowerCase();
                     
                     if (currentPage.startsWith(linkPath) && linkPath.length > bestMatchLength) {
-                        if (linkPath === '/' && currentPage !== '/') {
+                        if (linkPath === '/' && currentPage !== '/home/index' && currentPage !== '/home/homec2' && currentPage !== '/home/homec3' && currentPage !== '/') {
                             return;
                         }
                         bestMatch = link;

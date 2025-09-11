@@ -1,0 +1,129 @@
+/* =================================================================== */
+/* ============== ESTILOS DA PÁGINA DE PRESENTES ===================== */
+/* =================================================================== */
+
+.presentes-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* --- Grid de Cards de Presente --- */
+.presentes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.presente-card {
+    background-color: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--papi-border-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer; /* Adiciona o cursor de ponteiro para indicar que é clicável */
+}
+
+.presente-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.presente-imagem-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+}
+
+.presente-imagem {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.presente-card:hover .presente-imagem {
+    transform: scale(1.05);
+}
+
+.presente-card-body {
+    padding: 1rem 1.25rem;
+    flex-grow: 1;
+}
+
+.presente-nome {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--papi-text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.presente-descricao {
+    font-size: 0.9rem;
+    color: var(--papi-text-muted);
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+.presente-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    background-color: #fcfcfc;
+    border-top: 1px solid var(--papi-border-color);
+}
+
+.presente-preco {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--papi-orange);
+}
+
+/* Estilização do switch de seleção */
+.form-check.form-switch {
+    display: flex;
+    align-items: center;
+}
+
+.form-check.form-switch .form-check-input {
+    width: 3.5em;
+    height: 1.75em;
+    margin-left: 0.5rem; /* Adiciona espaço entre o texto e o switch */
+}
+
+.form-check.form-switch .form-check-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+/* --- Botões de Ação --- */
+.form-action-buttons .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Modal --- */
+.modal-content {
+    border-radius: 1rem;
+    border: none;
+}
+.modal-header {
+    border-bottom: 1px solid var(--papi-border-color);
+}
+.modal-footer {
+    border-top: 1px solid var(--papi-border-color);
+}
+
+/* --- Responsividade --- */
+@media (max-width: 576px) {
+    .presentes-grid {
+        grid-template-columns: 1fr;
+    }
+}
+

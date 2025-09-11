@@ -2,246 +2,170 @@
 @model BixWeb.ViewModel.PresenteFormularioViewModel
 
 @{
-	ViewData["Title"] = "Presentes";
+    ViewData["Title"] = "Sugestões de Presente";
 }
-<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
-	<!--begin::Content wrapper-->
-	<div class="d-flex flex-column flex-column-fluid">
-		<!--begin::Content-->
-		<div id="kt_app_content" class="app-content flex-column-fluid">
-			<!--begin::Content container-->
-			<div id="kt_app_content_container" class="app-container container-fluid">
-				<!--begin::Home card-->
-				@{
-					string rota = "GerarToken";
-				}
-				@if (User.Identity.IsAuthenticated)
-				{
-					rota = "CriarPreferencia";
-				}
-				<form asp-action="@rota" class="card">
-					<input asp-for="codConvite" type="hidden" />
-					<!--begin::Body-->
-					<div class="card-body p-lg-10">
-						<!--begin::Latest posts-->
-						<div class="mb-15">
-							<!--begin::Title-->
-							<h3 class="text-gray-900 mb-7 text-center" style="font-size:2.0rem">Com base no perfil repassado recomendamos esses presentes:</h3>
-							<!--end::Title-->
-							<!--begin::Separator-->
-							<div class="separator separator-dashed mb-9"></div>
-							<!--end::Separator-->
-							<span class="fv-plugins-message-container text-center fv-plugins-message-container--enabled invalid-feedback">@ViewBag.msg</span>
 
-						</div>
-						<!--end::Latest posts-->
-						<div class="mb-17">
-							<!--begin::Row-->
-							<div class="row g-5 g-lg-10">
-								@{
-									int count = 0;
-								}
-								@foreach (var item in Model.Presentes)
-								{
-									<!--begin::Col-->
-									<div class="col-md-4">
-										<!--begin::Hot sales post-->
-										<div class="card-xl-stretch me-md-6">
-											<!--begin::Overlay-->
-											<a class="d-block overlay" data-fslightbox="latest-posts" href="@item.Imagem">
-												<!--begin::Image-->
-												<div class="overlay-wrapper bgi-no-repeat bgi-position-center card-rounded min-h-175px" style="background-image:url('@item.Imagem');background-size:contain"></div>
-												<!--end::Image-->
-												<!--begin::Action-->
-												<div class="overlay-layer card-rounded bg-dark bg-opacity-25">
-													<i class="ki-duotone ki-eye fs-2x text-white">
-														<span class="path1"></span>
-														<span class="path2"></span>
-														<span class="path3"></span>
-													</i>
-												</div>
-												<!--end::Action-->
-											</a>
-											<!--end::Overlay-->
-											<!--begin::Body-->
-											<div class="mt-5">
-												<!--begin::Title-->
-												<div class="fs-4 text-gray-900 fw-bold text-hover-primary lh-base"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Nome</font></font></div>
-												<!--end::Title-->
-												<!--begin::Text-->
-												<div class="fw-semibold fs-5 text-gray-600 pt-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@item.Descricao</font></font></div>
-												<!--end::Text-->
-												<!--begin::Footer-->
-												<div class="d-flex flex-stack flex-wrap pt-4 gap-2">
-													<!--begin::Label-->
-													<span class="rounded border border-dashed fs-2 fw-bold text-gray-900 py-1 px-2">
-														<span class="fs-6 fw-semibold text-gray-500"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">R$</font></font></span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> @item.Preco</font></font>
-													</span>
-													<!--end::Label-->
-													<!--begin::Action-->
-													<h5 class="py-5">
-														<input class="form-check-input" type="checkbox" name="CodPresenteSelecionados" value="@item.codPresente"
-														@(Model.CodPresenteSelecionados?.Contains(item.codPresente) == true ? "checked" : "") />
-														
-														Selecionar Este
-													</h5>
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Eventos/Presentes.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+}
 
-													<!--end::Action-->
-												</div>
-												<!--end::Footer-->
-											</div>
-											<!--end::Body-->
-										</div>
-										<!--end::Hot sales post-->
-									</div>
-									<!--end::Col-->
-									count++;
-								}
-							</div>
-							<!--end::Row-->
-						</div>
-						@if (User.Identity.IsAuthenticated)
-						{
-							<div class="d-flex gap-2 justify-content-center py-5">
-								<button type="submit" class="btn btn-success btn-lg d-inline-flex align-items-center">Comprar itens</button>
-							</div>
-						}
-						else
-						{
-							<div class="d-flex gap-2 justify-content-center py-5">
-								<a href="#" class="btn btn-success btn-lg d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#kt_modal_email">
-									Comprar itens
-								</a>
-							</div>
-						}
-						@if (User.IsInRole("Cliente"))
-						{
-							<div class="d-flex gap-2 justify-content-center py-5">
-								<a class="btn btn-success d-inline-flex align-items-center" href="/Eventos/BuscarPresente/@ViewBag.CodConvite">
-									Buscar outras recomendações
-								</a>
-							</div>
-						}
+<div class="presentes-container">
+    <!-- Cabeçalho da Página -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <h1>Sugestões de Presente</h1>
+            <p class="page-subtitle">Com base no perfil, recomendamos estes presentes:</p>
+        </div>
+    </div>
+    
+    @{
+        string rota = User.Identity.IsAuthenticated ? "CriarPreferencia" : "GerarToken";
+    }
 
-					</div>
-					<div class="modal fade" id="kt_modal_email" tabindex="-1" style="display: none;" aria-hidden="true">
-						<!--begin::Modal dialog-->
-						<div class="modal-dialog modal-dialog-centered mw-650px">
-							<!--begin::Modal content-->
-							<div class="modal-content">
-								<!--begin::Modal header-->
-								<div class="modal-header" id="kt_modal_create_api_key_header">
-									<!--begin::Modal title-->
-									<h2>Enviar Cupom por WhatsApp</h2>
-									<!--end::Modal title-->
-									<!--begin::Close-->
-									<div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-										<i class="ki-duotone ki-cross fs-1">
-											<span class="path1"></span>
-											<span class="path2"></span>
-										</i>
-									</div>
-									<!--end::Close-->
-								</div>
-								<!--end::Modal header-->
-								<!--begin::Form-->
-								<div id="kt_modal_create_api_key_form" class="form fv-plugins-bootstrap5 fv-plugins-framework">
-									<input name="id" value="" type="hidden" />
-									<!--begin::Modal body-->
-									<div class="modal-body py-10 px-lg-17">
-										<!--begin::Scroll-->
-										<div class="scroll-y me-n7 pe-7" id="kt_modal_create_api_key_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_create_api_key_header" data-kt-scroll-wrappers="#kt_modal_create_api_key_scroll" data-kt-scroll-offset="300px" style="max-height: 308px;">
-											<!--begin::Input group-->
-											<div class="mb-5 fv-row fv-plugins-icon-container">
-												<!--begin::Label-->
-												<label asp-for="Nome" class="required fs-5 fw-semibold mb-2">Nome:</label>
-												<!--end::Label-->
-												<!--begin::Input-->
-												<input asp-for="Nome" class="form-control form-control-solid" placeholder="Digite o nome">
-												<!--end::Input-->
-												<span asp-validation-for="Nome" class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback" style="position: unset !important;">@ViewBag.msg2</span>
-											</div>
-											<!--end::Input group-->
-											<!--begin::Input group-->
-											<div class="d-flex flex-column mb-5 fv-row fv-plugins-icon-container">
-												<!--begin::Label-->
-												<label asp-for="CPF" class="required fs-5 fw-semibold mb-2">CPF:</label>
-												<!--end::Label-->
-												<!--begin::Input-->
-												<input asp-for="CPF" class="form-control form-control-solid cpf" maxlength="14" placeholder="000.000.000-00" />
-												<!--end::Input-->
-												<span asp-validation-for="CPF" class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback cpfInvalid" style="position: unset !important;">@ViewBag.msg3</span>
-												<span class="text-danger cpfInvalid"></span>
-											</div>
-											<!--end::Input group-->
-											<!--begin::Input group-->
-											<div class="d-flex flex-column mb-5 fv-row fv-plugins-icon-container">
-												<!--begin::Label-->
-												<label asp-for="Email" class="required fs-5 fw-semibold mb-2">Email:</label>
-												<!--end::Label-->
-												<!--begin::Input-->
-												<input asp-for="Email" class="form-control form-control-solid email" placeholder="email@email.com" />
-												<!--end::Input-->
-												<span asp-validation-for="Email" class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback" style="position: unset !important;">@ViewBag.msg1</span>
-											</div>
-											<!--end::Input group-->
-											<!--begin::Input group-->
-											<div class="d-flex flex-column mb-5 fv-row fv-plugins-icon-container">
-												<!--begin::Label-->
-												<label asp-for="Telefone" class="fs-5 fw-semibold mb-2">Contato:</label>
-												<!--end::Label-->
-												<!--begin::Input-->
-												<input asp-for="Telefone" class="form-control form-control-solid telefone input-ingresso" placeholder="(00)00000-0000" />
-												<!--end::Input-->
-												<span asp-validation-for="Telefone" class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback" style="position: unset !important;"></span>
-											</div>
-											<!--end::Input group-->
-										</div>
-										<!--end::Scroll-->
-									</div>
-									<!--end::Modal body-->
-									<!--begin::Modal footer-->
-									<div class="modal-footer flex-center">
-										<!--begin::Button-->
-										<button type="reset" data-bs-dismiss="modal" class="btn btn-light me-3">Cancelar</button>
-										<!--end::Button-->
-										<!--begin::Button-->
-										<button type="submit" class="btn btn-success btn-lg d-inline-flex align-items-center">Continuar Compra</button>
-										<!--end::Button-->
-									</div>
-									<!--end::Modal footer-->
-								</div>
-								<!--end::Form-->
-							</div>
-							<!--end::Modal content-->
-						</div>
-						<!--end::Modal dialog-->
-					</div>
-					<!--end::Body-->
-                 </form>
-				<!--end::Home card-->
-			</div>
-			<!--end::Content container-->
-		</div>
-		<!--end::Content-->
-	</div>
-	<!--end::Content wrapper-->
+    <form asp-action="@rota" method="post">
+        <input asp-for="codConvite" type="hidden" />
+
+        @if (ViewBag.msg != null)
+        {
+            <div class="alert alert-danger text-center">@ViewBag.msg</div>
+        }
+        
+        <!-- Grid de Presentes -->
+        <div class="presentes-grid">
+            @foreach (var item in Model.Presentes)
+            {
+                <div class="presente-card">
+                    <div class="presente-imagem-wrapper">
+                        <img src="@item.Imagem" onerror="this.onerror=null; this.src='https://placehold.co/600x400/f98303/FFFFFF?text=Presente';" alt="Imagem de @item.Nome" class="presente-imagem">
+                    </div>
+                    <div class="presente-card-body">
+                        <h3 class="presente-nome">@item.Nome</h3>
+                        <p class="presente-descricao">@item.Descricao</p>
+                    </div>
+                    <div class="presente-card-footer">
+                        <span class="presente-preco">R$ @item.Preco</span>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="CodPresenteSelecionados" value="@item.codPresente" 
+                                   id="presente-@item.codPresente" @(Model.CodPresenteSelecionados?.Contains(item.codPresente) == true ? "checked" : "")>
+                            <label class="form-check-label" for="presente-@item.codPresente">
+                                
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        
+        <!-- Botões de Ação -->
+        <div class="form-action-buttons">
+             <a class="btn btn-light" href="@Url.Action("BuscarPresente", "Eventos", new { id = Model.codConvite })">
+                <i class="bi bi-arrow-repeat me-2"></i>
+                Buscar Novas Sugestões
+            </a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <button type="submit" class="btn btn-primary-action">
+                    <i class="bi bi-credit-card me-2"></i>
+                    Comprar Itens
+                </button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-primary-action" data-bs-toggle="modal" data-bs-target="#kt_modal_email">
+                    <i class="bi bi-credit-card me-2"></i>
+                    Comprar Itens
+                </button>
+            }
+        </div>
+
+        <!-- Modal para preenchimento de dados (usuário não logado) -->
+        <div class="modal fade" id="kt_modal_email" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Continue sua Compra</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="form-section-subtitle">Precisamos de alguns dados para gerar o token de pagamento.</p>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label asp-for="Nome" class="form-label required">Nome</label>
+                                <input asp-for="Nome" class="form-control" placeholder="Digite seu nome completo">
+                                <span asp-validation-for="Nome" class="text-danger">@ViewBag.msg2</span>
+                            </div>
+                            <div class="col-12">
+                                <label asp-for="CPF" class="form-label required">CPF</label>
+                                <input asp-for="CPF" class="form-control cpf" maxlength="14" placeholder="000.000.000-00">
+                                <span asp-validation-for="CPF" class="text-danger cpfInvalid">@ViewBag.msg3</span>
+                            </div>
+                            <div class="col-12">
+                                <label asp-for="Email" class="form-label required">Email</label>
+                                <input asp-for="Email" class="form-control email" placeholder="seu@email.com">
+                                <span asp-validation-for="Email" class="text-danger">@ViewBag.msg1</span>
+                            </div>
+                            <div class="col-12">
+                                <label asp-for="Telefone" class="form-label">Telefone</label>
+                                <input asp-for="Telefone" class="form-control telefone" placeholder="(00) 00000-0000">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary-action">Continuar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 
-<script>
-	function verificarCpf(cpf) {
-		fetch(`../Convites/VeryCPF/?cpf=` + cpf)
-			.then(response => response.json())
-			.then(data => {
-				if (data.success) {
-					// Preenche os campos com os dados retornados
-					document.getElementById('Nome').value = data.nome;
-					document.getElementById('Email').value = data.email;
-					document.getElementById('Telefone').value = data.telefone;
-				}
-			})
-			.catch(error => {
-				console.error('Erro na verificação do CPF:', error);
-			});
-	}
-</script>
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Lógica para o CPF ---
+            const inputCPF = document.querySelector('.cpf');
+            if (inputCPF) {
+                inputCPF.addEventListener('blur', function () {
+                    const cpf = this.value.replace(/\D/g, '');
+                    if (cpf.length === 11) {
+                        verificarCpf(cpf);
+                    }
+                });
+            }
+
+            // --- Lógica para ativar o switch ao clicar no card ---
+            document.querySelectorAll('.presente-card').forEach(card => {
+                card.addEventListener('click', function(event) {
+                    // Impede que o clique no próprio switch ou label acione a função duas vezes
+                    if (event.target.classList.contains('form-check-input') || event.target.classList.contains('form-check-label')) {
+                        return;
+                    }
+                    
+                    const checkbox = this.querySelector('.form-check-input');
+                    if (checkbox) {
+                        checkbox.checked = !checkbox.checked;
+                    }
+                });
+            });
+        });
+
+        function verificarCpf(cpf) {
+            fetch(`../Convites/VeryCPF/?cpf=${cpf}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Preenche os campos com os dados retornados
+                        document.getElementById('Nome').value = data.nome || '';
+                        document.getElementById('Email').value = data.email || '';
+                        document.getElementById('Telefone').value = data.telefone || '';
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro na verificação do CPF:', error);
+                });
+        }
+    </script>
+}
+

@@ -1,0 +1,114 @@
+@using System.Globalization
+@using Microsoft.EntityFrameworkCore
+@using BixWeb.Models
+@using System.Security.Claims
+
+@inject DbPrint _context
+
+@{
+    ViewData["Title"] = "Minha Área - PapiFast";
+    var culture = new CultureInfo("pt-BR");
+
+    var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    List<Evento> proximosEventos = new List<Evento>();
+
+    if (userId != null)
+    {
+        int codUsuario = int.Parse(userId);
+        // Lógica de consulta corrigida, semelhante à da página Lista.cshtml
+        proximosEventos = await _context.Eventos
+            .Include(e => e.UsuarioFilial)
+            .Where(e => (e.codUsuario == codUsuario || e.UsuarioFilial.codUsuario == codUsuario) && e.dataInicioEvento > DateTime.Now)
+            .OrderBy(e => e.dataInicioEvento)
+            .Take(5) // Limita a 5 eventos para não sobrecarregar a home
+            .ToListAsync();
+    }
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Home/homeC2.css" asp-append-version="true" />
+}
+
+<div class="client-dashboard">
+    <!-- Cabeçalho de Boas-Vindas -->
+    <div class="welcome-header">
+        <div class="welcome-text">
+            <h1>Olá, @User.Identity.Name!</h1>
+            <p>Seja bem-vindo de volta à sua área. Aqui você pode gerenciar seus convites, eventos e muito mais.</p>
+        </div>
+        <div class="date-display-wrapper">
+            <div class="date-display">
+                <div class="date-day">@DateTime.Now.ToString("dd")</div>
+                <div class="date-month-year">
+                    <span>@culture.TextInfo.ToTitleCase(DateTime.Now.ToString("MMMM", culture))</span>
+                    <span>@DateTime.Now.Year</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção de Ações Rápidas -->
+    <div class="quick-actions">
+        <h2 class="section-title">Acesso Rápido</h2>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <a asp-controller="Convites" asp-action="Lista" class="action-card">
+                    <div class="action-icon icon-invites">
+                        <i class="bi bi-envelope-paper-heart"></i>
+                    </div>
+                    <h3>Meus Convites</h3>
+                    <p>Veja e responda aos convites que você recebeu.</p>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a asp-controller="Eventos" asp-action="Lista" class="action-card">
+                    <div class="action-icon icon-events">
+                        <i class="bi bi-calendar2-event"></i>
+                    </div>
+                    <h3>Meus Eventos</h3>
+                    <p>Crie e gerencie seus próprios eventos.</p>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a asp-controller="Cupons" asp-action="Lista" class="action-card">
+                    <div class="action-icon icon-coupons">
+                        <i class="bi bi-ticket-perforated"></i>
+                    </div>
+                    <h3>Meus Cupons</h3>
+                    <p>Confira os cupons de desconto que você ganhou.</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção de Próximos Eventos -->
+    <div class="upcoming-events">
+        <h2 class="section-title">Próximos Eventos</h2>
+        <div class="event-list">
+            @if (proximosEventos.Any())
+            {
+                foreach (var evento in proximosEventos)
+                {
+                    <div class="event-item">
+                        <div class="event-date">
+                            <span class="day">@evento.dataInicioEvento.ToString("dd")</span>
+                            <span class="month">@evento.dataInicioEvento.ToString("MMM", culture).ToUpper()</span>
+                        </div>
+                        <div class="event-details">
+                            <h4 class="event-title">@evento.nomeEvento</h4>
+                            <p class="event-time"><i class="bi bi-clock"></i> @evento.dataInicioEvento.ToString("HH:mm")</p>
+                        </div>
+                        <a asp-controller="Eventos" asp-action="Details" asp-route-idOrSlug="@evento.codEvento" class="btn btn-sm btn-outline-primary">Ver Detalhes</a>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-light text-center" role="alert">
+                    Você não tem nenhum evento futuro agendado.
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
