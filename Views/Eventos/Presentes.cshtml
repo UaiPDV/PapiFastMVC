@@ -1,171 +1,168 @@
 ﻿@using X.PagedList.Mvc.Core
-@model BixWeb.ViewModel.PresenteFormularioViewModel
+@model X.PagedList.IPagedList<BixWeb.Models.Presente>
 
 @{
-    ViewData["Title"] = "Sugestões de Presente";
+    ViewData["Title"] = "Presentes Escolhidos";
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/Pages/Eventos/Presentes.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Pages/Presentes/index.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 }
 
-<div class="presentes-container">
-    <!-- Cabeçalho da Página -->
-    <div class="page-header">
+<!-- Cabeçalho da Página -->
+<div class="page-header">
+    <div class="page-header-title-container">
+        <a asp-controller="Convites" asp-action="Lista" class="form-back-link me-3">
+            <i class="bi bi-arrow-left-circle fs-2"></i>
+        </a>
         <div class="page-header-content">
-            <h1>Sugestões de Presente</h1>
-            <p class="page-subtitle">Com base no perfil, recomendamos estes presentes:</p>
+            <h1>Sua Lista de Presentes</h1>
+            <p class="page-subtitle">Confira os itens selecionados e adicione novos se desejar.</p>
         </div>
     </div>
-    
-    @{
-        string rota = User.Identity.IsAuthenticated ? "CriarPreferencia" : "GerarToken";
-    }
+    <div class="page-header-actions">
+        <!-- Seletor de Visualização -->
+        <div class="view-toggle btn-group">
+            <button id="list-view-btn" class="btn btn-outline-secondary active" title="Visualização em Lista">
+                <i class="bi bi-list-ul"></i>
+            </button>
+            <button id="grid-view-btn" class="btn btn-outline-secondary" title="Visualização em Grade">
+                <i class="bi bi-grid-3x3-gap-fill"></i>
+            </button>
+        </div>
+        <a asp-action="BuscarPresente" asp-controller="Eventos" asp-route-id="@ViewBag.codConvite" class="btn btn-primary-action">
+            <i class="bi bi-plus-lg me-2"></i>
+            Adicionar Mais
+        </a>
+    </div>
+</div>
 
-    <form asp-action="@rota" method="post">
-        <input asp-for="codConvite" type="hidden" />
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-light text-center" role="alert">
+        Nenhum presente foi selecionado ainda. Comece adicionando itens à sua lista!
+    </div>
+}
+else
+{
+    <!-- Container para a Visualização em Lista (Tabela) -->
+    <div id="list-view-container">
+        <div class="table-wrapper">
+            <table class="table presentes-table align-middle">
+                <thead>
+                    <tr>
+                        <th class="produto-col">Produto</th>
+                        <th class="preco-col text-center">Preço</th>
+                        <th class="acoes-col text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td data-label="Produto">
+                                <div class="produto-info">
+                                    <img src="@item.Imagem" onerror="this.onerror=null; this.src='https://placehold.co/100x80/f98303/FFFFFF?text=Presente';" alt="Imagem de @item.Nome" class="produto-imagem">
+                                    <div class="produto-detalhes">
+                                        <span class="produto-nome">@item.Nome</span>
+                                        <p class="produto-descricao">@item.Descricao</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-label="Preço" class="text-center">
+                                <span class="produto-preco">@item.Preco.ToString("C")</span>
+                            </td>
+                            <td data-label="Ações" class="text-center">
+                                <a asp-action="Delete" asp-route-id="@item.codPresente" class="btn btn-action-icon btn-action-danger" title="Remover Presente">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-        @if (ViewBag.msg != null)
-        {
-            <div class="alert alert-danger text-center">@ViewBag.msg</div>
-        }
-        
-        <!-- Grid de Presentes -->
+    <!-- Container para a Visualização em Grade (Cards) -->
+    <div id="grid-view-container" class="d-none">
         <div class="presentes-grid">
-            @foreach (var item in Model.Presentes)
+            @foreach (var item in Model)
             {
                 <div class="presente-card">
                     <div class="presente-imagem-wrapper">
-                        <img src="@item.Imagem" onerror="this.onerror=null; this.src='https://placehold.co/600x400/f98303/FFFFFF?text=Presente';" alt="Imagem de @item.Nome" class="presente-imagem">
+                        <img src="@item.Imagem" onerror="this.onerror=null; this.src='https://placehold.co/600x400/f98303/FFFFFF?text=Presente';" alt="Imagem de @item.Nome" class="presente-imagem-card">
                     </div>
                     <div class="presente-card-body">
                         <h3 class="presente-nome">@item.Nome</h3>
                         <p class="presente-descricao">@item.Descricao</p>
                     </div>
                     <div class="presente-card-footer">
-                        <span class="presente-preco">R$ @item.Preco</span>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" name="CodPresenteSelecionados" value="@item.codPresente" 
-                                   id="presente-@item.codPresente" @(Model.CodPresenteSelecionados?.Contains(item.codPresente) == true ? "checked" : "")>
-                            <label class="form-check-label" for="presente-@item.codPresente">
-                                
-                            </label>
-                        </div>
+                        <span class="produto-preco">@item.Preco.ToString("C")</span>
+                        <a asp-action="Delete" asp-route-id="@item.codPresente" class="btn btn-action-icon btn-action-danger" title="Remover Presente">
+                            <i class="bi bi-trash3-fill"></i>
+                        </a>
                     </div>
                 </div>
             }
         </div>
-        
-        <!-- Botões de Ação -->
-        <div class="form-action-buttons">
-             <a  class="btn btn-light" href="@Url.Action("BuscarPresente", "Eventos", new { id = Model.codConvite })">
-                <i class="bi bi-arrow-repeat me-2"></i>
-                Buscar Novas Sugestões
-            </a>
-            @if (User.Identity.IsAuthenticated)
-            {
-                <button type="submit" class="btn btn-primary-action">
-                    <i class="bi bi-credit-card me-2"></i>
-                    Comprar Itens
-                </button>
-            }
-            else
-            {
-                <button type="button" class="btn btn-primary-action" data-bs-toggle="modal" data-bs-target="#kt_modal_email">
-                    <i class="bi bi-credit-card me-2"></i>
-                    Comprar Itens
-                </button>
-            }
-        </div>
+    </div>
 
-        <!-- Modal para preenchimento de dados (usuário não logado) -->
-        <div class="modal fade" id="kt_modal_email" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Continue sua Compra</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="form-section-subtitle">Precisamos de alguns dados para gerar o token de pagamento.</p>
-                        <div class="row g-3">
-                            <div class="col-12">
-                                <label asp-for="Nome" class="form-label required">Nome</label>
-                                <input asp-for="Nome" class="form-control" placeholder="Digite seu nome completo">
-                                <span asp-validation-for="Nome" class="text-danger">@ViewBag.msg2</span>
-                            </div>
-                            <div class="col-12">
-                                <label asp-for="CPF" class="form-label required">CPF</label>
-                                <input asp-for="CPF" class="form-control cpf" maxlength="14" placeholder="000.000.000-00">
-                                <span asp-validation-for="CPF" class="text-danger cpfInvalid">@ViewBag.msg3</span>
-                            </div>
-                            <div class="col-12">
-                                <label asp-for="Email" class="form-label required">Email</label>
-                                <input asp-for="Email" class="form-control email" placeholder="seu@email.com">
-                                <span asp-validation-for="Email" class="text-danger">@ViewBag.msg1</span>
-                            </div>
-                            <div class="col-12">
-                                <label asp-for="Telefone" class="form-label">Telefone</label>
-                                <input asp-for="Telefone" class="form-control telefone" placeholder="(00) 00000-0000">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary-action">Continuar</button>
-                    </div>
-                </div>
-            </div>
+    <!-- Paginação -->
+    @if (Model.PageCount > 1)
+    {
+        <div class="pagination-wrapper">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
+            {
+                UlElementClasses = new[] { "pagination", "custom-pagination" },
+                LiElementClasses = new[] { "page-item" },
+                PageClasses = new[] { "page-link" },
+                ActiveLiElementClass = "active"
+            })
         </div>
-    </form>
-</div>
+    }
+
+    <!-- Botão de Pagamento -->
+    <div class="form-action-buttons">
+        <a asp-controller="ReciboPresentes" asp-action="Index" class="btn btn-success btn-lg">
+            <i class="bi bi-credit-card-fill me-2"></i>
+            Ir para o Pagamento
+        </a>
+    </div>
+}
 
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- Lógica para o CPF ---
-            const inputCPF = document.querySelector('.cpf');
-            if (inputCPF) {
-                inputCPF.addEventListener('blur', function () {
-                    const cpf = this.value.replace(/\D/g, '');
-                    if (cpf.length === 11) {
-                        verificarCpf(cpf);
-                    }
-                });
+            // --- Lógica do Seletor de Visualização ---
+            const listViewBtn = document.getElementById('list-view-btn');
+            const gridViewBtn = document.getElementById('grid-view-btn');
+            const listContainer = document.getElementById('list-view-container');
+            const gridContainer = document.getElementById('grid-view-container');
+
+            function setView(view) {
+                if (view === 'list') {
+                    listContainer.classList.remove('d-none');
+                    gridContainer.classList.add('d-none');
+                    listViewBtn.classList.add('active');
+                    gridViewBtn.classList.remove('active');
+                    localStorage.setItem('chosenPresentesView', 'list');
+                } else { // 'grid'
+                    gridContainer.classList.remove('d-none');
+                    listContainer.classList.add('d-none');
+                    gridViewBtn.classList.add('active');
+                    listViewBtn.classList.remove('active');
+                    localStorage.setItem('chosenPresentesView', 'grid');
+                }
             }
 
-            // --- Lógica para ativar o switch ao clicar no card ---
-            document.querySelectorAll('.presente-card').forEach(card => {
-                card.addEventListener('click', function(event) {
-                    // Impede que o clique no próprio switch ou label acione a função duas vezes
-                    if (event.target.classList.contains('form-check-input') || event.target.classList.contains('form-check-label')) {
-                        return;
-                    }
-                    
-                    const checkbox = this.querySelector('.form-check-input');
-                    if (checkbox) {
-                        checkbox.checked = !checkbox.checked;
-                    }
-                });
-            });
-        });
+            listViewBtn.addEventListener('click', () => setView('list'));
+            gridViewBtn.addEventListener('click', () => setView('grid'));
 
-        function verificarCpf(cpf) {
-            fetch(`../Convites/VeryCPF/?cpf=${cpf}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Preenche os campos com os dados retornados
-                        document.getElementById('Nome').value = data.nome || '';
-                        document.getElementById('Email').value = data.email || '';
-                        document.getElementById('Telefone').value = data.telefone || '';
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro na verificação do CPF:', error);
-                });
-        }
+            // Ao carregar, define a visualização salva ou usa a lista como padrão
+            const savedView = localStorage.getItem('chosenPresentesView') || 'list';
+            setView(savedView);
+        });
     </script>
 }
-

@@ -3,7 +3,10 @@
 
 @{
     ViewData["Title"] = "Dashboard - PapiFast";
-    
+    var isAuthenticated = User.Identity?.IsAuthenticated == true;
+    var isCliente = isAuthenticated && User.IsInRole("Cliente");
+    var isFuncionarioOuGerenteOuAdmin = isAuthenticated && (User.IsInRole("Gerente") || User.IsInRole("Funcionario") || User.IsInRole("Administrador"));
+
     var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
     List<Filial> userFiliais = new List<Filial>();
     if (userId != null && User.Identity?.IsAuthenticated == true)
@@ -25,256 +28,281 @@
 @section Styles {
     <link rel="stylesheet" href="~/css/Pages/Home/home.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    @* Carrega o CSS específico conforme o conteúdo exibido *@
+    @if (!isAuthenticated)
+    {
+        <link rel="stylesheet" href="~/css/Pages/Home/homeC3.css" asp-append-version="true" />
+    }
+    else if (isCliente)
+    {
+        <link rel="stylesheet" href="~/css/Pages/Home/homeC2.css" asp-append-version="true" />
+    }
 }
 
-<!-- Cabeçalho do Dashboard -->
-<div class="dashboard-header">
-    <div class="container-fluid">
-        <div class="row align-items-center">
-            <div class="col-md-8">
-                <h1 class="dashboard-title">Bem-vindo ao PapiFast!</h1>
-                <p class="dashboard-subtitle mb-0">Gerencie suas campanhas, eventos e vendas de forma eficiente</p>
-            </div>
-            <div class="col-md-4 text-end">
-                <div class="text-white">
-                    <div class="fs-5 fw-bold">@DateTime.Now.ToString("dd/MM/yyyy")</div>
-                    <div class="fs-6">@DateTime.Now.ToString("dddd", new System.Globalization.CultureInfo("pt-BR"))</div>
+@if (!isAuthenticated)
+{
+    // Usuário deslogado: renderiza homeC3
+    @await Html.PartialAsync("~/Views/Home/homeC3.cshtml")
+}
+else if (isCliente)
+{
+    // Usuário cliente: renderiza homeC2
+    @await Html.PartialAsync("~/Views/Home/homeC2.cshtml")
+}
+else
+{
+    // Outros tipos: renderiza o conteúdo padrão do Index
+    <text>
+        <!-- Cabeçalho do Dashboard -->
+        <div class="dashboard-header">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1 class="dashboard-title">Bem-vindo ao PapiFast!</h1>
+                        <p class="dashboard-subtitle mb-0">Gerencie suas campanhas, eventos e vendas de forma eficiente</p>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <div class="text-white">
+                            <div class="fs-5 fw-bold">@DateTime.Now.ToString("dd/MM/yyyy")</div>
+                            <div class="fs-6">@DateTime.Now.ToString("dddd", new System.Globalization.CultureInfo("pt-BR"))</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-@if (User.Identity?.IsAuthenticated == true && (User.IsInRole("Gerente") || User.IsInRole("Funcionario") || User.IsInRole("Administrador")))
-{
-    <!-- Seletor de Filial -->
-    <div class="filial-selector">
-        <div class="row align-items-center">
-            <div class="col-md-3">
-                <label class="form-label fw-bold mb-md-0">Selecione a Filial:</label>
+        @if (User.Identity?.IsAuthenticated == true && (User.IsInRole("Gerente") || User.IsInRole("Funcionario") || User.IsInRole("Administrador")))
+        {
+            <!-- Seletor de Filial -->
+            <div class="filial-selector">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold mb-md-0">Selecione a Filial:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <select id="filialSelector" class="form-select">
+                            <option value="">Todas as Filiais</option>
+                            @foreach (var filial in userFiliais)
+                            {
+                                <option value="@filial.codFilial">@filial.nome</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <button class="btn btn-outline-primary">
+                            <i class="bi bi-arrow-clockwise me-2"></i>Atualizar Dados
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6">
-                <select id="filialSelector" class="form-select">
-                    <option value="">Todas as Filiais</option>
-                    @foreach (var filial in userFiliais)
-                    {
-                        <option value="@filial.codFilial">@filial.nome</option>
+        }
+
+        <!-- NOVO CONTEÚDO INSERIDO DO PROTÓTIPO -->
+
+        <!-- Cards de Estatísticas -->
+        <div class="row">
+            <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                <div class="stats-card-v2">
+                    <div>
+                        <p class="stats-card-label">Vendas Hoje</p>
+                        <p class="stats-card-number">R$ 1.250,75</p>
+                        <p class="stats-card-change positive">
+                            <i class="bi bi-arrow-up-short"></i> +15% vs ontem
+                        </p>
+                    </div>
+                    <div class="stats-icon-v2 primary">
+                        <i class="bi bi-cash-coin"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                <div class="stats-card-v2">
+                    <div>
+                        <p class="stats-card-label">Cupons Ativos</p>
+                        <p class="stats-card-number">86</p>
+                        <p class="stats-card-change">25 resgatados hoje</p>
+                    </div>
+                    <div class="stats-icon-v2 warning">
+                        <i class="bi bi-ticket-perforated"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                <div class="stats-card-v2">
+                    <div>
+                        <p class="stats-card-label">Novos Clientes</p>
+                        <p class="stats-card-number">12</p>
+                        <p class="stats-card-change positive">
+                             <i class="bi bi-arrow-up-short"></i> +5% vs semana passada
+                        </p>
+                    </div>
+                    <div class="stats-icon-v2 info">
+                        <i class="bi bi-person-plus"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                <div class="stats-card-v2">
+                    <div>
+                        <p class="stats-card-label">Próximo Evento</p>
+                        <p class="stats-card-number small">Show Acústico</p>
+                        <p class="stats-card-change">Em 3 dias</p>
+                    </div>
+                    <div class="stats-icon-v2 danger">
+                        <i class="bi bi-calendar-event"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="row mb-4">
+            <div class="col-lg-7 mb-4">
+                <div class="chart-container">
+                    <h3 class="chart-title-v2">Performance de Vendas (Últimos 7 dias)</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 mb-4">
+                <div class="chart-container">
+                    <h3 class="chart-title-v2">Produtos Mais Vendidos</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="productsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Atividades Recentes -->
+        <div class="recent-activities-v2">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="chart-title-v2">Atividades Recentes</h3>
+                <a href="#" class="btn-link">Ver tudo</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Usuário</th>
+                            <th>Ação</th>
+                            <th>Status</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Usuário">Ana (Funcionário)</td>
+                            <td data-label="Ação">Resgatou cupom #DIAFELIZ</td>
+                            <td data-label="Status"><span class="badge-status success">Concluído</span></td>
+                            <td data-label="Data">Hoje, 13:45</td>
+                        </tr>
+                         <tr>
+                            <td data-label="Usuário">Você</td>
+                            <td data-label="Ação">Criou campanha "Happy Hour"</td>
+                            <td data-label="Status"><span class="badge-status info">Ativa</span></td>
+                            <td data-label="Data">Hoje, 11:30</td>
+                        </tr>
+                         <tr>
+                            <td data-label="Usuário">Sistema</td>
+                            <td data-label="Ação">Envio de WhatsApp falhou para (11) 9....-..01</td>
+                            <td data-label="Status"><span class="badge-status danger">Falha</span></td>
+                            <td data-label="Data">Hoje, 10:12</td>
+                        </tr>
+                         <tr>
+                            <td data-label="Usuário">Mariana (Cliente)</td>
+                            <td data-label="Ação">Comprou ingresso para "Show Acústico"</td>
+                            <td data-label="Status"><span class="badge-status success">Confirmado</span></td>
+                            <td data-label="Data">Ontem, 20:55</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        @section Scripts {
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Lógica do seletor de filial (mantida)
+                    const filialSelector = document.getElementById('filialSelector');
+                    if (filialSelector) {
+                        filialSelector.addEventListener('change', function() {
+                            const selectedFilial = this.value;
+                            console.log('Filial selecionada:', selectedFilial);
+                            // Lógica para filtrar os dados do dashboard
+                        });
                     }
-                </select>
-            </div>
-            <div class="col-md-3 text-end">
-                <button class="btn btn-outline-primary">
-                    <i class="bi bi-arrow-clockwise me-2"></i>Atualizar Dados
-                </button>
-            </div>
-        </div>
-    </div>
-}
 
-<!-- NOVO CONTEÚDO INSERIDO DO PROTÓTIPO -->
+                    // --- LÓGICA DOS GRÁFICOS DO PROTÓTIPO ---
+                    const primaryColor = '#f98303';
+                    const primaryColorTransparent = 'rgba(249, 131, 3, 0.2)';
 
-<!-- Cards de Estatísticas -->
-<div class="row">
-    <div class="col-12 col-sm-6 col-lg-3 mb-4">
-        <div class="stats-card-v2">
-            <div>
-                <p class="stats-card-label">Vendas Hoje</p>
-                <p class="stats-card-number">R$ 1.250,75</p>
-                <p class="stats-card-change positive">
-                    <i class="bi bi-arrow-up-short"></i> +15% vs ontem
-                </p>
-            </div>
-            <div class="stats-icon-v2 primary">
-                <i class="bi bi-cash-coin"></i>
-            </div>
-        </div>
-    </div>
-    <div class="col-12 col-sm-6 col-lg-3 mb-4">
-        <div class="stats-card-v2">
-            <div>
-                <p class="stats-card-label">Cupons Ativos</p>
-                <p class="stats-card-number">86</p>
-                <p class="stats-card-change">25 resgatados hoje</p>
-            </div>
-            <div class="stats-icon-v2 warning">
-                <i class="bi bi-ticket-perforated"></i>
-            </div>
-        </div>
-    </div>
-    <div class="col-12 col-sm-6 col-lg-3 mb-4">
-        <div class="stats-card-v2">
-            <div>
-                <p class="stats-card-label">Novos Clientes</p>
-                <p class="stats-card-number">12</p>
-                <p class="stats-card-change positive">
-                     <i class="bi bi-arrow-up-short"></i> +5% vs semana passada
-                </p>
-            </div>
-            <div class="stats-icon-v2 info">
-                <i class="bi bi-person-plus"></i>
-            </div>
-        </div>
-    </div>
-    <div class="col-12 col-sm-6 col-lg-3 mb-4">
-        <div class="stats-card-v2">
-            <div>
-                <p class="stats-card-label">Próximo Evento</p>
-                <p class="stats-card-number small">Show Acústico</p>
-                <p class="stats-card-change">Em 3 dias</p>
-            </div>
-            <div class="stats-icon-v2 danger">
-                <i class="bi bi-calendar-event"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Gráficos -->
-<div class="row mb-4">
-    <div class="col-lg-7 mb-4">
-        <div class="chart-container">
-            <h3 class="chart-title-v2">Performance de Vendas (Últimos 7 dias)</h3>
-            <div class="chart-wrapper">
-                <canvas id="salesChart"></canvas>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-5 mb-4">
-        <div class="chart-container">
-            <h3 class="chart-title-v2">Produtos Mais Vendidos</h3>
-            <div class="chart-wrapper">
-                <canvas id="productsChart"></canvas>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Atividades Recentes -->
-<div class="recent-activities-v2">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="chart-title-v2">Atividades Recentes</h3>
-        <a href="#" class="btn-link">Ver tudo</a>
-    </div>
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Usuário</th>
-                    <th>Ação</th>
-                    <th>Status</th>
-                    <th>Data</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td data-label="Usuário">Ana (Funcionário)</td>
-                    <td data-label="Ação">Resgatou cupom #DIAFELIZ</td>
-                    <td data-label="Status"><span class="badge-status success">Concluído</span></td>
-                    <td data-label="Data">Hoje, 13:45</td>
-                </tr>
-                 <tr>
-                    <td data-label="Usuário">Você</td>
-                    <td data-label="Ação">Criou campanha "Happy Hour"</td>
-                    <td data-label="Status"><span class="badge-status info">Ativa</span></td>
-                    <td data-label="Data">Hoje, 11:30</td>
-                </tr>
-                 <tr>
-                    <td data-label="Usuário">Sistema</td>
-                    <td data-label="Ação">Envio de WhatsApp falhou para (11) 9....-..01</td>
-                    <td data-label="Status"><span class="badge-status danger">Falha</span></td>
-                    <td data-label="Data">Hoje, 10:12</td>
-                </tr>
-                 <tr>
-                    <td data-label="Usuário">Mariana (Cliente)</td>
-                    <td data-label="Ação">Comprou ingresso para "Show Acústico"</td>
-                    <td data-label="Status"><span class="badge-status success">Confirmado</span></td>
-                    <td data-label="Data">Ontem, 20:55</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-@section Scripts {
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Lógica do seletor de filial (mantida)
-            const filialSelector = document.getElementById('filialSelector');
-            if (filialSelector) {
-                filialSelector.addEventListener('change', function() {
-                    const selectedFilial = this.value;
-                    console.log('Filial selecionada:', selectedFilial);
-                    // Lógica para filtrar os dados do dashboard
-                });
-            }
-
-            // --- LÓGICA DOS GRÁFICOS DO PROTÓTIPO ---
-            const primaryColor = '#f98303';
-            const primaryColorTransparent = 'rgba(249, 131, 3, 0.2)';
-
-            // Sales Chart (Gráfico de Vendas)
-            const salesCtx = document.getElementById('salesChart')?.getContext('2d');
-            if (salesCtx) {
-                new Chart(salesCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-                        datasets: [{
-                            label: 'Vendas (R$)',
-                            data: [1200, 1900, 1500, 2100, 1800, 2400, 2200],
-                            backgroundColor: primaryColorTransparent,
-                            borderColor: primaryColor,
-                            borderWidth: 2,
-                            borderRadius: 4,
-                            barThickness: 20,
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                grid: { color: '#e5e7eb' }
+                    // Sales Chart (Gráfico de Vendas)
+                    const salesCtx = document.getElementById('salesChart')?.getContext('2d');
+                    if (salesCtx) {
+                        new Chart(salesCtx, {
+                            type: 'bar',
+                            data: {
+                                labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                                datasets: [{
+                                    label: 'Vendas (R$)',
+                                    data: [1200, 1900, 1500, 2100, 1800, 2400, 2200],
+                                    backgroundColor: primaryColorTransparent,
+                                    borderColor: primaryColor,
+                                    borderWidth: 2,
+                                    borderRadius: 4,
+                                    barThickness: 20,
+                                }]
                             },
-                            x: { grid: { display: false } }
-                        },
-                        plugins: { legend: { display: false } }
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        grid: { color: '#e5e7eb' }
+                                },
+                                x: { grid: { display: false } }
+                            },
+                            plugins: { legend: { display: false } }
+                        });
                     }
-                });
-            }
 
-            // Products Chart (Gráfico de Produtos)
-            const productsCtx = document.getElementById('productsChart')?.getContext('2d');
-            if (productsCtx) {
-                new Chart(productsCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['X-Burger Especial', 'Batata Frita', 'Refrigerante', 'Pizza Média'],
-                        datasets: [{
-                            label: 'Vendas',
-                            data: [300, 250, 150, 200],
-                            backgroundColor: ['#f98303', '#f8bc1f', '#dc230f', '#6C757D'],
-                            hoverOffset: 4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                                labels: {
-                                    padding: 15,
-                                    usePointStyle: true,
-                                    pointStyle: 'circle'
+                    // Products Chart (Gráfico de Produtos)
+                    const productsCtx = document.getElementById('productsChart')?.getContext('2d');
+                    if (productsCtx) {
+                        new Chart(productsCtx, {
+                            type: 'doughnut',
+                            data: {
+                                labels: ['X-Burger Especial', 'Batata Frita', 'Refrigerante', 'Pizza Média'],
+                                datasets: [{
+                                    label: 'Vendas',
+                                    data: [300, 250, 150, 200],
+                                    backgroundColor: ['#f98303', '#f8bc1f', '#dc230f', '#6C757D'],
+                                    hoverOffset: 4
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        position: 'bottom',
+                                        labels: {
+                                            padding: 15,
+                                            usePointStyle: true,
+                                            pointStyle: 'circle'
+                                        }
+                                    }
                                 }
                             }
-                        }
+                        });
                     }
                 });
-            }
-        });
-    </script>
+            </script>
+        }
+    </text>
 }

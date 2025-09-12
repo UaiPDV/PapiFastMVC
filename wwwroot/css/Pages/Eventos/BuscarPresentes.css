@@ -2,13 +2,7 @@
 /* ============== ESTILOS DA PÁGINA DE BUSCAR PRESENTES ============== */
 /* =================================================================== */
 
-.presente-container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-}
-
-/* --- Hero Card --- */
+/* --- Hero Card (se necessário no futuro) --- */
 .hero-card {
     background: linear-gradient(135deg, var(--papi-orange), #d16a03);
     color: white;
@@ -77,10 +71,6 @@
     color: white;
     border-color: var(--papi-orange);
     box-shadow: 0 2px 8px rgba(249, 131, 3, 0.3);
-}
-
-.form-action-buttons {
-    justify-content: center; /* Centraliza o botão */
 }
 
 /* --- Overlay de Loading --- */

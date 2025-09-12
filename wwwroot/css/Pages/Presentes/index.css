@@ -1,11 +1,53 @@
 /* Estilos para a página de listar presentes escolhidos */
 
-.presentes-escolhidos-container {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+/* --- Cabeçalho da Página --- */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
 }
 
+.page-header-title-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.page-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+
+/* --- Seletor de Visualização (Lista/Grade) --- */
+.view-toggle .btn {
+	border-radius: 8px;
+	padding: 0.5rem 0.75rem;
+	transition: all 0.3s ease;
+    border-width: 2px;
+}
+.view-toggle .btn.active {
+	background-color: var(--papi-orange);
+	color: white;
+	border-color: var(--papi-orange);
+	box-shadow: 0 2px 8px rgba(249, 131, 3, 0.3);
+}
+.view-toggle .btn:not(.active) {
+	background: #fff;
+	color: #6c757d;
+	border-color: #dee2e6;
+}
+.view-toggle .btn:not(.active):hover {
+	background: #f8f9fa;
+	color: #495057;
+}
+
+/* --- Estilos para a Visualização em Lista (Tabela) --- */
 .produto-info {
     display: flex;
     align-items: center;
@@ -34,8 +76,6 @@
     font-size: 0.85rem;
     color: var(--papi-text-muted);
     margin: 0;
-    
-    /* Limita o texto a 2 linhas */
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;  
@@ -48,19 +88,150 @@
     color: var(--papi-orange);
 }
 
-/* Responsividade da tabela */
+/* --- Estilos para a Visualização em Grade (Cards) --- */
+.presentes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.presente-card {
+    background-color: #fff;
+    border: 1px solid var(--papi-border-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.presente-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.presente-imagem-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background-color: #f8f9fa;
+}
+
+.presente-imagem-card {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.presente-card:hover .presente-imagem-card {
+    transform: scale(1.05);
+}
+
+.presente-card-body {
+    padding: 1.25rem;
+    flex-grow: 1;
+}
+
+.presente-card .presente-nome {
+    font-size: 1.1rem;
+}
+
+.presente-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    background-color: #fcfcfc;
+    border-top: 1px solid var(--papi-border-color);
+}
+
+/* --- Responsividade --- */
 @media (max-width: 767.98px) {
+    /* Ajustes no Cabeçalho */
+    .page-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .page-header-title-container {
+        justify-content: flex-start; /* Alinha no início */
+    }
+
+    .page-header-content {
+        text-align: left;
+    }
+
+    .page-header-actions {
+        justify-content: center; /* Centraliza os botões */
+        width: 100%;
+    }
+
+    /* Transformando a Tabela em Cards no mobile */
+    .presentes-table thead {
+        display: none; /* Esconde cabeçalho da tabela */
+    }
+
+    .presentes-table tr {
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        border: 1px solid var(--papi-border-color, #dee2e6);
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .presentes-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 0;
+        text-align: right;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .presentes-table td:last-child {
+        border-bottom: none;
+    }
+
+    .presentes-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--papi-text-dark, #343a40);
+        text-align: left;
+        margin-right: 1rem;
+    }
+
+    /* Ajuste especial para o campo do produto */
+    .presentes-table td[data-label="Produto"] {
+        display: block;
+        padding-bottom: 1rem;
+        margin-bottom: 0.5rem;
+        text-align: left;
+    }
+
+    .presentes-table td[data-label="Produto"]::before {
+        display: none;
+    }
+    
     .produto-imagem {
         width: 60px;
         height: 60px;
     }
 
-    .presentes-table td[data-label="Produto"] {
-        padding: 0.75rem;
+    /* Centraliza o botão de ação no card */
+    .presentes-table td[data-label="Ações"] {
+        justify-content: center;
+        padding-top: 1rem;
     }
 
-    .presentes-table td::before {
-        min-width: 80px; /* Alinha os labels */
+    .presentes-table td[data-label="Ações"]::before {
+       display: none; /* Esconde o label "Ações" */
     }
 }
 

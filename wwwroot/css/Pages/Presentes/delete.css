@@ -1,0 +1,87 @@
+/* Estilos para a página de confirmação de exclusão */
+
+.delete-confirmation-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 5vh;
+    min-height: 80vh;
+    background-color: #f8f9fa; /* Um fundo suave para destacar o card */
+}
+
+.confirmation-card {
+    max-width: 500px;
+    width: 100%;
+    padding: 2.5rem;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 1px solid var(--papi-border-color, #dee2e6);
+}
+
+.confirmation-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.confirmation-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--papi-text-dark, #343a40);
+    margin-bottom: 0.5rem;
+}
+
+.confirmation-text {
+    font-size: 1rem;
+    color: var(--papi-text-muted, #6c757d);
+    margin-bottom: 2rem;
+}
+
+.presente-info-delete {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    border: 1px solid #e9ecef;
+}
+
+.presente-info-delete .produto-imagem {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    flex-shrink: 0;
+}
+
+.presente-info-delete .produto-detalhes {
+    text-align: left;
+}
+
+.presente-info-delete .produto-nome {
+    font-weight: 600;
+    display: block;
+    color: var(--papi-text-dark);
+}
+
+.presente-info-delete .produto-preco {
+    font-weight: 600;
+    color: var(--papi-orange);
+}
+
+
+.confirmation-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.confirmation-actions .btn {
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: 8px;
+    min-width: 120px;
+}
